@@ -1,0 +1,171 @@
+.head {
+	width:  100%;
+	height:  80px;
+}
+
+.container {
+	width:  100%;
+	height:  50px; 
+}
+
+.footer {
+	border:  1px solid #8AC007;
+	width:  100%;
+	height:  250px; 
+	background-color: #416177;
+}
+
+.nivhead {
+	margin-left:  auto;
+	margin-right:  auto;
+	width: 1000px;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+}
+	
+/*navigation*/
+ul.menu {
+	padding: 0px;
+	font-size: 17px; 
+	margin: 0px; 
+	list-style-type: none;   
+}
+
+ul.menu li {
+   float:  left;
+   padding:  8px 15px 0 15px;
+   height: 40px;
+   position:  relative;
+}
+
+ul.menukid { 
+	position: absolute;
+	padding:  0px;
+	left: 0px;
+	top: 40px;
+	background-color: #005EA8;
+	list-style-type:  none;
+	display: none;	
+}
+
+ul.menu li:hover { 
+	background:  #2982C6;	
+}
+ 
+ul.menu li:hover ul { 
+	display: block;
+	background: #005EA8; 
+}
+			 
+ul.menu li ul.menukid li.menukidul {
+	padding: 8px 0 0 10px;
+	margin: 5px 3px 5px 5px;
+	width: 180px; 
+	border-radius: 5px;
+}
+
+ul.menu li a {
+	color: white;
+	text-decoration: none; 
+}	
+	 	 
+ul.message {
+	float:  right;
+	list-style-type: none;
+}	
+	 
+ul.message li {
+	background-color: #E61981;
+	height: 40px;
+	padding: 10px;
+	cursor: pointer;
+}
+		
+ul.message li a {
+	text-decoration: none;
+	color: white;
+	font-family: italic, sans-serif;
+}						
+
+/*université*/
+.universite ul {
+	padding: 0px;
+	font-size:  17px; 
+	margin: 0px; 
+	list-style-type:  none; 
+}
+
+.universite ul li a {
+	text-decoration: none; 
+	font-family:  Arial,Helvetica,sans-serif; 
+	color:  #114D97;
+	font-weight:  690;
+}
+	
+.universite ul li a:hover { 
+	background:  #2982C6;	
+	padding:  1px;
+} 
+
+.universite ul li {
+	border-radius:  3px;
+	padding-top:  2px;
+}
+/*dialog*/
+.modal-header, h4, .close {
+	background-color:  #005EA8;
+	color: white !important;
+	text-align:  center;
+	font-size:  30px;
+}
+
+.modal-footer {
+	background-color: #f9f9f9;
+}  
+
+/*footer*/
+div.footer{
+	background: #416177;
+	padding: 20px;
+}
+
+div.footer .nivfooter a {
+	text-decoration: none;
+	color: white;
+} 
+
+div.footer .nivfooter a: hover {
+	color: red;
+} 
+
+.nivfooter {
+	margin: 0 auto;
+	width: 950px;
+	color: #fff;
+	text-align: center;
+}
+
+.nivfootermin {
+	float: left;
+	width: 100px;
+	border-right: 1px solid #fff;
+}
+
+.nivfootermax {
+	float: left;
+	width: 180px;
+	border-right: 1px solid #fff;
+}
+
+.nivfooter p {
+	color: #fff;
+	margin: 10px 0 0 0;
+	font-size: 10px;
+}
+
+.clear {
+	clear: both;
+}

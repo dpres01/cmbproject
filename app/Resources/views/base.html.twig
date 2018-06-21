@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Zandoo{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />	
+        <link rel="stylesheet" type="text/css" href="{{ asset('public/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('public/css/bootstrap.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('public/css/jquery-ui.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('public/css/commun.css') }}">
+        <script src="{{ asset('public/js/jquery-1.10.2.js')}}"></script>
+        <script src="{{ asset('public/js/jquery-ui.js')}}"></script>
+        <script src="{{ asset('public/js/bootstrap.js') }}"></script>
+        <script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+	    <!--******************************* En tête principale ************************************-->
+        <div class="head">
+			<div class="nivhead" >
+				<div style="border:0px solid #80BFFF;padding:20px 0 0 0;">
+					<div style="float:right;border: 0px solid green;width:410px;height:50px;">
+						<div style="float:left;border-right:1px solid #ccc;height:100%;width:165px;padding:5px 0 0 0;">
+							<div style="float:left;padding:8px 0px 0 0;width:50px;border:0px solid #000;text-align:center;">								
+								<span class="glyphicon glyphicon-user" aria-hidden="true" style="font-size:25px;color:#28C4E0;"></span>
+							</div>
+							<div style="float:left;width:110px;border:0px solid #000;">
+								<div style="margin:2px 0 0px 0;font-size:14px;color:#28C4E0;">
+										  MON ESPACE
+								</div>
+							</div>
+							<div style="margin:0 0 0px 0;font-size:12px;">
+								{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+								Bienvenu {{ app.user.username  }}
+								<a href="{{ path('fos_user_security_logout') }}">
+									{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+								</a>
+								{% else %}
+									<a href="#"> Connectez-vous </a>
+								{% endif %}
+							</div>
+						</div>
+						<div style="float:left;width:245px;padding:5px 0 0 10px;">
+							<div style="float:left;padding:8px 0px 0 0;width:50px;border:0px solid #000;text-align:center;">
+								<span class="glyphicon glyphicon-earphone" aria-hidden="true" style="font-size:25px;color:#28C4E0;"></span>
+							</div>
+							<div style="float:left;width:175px;border:0px solid #000;">
+								<div style="margin:2px 0 0px 0;font-size:14px;color:#28C4E0;"><b>Contactez Nous</b></div>
+								<div style="margin:0 0 0px 0;font-size:12px;">du lundi au samedi de 9h à 18h</div>
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+	    </div>
+		<!--******************************* Menu principale ************************************-->
+        <nav class="navbar navbar-expand-lg navbar-light ">
+            <a class="navbar-brand" href="#"><strong>Zandoo</strong></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="#"> <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="#">ARTICLES</a>
+                <a class="nav-item nav-link" href="#">BOUTIQUES</a>
+                <a class="nav-item nav-link put-annonce" href="#"><strong>DEPOSER UNE ANNONCE</strong></a>
+              </div>
+            </div>  
+        </nav>
+        {% block body %} {% endblock %}
+        {% block javascripts %}{% endblock %}
+        <footer>
+            <div class="nivfooter">
+			<div class="nivfootermin">
+				<a href="#" > Plan du site </a>
+			</div>
+			<div class="nivfootermax">
+				<a href="#" > Qui sommes-nous ? </a>
+			</div>
+			<div class="nivfootermax">
+				<a href="#" > Nos équipes & Recrutement </a>
+			</div>
+			<div class="nivfootermax">
+				<a href="#" >Témoignages clients </a>
+			</div>
+			<div class="nivfootermin">
+				<a href="#" > Nous contacter </a>
+			</div>
+			<div class="nivfootermin">
+				<a href="#" > CGV </a>
+			</div>
+			<div class="nivfootermin">
+				<a href="#"> Affiliation </a>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div class="nivfooter">
+			<p>
+                            : les annonces immobilières de particulier à particulier. pap.fr est le premier site immobilier français à proposer des annonces de location et de vente immobilières entre particuliers. Vous trouverez sur PAP de nombreuses annonces : des locations d'appartements, des locations de maisons, des locations de lofts, des maisons à vendre, des annonces de ventes d'appartement. Ces annonces immobilières sont mises à jour régulièrement afin de vous apporter un service optimum.
+                           <br>&nbsp;<br>
+                           Nous vous invitons également à consulter régulièrement nos rubriques Argent (crédit immobilier, impôts, ...) Conseils immobilier et Travaux Déco.
+                           <br>&nbsp;<br>
+                           Mentions légales - Protection des données personnelles - Tous droits réservés © De Particulier à Particulier - Réseau immobilier - 1996-2015
+                           L'extraction et l'utilisation à des fins professionnelles ou commerciales de tout ou partie de la présente base de données sont interdites.
+			</p>
+		</div>
+        </footer>
+    </body>
+</html>
