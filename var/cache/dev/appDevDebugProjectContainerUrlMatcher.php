@@ -107,6 +107,11 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
         }
 
+        // zandoo_default_index
+        if ('/zando-index' === $pathinfo) {
+            return array (  '_controller' => 'ZandooBundle\\Controller\\DefaultController::indexAction',  '_route' => 'zandoo_default_index',);
+        }
+
         // homepage
         if ('' === $trimmedPathinfo) {
             $ret = array (  '_controller' => 'AppBundle\\Controller\\DefaultController::indexAction',  '_route' => 'homepage',);
