@@ -25,6 +25,8 @@ class Image
     
     private $libelle;// particulier,professionnel
     
+    private $url;
+    
     private $numOrdre;
      
 }

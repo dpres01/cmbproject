@@ -38,6 +38,8 @@ class Utilisateur
     private $actif;
     
     private $numOrdre;
+    
+    private $dateCreation;
   
 }
 
