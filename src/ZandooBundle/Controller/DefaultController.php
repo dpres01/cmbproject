@@ -12,6 +12,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {      
-        return $this->render('ZandooBundle:Default:index.html.twig');
+        return $this->render('@Zandoo/Default/index.html.twig');
     }
 }
