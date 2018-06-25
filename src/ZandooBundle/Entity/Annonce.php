@@ -41,7 +41,18 @@ class Annonce
      * @ORM\Column(name="actif", type="boolean")
      */
     private $actif;
-
+    
+    private $utilisateur;
+    
+    private $prix;
+    
+    private $afficherTel;
+    
+    private $dateCreation;
+    
+    private $categorie;
+    
+    private $numOrdre;
 
     /**
      * Get id
