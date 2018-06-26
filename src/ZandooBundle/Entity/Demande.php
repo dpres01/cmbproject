@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="entity_annonce")
  * @ORM\Entity(repositoryClass="ZandooBundle\Repository\AnnonceRepository")
  */
-class Annonce
+class Demande
 {
     /**
      * @var int
