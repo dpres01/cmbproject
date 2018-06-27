@@ -27,5 +27,14 @@ class Profil
     
     private $numOrdre;
      
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}

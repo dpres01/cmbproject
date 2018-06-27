@@ -136,4 +136,3 @@ class Annonce
         return $this->actif;
     }
 }
-

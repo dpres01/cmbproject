@@ -33,13 +33,20 @@ class Utilisateur
     
     private $ville;
     
-    private $profil;
-    
     private $actif;
     
     private $numOrdre;
     
     private $dateCreation;
   
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}
