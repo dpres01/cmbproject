@@ -6,7 +6,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 use ZandooBundle\Entity\Famille;
 use ZandooBundle\Entity\Categorie;
 
-class FamilleCategorie{
+class FamilleCategorie implements FixtureInterface
+{
 	public function load(ObjectManager $manager)
     {
 		$famille1 = new Famille();
@@ -190,6 +191,8 @@ class FamilleCategorie{
 		$manager->persist($cat49);
 		$cat50 = new Categorie();
 		$cat50->setLibelle("Hébergements insolites")->setNumOrdre(50)->setActif(1)->setFamille($famille8);
-		$manager->persist($cat50);		
+		$manager->persist($cat50);
+                
+                $manager->flush();
 	}
 }

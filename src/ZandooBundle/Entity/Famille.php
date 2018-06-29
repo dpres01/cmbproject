@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Annonce
  *
- * @ORM\Table(name="famille")
+ * @ORM\Table(name="FAMILLE")
  * @ORM\Entity(repositoryClass="ZandooBundle\Repository\CategorieRepository")
  */
 class Famille
@@ -30,7 +30,7 @@ class Famille
     /**
      * @var string
      *
-     * @ORM\Column(name="libelle", type="string")
+     * @ORM\Column(name="libelle", type="string",length=255)
      *
      */
     private $libelle;

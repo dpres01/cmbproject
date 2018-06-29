@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Annonce
  *
- * @ORM\Table(name="categorie")
+ * @ORM\Table(name="CATEGORIE")
  * @ORM\Entity(repositoryClass="ZandooBundle\Repository\CategorieRepository")
  */
 class Categorie
