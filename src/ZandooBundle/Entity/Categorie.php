@@ -37,7 +37,7 @@ class Categorie
     private $libelle;
 	
     /**
-     * @ORM\ManyToOne(targetEntity="Famille")
+     * @ORM\ManyToOne(targetEntity="Famille",nullable="false")
      * @ORM\JoinColumn(name="famille_id", referencedColumnName="id")
      *
      * @var famille
