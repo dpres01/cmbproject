@@ -52,6 +52,7 @@ class FamilleCategorie{
 		
 		$famille2 = new Famille();
 		$famille2->setLibelle('services')->setNumOrdre(2)->setActif(1);
+		$manager->persist($famille2);
 		$cat13 = new Categorie();
 		$cat13->setLibelle('Prestations de services')->setNumOrdre(13)->setActif(1)->setFamille($famille2);
 		$manager->persist($cat13);
@@ -67,6 +68,7 @@ class FamilleCategorie{
 			
 		$famille3 = new Famille();
 		$famille3->setLibelle('materiel professionnel')->setNumOrdre(3)->setActif(1);
+		$manager->persist($famille3);
 		$cat17 = new Categorie();
 		$cat17->setLibelle('Matériel Agricole')->setNumOrdre(17)->setActif(1)->setFamille($famille3);
 		$manager->persist($cat17);
@@ -97,14 +99,97 @@ class FamilleCategorie{
 		
 		$famille4 = new Famille();
 		$famille4->setLibelle('multimedia')->setNumOrdre(4)->setActif(1);
+		$manager->persist($famille4);
+		$cat26 = new Categorie();
+		$cat26->setLibelle('Informatique')->setNumOrdre(26)->setActif(1)->setFamille($famille4);
+		$manager->persist($cat26);
+		$cat27 = new Categorie();
+		$cat27->setLibelle('Consoles & Jeux vidéo')->setNumOrdre(27)->setActif(1)->setFamille($famill4);
+		$manager->persist($cat27);
+		$cat28 = new Categorie();
+		$cat28->setLibelle('Image & Son')->setNumOrdre(28)->setActif(1)->setFamille($famille4);
+		$manager->persist($cat28);
+		$cat29 = new Categorie();
+		$cat29->setLibelle('Téléphonie')->setNumOrdre(29)->setActif(1)->setFamille($famille4);
+		$manager->persist($cat29);		
 		
 		$famille5 = new Famille();
 		$famille5->setLibelle('immobilier')->setNumOrdre(4)->setActif(1);
+		$manager->persist($famille5);
+		$cat30 = new Categorie();
+		$cat30->setLibelle('Ventes immobilières')->setNumOrdre(30)->setActif(1)->setFamille($famille5);
+		$manager->persist($cat30);
+		$cat31 = new Categorie();
+		$cat31->setLibelle('Immobilier Neufnouveau')->setNumOrdre(31)->setActif(1)->setFamille($famille5);
+		$manager->persist($cat31);
+		$cat32 = new Categorie();
+		$cat32->setLibelle('Locations')->setNumOrdre(32)->setActif(1)->setFamille($famille5);
+		$manager->persist($cat32);
+		$cat33 = new Categorie();		
+		$cat33->setLibelle('Colocations')->setNumOrdre(33)->setActif(1)->setFamille($famille5);
+		$manager->persist($cat33);
+		$cat34 = new Categorie();
+		$cat34->setLibelle('Bureaux & Commerces')->setNumOrdre(34)->setActif(1)->setFamille($famille5);
+		$manager->persist($cat34);
 		
 		$famille6 = new Famille();
 		$famille6->setLibelle('emploi')->setNumOrdre(6)->setActif(1);
+		$manager->persist($famille6);
+		$cat35 = new Categorie();
+		$cat35->setLibelle("Offres d'emploi")->setNumOrdre(35)->setActif(1)->setFamille($famille6);
+		$manager->persist($cat35);
+		$cat36 = new Categorie();
+		$cat36->setLibelle("Offres d'emploi Cadresnouveau")->setNumOrdre(36)->setActif(1)->setFamille($famille6);
+		$manager->persist($cat36);
 		
-		$famille6 = new Famille();
-		$famille6->setLibelle('autres')->setNumOrdre(6)->setActif(1);
+		$famille7 = new Famille();
+		$famille7->setLibelle('LOISIRS')->setNumOrdre(6)->setActif(1);
+		$manager->persist($famille7);
+		$cat37 = new Categorie();
+		$cat37->setLibelle("DVD / Films")->setNumOrdre(37)->setActif(1)->setFamille($famille7);
+		$manager->persist($cat37);
+		$cat38 = new Categorie();
+		$cat38->setLibelle("CD / Musique")->setNumOrdre(38)->setActif(1)->setFamille($famille7);
+		$manager->persist($cat38);
+		$cat39 = new Categorie();
+		$cat39->setLibelle("Livres")->setNumOrdre(39)->setActif(1)->setFamille($famille7);
+		$manager->persist($cat39);
+		$cat40 = new Categorie();
+		$cat40->setLibelle("Animaux")->setNumOrdre(40)->setActif(1)->setFamille($famille7);
+		$manager->persist($cat40);
+		$cat41 = new Categorie();
+		$cat41->setLibelle("Vélos")->setNumOrdre(41)->setActif(1)->setFamille($famille7);
+		$manager->persist($cat41);
+		$cat42 = new Categorie();
+		$cat42->setLibelle("Sports & Hobbies")->setNumOrdre(42)->setActif(1)->setFamille($famille7);
+		$manager->persist($cat42);
+		$cat43 = new Categorie();
+		$cat43->setLibelle("Instruments de musique")->setNumOrdre(43)->setActif(1)->setFamille($famille7);
+		$manager->persist($cat43);
+		$cat44 = new Categorie();
+		$cat44->setLibelle("Collection")->setNumOrdre(44)->setActif(1)->setFamille($famille7);
+		$manager->persist($cat44);
+		$cat45 = new Categorie();
+		$cat45->setLibelle("Jeux & Jouets")->setNumOrdre(45)->setActif(1)->setFamille($famille7);
+		$manager->persist($cat46);
+		$cat46 = new Categorie();
+		$cat46->setLibelle("Vins & Gastronomie")->setNumOrdre(46)->setActif(1)->setFamille($famille7);
+		$manager->persist($cat46);
+		
+		$famille8 = new Famille();
+		$famille8->setLibelle('VACANCES')->setNumOrdre(6)->setActif(1);
+		$manager->persist($famille8);
+		$cat47 = new Categorie();
+		$cat47->setLibelle("Chambres d'hôtes")->setNumOrdre(47)->setActif(1)->setFamille($famille8);
+		$manager->persist($cat47);
+		$cat48 = new Categorie();
+		$cat48->setLibelle("Campings")->setNumOrdre(48)->setActif(1)->setFamille($famille8);
+		$manager->persist($cat48);
+		$cat49 = new Categorie();
+		$cat49->setLibelle("Hôtels")->setNumOrdre(49)->setActif(1)->setFamille($famille8);
+		$manager->persist($cat49);
+		$cat50 = new Categorie();
+		$cat50->setLibelle("Hébergements insolites")->setNumOrdre(50)->setActif(1)->setFamille($famille8);
+		$manager->persist($cat50);		
 	}
 }
