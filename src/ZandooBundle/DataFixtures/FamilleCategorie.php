@@ -1,12 +1,12 @@
 <?php
 namespace ZandooBundle\DataFixtures;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use ZandooBundle\Entity\Famille;
 use ZandooBundle\Entity\Categorie;
 
-class FamilleCategorie implements FixtureInterface
+class FamilleCategorie extends Fixture
 {
 	public function load(ObjectManager $manager)
     {

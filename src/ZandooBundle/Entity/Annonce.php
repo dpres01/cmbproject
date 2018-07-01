@@ -44,7 +44,7 @@ class Annonce
     
      /**
      * @ORM\ManyToOne(targetEntity="Utilisateur")
-     * @ORM\JoinColumn(name="utilisateur_id", referencedColumnName="id",nullable="false")
+     * @ORM\JoinColumn(name="utilisateur_id", referencedColumnName="id",nullable=false)
      *
      * @var utilisateur
      */
@@ -53,27 +53,27 @@ class Annonce
     /**
      * @var string
      *
-     * @ORM\Column(name="prix", type="string", length=60,nullable="true")
+     * @ORM\Column(name="prix", type="string", length=60,nullable=true)
      */
     private $prix;
     
     /**
      * @var string
      *
-     * @ORM\Column(name="afficher_tel", type="string", length=255,nullable="true")
+     * @ORM\Column(name="afficher_tel", type="string", length=255,nullable=true)
      */
     private $afficherTel;
     
     /**
      * @var string
      *
-     * @ORM\Column(name="date_creation", type="date",nullable="false")
+     * @ORM\Column(name="date_creation", type="date",nullable=false)
      */
     private $dateCreation;
     
     /**
      * @ORM\ManyToOne(targetEntity="Categorie")
-     * @ORM\JoinColumn(name="categorie_id", referencedColumnName="id",nullable="false")
+     * @ORM\JoinColumn(name="categorie_id", referencedColumnName="id",nullable=false)
      *
      * @var utilisateur
      */
@@ -81,7 +81,7 @@ class Annonce
     /**
      * @var string
      *
-     * @ORM\Column(name="num_ordre", type="integer",nullable="true")
+     * @ORM\Column(name="num_ordre", type="integer",nullable=true)
      */
     private $numOrdre ;
 
