@@ -17,7 +17,7 @@ class ZandooController extends Controller
     {    
         $em = $this->getDoctrine()->getManager();
         $test =  $em->getRepository('\ZandooBundle\Entity\Categorie')->findCategorieByFamille();
-        dump($test);die;
+     
         return $this->render('@Zandoo/Default/index.html.twig');
     }
     
@@ -27,6 +27,12 @@ class ZandooController extends Controller
     public function depotAnnoce(Request $request){
         $annonce = new Annonce(); 
         $form = $this->createForm(FormAnnonceType::class, $annonce, $options = array());
+        $form->handleRequest($request);
+        dump($_POST,$form->isValid(),$form->isSubmitted());
+        if($form->isValid() && $form->isSubmitted()){
+            //Enregistrment de l'annonce et de l'utilisateur
+               
+        }
         return $this->render('@Zandoo/Default/index.html.twig',array('form'=>$form->createView()));
     }
 }
