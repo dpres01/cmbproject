@@ -17,5 +17,6 @@
 /web/bundles/
 composer.phar
 *.php~
-nbproject
+nbproject/*
+var/logs/dev.log
 

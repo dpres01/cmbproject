@@ -26,7 +26,7 @@ class ZandooController extends Controller
      */
     public function depotAnnoce(Request $request){
         $annonce = new Annonce(); 
-        $form = $this->createForm( FormAnnonceType::class, $annonce, $options = array());
+        $form = $this->createForm(FormAnnonceType::class, $annonce, $options = array());
         return $this->render('@Zandoo/Default/index.html.twig',array('form'=>$form->createView()));
     }
 }

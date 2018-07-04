@@ -78,6 +78,13 @@ class Annonce
      * @var utilisateur
      */
     private $categorie;
+     /**
+     * @var bool
+     *
+     * @ORM\Column(name="type", type="boolean")
+     */
+    private $type = 0;// 0 = Annonce | 1 = Demande
+    
     /**
      * @var string
      *
@@ -310,4 +317,25 @@ class Annonce
     {
         return $this->categorie;
     }
+    /**
+     * Get type
+     *
+     * @return bool
+     */
+    function getType() {
+        return $this->type;
+    }
+    /**
+     * Set categorie
+     *
+     * @param  $type 
+     *
+     * @return $this
+     */
+    function setType($type) {
+        $this->type = $type;
+        return $this;
+    }
+
+
 }
