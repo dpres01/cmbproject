@@ -3,6 +3,7 @@
 namespace ZandooBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Annonce
@@ -86,11 +87,23 @@ class Annonce
     private $type = 0;// 0 = Annonce | 1 = Demande
     
     /**
-     * @var string
+     * @var int
      *
      * @ORM\Column(name="num_ordre", type="integer",nullable=true)
      */
-    private $numOrdre ;
+    private $numOrdre;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="monnaie", type="string",nullable=true)
+     */
+    private $monnaie = 0;//0 = Fc(franc Congolais)| 1 = $(Dollars)
+    
+    private $images;
+    
+    public function __construct(){
+        $this->images = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -336,6 +349,24 @@ class Annonce
         $this->type = $type;
         return $this;
     }
-
+    /**
+     * Get monnaie
+     *
+     * @return string
+     */
+    function getMonnaie() {
+        return $this->monnaie;
+    }
+    /**
+     * Set categorie
+     *
+     * @param  $monnaie 
+     *
+     * @return $this
+     */
+    function setMonnaie($monnaie) {
+        $this->monnaie = $monnaie;
+        return $this;
+    }
 
 }

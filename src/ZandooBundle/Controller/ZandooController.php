@@ -32,6 +32,6 @@ class ZandooController extends Controller
             //Enregistrment de l'annonce et de l'utilisateur
             dump($_POST,$form->isValid(),$form->isSubmitted());   
         }
-        return $this->render('@Zandoo/Default/index.html.twig',array('form'=>$form->createView()));
+        return $this->render('@Zandoo/annonce.html.twig',array('form'=>$form->createView()));
     }
 }

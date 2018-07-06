@@ -1,0 +1,124 @@
+ {% extends 'base.html.twig' %}
+ {% block body %} 
+   <div id="annonce" style="padding-bottom:550px">  
+        <p> Déposer votre annonce ici </p>
+        {{form_start(form)}}    
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.categorie)}}
+          </div>
+          <div class="col-md-4">
+          {{form_widget(form.categorie)}}
+          </div>
+        </div>  
+
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-4">
+          {{form_widget(form.type)}}
+          </div>
+        </div> 
+
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-4">
+          {{form_widget(form.utilisateur.isProfessionnel)}}
+          </div>
+        </div> 
+
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.titre)}}
+          </div>
+          <div class="col-md-4">
+          {{form_widget(form.titre)}}
+          </div>
+        </div>
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.description)}}
+          </div>
+          <div class="col-md-4">
+          {{form_widget(form.description)}}
+          </div>
+        </div> 
+        {# ------------ Bloc prix et monnaie  ------------------ #}
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.prix)}}
+          </div>
+          <div class="col-md-3">
+          {{form_widget(form.prix)}}
+          </div>
+          <div class="col-md-1">
+          {{form_widget(form.monnaie)}}
+          </div>
+        </div> 
+
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.utilisateur.pseudo)}}
+          </div>
+          <div class="col-md-4">
+          {{form_widget(form.utilisateur.pseudo)}}
+          </div>
+        </div> 
+
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.utilisateur.email)}}
+          </div>
+          <div class="col-md-4">
+          {{form_widget(form.utilisateur.email)}}
+          </div>
+        </div> 
+
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.utilisateur.password)}}
+          </div>
+          <div class="col-md-4">
+          {{form_widget(form.utilisateur.password)}}
+          </div>
+        </div> 
+
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.utilisateur.telephone)}}
+          </div>
+          <div class="col-md-4">
+          {{form_widget(form.utilisateur.telephone)}}
+          </div>
+        </div> 
+
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.utilisateur.adresse)}}
+          </div>
+          <div class="col-md-4">
+             {{form_widget(form.utilisateur.adresse)}}
+          </div>
+        </div> 
+
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.utilisateur.ville)}}
+          </div>
+          <div class="col-md-4">
+          {{form_widget(form.utilisateur.ville)}}
+          </div>
+        </div> 
+
+        <div class="col-md-12 no_pading ">                 
+          <div class="col-md-4">
+          {{form_widget(form.afficherTel)}}
+          </div>
+        </div> 
+
+        <div class="col-md-12 no_pading "> 
+          <div class="col-md-4">
+             <input type="submit" value="Enregistrer">
+          </div>  
+        </div>          
+   {{form_end(form)}}
+   </div>
+ {% endblock %}
+

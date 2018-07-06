@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-
+use ZandooBundle\Form\FormUtilisateurType;
 use Doctrine\ORM\EntityRepository;
 use ZandooBundle\Entity\Annonce;
 
@@ -32,8 +32,7 @@ class FormAnnonceType extends AbstractType
                         return $er->createQueryBuilder('c')
                             ->orderBy('c.numOrdre', 'ASC');
                     },
-                 'choice_label' => 'libelle',
-                 //'empty_value'  => 'Choississez une categorie'         
+                 'choice_label' => 'libelle',                         
             )) 
             ->add('type',ChoiceType::class,array(
                  'choices' => array(
@@ -51,27 +50,35 @@ class FormAnnonceType extends AbstractType
                  'required'=> false
             ))
             ->add('prix',TextType::class,array())
+            ->add('monnaie',ChoiceType::class,array(
+                 'choices' => array(
+                       'Fc' => '0',
+                       '$' => '1',
+                    ),
+                'expanded' =>false ,
+                'label'=>false
+            ))                
             ->add('afficherTel',CheckboxType::class,array(
-                'label'=>'Masquer le numéro de téléphone dans l\'annoce',
+                'label'=>'Masquer le numéro de téléphone pour cette annoce',
                 'required'=> false
             ))
-            //->add('utilisateur')
-            //->add('dueDate', null, array('widget' => 'single_text'))
-            //->add('Enregistrer', SubmitType::class)
+            ->add('utilisateur',FormUtilisateurType::class,array(
+                'label'=>false               
+            ))        
         ;
     }
     
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => Annonce::class,
+            'data_class' => 'ZandooBundle\Entity\Annonce',
         ));
     }
      public function getName(){
          return "annonceFormType";
      }
      
-     public function listeCategorieByFamille($famille,$categorie){
-         
-     }
+//     public function listeCategorieByFamille($famille,$categorie){
+//         
+//     }
 }
