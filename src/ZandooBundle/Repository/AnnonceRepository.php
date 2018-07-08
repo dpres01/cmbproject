@@ -1,6 +1,7 @@
 <?php
 
 namespace ZandooBundle\Repository;
+use ZandooBundle\Entity\Annonce;
 
 /**
  * AnnonceRepository
@@ -10,4 +11,11 @@ namespace ZandooBundle\Repository;
  */
 class AnnonceRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function saveAnnonce(Annonce $annonce)
+    {
+        $annonce->setDateCreation(new \DateTime());
+        $em = $this->getEntityManager();
+        $em->persist($annonce);
+        $em->flush();
+    }
 }

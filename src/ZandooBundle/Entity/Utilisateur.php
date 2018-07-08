@@ -84,15 +84,14 @@ class Utilisateur
      *
      * @ORM\Column(name="is_admin", type="boolean")
      */
-    private $isAdmin = 0;
+    private $isAdmin = 0;// 0 = Utilisateur normal | 1 = Administrateur
     /**
      * @var string
      *
      * @ORM\Column(name="is_professionnel", type="boolean")
      */
-    private $isProfessionnel = 0;
+    private $isProfessionnel = 0;// 0 = Particulier | 1 = Professionnel
   
-
     /**
      * Get id
      *

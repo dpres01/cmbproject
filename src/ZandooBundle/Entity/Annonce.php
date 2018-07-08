@@ -3,6 +3,7 @@
 namespace ZandooBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Annonce
@@ -40,10 +41,10 @@ class Annonce
      *
      * @ORM\Column(name="actif", type="boolean")
      */
-    private $actif;
+    private $actif = 1;
     
      /**
-     * @ORM\ManyToOne(targetEntity="Utilisateur")
+     * @ORM\ManyToOne(targetEntity="Utilisateur",cascade={"persist"})
      * @ORM\JoinColumn(name="utilisateur_id", referencedColumnName="id",nullable=false)
      *
      * @var utilisateur
@@ -62,7 +63,7 @@ class Annonce
      *
      * @ORM\Column(name="afficher_tel", type="string", length=255,nullable=true)
      */
-    private $afficherTel;
+    private $afficherTel ;// 1 = telephone masqué | 0 =telephone affiché
     
     /**
      * @var string
@@ -72,18 +73,46 @@ class Annonce
     private $dateCreation;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Categorie")
+     * @ORM\ManyToOne(targetEntity="Categorie",cascade={"persist"})
      * @ORM\JoinColumn(name="categorie_id", referencedColumnName="id",nullable=false)
      *
      * @var utilisateur
      */
     private $categorie;
+     /**
+     * @var bool
+     *
+     * @ORM\Column(name="type", type="boolean")
+     */
+    private $type = 0;// 0 = Annonce | 1 = Demande
+    
     /**
-     * @var string
+     * @var int
      *
      * @ORM\Column(name="num_ordre", type="integer",nullable=true)
      */
-    private $numOrdre ;
+    private $numOrdre;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="monnaie", type="string",nullable=true)
+     */
+    private $monnaie = 0;//0 = Fc(franc Congolais)| 1 = $(Dollars)
+    
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Image",cascade={"persist"})
+     * @ORM\JoinTable(name="annonce_images",
+     *      joinColumns={@ORM\JoinColumn(name="annonce_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="image_id", referencedColumnName="id")}
+     *      )
+     * 
+     */
+    private $images;
+    
+    public function __construct(){
+        $this->images = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -309,5 +338,52 @@ class Annonce
     public function getCategorie()
     {
         return $this->categorie;
+    }
+    /**
+     * Get type
+     *
+     * @return bool
+     */
+    function getType() {
+        return $this->type;
+    }
+    /**
+     * Set categorie
+     *
+     * @param  $type 
+     *
+     * @return $this
+     */
+    function setType($type) {
+        $this->type = $type;
+        return $this;
+    }
+    /**
+     * Get monnaie
+     *
+     * @return string
+     */
+    function getMonnaie() {
+        return $this->monnaie;
+    }
+    /**
+     * Set categorie
+     *
+     * @param  $monnaie 
+     *
+     * @return $this
+     */
+    function setMonnaie($monnaie) {
+        $this->monnaie = $monnaie;
+        return $this;
+    }
+    
+    public function getImages() {
+        return $this->images;
+    }
+
+    public function setImages(Image $images) {
+        $this->images[] = $images;
+        return $this; 
     }
 }
