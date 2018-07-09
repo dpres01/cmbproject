@@ -10,111 +10,214 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('public/css/bootstrap.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('public/css/jquery-ui.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('public/css/commun.css') }}">
-        <script src="{{ asset('public/js/jquery-1.10.2.js')}}"></script>
-        <script src="{{ asset('public/js/jquery-ui.js')}}"></script>
-        <script src="{{ asset('public/js/bootstrap.js') }}"></script>
-        <script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
+        <link rel="stylesheet" type="text/css" href="{{ asset('public/css/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('public/css/head.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('public/css/foot.css') }}">
     </head>
     <body>
-        <div class="head">
-		<div class="nivhead" >
-			<div style="border:0px solid #80BFFF;padding:20px 0 0 0;">				
-				<div style="float:right;border: 0px solid green;width:410px;height:50px;">
-					<div style="float:left;border-right:1px solid #ccc;height:100%;width:165px;padding:5px 0 0 0;">
-						<div style="float:left;padding:8px 0px 0 0;width:50px;border:0px solid #000;text-align:center;">
-							<span class="glyphicon glyphicon-user" aria-hidden="true" style="font-size:25px;color:#28C4E0;"></span>
-						</div>
-						<div style="float:left;width:110px;border:0px solid #000;">
-							<div style="margin:2px 0 0px 0;font-size:14px;color:#28C4E0;">
-									  MON ESPACE
-							</div>
-						</div>
-						<div style="margin:0 0 0px 0;font-size:12px;">
-							{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-							Bienvenu {{ app.user.username  }}
-							<a href="{{ path('fos_user_security_logout') }}">
-								{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-							</a>
-							{% else %}
-								<a href="#"> Connectez-vous </a>
-							{% endif %}
-						</div>
-					</div>
-					<div style="float:left;width:245px;padding:5px 0 0 10px;">
-						<div style="float:left;padding:8px 0px 0 0;width:50px;border:0px solid #000;text-align:center;">
-							<span class="glyphicon glyphicon-earphone" aria-hidden="true" style="font-size:25px;color:#28C4E0;"></span>
-						</div>
-						<div style="float:left;width:175px;border:0px solid #000;">
-							<div style="margin:2px 0 0px 0;font-size:14px;color:#28C4E0;"><b>Contactez Nous</b></div>
-							<div style="margin:0 0 0px 0;font-size:12px;">du lundi au samedi de 9h à 18h</div>
-						</div>
-					</div>
-					<div class="clear"></div>
+	<div style="background:#003580;">
+		<div class="hd-top" style="">			
+			<div style="float:left;"><h3 style="margin:0;padding:0;">Zandoo</h3></div>
+			<div class="hd-top-menu" style="">
+				<div class="hd-top-menu-elm">Déposer une annonce</div>
+				<div class="hd-top-menu-elm">Offres</div>
+				<div class="hd-top-menu-elm">Demandes</div>
+				<div class="hd-top-menu-elm">Mes favoris</div>
+				<div class="hd-top-menu-elm">Boutiques</div>
+				<div class="hd-top-menu-elm" style="margin:0;">Messages</div>
+				<div style="clear:both;"></div>
+			</div>
+			<div class="hd-top-menu-right" style="">
+				<div class="hd-top-menu-right-elm">
+					<i class="fa fa-folder-o"></i>
 				</div>
-				<div class="clear"></div>
+				<div class="hd-top-menu-right-elm">
+					<i class="fa fa-comment-o"></i>
+				</div>
+				<div class="hd-top-right-user" style="">
+					<i class="fa fa-user-o"></i>
+				</div>
+				<div class="hd-top-right-register" style="">
+					<div class="btn-insc" style="">S'inscrire</div>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			<div class="hd-top-menu-resp" style="">
+				<div id="respuser" class="hd-top-right-user" style="cursor:pointer;">
+					<i id="respusericnop" class="fa fa-user-o"></i>
+					<i id="respusericncl" class="fa fa-times" style="display:none;"></i>
+				</div>
+				<div id="respmn" style="float:left;padding-top:2px;cursor:pointer;width:15px;">
+					<i id="respmnicnop" class="fa fa-bars"></i>
+					<i id="respmnicncl" class="fa fa-times" style="display:none;"></i>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+		<div id="resp-menu" class="hd-resp-menu" style="">
+			<div style="">Déposer une annonce</div>
+			<div style="hd-resp-menu-elm">Offres</div>
+			<div style="hd-resp-menu-elm">Demandes</div>
+			<div style="hd-resp-menu-elm">Mes favoris</div>
+			<div style="hd-resp-menu-elm">Boutiques</div>
+			<div style="hd-resp-menu-elm">Messages</div>
+		</div>
+		<div id="resp-user" class="hd-resp-user" style="">
+			<div style="hd-resp-menu-elm">Mon compte</div>
+			<div style="hd-resp-menu-elm">Mes favoris</div>
+			<div style="hd-resp-menu-elm">Mes messages</div>
+			<div style="hd-resp-menu-elm">S'inscrire</div>
+		</div>
+	</div>
+	<div style="background:#F7F7F7;">
+		<div class="srchbox" style="">
+			<div class="titlemn" style=""><h3 style="margin:0;padding:0;">Recherchez. Profitez</h3></div>			
+			<div class="titlemn" style="color:#383838;"><span class="titresub">Trouvez la bonne affaire parmi</span> 27 633 130 d'annonces sur Zandoo.</div>			
+			<div class="srchinputs">
+				<div class="srch1">
+					<input type="text" placeholder="Que recherchez-vous ?" class="srchinp" name="" id="" value=""/>
+				</div>
+				<div class="srch2">
+					<input type="text" placeholder="Toutes catégories" class="srchinp" name="" id="" value=""/>
+				</div>
+				<div class="srch3">		
+					<div class="srchbtn" style="">
+						<h3 style="margin:0;padding:0;">Recherchez</h3>
+					</div>
+				</div>
+				<div style="clear:both;"></div>
+			</div>	
+			<div style="margin:15px 0 0 0;">
+				<div class="srccrt1" style="">
+					<div style="float:left;margin:0 5px 0 0;">
+						<input type="checkbox" style="padding:0 10px 0 0;" name="" id="" value=""/>
+					</div>
+					<div style="float:left;margin:0 0px 0 0;">
+						Recherche dans le titre <span class="srctitre">uniquement</span>
+					</div>
+					<div style="clear:both;"></div>
+				</div>
+				<div class="srccrt2" style="">
+					<div style="float:left;margin:0 5px 0 0;">
+						<input type="checkbox" style="padding:0 10px 0 0;" name="" id="" value=""/>
+					</div>
+					<div style="float:left;margin:0 10px 0 0;">
+						Annonces urgentes
+					</div>
+					<div style="clear:both;"></div>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			<div class="btn-publie-bx" style="">
+				<div class="btn-publie" style="">
+					<div class="pubicn" style="">
+						<i class="fa fa-pencil-square-o"></i>
+					</div>
+					<div class="pubtxt" style="">
+						<span style="margin:0;padding:0;">Publiez votre annonce</span>
+					</div>
+					<div style="clear:both;"></div>
+				</div>
 			</div>
 		</div>
 	</div>
-        
-        <!--******************************* Menu generale ************************************************-->       
-        <nav class="navbar navbar-default ">
-              <div class="container">
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Zandoo</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                  <a class="navbar-brand" href="#"><strong>Zandoo</strong></a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                  <ul class="nav navbar-nav" >
-                    <li><a href="#" >NOS ARTICLES</a></li>
-                    <li><a href="#about">BOUTIQUES</a></li>
-                    <li class="active"><a href="#contact" style="margin-left:500px"><strong>DEPOSER UNE ANNONCE</strong></a></li>
-                  </ul>
-                </div><!--/.nav-collapse -->
-              </div>
-         </nav>
 
         {% block body %} {% endblock %}
         {% block javascripts %}{% endblock %}
-        <footer>
-            <div class="nivfooter">
-			<div class="nivfootermin">
-				<a href="#" > Plan du site </a>
-			</div>
-			<div class="nivfootermax">
-				<a href="#" > Qui sommes-nous ? </a>
-			</div>
-			<div class="nivfootermax">
-				<a href="#" > Nos équipes & Recrutement </a>
-			</div>
-			<div class="nivfootermax">
-				<a href="#" >Témoignages clients </a>
-			</div>
-			<div class="nivfootermin">
-				<a href="#" > Nous contacter </a>
-			</div>
-			<div class="nivfootermin">
-				<a href="#" > CGV </a>
-			</div>
-			<div class="nivfootermin">
-				<a href="#"> Affiliation </a>
+	<div>
+		<div style="background:#003580;">
+			<div class="hd-foot">
+				<div class="hd-foot-txt">
+					<span class="hd-foot-txt-1">INSCRIVEZ-VOUS A NOTRE</span> NEWSLETTER <span class="hd-foot-txt-2">!</span>
+				</div>
+				<div class="hd-foot-box-inp">
+					<input class="hd-foot-inp" type="text" placeholder="Votre e-mail" style="" name="" id="" value=""/>
+				</div>
+				<div class="hd-foot-btn-box">
+					<div class="hd-foot-btn">Go</div>
+				</div>
+				<div style="clear:both;"></div>
 			</div>
 		</div>
-		<div class="clear"></div>
-		<div class="nivfooter">
-			<p>
-                            : les annonces immobilières de particulier à particulier. pap.fr est le premier site immobilier français à proposer des annonces de location et de vente immobilières entre particuliers. Vous trouverez sur PAP de nombreuses annonces : des locations d'appartements, des locations de maisons, des locations de lofts, des maisons à vendre, des annonces de ventes d'appartement. Ces annonces immobilières sont mises à jour régulièrement afin de vous apporter un service optimum.
-                           <br>&nbsp;<br>
-                           Nous vous invitons également à consulter régulièrement nos rubriques Argent (crédit immobilier, impôts, ...) Conseils immobilier et Travaux Déco.
-                           <br>&nbsp;<br>
-                           Mentions légales - Protection des données personnelles - Tous droits réservés © De Particulier à Particulier - Réseau immobilier - 1996-2015
-                           L'extraction et l'utilisation à des fins professionnelles ou commerciales de tout ou partie de la présente base de données sont interdites.
-			</p>
+		<div class="foot-bd-box">
+			<div class="foot-bd-lft">
+				<div class="foot-bd-elm" style="">
+					<div class="foot-bd-mn-title" style="">QUI SOMMES-NOUS ?</div>
+					<div class="foot-bd-mn-title-sub">
+						<a href="/info/engagements" style="text-decoration: none;">Nos engagements</a>
+					</div>
+					<div class="foot-bd-mn-title-sub">
+						<a href="/info/engagements" style="text-decoration: none;">Conditions de vente</a>
+					</div>
+					<div class="foot-bd-mn-title-sub">
+						<a href="/info/engagements" style="text-decoration: none;">Conditions d'utilisation</a>
+					</div>
+					<div class="foot-bd-mn-title-sub">
+						<a href="/info/engagements" style="text-decoration: none;">Affiliation</a>
+					</div>
+				</div>
+				<div class="foot-bd-elm foot-bd-elm-2" style="">
+					<div class="foot-bd-mn-title" style="">NOS SERVICES</div>
+					<div class="foot-bd-mn-title-sub">
+						<a href="/info/engagements" style="text-decoration: none;">Marchands Partenaires</a>
+					</div>
+					<div class="foot-bd-mn-title-sub">
+						<a href="/info/engagements" style="text-decoration: none;">Modes de livraison</a>
+					</div>
+					<div class="foot-bd-mn-title-sub">
+						<a href="/info/engagements" style="text-decoration: none;">Moyens de paiement</a>
+					</div>
+					<div class="foot-bd-mn-title-sub">
+						<a href="/info/engagements" style="text-decoration: none;">Mes retours produits</a>
+					</div>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			<div class="foot-bd-rgt">
+				<div class="foot-bd-elm" style="">
+					<div class="foot-bd-mn-title" style="">AIDE</div>
+					<div class="foot-bd-mn-title-sub">
+						<a href="/info/engagements" style="text-decoration: none;">Plan du site</a>
+					</div>
+					<div class="foot-bd-mn-title-sub">
+						<a href="/info/engagements" style="text-decoration: none;">Annuler ma commande</a>
+					</div>
+					<div class="foot-bd-mn-title-sub">
+						<a href="/info/engagements" style="text-decoration: none;">Mon historique de commande</a>
+					</div>
+					<div class="foot-bd-mn-title-sub">
+						<a href="/info/engagements" style="text-decoration: none;">Nous contacter</a>
+					</div>
+				</div>
+				<div class="foot-bd-elm foot-bd-elm-4" style="margin-right:0;">
+					<div class="foot-bd-mn-title" style="">LIENS UTILES</div>
+					<div class="foot-bd-mn-title-sub">
+						<a href="/info/engagements" style="text-decoration: none;">Cookie</a>
+					</div>
+					<div class="foot-bd-mn-title-sub">
+						<a href="/info/engagements" style="text-decoration: none;">S'inscrire</a>
+					</div>
+					<div class="foot-bd-mn-title-sub">
+						<a href="/info/engagements" style="text-decoration: none;">Reprise de matériel</a>
+					</div>
+					<div class="foot-bd-mn-title-sub">
+						<a href="/info/engagements" style="text-decoration: none;">Garantie</a>
+					</div>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			<div style="clear:both;"></div>
 		</div>
-        </footer>
+		<div class="foot-ft">
+			© 2018 zandoo.com - Tous droits réservés.
+		</div>
+	</div>	
+	<script src="{{ asset('public/js/jquery-3.1.1.min.js')}}"></script>
+	<script src="{{ asset('public/js/jquery-ui.js')}}"></script>
+	<script src="{{ asset('public/js/bootstrap.js') }}"></script>
+	<script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('public/js/a-view.js') }}"></script>
+	<script src="{{ asset('public/js/general.js') }}"></script>
     </body>
 </html>
