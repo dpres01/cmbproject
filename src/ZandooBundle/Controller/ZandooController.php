@@ -39,15 +39,13 @@ class ZandooController extends Controller
             $em = $this->getDoctrine()->getManager();
             try{
                 $annonce->setDateCreation(new \DateTime());
-                $annonce->getUtilisateur()->setDateCreation(new \DateTime());
-                dump($annonce);
+                $annonce->getUtilisateur()->setDateCreation(new \DateTime());              
                 $em->persist($annonce);
                 //dump($annonce);die;
                 $em->flush();  
             }catch(Exception $e){
-               dump($e);die; 
+               echo $e;
             }
-          
         }
         return $this->render('@Zandoo/annonce.html.twig',array('form'=>$form->createView()));
     }
