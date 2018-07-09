@@ -112,7 +112,22 @@
           {{form_widget(form.afficherTel)}}
           </div>
         </div> 
+{#------------------------Bloc image ---------------------------#}
+        <ul id="email-fields-list"
+            data-prototype="{{ form_widget(form.images.vars.prototype)|e }}"
+            data-widget-tags="{{ '<li></li>'|e }}">
+            {% for image in form.images %}
+                <li>
+                    {{ form_errors(image) }}
+                    {{ form_widget(image) }}
+                </li>
+            {% endfor %}
+       </ul>
 
+    <button type="button" class="add-another-collection-widget" data-list="#email-fields-list">
+        Ajouter une photo
+    </button>
+        
         <div class="col-md-12 no_pading "> 
           <div class="col-md-4">
              <input type="submit" value="Enregistrer">
@@ -120,5 +135,32 @@
         </div>          
    {{form_end(form)}}
    </div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+    jQuery('.add-another-collection-widget').click(function (e) {
+        var list = jQuery(jQuery(this).attr('data-list'));
+        // Try to find the counter of the list
+        var counter = list.data('widget-counter') | list.children().length;
+        // If the counter does not exist, use the length of the list
+        if (!counter) { counter = list.children().length; }
+
+        // grab the prototype template
+        var newWidget = list.attr('data-prototype');
+        // replace the "__name__" used in the id and name of the prototype
+        // with a number that's unique to your emails
+        // end name attribute looks like name="contact[emails][2]"
+        newWidget = newWidget.replace(/__name__/g, counter);
+        // Increase the counter
+        counter++;
+        // And store it, the length cannot be used if deleting widgets is allowed
+        list.data(' widget-counter', counter);
+
+        // create a new list element and add it to the list
+        var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
+        newElem.appendTo(list);
+    });
+});
+</script>
  {% endblock %}
 

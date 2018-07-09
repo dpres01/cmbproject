@@ -8,10 +8,11 @@
         <group>
             <file>file:/C:/wamp/www/zando/app/config/services.yml</file>
             <file>file:/C:/wamp/www/zando/app/Resources/views/base.html.twig</file>
-            <file>file:/C:/wamp/www/zando/composer.json</file>
+            <file>file:/C:/wamp/www/zando/src/ZandooBundle/Entity/Categorie.php</file>
             <file>file:/C:/wamp/www/zando/src/ZandooBundle/Entity/Annonce.php</file>
-            <file>file:/C:/wamp/www/zando/app/AppKernel.php</file>
-            <file>file:/C:/wamp/www/zando/src/ZandooBundle/DataFixtures/FamilleCategorie.php</file>
+            <file>file:/C:/wamp/www/zando/sql/data.sql</file>
+            <file>file:/C:/wamp/www/zando/src/ZandooBundle/Entity/utilisateur.php</file>
+            <file>file:/C:/wamp/www/zando/src/ZandooBundle/Entity/Famille.php</file>
         </group>
 >>>>>>> d7639a4b3b96431b7e2bbfc743027797373ffc87
     </open-files>

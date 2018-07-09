@@ -41,10 +41,10 @@ class Annonce
      *
      * @ORM\Column(name="actif", type="boolean")
      */
-    private $actif;
+    private $actif = 1;
     
      /**
-     * @ORM\ManyToOne(targetEntity="Utilisateur")
+     * @ORM\ManyToOne(targetEntity="Utilisateur",cascade={"persist"})
      * @ORM\JoinColumn(name="utilisateur_id", referencedColumnName="id",nullable=false)
      *
      * @var utilisateur
@@ -73,7 +73,7 @@ class Annonce
     private $dateCreation;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Categorie")
+     * @ORM\ManyToOne(targetEntity="Categorie",cascade={"persist"})
      * @ORM\JoinColumn(name="categorie_id", referencedColumnName="id",nullable=false)
      *
      * @var utilisateur
@@ -87,18 +87,21 @@ class Annonce
     private $type = 0;// 0 = Annonce | 1 = Demande
     
     /**
-     * @var int
-     *
-     * @ORM\Column(name="num_ordre", type="integer",nullable=true)
-     */
-    private $numOrdre;
-    /**
      * @var string
      *
-     * @ORM\Column(name="monnaie", type="string",nullable=true)
+     * @ORM\Column(name="monnaie", type="boolean",nullable=true)
      */
     private $monnaie = 0;//0 = Fc(franc Congolais)| 1 = $(Dollars)
     
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Image",cascade={"persist"})
+     * @ORM\JoinTable(name="annonce_images",
+     *      joinColumns={@ORM\JoinColumn(name="annonce_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="image_id", referencedColumnName="id")}
+     *      )
+     * 
+     */
     private $images;
     
     public function __construct(){
@@ -260,30 +263,6 @@ class Annonce
     }
 
     /**
-     * Set numOrdre
-     *
-     * @param integer $numOrdre
-     *
-     * @return Annonce
-     */
-    public function setNumOrdre($numOrdre)
-    {
-        $this->numOrdre = $numOrdre;
-    
-        return $this;
-    }
-
-    /**
-     * Get numOrdre
-     *
-     * @return integer
-     */
-    public function getNumOrdre()
-    {
-        return $this->numOrdre;
-    }
-
-    /**
      * Set utilisateur
      *
      * @param \ZandooBundle\Entity\Utilisateur $utilisateur
@@ -368,5 +347,13 @@ class Annonce
         $this->monnaie = $monnaie;
         return $this;
     }
+    
+    public function getImages() {
+        return $this->images;
+    }
 
+    public function setImages(Image $images) {
+        $this->images[] = $images;
+        return $this; 
+    }
 }

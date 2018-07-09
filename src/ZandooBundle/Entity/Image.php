@@ -3,12 +3,16 @@
 namespace ZandooBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Annonce
  *
  * @ORM\Table(name="IMAGE")
  * @ORM\Entity(repositoryClass="ZandooBundle\Repository\CategorieRepository")
+ * 
+ * @ORM\HasLifecycleCallbacks
+ * 
  */
 class Image
 {
@@ -20,30 +24,23 @@ class Image
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="actif", type="boolean")
-     */
-    private $actif;
+   
     /**
      * @var string
      *
-     * @ORM\Column(name="libelle", type="string",length=255)
+     * @ORM\Column(name="name", type="string",length=255)
      */
-    private $libelle;
+    private $name;
     /**
      * @var string
      *
      * @ORM\Column(name="url", type="string",length=255)
      */
     private $url;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="num_ordre", type="integer")
-     */
-    private $numOrdre;
+    
+    private $file;
+   
+    private $temp;
      
 
     /**
@@ -56,52 +53,29 @@ class Image
         return $this->id;
     }
 
+
     /**
-     * Set actif
+     * Set name
      *
-     * @param boolean $actif
+     * @param string $name
      *
      * @return Image
      */
-    public function setActif($actif)
+    public function setName($name)
     {
-        $this->actif = $actif;
-    
+        $this->name = $name;
+
         return $this;
     }
 
     /**
-     * Get actif
-     *
-     * @return boolean
-     */
-    public function getActif()
-    {
-        return $this->actif;
-    }
-
-    /**
-     * Set libelle
-     *
-     * @param string $libelle
-     *
-     * @return Image
-     */
-    public function setLibelle($libelle)
-    {
-        $this->libelle = $libelle;
-    
-        return $this;
-    }
-
-    /**
-     * Get libelle
+     * Get name
      *
      * @return string
      */
-    public function getLibelle()
+    public function getName()
     {
-        return $this->libelle;
+        return $this->name;
     }
 
     /**
@@ -114,7 +88,7 @@ class Image
     public function setUrl($url)
     {
         $this->url = $url;
-    
+
         return $this;
     }
 
@@ -127,28 +101,110 @@ class Image
     {
         return $this->url;
     }
-
     /**
-     * Set numOrdre
+     * Get file.
      *
-     * @param integer $numOrdre
-     *
-     * @return Image
+     * @return UploadedFile
      */
-    public function setNumOrdre($numOrdre)
+    public function getFile()
     {
-        $this->numOrdre = $numOrdre;
-    
-        return $this;
+        return $this->file;
+    }
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+        // check if we have an old image url
+        if (is_file($this->getAbsoluteUrl())) {
+            // store the old name to delete after the update
+            $this->temp = $this->getAbsoluteUrl();
+        } else {
+            $this->url = 'initial';
+        }
+    }
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->getFile()) {
+            $this->url = $this->getFile()->guessExtension();
+            $this->name = $this->getFile()->getClientOriginalName();
+        }
     }
 
     /**
-     * Get numOrdre
-     *
-     * @return integer
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
      */
-    public function getNumOrdre()
+    public function upload()
     {
-        return $this->numOrdre;
+        if (null === $this->getFile()) {
+            return;
+        }
+        // check if we have an old image
+        if (isset($this->temp)) {
+            // delete the old image
+            unlink($this->temp);
+            // clear the temp image url
+            $this->temp = null;
+        }
+        $this->getFile()->move(
+            $this->getUploadRootDir(),
+            $this->id.'.'.$this->getFile()->guessExtension()
+        );
+        $this->setFile(null);
+    }
+
+    /**
+     * @ORM\PreRemove()
+     */
+    public function storeFilenameForRemove()
+    {
+        $this->temp = $this->getAbsoluteUrl();
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if (isset($this->temp)) {
+            unlink($this->temp);
+        }
+    }
+
+    public function getAbsoluteUrl()
+    {
+        return null === $this->url
+            ? null
+            : $this->getUploadRootDir().'/'.$this->id.'.'.$this->url;
+    }
+   
+
+    public function getWebUrl()
+    {
+        return null === $this->url
+            ? null
+            : $this->getUploadDir().'/'.$this->id.'.'.$this->url;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory url where uploaded
+        // documents should be saved
+        return __DIR__.'../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads/documents';
     }
 }

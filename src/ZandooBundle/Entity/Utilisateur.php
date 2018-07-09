@@ -70,12 +70,6 @@ class Utilisateur
     /**
      * @var string
      *
-     * @ORM\Column(name="numOrdre", type="integer")
-     */
-    private $numOrdre;
-    /**
-     * @var string
-     *
      * @ORM\Column(name="date_création", type="date")
      */
     private $dateCreation;
@@ -268,30 +262,6 @@ class Utilisateur
     public function getActif()
     {
         return $this->actif;
-    }
-
-    /**
-     * Set numOrdre
-     *
-     * @param integer $numOrdre
-     *
-     * @return Utilisateur
-     */
-    public function setNumOrdre($numOrdre)
-    {
-        $this->numOrdre = $numOrdre;
-    
-        return $this;
-    }
-
-    /**
-     * Get numOrdre
-     *
-     * @return integer
-     */
-    public function getNumOrdre()
-    {
-        return $this->numOrdre;
     }
 
     /**

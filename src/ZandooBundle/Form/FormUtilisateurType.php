@@ -21,10 +21,7 @@ class FormUtilisateurType extends AbstractType
      
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-//            ->add('categorie', EntityType::class,array(
-//                      
-//            )) 
+        $builder 
             ->add('pseudo',TextType::class,array(
                 'label' =>"Pseudo *"
             ))
@@ -62,10 +59,7 @@ class FormUtilisateurType extends AbstractType
         ));
     }
      public function getName(){
-         return "annonceFormType";
+         return "utilisateurFormType";
      }
-     
-     public function listeCategorieByFamille($famille,$categorie){
-         
-     }
+
 }

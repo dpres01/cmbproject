@@ -10,7 +10,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use ZandooBundle\Form\FormUtilisateurType;
+use ZandooBundle\Form\FormImageType;
 use Doctrine\ORM\EntityRepository;
 use ZandooBundle\Entity\Annonce;
 
@@ -64,7 +66,17 @@ class FormAnnonceType extends AbstractType
             ))
             ->add('utilisateur',FormUtilisateurType::class,array(
                 'label'=>false               
-            ))        
+            ))
+           ->add('images',CollectionType::class,array(
+                'entry_type' => FormImageType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'empty_data' => null,
+//                'options' => array(
+//                    //'form_options' => $optionsForm
+//                ),
+                'label' => false            
+          ))                  
         ;
     }
     public function configureOptions(OptionsResolver $resolver)
