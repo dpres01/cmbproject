@@ -34,4 +34,18 @@ class ZandooController extends Controller
         }
         return $this->render('@Zandoo/annonce.html.twig',array('form'=>$form->createView()));
     }
+    
+    /**
+     * @Route("/inscription")
+     */
+    public function depotAnnoce(Request $request){
+        $utilisateur = new Utilisateur(); 
+        $form = $this->createForm(FormAnnonceType::class, $utilisateur, $options = array());
+        $form->handleRequest($request);
+        if($form->isValid() && $form->isSubmitted()){
+            //Enregistrment de l'annonce et de l'utilisateur
+            dump($_POST,$form->isValid(),$form->isSubmitted());   
+        }
+        return $this->render('@Zandoo/Utilisateur.html.twig',array('form'=>$form->createView()));
+    }
 }

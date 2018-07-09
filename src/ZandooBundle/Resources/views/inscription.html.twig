@@ -2,7 +2,59 @@
  {% block body %} 
      Hello World!
      {{form_start(form)}}
-     {{form_widget(form)}}
+      <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.utilisateur.pseudo)}}
+          </div>
+          <div class="col-md-4">
+          {{form_widget(form.utilisateur.pseudo)}}
+          </div>
+        </div> 
+
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.utilisateur.email)}}
+          </div>
+          <div class="col-md-4">
+          {{form_widget(form.utilisateur.email)}}
+          </div>
+        </div> 
+
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.utilisateur.password)}}
+          </div>
+          <div class="col-md-4">
+          {{form_widget(form.utilisateur.password)}}
+          </div>
+        </div> 
+
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.utilisateur.telephone)}}
+          </div>
+          <div class="col-md-4">
+          {{form_widget(form.utilisateur.telephone)}}
+          </div>
+        </div> 
+
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.utilisateur.adresse)}}
+          </div>
+          <div class="col-md-4">
+             {{form_widget(form.utilisateur.adresse)}}
+          </div>
+        </div> 
+
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.utilisateur.ville)}}
+          </div>
+          <div class="col-md-4">
+          {{form_widget(form.utilisateur.ville)}}
+          </div>
+        </div> 
      <input type="submit" value="Enregistrer">
      {{form_end(form)}}
  {% endblock %}
