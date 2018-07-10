@@ -81,9 +81,21 @@
 	max-width:1100px;
 	padding:10px 10px;
 }
+.srchboxall-fix
+{
+	padding:0 0 10px 0!important;
+}
 .srchinputs
 {
 	background:#ccc;border-radius:5px;margin:0 0 0 0;padding:4px;
+}
+.srchcheck
+{
+	margin:15px 0 0 0;
+}
+.srchcheck-fix
+{
+	margin:5px 0 0 0;
 }
 .srch
 {
@@ -111,7 +123,25 @@
 }
 .srchbtn
 {
-	background:#005999;color:#fff;text-align:center;font-size:12px;border-radius:5px;font-weight:bold;height:50px;width:100%;padding-top:10px;
+	background:#005999;
+	color:#fff;
+	text-align:center;
+	border-radius:5px;font-weight:bold;height:50px;width:100%;padding-top:10px;
+	font-size: 24px;    
+	font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;	
+}
+.srchbtn-fix
+{
+	color:#fff;
+	font-size:12px;
+	font-weight:bold;
+	height:30px;
+	font-size: 12px;    
+	font-family: inherit;
+    font-weight: 500;
 }
 .srccrt1
 {
@@ -150,7 +180,7 @@
 .srccrt1-all
 {
 	margin:0 auto 5px auto;
-	width:240px;
+	width:180px;
 }
 .srccrt2-all
 {
@@ -164,7 +194,19 @@
 }
 .srch-box-all
 {
-	background:#FFF;border-bottom:1px solid #ccc;
+	background:#fff;
+	border-bottom:1px solid #ccc;
+	position:relative;
+}
+.srchbox-fix
+{
+	background:#fff;
+	position:fixed;
+	z-index:200;
+	right:0;
+	top:0px;
+	width:100%;
+	box-shadow: 0 1px 0 rgba(12,13,14,0.1), 0 1px 3px rgba(12,13,14,0.1), 0 4px 20px rgba(12,13,14,0.035), 0 1px 1px rgba(12,13,14,0.025);
 }
 .publie-box-all
 {
@@ -175,6 +217,11 @@
 	.srctitre
 	{
 		display:inline;
+	}
+	.srccrt1-all
+	{
+		margin:0 auto 5px auto;
+		width:240px;
 	}
 	.pubtxt
 	{
