@@ -11,16 +11,18 @@ use ZandooBundle\Form\FormUtilisateurType;
 use ZandooBundle\Entity\Utilisateur;
 
 class ZandooController extends Controller
-{
+{	
     /**
      * @Route("/zando-index")
      */
     public function indexAction()
     {    
-        $em = $this->getDoctrine()->getManager();
-        $test =  $em->getRepository('\ZandooBundle\Entity\Categorie')->findCategorieByFamille();
-     
-        return $this->render('@Zandoo/Default/index.html.twig');
+        //$em 		= $this->getDoctrine()->getManager();
+        //$test 	=  $em->getRepository('\ZandooBundle\Entity\Categorie')->findCategorieByFamille();
+		$homehead 	= 1;
+        return $this->render('@Zandoo/Default/index.html.twig', array(
+			//'homehead' => $homehead
+		));
     }
     
     /**
