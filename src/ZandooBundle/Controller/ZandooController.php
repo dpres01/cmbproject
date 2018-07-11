@@ -56,7 +56,8 @@ class ZandooController extends Controller
         $form->handleRequest($request);
         if($form->isValid() && $form->isSubmitted()){
             //Enregistrment de l'annonce et de l'utilisateur
-            $em = $this->getDoctrine()->getManager(); 
+            $em = $this->getDoctrine()->getManager();
+            $utilisateur->setDateCreation(new \DateTime());
             $em->persist($utilisateur);              
             $em->flush();  
         }

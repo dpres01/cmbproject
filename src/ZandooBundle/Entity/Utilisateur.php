@@ -4,6 +4,9 @@ namespace ZandooBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
+
 
 /**
  * Annonce
@@ -28,12 +31,25 @@ class Utilisateur
      * @var string
      *
      * @ORM\Column(name="pseudo", type="string",length=12)
+     * 
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 5,
+     *      minMessage = "votre pseudo doit contenir {{ limit }} 5 caracteres minimum",
+     *      maxMessage = "votre pseudo doit contenir {{ limit }} 5 caracteres maximum"
+     * )
      */
     private $pseudo;
     /**
      * @var string
      *
      * @ORM\Column(name="email", type="string",length=255)
+     * 
+     * @Assert\Email(
+     *     message = "cette adresse email '{{ value }}' n'est pas valide.",
+     *     checkMX = true
+     * )
      */
     private $email;
     
@@ -41,6 +57,11 @@ class Utilisateur
      * @var string
      *
      * @ORM\Column(name="password", type="string",length=255)
+     * 
+     * @Assert\NotBlank()
+     * 
+     *
+     * 
      */
     private $password;
     /**
@@ -53,6 +74,8 @@ class Utilisateur
      * @var string
      *
      * @ORM\Column(name="telephone", type="string",length=60)
+     * 
+     * 
      */
     private $telephone;
     /**

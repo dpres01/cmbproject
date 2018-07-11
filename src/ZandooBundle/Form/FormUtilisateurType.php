@@ -7,6 +7,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use ZandooBundle\Entity\Utilisateur;
 
 
@@ -25,14 +28,14 @@ class FormUtilisateurType extends AbstractType
             ->add('pseudo',TextType::class,array(
                 'label' =>"Pseudo *"
             ))
-             ->add('email',TextType::class,array(
+             ->add('email',EmailType::class,array(
                 'label' =>"Adresse e-mail"
             ))
-           ->add('password',TextType::class,array(
+           ->add('password',PasswordType::class,array(
                 'label' =>"Mot de passe"
             )) 
            
-            ->add('telephone',TextType::class,array(
+            ->add('telephone',TelType::class,array(
                 'label' =>"Téléphone"
             ))
             ->add('adresse',TextType::class,array(
