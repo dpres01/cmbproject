@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use ZandooBundle\Entity\Annonce;
 use ZandooBundle\Form\FormAnnonceType;
 use ZandooBundle\Form\FormUtilisateurType;
+use ZandooBundle\Entity\Utilisateur;
 
 class ZandooController extends Controller
 {
@@ -23,7 +24,7 @@ class ZandooController extends Controller
     }
     
     /**
-     * @Route("/annonce")
+     * @Route("/annonce",name="enregistrer_annonce")
      */
     public function depotAnnoce(Request $request){
         $annonce = new Annonce();
@@ -31,17 +32,11 @@ class ZandooController extends Controller
         $form = $this->createForm(FormAnnonceType::class, $annonce, $options = array());
         $form->handleRequest($request);
         if($form->isValid() && $form->isSubmitted()){
-            //Enregistrment de l'annonce et de l'utilisateur
-//            foreach ($annonce->getImages() as $image ){
-//                //$image->getUrl()->move(__DIR__.'/upload',$image->getUrl()->getClientOriginalName());   
-//                //$image->setLibelle(__DIR__.'/upload/'.$image->getUrl()->getClientOriginalName());
-//            }
             $em = $this->getDoctrine()->getManager();
             try{
                 $annonce->setDateCreation(new \DateTime());
                 $annonce->getUtilisateur()->setDateCreation(new \DateTime());              
-                $em->persist($annonce);
-                //dump($annonce);die;
+                $em->persist($annonce);              
                 $em->flush();  
             }catch(Exception $e){
                echo $e;
@@ -51,7 +46,7 @@ class ZandooController extends Controller
     }
     
     /**
-     * @Route("/inscription")
+     * @Route("/inscription",name="enregistrer_utilisateur")
      */
     public function inscription(Request $request){
         $utilisateur = new Utilisateur(); 
@@ -59,8 +54,10 @@ class ZandooController extends Controller
         $form->handleRequest($request);
         if($form->isValid() && $form->isSubmitted()){
             //Enregistrment de l'annonce et de l'utilisateur
-            dump($_POST,$form->isValid(),$form->isSubmitted());   
+            $em = $this->getDoctrine()->getManager(); 
+            $em->persist($utilisateur);              
+            $em->flush();  
         }
-        return $this->render('@Zandoo/Utilisateur.html.twig',array('form'=>$form->createView()));
+        return $this->render('@Zandoo/inscription.html.twig',array('form'=>$form->createView()));
     }
 }

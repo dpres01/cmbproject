@@ -38,7 +38,7 @@
 					<i class="fa fa-user-o"></i>
 				</div>
 				<div class="hd-top-right-register" style="">
-					<div class="btn-insc" style="">S'inscrire</div>
+					<div class="btn-insc" style=""><a href="{{ path('enregistrer_utilisateur')}}">S'inscrire</a></div>
 				</div>
 				<div style="clear:both;"></div>
 			</div>
@@ -67,7 +67,7 @@
 			<div style="hd-resp-menu-elm">Mon compte</div>
 			<div style="hd-resp-menu-elm">Mes favoris</div>
 			<div style="hd-resp-menu-elm">Mes messages</div>
-			<div style="hd-resp-menu-elm">S'inscrire</div>
+			<div style="hd-resp-menu-elm"><a href="{{ path('enregistrer_utilisateur')}}">S'inscrire</a></div>
 		</div>
 	</div>
 	<div style="background:#F7F7F7;">
@@ -124,7 +124,6 @@
 	</div>
 
         {% block body %} {% endblock %}
-        {% block javascripts %}{% endblock %}
 	<div>
 		<div style="background:#003580;">
 			<div class="hd-foot">
@@ -212,12 +211,11 @@
 		<div class="foot-ft">
 			© 2018 zandoo.com - Tous droits réservés.
 		</div>
-	</div>	
+	</div>
 	<script src="{{ asset('public/js/jquery-3.1.1.min.js')}}"></script>
 	<script src="{{ asset('public/js/jquery-ui.js')}}"></script>
 	<script src="{{ asset('public/js/bootstrap.js') }}"></script>
 	<script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
-	<script src="{{ asset('public/js/a-view.js') }}"></script>
 	<script src="{{ asset('public/js/general.js') }}"></script>
     </body>
 </html>
