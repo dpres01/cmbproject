@@ -4,6 +4,7 @@ namespace ZandooBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Annonce
@@ -11,10 +12,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="UTILISATEUR")
  * @ORM\Entity(repositoryClass="ZandooBundle\Repository\UtilisateurRepository")
  * 
- * @UniqueEntity(fields={"pseudo"}, errorPath="pseudo", groups={"defaut"})
+ * @UniqueEntity(fields={"username"}, errorPath="username", groups={"defaut"})
  * 
  */
-class Utilisateur
+class Utilisateur implements UserInterface
 {
     /**
      * @var int
@@ -29,7 +30,7 @@ class Utilisateur
      *
      * @ORM\Column(name="pseudo", type="string",length=12)
      */
-    private $pseudo;
+    private $username;
     /**
      * @var string
      *
@@ -103,27 +104,27 @@ class Utilisateur
     }
 
     /**
-     * Set pseudo
+     * Set username
      *
-     * @param string $pseudo
+     * @param string $username
      *
      * @return Utilisateur
      */
-    public function setPseudo($pseudo)
+    public function setUsername($username)
     {
-        $this->pseudo = $pseudo;
+        $this->username = $username;
     
         return $this;
     }
 
     /**
-     * Get pseudo
+     * Get username
      *
      * @return string
      */
-    public function getPseudo()
+    public function getUsername()
     {
-        return $this->pseudo;
+        return $this->username;
     }
 
     /**
@@ -364,5 +365,17 @@ class Utilisateur
     public function getIsProfessionnel()
     {
         return $this->isProfessionnel;
+    }
+
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    public function getSalt()
+    {
+    }
+    public function eraseCredentials()
+    {
     }
 }
