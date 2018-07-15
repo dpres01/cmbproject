@@ -30,22 +30,21 @@ class Utilisateur implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="pseudo", type="string",length=12,unique=true)
+     * @ORM\Column(name="pseudo", type="string",length=12)
      * 
      * @Assert\NotBlank()
      * @Assert\Length(
      *      min = 5,
      *      max = 5,
-     *      minMessage = "votre username doit contenir {{ limit }} 5 caracteres minimum",
-     *      maxMessage = "votre username doit contenir {{ limit }} 5 caracteres maximum"
+     *      minMessage = "votre pseudo doit contenir {{ limit }} 5 caracteres minimum",
+     *      maxMessage = "votre pseudo doit contenir {{ limit }} 5 caracteres maximum"
      * )
      */
     private $username;
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string",length=255,unique=true)
-     * 
+     * @ORM\Column(name="email", type="string",length=255) 
      * @Assert\Email(
      *     message = "cette adresse email '{{ value }}' n'est pas valide.",
      *     checkMX = true
