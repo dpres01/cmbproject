@@ -87,15 +87,9 @@ class Annonce
     private $type = 0;// 0 = Annonce | 1 = Demande
     
     /**
-     * @var int
-     *
-     * @ORM\Column(name="num_ordre", type="integer",nullable=true)
-     */
-    private $numOrdre;
-    /**
      * @var string
      *
-     * @ORM\Column(name="monnaie", type="string",nullable=true)
+     * @ORM\Column(name="monnaie", type="boolean",nullable=true)
      */
     private $monnaie = 0;//0 = Fc(franc Congolais)| 1 = $(Dollars)
     
@@ -266,30 +260,6 @@ class Annonce
     public function getDateCreation()
     {
         return $this->dateCreation;
-    }
-
-    /**
-     * Set numOrdre
-     *
-     * @param integer $numOrdre
-     *
-     * @return Annonce
-     */
-    public function setNumOrdre($numOrdre)
-    {
-        $this->numOrdre = $numOrdre;
-    
-        return $this;
-    }
-
-    /**
-     * Get numOrdre
-     *
-     * @return integer
-     */
-    public function getNumOrdre()
-    {
-        return $this->numOrdre;
     }
 
     /**

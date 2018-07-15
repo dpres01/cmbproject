@@ -4,6 +4,8 @@ namespace ZandooBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -28,13 +30,26 @@ class Utilisateur implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="pseudo", type="string",length=12)
+     * @ORM\Column(name="pseudo", type="string",length=12,unique=true)
+     * 
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 5,
+     *      minMessage = "votre username doit contenir {{ limit }} 5 caracteres minimum",
+     *      maxMessage = "votre username doit contenir {{ limit }} 5 caracteres maximum"
+     * )
      */
     private $username;
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string",length=255)
+     * @ORM\Column(name="email", type="string",length=255,unique=true)
+     * 
+     * @Assert\Email(
+     *     message = "cette adresse email '{{ value }}' n'est pas valide.",
+     *     checkMX = true
+     * )
      */
     private $email;
     
@@ -42,6 +57,11 @@ class Utilisateur implements UserInterface
      * @var string
      *
      * @ORM\Column(name="password", type="string",length=255)
+     * 
+     * @Assert\NotBlank()
+     * 
+     *
+     * 
      */
     private $password;
     /**
@@ -54,6 +74,8 @@ class Utilisateur implements UserInterface
      * @var string
      *
      * @ORM\Column(name="telephone", type="string",length=60)
+     * 
+     * 
      */
     private $telephone;
     /**
@@ -68,12 +90,6 @@ class Utilisateur implements UserInterface
      * @ORM\Column(name="actif", type="boolean")
      */
     private $actif = 1;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="numOrdre", type="integer")
-     */
-    private $numOrdre;
     /**
      * @var string
      *
@@ -92,6 +108,8 @@ class Utilisateur implements UserInterface
      * @ORM\Column(name="is_professionnel", type="boolean")
      */
     private $isProfessionnel = 0;// 0 = Particulier | 1 = Professionnel
+    
+    private $roles = array();
   
     /**
      * Get id
@@ -272,30 +290,6 @@ class Utilisateur implements UserInterface
     }
 
     /**
-     * Set numOrdre
-     *
-     * @param integer $numOrdre
-     *
-     * @return Utilisateur
-     */
-    public function setNumOrdre($numOrdre)
-    {
-        $this->numOrdre = $numOrdre;
-    
-        return $this;
-    }
-
-    /**
-     * Get numOrdre
-     *
-     * @return integer
-     */
-    public function getNumOrdre()
-    {
-        return $this->numOrdre;
-    }
-
-    /**
      * Set dateCreation
      *
      * @param \DateTime $dateCreation
@@ -369,7 +363,13 @@ class Utilisateur implements UserInterface
 
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return $this->roles;
+    }
+    
+     public function setRoles($role)
+    {   
+         $this->roles[] = $role;
+        return $this;
     }
 
     public function getSalt()

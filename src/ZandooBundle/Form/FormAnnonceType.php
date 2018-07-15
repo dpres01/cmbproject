@@ -79,7 +79,6 @@ class FormAnnonceType extends AbstractType
           ))                  
         ;
     }
-    
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(

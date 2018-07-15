@@ -1,8 +1,68 @@
  {% extends 'base.html.twig' %}
  {% block body %} 
-     Hello World!
      {{form_start(form)}}
-     {{form_widget(form)}}
+     <div class="alert alert-danger" role="alert">
+         {{form_errors(form)}}
+    </div>
+      
+      <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.username)}}
+          </div>
+          <div class="col-md-4">
+          {{form_widget(form.username)}}
+          </div>
+        </div> 
+
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.email)}}
+          </div>
+          <div class="col-md-4">
+          {{form_widget(form.email)}}
+          </div>
+        </div> 
+
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.password)}}
+          </div>
+          <div class="col-md-4">
+          {{form_widget(form.password)}}
+          </div>
+        </div> 
+
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.telephone)}}
+          </div>
+          <div class="col-md-4">
+          {{form_widget(form.telephone)}}
+          </div>
+        </div> 
+
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.adresse)}}
+          </div>
+          <div class="col-md-4">
+             {{form_widget(form.adresse)}}
+          </div>
+        </div> 
+
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-2 text-left">   
+             {{form_label(form.ville)}}
+          </div>
+          <div class="col-md-4">
+          {{form_widget(form.ville)}}
+          </div>
+        </div> 
+        <div class="col-md-12 no_pading ">
+          <div class="col-md-4">
+          {{form_widget(form.isProfessionnel)}}
+          </div>
+        </div> 
      <input type="submit" value="Enregistrer">
      {{form_end(form)}}
  {% endblock %}
