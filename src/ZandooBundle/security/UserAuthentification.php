@@ -1,4 +1,6 @@
 <?php
+namespace ZandooBundle\security;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -8,7 +10,7 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Authentication\SimpleFormAuthenticatorInterface;
 
-class UserAuthentication implements SimpleFormAuthenticatorInterface
+class UserAuthentification implements SimpleFormAuthenticatorInterface
 {
     private $encoder;
 
@@ -20,7 +22,7 @@ class UserAuthentication implements SimpleFormAuthenticatorInterface
     public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey)
     {
         try {
-            dump('ici');
+            dump('ici');die;
             $user = $userProvider->loadUserByUsername($token->getUsername());
         } catch (UsernameNotFoundException $exception) {
             // CAUTION: this message will be returned to the client
