@@ -21,14 +21,14 @@ class UserAuthentification implements SimpleFormAuthenticatorInterface
 
     public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey)
     {
-
         try {         
             $user = $userProvider->loadUserByUsername($token->getUsername());
+            if(empty($user))throw new CustomUserMessageAuthenticationException('pseudo ou email inexistant');
         } catch (UsernameNotFoundException $exception) {
             // CAUTION: this message will be returned to the client
             // (so don't put any un-trusted messages / error strings here)
             
-            throw new CustomUserMessageAuthenticationException('pseudo ou mot de passe invalide 1');
+            throw new CustomUserMessageAuthenticationException('pseudo ou mot de passe invalide');
         }
         $isPasswordValid = $this->encoder->isPasswordValid($user, $token->getCredentials());
        

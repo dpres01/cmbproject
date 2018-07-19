@@ -31,13 +31,15 @@ final class UtilisateurProvider implements UserProviderInterface
     {   
         $password =  $this->requestStack->getCurrentRequest()->request->get("_password");
         $utilisateur = $this->em->getRepository(Utilisateur::class)->finUserByPseudoOrEmail($username);
-        if (is_null($utilisateur)) {
-            throw new AccessDeniedHttpException(sprintf('cet utilisateur " %s " n\'existe pas.', $username));
-        } 
-        $roles = array();  
-        if ($utilisateur->getIsAdmin()) {
-            $utilisateur->setRoles("ROLE_ADMIN");
-        }   
+//        if (is_null($utilisateur)) {
+//            throw new AccessDeniedHttpException(sprintf('cet utilisateur " %s " n\'existe pas.', $username));
+//        }
+        if(!is_null($utilisateur)){
+             $roles = array();  
+            if($utilisateur->getIsAdmin()){
+                $utilisateur->setRoles("ROLE_ADMIN");
+            }
+        }  
         return $utilisateur;
     }
 }
