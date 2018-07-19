@@ -3,5 +3,6 @@ services:
         class: ZandooBundle\security\UtilisateurProvider
         arguments: ["@doctrine.orm.entity_manager","@request_stack"]
     zandoo.authentificator_utilisateur:
-        class: ZandooBundle\security\UserAuthentification 
-        arguments: ["@security.password_encoder"]
+        class: ZandooBundle\security\UserAuthentification
+        arguments: ["@security.password_encoder"]    
+

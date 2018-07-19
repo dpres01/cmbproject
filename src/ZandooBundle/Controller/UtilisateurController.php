@@ -14,7 +14,7 @@ class UtilisateurController extends Controller
      */
     public function loginAction(Request $request)
     {    
-            // Si le visiteur es t déjà identifié, on le redirige vers l'accueil
+            // Si le visiteur est déjà identifié, on le redirige vers l'accueil
             if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
               return $this->redirectToRoute('enregistrer_annonce');
             }

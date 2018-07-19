@@ -21,29 +21,18 @@ class UserAuthentification implements SimpleFormAuthenticatorInterface
 
     public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey)
     {
-        try {
-            dump('ici');die;
+
+        try {         
             $user = $userProvider->loadUserByUsername($token->getUsername());
         } catch (UsernameNotFoundException $exception) {
             // CAUTION: this message will be returned to the client
             // (so don't put any un-trusted messages / error strings here)
-            throw new CustomUserMessageAuthenticationException('Invalid username or password');
+            
+            throw new CustomUserMessageAuthenticationException('pseudo ou mot de passe invalide 1');
         }
-
         $isPasswordValid = $this->encoder->isPasswordValid($user, $token->getCredentials());
-
+       
         if ($isPasswordValid) {
-            $currentHour = date('G');
-            if ($currentHour < 14 || $currentHour > 16) {
-                // CAUTION: this message will be returned to the client
-                // (so don't put any un-trusted messages / error strings here)
-                throw new CustomUserMessageAuthenticationException(
-                    'You can only log in between 2 and 4!',
-                    array(), // Message Data
-                    412 // HTTP 412 Precondition Failed
-                );
-            }
-
             return new UsernamePasswordToken(
                 $user,
                 $user->getPassword(),
@@ -54,7 +43,7 @@ class UserAuthentification implements SimpleFormAuthenticatorInterface
 
         // CAUTION: this message will be returned to the client
         // (so don't put any un-trusted messages / error strings here)
-        throw new CustomUserMessageAuthenticationException('Invalid username or password');
+        throw new CustomUserMessageAuthenticationException('pseudo ou mot de passe incorrect');
     }
 
     public function supportsToken(TokenInterface $token, $providerKey)

@@ -10,4 +10,15 @@ namespace ZandooBundle\Repository;
  */
 class UtilisateurRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function finUserByPseudoOrEmail($username){
+       $qb =  $this->createQueryBuilder('u')
+                ->andWhere('u.username = :username')
+                ->orWhere('u.email = :username')
+                ->setParameter('username', $username);
+       $ret = $qb->getQuery()->getResult();
+       if($ret){
+         return  $ret[0];
+       }
+       return $ret;
+    }
 }

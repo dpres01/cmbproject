@@ -30,15 +30,12 @@ final class UtilisateurProvider implements UserProviderInterface
     public function loadUserByUsername($username)
     {   
         $password =  $this->requestStack->getCurrentRequest()->request->get("_password");
-        $utilisateur = $this->em->getRepository(Utilisateur::class)->findOneBy(array('username'=>$username));
+        $utilisateur = $this->em->getRepository(Utilisateur::class)->finUserByPseudoOrEmail($username);
         if (is_null($utilisateur)) {
             throw new AccessDeniedHttpException(sprintf('cet utilisateur " %s " n\'existe pas.', $username));
         } 
-        if($password != $utilisateur->getPassword()){
-           throw new AccessDeniedHttpException('mot de passe incorrect'); 
-        }
         $roles = array();  
-        if (!$utilisateur->getIsAdmin()) {
+        if ($utilisateur->getIsAdmin()) {
             $utilisateur->setRoles("ROLE_ADMIN");
         }   
         return $utilisateur;
