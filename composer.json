@@ -4,8 +4,9 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "AppBundle\\": "src/AppBundle",
-			"ZandooBundle\\": "src/ZandooBundle"
+            "AppBundle\\": "src",
+	    "ZandooBundle\\": "src/ZandooBundle",
+            "UserBundle\\": "src/UserBundle"
         },
         "classmap": [
             "app/AppKernel.php",

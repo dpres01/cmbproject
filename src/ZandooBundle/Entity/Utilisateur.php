@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Annonce
@@ -14,10 +14,10 @@ use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
  * @ORM\Table(name="UTILISATEUR")
  * @ORM\Entity(repositoryClass="ZandooBundle\Repository\UtilisateurRepository")
  * 
- * @UniqueEntity(fields={"pseudo"}, errorPath="pseudo", groups={"defaut"})
+ * @UniqueEntity(fields={"username"}, errorPath="username", groups={"defaut"})
  * 
  */
-class Utilisateur
+class Utilisateur implements UserInterface
 {
     /**
      * @var int
@@ -40,12 +40,11 @@ class Utilisateur
      *      maxMessage = "votre pseudo doit contenir {{ limit }} 5 caracteres maximum"
      * )
      */
-    private $pseudo;
+    private $username;
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string",length=255)
-     * 
+     * @ORM\Column(name="email", type="string",length=255) 
      * @Assert\Email(
      *     message = "cette adresse email '{{ value }}' n'est pas valide.",
      *     checkMX = true
@@ -108,6 +107,8 @@ class Utilisateur
      * @ORM\Column(name="is_professionnel", type="boolean")
      */
     private $isProfessionnel = 0;// 0 = Particulier | 1 = Professionnel
+    
+    private $roles = array();
   
     /**
      * Get id
@@ -120,27 +121,27 @@ class Utilisateur
     }
 
     /**
-     * Set pseudo
+     * Set username
      *
-     * @param string $pseudo
+     * @param string $username
      *
      * @return Utilisateur
      */
-    public function setPseudo($pseudo)
+    public function setUsername($username)
     {
-        $this->pseudo = $pseudo;
+        $this->username = $username;
     
         return $this;
     }
 
     /**
-     * Get pseudo
+     * Get username
      *
      * @return string
      */
-    public function getPseudo()
+    public function getUsername()
     {
-        return $this->pseudo;
+        return $this->username;
     }
 
     /**
@@ -357,5 +358,23 @@ class Utilisateur
     public function getIsProfessionnel()
     {
         return $this->isProfessionnel;
+    }
+
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+    
+     public function setRoles($role)
+    {   
+         $this->roles[] = $role;
+        return $this;
+    }
+
+    public function getSalt()
+    {
+    }
+    public function eraseCredentials()
+    {
     }
 }

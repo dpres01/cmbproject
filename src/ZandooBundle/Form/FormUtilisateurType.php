@@ -25,7 +25,7 @@ class FormUtilisateurType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder 
-            ->add('pseudo',TextType::class,array(
+            ->add('username',TextType::class,array(
                 'label' =>"Pseudo *"
             ))
              ->add('email',EmailType::class,array(

@@ -1,4 +1,7 @@
 services:
-#    zandoo.example:
-#        class: ZandooBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    zandoo.provider_utilisateur:
+        class: ZandooBundle\security\UtilisateurProvider
+        arguments: ["@doctrine.orm.entity_manager","@request_stack"]
+    zandoo.authentificator_utilisateur:
+        class: ZandooBundle\security\UserAuthentification
+        arguments: ["@security.password_encoder"]    
