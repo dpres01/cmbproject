@@ -34,12 +34,7 @@ final class UtilisateurProvider implements UserProviderInterface
 //        if (is_null($utilisateur)) {
 //            throw new AccessDeniedHttpException(sprintf('cet utilisateur " %s " n\'existe pas.', $username));
 //        }
-        if(!is_null($utilisateur)){
-             $roles = array();  
-            if($utilisateur->getIsAdmin()){
-                $utilisateur->setRoles("ROLE_ADMIN");
-            }
-        }  
+        //dump($utilisateur);die;
         return $utilisateur;
     }
 }

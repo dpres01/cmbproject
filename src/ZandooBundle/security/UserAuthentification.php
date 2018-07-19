@@ -32,7 +32,11 @@ class UserAuthentification implements SimpleFormAuthenticatorInterface
         }
         $isPasswordValid = $this->encoder->isPasswordValid($user, $token->getCredentials());
        
-        if ($isPasswordValid) {
+        if ($isPasswordValid) {             
+             if($user->getIsAdmin()) {
+                $user->setRoles("ROLE_ADMIN");
+             }
+       
             return new UsernamePasswordToken(
                 $user,
                 $user->getPassword(),
