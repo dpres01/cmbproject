@@ -29,20 +29,20 @@ class FormUtilisateurType extends AbstractType
                 'label' =>"Pseudo *"
             ))
              ->add('email',EmailType::class,array(
-                'label' =>"Adresse e-mail"
+                'label' =>"Adresse e-mail *"
             ))
            ->add('password',PasswordType::class,array(
-                'label' =>"Mot de passe"
+                'label' =>"Mot de passe *"
             )) 
            
             ->add('telephone',TelType::class,array(
-                'label' =>"Téléphone"
+                'label' =>"Téléphone *"
             ))
             ->add('adresse',TextType::class,array(
-                'label' =>"Adresse"
+                'label' =>"Adresse *"
             ))
             ->add('ville',TextType::class,array(
-                'label' =>"Ville"
+                'label' =>"Ville *"
             ))    
             ->add('isProfessionnel',ChoiceType::class,array(
                  'choices' => array(
