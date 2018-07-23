@@ -23,11 +23,10 @@ class UtilisateurController extends Controller
             // et l'erreur dans le cas où le formulaire a déjà été soumis mais était invalide
             // (mauvais mot de passe par exemple)
             $authenticationUtils = $this->get('security.authentication_utils');
-
             return $this->render('@Zandoo/connexion.html.twig', array(
               'last_username' => $authenticationUtils->getLastUsername(),
               'error'         => $authenticationUtils->getLastAuthenticationError(),
             ));	
-    } 
+    }        
     
 }
