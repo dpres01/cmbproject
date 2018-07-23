@@ -26,7 +26,10 @@ class UtilisateurController extends Controller
             $utilisateur->setDateCreation(new \DateTime());
             $utilisateur->setPassword($pwdEncoded);
             $em->persist($utilisateur);              
-            $em->flush();  
+            $em->flush();
+            $this->get('session')->getFlashBag()->add('createUser', 'Votre compte a été créé avec succès');
+            $this->addFlash('succes', 'Votre compte a été créé avec succès');
+            return $this->redirectToRoute('login');
         }
         return $this->render('@Zandoo/inscription.html.twig',array('form'=>$form->createView()));
     }
@@ -66,9 +69,9 @@ class UtilisateurController extends Controller
                 $randPassword = $this->RandomString(); 
                 $pwdEncoded = $this->get('security.password_encoder')->encodePassword($utilisateur,$randPassword);          
                 $utilisateur->setPassword($pwdEncoded); 
-                $em->flush();
-                $this->get('zandoo.mail')->sendMail($email,$randPassword);
-                $this->addFlash('succes', 'un email vous a été envoyer par mail avec votre nouveau mot de passe \n verifiez votre spam!');
+                $em->flush();           
+                //$this->get('zandoo.mail')->sendMail($email,$randPassword);
+                $this->addFlash('succes', 'un email vous a été envoyer avec votre nouveau mot de passe verifiez votre spam!');
             }else{
                 $this->addFlash('error', 'cet email n\'existe pas');
             }     
@@ -100,17 +103,19 @@ class UtilisateurController extends Controller
                   $utilisateur->setPassword($pwdEncoded); 
                   $em->flush();
                   $this->addFlash('succes', 'votre mot de passe a été changé avec succès');
+              }else{
+                   $this->addFlash('error', 'connectez vous ou verifier que vos mot passes soit differents ');
               }
          }
          return $this->render('@Zandoo/modifierPassword.html.twig', array('form'=>$form->createView()));         
     }
       
     function RandomString(){
-        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';        
         $randstring = '';
         $retour = '';
         for ($i = 0; $i < 8; $i++) {
-            $retour = $characters[rand(0, strlen($characters))]; 
+            $retour = $characters[rand(0, strlen($characters)-1)]; 
             $randstring .= $retour;
         }
         return $randstring;

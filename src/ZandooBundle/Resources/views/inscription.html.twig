@@ -1,7 +1,6 @@
  {% extends 'base.html.twig' %}
- {% form_theme form _self %}
-
- {% block body %}   
+   
+ {% block body %}      
   {{form_start(form)}} 
       <div class="col-md-12 no_pading ">
           <div class="col-md-2 text-left">   
@@ -64,6 +63,7 @@
           </div>
         </div> 
      <input type="submit" value="Enregistrer">
-     {#{form_end(form)}#}
+     {{ form_rest(form) }} 
+     {{form_end(form)}}
  {% endblock %}
 

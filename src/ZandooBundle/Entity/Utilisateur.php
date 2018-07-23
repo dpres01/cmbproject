@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @UniqueEntity("email",message="cet email existe.")
  * 
  */
-//UniqueEntity(fields={"pseudo","email"}, errorPath="pseudo", message="Un article existe déjà avec ce titre.", groups={"defaut"})
+//UniqueEntity(fields={"pseudo","email"}, errorPath="pseudo", message="Un article existe déjà avec ce titre.")
 class Utilisateur implements UserInterface
 {
     /**
@@ -62,14 +62,13 @@ class Utilisateur implements UserInterface
      * 
      * @Assert\NotBlank()
      * 
-     *
-     * 
      */
     private $password;
     /**
      * @var string
      *
      * @ORM\Column(name="adresse", type="string",length=255)
+     * 
      */
     private $adresse;
     /**
