@@ -28,7 +28,7 @@ class UtilisateurController extends Controller
             $em->persist($utilisateur);              
             $em->flush();
             $this->get('session')->getFlashBag()->add('createUser', 'Votre compte a été créé avec succès');
-            $this->addFlash('succes', 'Votre compte a été créé avec succès');
+            //$this->addFlash('createUser', 'Votre compte a été créé avec succès');
             return $this->redirectToRoute('login');
         }
         return $this->render('@Zandoo/inscription.html.twig',array('form'=>$form->createView()));
