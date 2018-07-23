@@ -4,9 +4,13 @@
     {% if error %}
        <div class="alert alert-danger">{{ error.message }}</div>
     {% endif %}
+    {% if app.session.flashbag.get('createUser') is not null %}
      <div class="alert alert-success">
-     {{ app.session.flashbag.get('createUser')[0]}}
+        {% for message in   app.session.flashbag.get('createUser')%}
+           {{message}}
+        {%endfor %}
      </div>
+    {%endif%}  
      {#{ dump(app.session.flashbag.get('createUser'))}#}
      {#{ dump(app.flashes)}#}
 
