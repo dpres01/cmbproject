@@ -14,9 +14,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Table(name="UTILISATEUR")
  * @ORM\Entity(repositoryClass="ZandooBundle\Repository\UtilisateurRepository")
  * 
- * @UniqueEntity(fields={"username"}, errorPath="username", groups={"defaut"})
+ * @UniqueEntity("username",message="ce pseudo existe.")
+ * @UniqueEntity("email",message="cet email existe.")
  * 
  */
+//UniqueEntity(fields={"pseudo","email"}, errorPath="pseudo", message="Un article existe déjà avec ce titre.", groups={"defaut"})
 class Utilisateur implements UserInterface
 {
     /**
@@ -30,7 +32,7 @@ class Utilisateur implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="pseudo", type="string",length=12)
+     * @ORM\Column(name="pseudo", type="string",length=5,unique=true)
      * 
      * @Assert\NotBlank()
      * @Assert\Length(
@@ -44,7 +46,8 @@ class Utilisateur implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string",length=255) 
+     * @ORM\Column(name="email", type="string",length=255,unique=true) 
+     * 
      * @Assert\Email(
      *     message = "cette adresse email '{{ value }}' n'est pas valide.",
      *     checkMX = true

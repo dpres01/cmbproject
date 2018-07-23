@@ -4,5 +4,7 @@ services:
         arguments: ["@doctrine.orm.entity_manager","@request_stack"]
     zandoo.authentificator_utilisateur:
         class: ZandooBundle\security\UserAuthentification
-        arguments: ["@security.password_encoder"]    
+        arguments: ["@security.password_encoder"] 
+    zandoo.mail:
+        class: ZandooBundle\Service\Mail    
 

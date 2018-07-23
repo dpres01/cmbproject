@@ -1,16 +1,15 @@
  {% extends 'base.html.twig' %}
- {% block body %} 
-     {{form_start(form)}}
-     <div class="alert alert-danger" role="alert">
-         {{form_errors(form)}}
-     </div>
-      
+ {% form_theme form _self %}
+
+ {% block body %}   
+  {{form_start(form)}} 
       <div class="col-md-12 no_pading ">
           <div class="col-md-2 text-left">   
              {{form_label(form.username)}}
           </div>
           <div class="col-md-4">
           {{form_widget(form.username)}}
+          {{form_errors(form.username)}}    
           </div>
         </div> 
 
@@ -20,6 +19,7 @@
           </div>
           <div class="col-md-4">
           {{form_widget(form.email)}}
+          {{form_errors(form.email)}}    
           </div>
         </div> 
 
@@ -64,6 +64,6 @@
           </div>
         </div> 
      <input type="submit" value="Enregistrer">
-     {{form_end(form)}}
+     {#{form_end(form)}#}
  {% endblock %}
 
