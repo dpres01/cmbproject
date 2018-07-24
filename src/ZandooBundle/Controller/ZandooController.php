@@ -29,12 +29,21 @@ class ZandooController extends Controller
      */
     public function depotAnnoce(Request $request){
         $annonce = new Annonce();
-        
-        $form = $this->createForm(FormAnnonceType::class, $annonce, $options = array());
+        $options['connected'] = false;
+        if($this->getUser()){
+            $options['connected'] = true; 
+        }  
+       
+        $form = $this->createForm(FormAnnonceType::class, $annonce, $options);
         $form->handleRequest($request);
         if($form->isValid() && $form->isSubmitted()){
             $em = $this->getDoctrine()->getManager();
             try{
+                if($this->getUser()){
+                    $utilisateur = $em->getRepository(Utilisateur::class)->findOneBy(array('email'=>$this->getUser()->getEmail())) ;
+                    $annonce->setUtilisateur($utilisateur);
+                }
+                //dump(),$annonce);die;
                 $annonce->setDateCreation(new \DateTime());
                 $annonce->getUtilisateur()->setDateCreation(new \DateTime());              
                 $em->persist($annonce);              

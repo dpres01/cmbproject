@@ -34,12 +34,12 @@ class Utilisateur implements UserInterface
      *
      * @ORM\Column(name="pseudo", type="string",length=5,unique=true)
      * 
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="cette valeur ne doit pas être vide")
      * @Assert\Length(
      *      min = 5,
      *      max = 5,
-     *      minMessage = "votre pseudo doit contenir {{ limit }} 5 caracteres minimum",
-     *      maxMessage = "votre pseudo doit contenir {{ limit }} 5 caracteres maximum"
+     *      exactMessage = "votre pseudo doit contenir {{ limit }} caracteres",
+     *      
      * )
      */
     private $username;
@@ -47,7 +47,7 @@ class Utilisateur implements UserInterface
      * @var string
      *
      * @ORM\Column(name="email", type="string",length=255,unique=true) 
-     * 
+     * @Assert\NotBlank(message="cette valeur ne doit pas être vide")
      * @Assert\Email(
      *     message = "cette adresse email '{{ value }}' n'est pas valide.",
      *     checkMX = true
@@ -59,15 +59,26 @@ class Utilisateur implements UserInterface
      * @var string
      *
      * @ORM\Column(name="password", type="string",length=255)
+     * @Assert\NotBlank(message="cette valeur ne doit pas être vide")
+     * @Assert\Type(
+     *     type="alnum",
+     *     message="cette valeur {{ value }}  doit être {{ type }}."
+     * )
+     * @Assert\Length(
+     *      min = 8,
+     *      max = 8,
+     *     exactMessage= "le mot de passe doit contenir 8 caratères ",    
+     * )
+     *
      * 
-     * @Assert\NotBlank()
      * 
      */
     private $password;
     /**
      * @var string
-     *
+     * 
      * @ORM\Column(name="adresse", type="string",length=255)
+     * @Assert\NotBlank(message="cette valeur ne doit pas être vide")
      * 
      */
     private $adresse;
@@ -75,6 +86,11 @@ class Utilisateur implements UserInterface
      * @var string
      *
      * @ORM\Column(name="telephone", type="string",length=60)
+     * @Assert\NotBlank(message="cette valeur ne doit pas être vide")
+     * @Assert\Type(
+     *     type="numeric",
+     *     message="cette valeur {{ value }}  doit être {{ type }}."
+     * )
      * 
      * 
      */
@@ -83,6 +99,8 @@ class Utilisateur implements UserInterface
      * @var string
      *
      * @ORM\Column(name="ville", type="string",length=255)
+     * @Assert\NotBlank(message="cette valeur ne doit pas être vide")
+     * 
      */
     private $ville;
     /**

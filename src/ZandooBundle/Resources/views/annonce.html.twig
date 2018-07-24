@@ -1,5 +1,9 @@
  {% extends 'base.html.twig' %}
- {% block body %} 
+ {% block body %}
+    {% set isConnected  = "" %}
+    {% if app.user is not empty%}
+        {% set isConnected  = "cached" %}
+    {%endif%}
    <div id="annonce" style="padding-bottom:550px">  
         <p> Déposer votre annonce ici </p>
         {{form_start(form)}}    
@@ -52,13 +56,13 @@
           {{form_widget(form.monnaie)}}
           </div>
         </div> 
-
+          
         <div class="col-md-12 no_pading ">
           <div class="col-md-2 text-left">   
-             {{form_label(form.utilisateur.username)}}
+              {{form_label(form.utilisateur.username)}}
           </div>
           <div class="col-md-4">
-          {{form_widget(form.utilisateur.username)}}
+          {{form_widget(form.utilisateur.username,{attr:{class:isConnected}})}}
           </div>
         </div> 
 
@@ -67,7 +71,7 @@
              {{form_label(form.utilisateur.email)}}
           </div>
           <div class="col-md-4">
-          {{form_widget(form.utilisateur.email)}}
+          {{form_widget(form.utilisateur.email,{attr:{class:isConnected}})}}
           </div>
         </div> 
 
@@ -76,7 +80,7 @@
              {{form_label(form.utilisateur.password)}}
           </div>
           <div class="col-md-4">
-          {{form_widget(form.utilisateur.password)}}
+          {{form_widget(form.utilisateur.password,{attr:{class:isConnected}})}}
           </div>
         </div> 
 
@@ -85,7 +89,7 @@
              {{form_label(form.utilisateur.telephone)}}
           </div>
           <div class="col-md-4">
-          {{form_widget(form.utilisateur.telephone)}}
+          {{form_widget(form.utilisateur.telephone,{attr:{class:isConnected}})}}
           </div>
         </div> 
 
@@ -94,7 +98,7 @@
              {{form_label(form.utilisateur.adresse)}}
           </div>
           <div class="col-md-4">
-             {{form_widget(form.utilisateur.adresse)}}
+             {{form_widget(form.utilisateur.adresse,{attr:{class:isConnected}})}}
           </div>
         </div> 
 
@@ -103,7 +107,7 @@
              {{form_label(form.utilisateur.ville)}}
           </div>
           <div class="col-md-4">
-          {{form_widget(form.utilisateur.ville)}}
+          {{form_widget(form.utilisateur.ville,{attr:{class:isConnected}})}}
           </div>
         </div> 
 
@@ -135,5 +139,13 @@
         </div>          
    {{form_end(form)}}
    </div>
+   
+   <script type='text/javascript'>
+       $(document).ready(function(){
+          $('.cached').parent().parent().each(function(){
+             $(this).remove();
+          })  
+       })
+   </script>
  {% endblock %}
 

@@ -13,6 +13,11 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('public/css/font-awesome-4.7.0/css/font-awesome.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('public/css/head.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('public/css/foot.css') }}">
+        <script src="{{ asset('public/js/jquery-3.1.1.min.js')}}"></script>
+	<script src="{{ asset('public/js/jquery-ui.js')}}"></script>
+	<script src="{{ asset('public/js/bootstrap.js') }}"></script>
+	<script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('public/js/general.js') }}"></script>
     </head>
     <body>
 	{% include 'header.html.twig' %}
@@ -27,10 +32,6 @@
 	</div>    
     {% block javascripts %}{% endblock %}	
 	{% include 'footer.html.twig' %}
-	<script src="{{ asset('public/js/jquery-3.1.1.min.js')}}"></script>
-	<script src="{{ asset('public/js/jquery-ui.js')}}"></script>
-	<script src="{{ asset('public/js/bootstrap.js') }}"></script>
-	<script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
-	<script src="{{ asset('public/js/general.js') }}"></script>
+	
     </body>
 </html>

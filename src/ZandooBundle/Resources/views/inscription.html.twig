@@ -28,6 +28,7 @@
           </div>
           <div class="col-md-4">
           {{form_widget(form.password)}}
+          {{form_errors(form.password)}}  
           </div>
         </div> 
 
@@ -37,6 +38,7 @@
           </div>
           <div class="col-md-4">
           {{form_widget(form.telephone)}}
+          {{form_errors(form.telephone)}}  
           </div>
         </div> 
 
@@ -46,15 +48,18 @@
           </div>
           <div class="col-md-4">
              {{form_widget(form.adresse)}}
+             {{form_errors(form.adresse)}}  
           </div>
         </div> 
 
         <div class="col-md-12 no_pading ">
           <div class="col-md-2 text-left">   
              {{form_label(form.ville)}}
+             
           </div>
           <div class="col-md-4">
           {{form_widget(form.ville)}}
+          {{form_errors(form.ville)}}  
           </div>
         </div> 
         <div class="col-md-12 no_pading ">

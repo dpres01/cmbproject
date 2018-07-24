@@ -49,7 +49,7 @@ class FormAnnonceType extends AbstractType
             ))
             ->add('description', TextareaType::class,array(
                  'label' =>'Decrivez votre annonce (600 caractères max)',
-                 'required'=> false
+                 'required'=> false                 
             ))
             ->add('prix',TextType::class,array())
             ->add('monnaie',ChoiceType::class,array(
@@ -65,7 +65,9 @@ class FormAnnonceType extends AbstractType
                 'required'=> false
             ))
             ->add('utilisateur',FormUtilisateurType::class,array(
-                'label'=>false               
+                'label'=>false ,
+                'required'=>false,
+                'attr'=>$this->isConnected($options)
             ))
            ->add('images',CollectionType::class,array(
                 'entry_type' => FormImageType::class,
@@ -83,11 +85,19 @@ class FormAnnonceType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'ZandooBundle\Entity\Annonce',
+            'connected'=>false
         ));
     }
+    
      public function getName(){
          return "annonceFormType";
      }
+      private function isConnected($option){
+          if($option['connected']){
+             return  array('disabled'=>true); 
+          }
+          return array();
+      }
      
 //     public function listeCategorieByFamille($famille,$categorie){
 //         

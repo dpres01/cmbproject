@@ -26,20 +26,23 @@ class FormUtilisateurType extends AbstractType
     {
         $builder 
             ->add('username',TextType::class,array(
-                'label' =>"Pseudo *"
+                'label' =>"Pseudo *",
+                'attr'=>$this->isConnected($options)
             ))
              ->add('email',EmailType::class,array(
-                'label' =>"Adresse e-mail *"
+                'label' =>"Adresse e-mail *",
+                 'attr'=>$this->isConnected($options)
             ))
            ->add('password',PasswordType::class,array(
-                'label' =>"Mot de passe *"
+                'label' =>"Mot de passe *",
+                'attr'=>$this->isConnected($options)
             )) 
            
             ->add('telephone',TelType::class,array(
                 'label' =>"Téléphone *"
             ))
             ->add('adresse',TextType::class,array(
-                'label' =>"Adresse *"
+                'label' =>"Adresse *",              
             ))
             ->add('ville',TextType::class,array(
                 'label' =>"Ville *"
@@ -59,10 +62,18 @@ class FormUtilisateurType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => Utilisateur::class,
+            'connected'=>false
         ));
     }
      public function getName(){
          return "utilisateurFormType";
      }
+     
+      private function isConnected($option){
+          if($option['connected']){
+             return  array('disabled'=>true); 
+          }
+          return array('disabled'=>false);
+      }
 
 }

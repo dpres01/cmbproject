@@ -45,6 +45,7 @@ $(document).ready(function()
     //fly menu
     $(window).scroll(function(){ positionMenu(); });
     positionMenu();
+    console.log(jquery('.cached'));
 });
 
 var fix = 0;
