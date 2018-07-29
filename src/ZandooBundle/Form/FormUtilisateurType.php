@@ -1,5 +1,4 @@
 <?php
-
 namespace ZandooBundle\Form; 
 
 use Symfony\Component\Form\AbstractType;
@@ -20,29 +19,24 @@ use ZandooBundle\Entity\Utilisateur;
  * @author frup70988
  */
 class FormUtilisateurType extends AbstractType 
-{
-     
+{   
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    {   
         $builder 
             ->add('username',TextType::class,array(
-                'label' =>"Pseudo *",
-                'attr'=>$this->isConnected($options)
+                'label' =>"Pseudo *"                
             ))
              ->add('email',EmailType::class,array(
-                'label' =>"Adresse e-mail *",
-                 'attr'=>$this->isConnected($options)
+                'label' =>"Adresse e-mail *"                
             ))
            ->add('password',PasswordType::class,array(
-                'label' =>"Mot de passe *",
-                'attr'=>$this->isConnected($options)
-            )) 
-           
+                'label' =>"Mot de passe *"                
+            ))          
             ->add('telephone',TelType::class,array(
                 'label' =>"Téléphone *"
             ))
             ->add('adresse',TextType::class,array(
-                'label' =>"Adresse *",              
+                'label' =>"Adresse *"              
             ))
             ->add('ville',TextType::class,array(
                 'label' =>"Ville *"
@@ -50,7 +44,7 @@ class FormUtilisateurType extends AbstractType
             ->add('isProfessionnel',ChoiceType::class,array(
                  'choices' => array(
                        'Particulier' => '0',
-                       'Professionnel' => '1',
+                       'Professionnel' => '1'
                     ),
                 'expanded' =>true ,
                 'label'=>false
@@ -68,12 +62,5 @@ class FormUtilisateurType extends AbstractType
      public function getName(){
          return "utilisateurFormType";
      }
-     
-      private function isConnected($option){
-          if($option['connected']){
-             return  array('disabled'=>true); 
-          }
-          return array('disabled'=>false);
-      }
 
 }

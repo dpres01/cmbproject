@@ -33,3 +33,7 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+    
+    zandoo.annonce_validator:
+        class: ZandooBundle\Validator\AnnonceValidator
+        arguments: ["@doctrine.orm.entity_manager"]

@@ -67,7 +67,7 @@ class FormAnnonceType extends AbstractType
             ->add('utilisateur',FormUtilisateurType::class,array(
                 'label'=>false ,
                 'required'=>false,
-                'attr'=>$this->isConnected($options)
+                'disabled' =>$options['connected']
             ))
            ->add('images',CollectionType::class,array(
                 'entry_type' => FormImageType::class,
@@ -92,12 +92,6 @@ class FormAnnonceType extends AbstractType
      public function getName(){
          return "annonceFormType";
      }
-      private function isConnected($option){
-          if($option['connected']){
-             return  array('disabled'=>true); 
-          }
-          return array();
-      }
      
 //     public function listeCategorieByFamille($famille,$categorie){
 //         

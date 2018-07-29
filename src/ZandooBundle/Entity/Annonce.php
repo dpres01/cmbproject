@@ -4,12 +4,19 @@ namespace ZandooBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
+use ZandooBundle\Validator\Annonce as AnnonceConstraint;
 
 /**
  * Annonce
  *
  * @ORM\Table(name="ANNONCE")
  * @ORM\Entity(repositoryClass="ZandooBundle\Repository\AnnonceRepository")
+ * 
+ * @AnnonceConstraint
+ * 
  */
 class Annonce
 {

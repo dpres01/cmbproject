@@ -31,11 +31,11 @@ class ZandooController extends Controller
         $annonce = new Annonce();
         $options['connected'] = false;
         if($this->getUser()){
-            $options['connected'] = true; 
-        }  
-       
+            $options['connected'] = true;
+        } 
         $form = $this->createForm(FormAnnonceType::class, $annonce, $options);
         $form->handleRequest($request);
+        
         if($form->isValid() && $form->isSubmitted()){
             $em = $this->getDoctrine()->getManager();
             try{
@@ -43,11 +43,11 @@ class ZandooController extends Controller
                     $utilisateur = $em->getRepository(Utilisateur::class)->findOneBy(array('email'=>$this->getUser()->getEmail())) ;
                     $annonce->setUtilisateur($utilisateur);
                 }
-                //dump(),$annonce);die;
                 $annonce->setDateCreation(new \DateTime());
                 $annonce->getUtilisateur()->setDateCreation(new \DateTime());              
                 $em->persist($annonce);              
-                $em->flush();  
+                $em->flush();
+                $this->addFlash('succesAnnonce', 'votre annonce a été enregistré avec succes!');
             }catch(Exception $e){
                echo $e;
             }
