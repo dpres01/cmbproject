@@ -3,12 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/wamp/www/zando/src/ZandooBundle/Repository/UtilisateurRepository.php</file>
+            <file>file:/C:/wamp/www/zando/app/config/services.yml</file>
+            <file>file:/C:/wamp/www/zando/src/ZandooBundle/Validator/Annonce.php</file>
             <file>file:/C:/wamp/www/zando/src/ZandooBundle/Controller/ZandooController.php</file>
+            <file>file:/C:/wamp/www/zando/src/ZandooBundle/Resources/views/annonce.html.twig</file>
+            <file>file:/C:/wamp/www/zando/src/ZandooBundle/Validator/AnnonceValidator.php</file>
+            <file>file:/C:/wamp/www/zando/src/ZandooBundle/Entity/Annonce.php</file>
             <file>file:/C:/wamp/www/zando/src/ZandooBundle/Entity/Utilisateur.php</file>
-            <file>file:/C:/wamp/www/zando/src/ZandooBundle/Form/FormUtilisateurType.php</file>
-            <file>file:/C:/wamp/www/zando/app/config/config.yml</file>
-            <file>file:/C:/wamp/www/zando/vendor/symfony/symfony/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig</file>
-            <file>file:/C:/wamp/www/zando/src/ZandooBundle/Resources/views/inscription.html.twig</file>
+            <file>file:/C:/wamp/www/zando/src/ZandooBundle/Resources/config/services.yml</file>
         </group>
     </open-files>
 </project-private>

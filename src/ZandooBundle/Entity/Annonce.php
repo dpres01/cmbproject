@@ -4,9 +4,7 @@ namespace ZandooBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use ZandooBundle\Validator\Annonce as AnnonceConstraint;
 
 /**
@@ -33,13 +31,18 @@ class Annonce
      * @var int
      *
      * @ORM\Column(name="titre", type="string")
+     * 
+     * @Assert\NotBlank(message="cette valeur ne doit pas être vide")
+     * 
      */
     private $titre;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=2000)
+     * @Assert\NotBlank(message="cette valeur ne doit pas être vide")
+     * 
      */
     private $description;
 
@@ -82,14 +85,18 @@ class Annonce
     /**
      * @ORM\ManyToOne(targetEntity="Categorie",cascade={"persist"})
      * @ORM\JoinColumn(name="categorie_id", referencedColumnName="id",nullable=false)
+     * 
+     * @Assert\NotBlank(message="cette valeur ne doit pas être vide")
      *
      * @var utilisateur
      */
     private $categorie;
-     /**
+    /**
      * @var bool
      *
      * @ORM\Column(name="type", type="boolean")
+     * 
+     * @Assert\NotBlank(message="cette valeur ne doit pas être vide")
      */
     private $type = 0;// 0 = Annonce | 1 = Demande
     

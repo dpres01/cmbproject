@@ -13,9 +13,7 @@ class AnnonceValidator extends ConstraintValidator
     public function __construct(EntityManager $em){
         $this->em = $em;
     }
-    public function validate($annonce,Constraint $constraint ){  
-        //dump($annonce,$this->em);
-        
+    public function validate($annonce,Constraint $constraint ){      
         if(!empty($annonce->getUtilisateur())){
            if(empty($annonce->getUtilisateur()->getPassword())){
               $this->context->addViolation('Renseigner un mot de passe '); 
@@ -27,17 +25,8 @@ class AnnonceValidator extends ConstraintValidator
            }
            if($email){
               $this->context->addViolation('Votre email '. $annonce->getUtilisateur()->getEmail().' existe déjà'); 
-           }
-           //dump($er);die;
-           
-        }
-        
-//        $sortantOtes = $ongletDetails->getSortantsOtes()->toArray();        
-//        if($this->existenceDoublons($sortantOtes)){
-//            $this->context->addViolation('erreur.onglets.details.sortants_otes.doublons');
-//        }       
-    }
-    
-    
+           }          
+        }               
+    }    
 }
 

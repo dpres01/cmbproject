@@ -20,4 +20,5 @@ composer.phar
 *.php~
 nbproject/*
 var/logs/dev.log
+ 
 
