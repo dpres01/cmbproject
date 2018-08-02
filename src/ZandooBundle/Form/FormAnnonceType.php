@@ -16,7 +16,6 @@ use ZandooBundle\Form\FormImageType;
 use Doctrine\ORM\EntityRepository;
 use ZandooBundle\Entity\Annonce;
 
-
 /**
  * Description of FormAnnonceType
  *
@@ -34,7 +33,8 @@ class FormAnnonceType extends AbstractType
                         return $er->createQueryBuilder('c')
                             ->orderBy('c.numOrdre', 'ASC');
                     },
-                 'choice_label' => 'libelle',                         
+                 'choice_label' => 'libelle',
+                 'required'=> true           
             )) 
             ->add('type',ChoiceType::class,array(
                  'choices' => array(
@@ -42,16 +42,20 @@ class FormAnnonceType extends AbstractType
                        'Demande' => '1',
                     ),
                 'expanded' =>true ,
-                'label'=>false
+                'label'=>false,
+                'required'=> true
             ))                
             ->add('titre',TextType::class,array(
-                'label' =>"Titre de l'annoonce"
+                'label' =>"Titre de l'annoonce",
+                'required'=> true
             ))
             ->add('description', TextareaType::class,array(
                  'label' =>'Decrivez votre annonce (600 caractères max)',
-                 'required'=> false                 
+                 'required'=> true                 
             ))
-            ->add('prix',TextType::class,array())
+            ->add('prix',TextType::class,array(
+                'required'=> false
+            ))
             ->add('monnaie',ChoiceType::class,array(
                  'choices' => array(
                        'Fc' => '0',
@@ -67,17 +71,15 @@ class FormAnnonceType extends AbstractType
             ->add('utilisateur',FormUtilisateurType::class,array(
                 'label'=>false ,
                 'required'=>false,
-                'attr'=>$this->isConnected($options)
+                'disabled' =>$options['connected']
             ))
            ->add('images',CollectionType::class,array(
                 'entry_type' => FormImageType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'empty_data' => null,
-//                'options' => array(
-//                    //'form_options' => $optionsForm
-//                ),
-                'label' => false            
+                'label' => false,
+                'required'=> false
           ))                  
         ;
     }
@@ -92,12 +94,6 @@ class FormAnnonceType extends AbstractType
      public function getName(){
          return "annonceFormType";
      }
-      private function isConnected($option){
-          if($option['connected']){
-             return  array('disabled'=>true); 
-          }
-          return array();
-      }
      
 //     public function listeCategorieByFamille($famille,$categorie){
 //         

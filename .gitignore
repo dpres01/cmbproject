@@ -14,9 +14,11 @@
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
 /vendor/
+/web/uploads/
 /web/bundles/
 composer.phar
 *.php~
 nbproject/*
 var/logs/dev.log
+ 
 

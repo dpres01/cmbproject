@@ -1,12 +1,20 @@
  {% extends 'base.html.twig' %}
  {% block body %}
     {% set isConnected  = "" %}
-    {% if app.user is not empty%}
+    {% if app.user is not empty or form.vars.value.id%}
         {% set isConnected  = "cached" %}
     {%endif%}
+
+     {% for message in  app.flashes('succesAnnonce') %}  
+        <div class="alert alert-success" role="alert">
+            {{ message}}
+        </div> 
+    {% endfor%}
+  
    <div id="annonce" style="padding-bottom:550px">  
         <p> Déposer votre annonce ici </p>
-        {{form_start(form)}}    
+        {{form_start(form)}}        
+         {{form_errors(form)}}
         <div class="col-md-12 no_pading ">
           <div class="col-md-2 text-left">   
              {{form_label(form.categorie)}}

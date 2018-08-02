@@ -11,11 +11,13 @@ use ZandooBundle\Entity\Annonce;
  */
 class AnnonceRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function saveAnnonce(Annonce $annonce)
-    {
-        $annonce->setDateCreation(new \DateTime());
-        $em = $this->getEntityManager();
-        $em->persist($annonce);
-        $em->flush();
+    public function findAnnonceBy(Annonce $annonce)
+    {   
+        $qb = $this->createQueryBuilder('a')
+                ->andWhere('u.titre = :titre')
+                ->andWhere('u.email = :username')
+                ->setParameter('titre', $filtre->getTitre());
+        $ret = $qb->getQuery()->getResult();
     }
+    
 }

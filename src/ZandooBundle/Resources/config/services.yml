@@ -6,5 +6,9 @@ services:
         class: ZandooBundle\security\UserAuthentification
         arguments: ["@security.password_encoder"] 
     zandoo.mail:
-        class: ZandooBundle\Service\Mail    
+        class: ZandooBundle\Service\Mail 
+#    zandoo.annonce_validator:
+#        class: ZandooBundle\Validator\AnnonceValidator
+#        arguments: ["@doctrine.orm.entity_manager"]
+       
 
