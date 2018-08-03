@@ -41,13 +41,13 @@ class ZandooController extends Controller
         } 
         
         //dump($annonce->getUtilisateur()->getEmail(),$this->getUser());die;
-        if(!empty($annonce->getUtilisateur()) && empty($this->getUser()) || (!empty($this->getUser()) && !empty($annonce->getUtilisateur()) && $annonce->getUtilisateur()->getId() != $this->getUser()->getId()) ){
-             throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException('Vous n\'avez pas acces à cette page veuillez vous connecté.');          
-        }else{
-            $utilisateur = $em->getRepository(Utilisateur::class)->findOneBy(array('email'=>$this->getUser()->getEmail())) ;
-            $annonce->setUtilisateur($utilisateur);
-        }
-        //dump($annonce);die;
+//        if(!empty($annonce->getUtilisateur()) && empty($this->getUser()) || (!empty($this->getUser()) && !empty($annonce->getUtilisateur()) && $annonce->getUtilisateur()->getId() != $this->getUser()->getId()) ){
+//             throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException('Vous n\'avez pas acces à cette page veuillez vous connecté.');          
+//        }else{
+//            $utilisateur = $em->getRepository(Utilisateur::class)->findOneBy(array('email'=>$this->getUser()->getEmail())) ;
+//            $annonce->setUtilisateur($utilisateur);
+//        }
+//        //dump($annonce);die;
         $form = $this->createForm(FormAnnonceType::class, $annonce, $options);
         $form->handleRequest($request);
         if($form->isValid() && $form->isSubmitted()){
