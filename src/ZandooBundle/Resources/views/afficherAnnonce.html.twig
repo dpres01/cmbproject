@@ -1,0 +1,16 @@
+ {% extends 'base.html.twig' %}
+ {% block body %}
+        <p> {{annonce.titre}} </p>
+        <p> {{annonce.description}}</p>
+        <p> {{annonce.prix}} {{annonce.monnaie}}</p>
+        <p> {#{annonce.categorie}#}</p>
+    
+   {{dump(annonce)}}
+   {% for image in  annonce.images %}
+       <p> 
+       <img src="/cmbproject/web/uploads/documents/{{image.id}}.{{image.url}}" style="width: 100px"/>
+       </p> 
+   {% endfor%}
+   </table>
+ {% endblock %}
+

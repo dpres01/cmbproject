@@ -3,6 +3,7 @@ namespace ZandooBundle\Validator;
 
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Doctrine\ORM\EntityManager;
 use ZandooBundle\Entity\Annonce as annonceEntity;
 use ZandooBundle\Entity\Utilisateur;
@@ -10,11 +11,13 @@ use ZandooBundle\Entity\Utilisateur;
 class AnnonceValidator extends ConstraintValidator
 {
     private $em;
-    public function __construct(EntityManager $em){
+    private $token;
+    public function __construct(EntityManager $em, TokenStorage $token){
         $this->em = $em;
+        $this->token = $token;
     }
-    public function validate($annonce,Constraint $constraint ){      
-        if(!empty($annonce->getUtilisateur())){
+    public function validate($annonce,Constraint $constraint ){ 
+        if($annonce->getUtilisateur() != null && !is_object($this->token->getToken()->getUser())){
            if(empty($annonce->getUtilisateur()->getPassword())){
               $this->context->addViolation('Renseigner un mot de passe '); 
            }
