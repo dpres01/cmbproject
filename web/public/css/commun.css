@@ -5,6 +5,15 @@
     max-width: 100%;
     max-height: 100%;
 }
+a{
+	text-decoration:none;
+}
+.lk-w, .lk-w:hover{
+	color:#fff;
+}
+.lk-b, .lk-b:hover{
+	color:#383838;
+}
 .body-main
 {
 	margin:0 auto;
@@ -12,6 +21,7 @@
 	max-width:1100px;
 	padding:10px 5px;
 }
+
 /* On small screens, set height to 'auto' for sidenav and grid */
 @media screen and (min-width: 1100px) 
 {
