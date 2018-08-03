@@ -71,7 +71,12 @@ class ZandooController extends Controller
                echo $e;
             }
         }
-        return $this->render('@Zandoo/annonce.html.twig',array('form'=>$form->createView()));
+        return $this->render('@Zandoo/annonce.html.twig',
+			array(
+				'form' => $form->createView(),
+				'colorBody' => "F7F7F7"
+			)
+		);
     }
      /**
      * @Route("/annonce/afficher/{id}",defaults={"id" = null},name="afficher_annonce")

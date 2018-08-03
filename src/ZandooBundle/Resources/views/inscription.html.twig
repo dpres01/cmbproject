@@ -1,74 +1,68 @@
- {% extends 'base.html.twig' %}
-   
- {% block body %}      
-  {{form_start(form)}} 
-      <div class="col-md-12 no_pading ">
-          <div class="col-md-2 text-left">   
-             {{form_label(form.username)}}
-          </div>
-          <div class="col-md-4">
-          {{form_widget(form.username)}}
-          {{form_errors(form.username)}}    
-          </div>
-        </div> 
-
-        <div class="col-md-12 no_pading ">
-          <div class="col-md-2 text-left">   
-             {{form_label(form.email)}}
-          </div>
-          <div class="col-md-4">
-          {{form_widget(form.email)}}
-          {{form_errors(form.email)}}    
-          </div>
-        </div> 
-
-        <div class="col-md-12 no_pading ">
-          <div class="col-md-2 text-left">   
-             {{form_label(form.password)}}
-          </div>
-          <div class="col-md-4">
-          {{form_widget(form.password)}}
-          {{form_errors(form.password)}}  
-          </div>
-        </div> 
-
-        <div class="col-md-12 no_pading ">
-          <div class="col-md-2 text-left">   
-             {{form_label(form.telephone)}}
-          </div>
-          <div class="col-md-4">
-          {{form_widget(form.telephone)}}
-          {{form_errors(form.telephone)}}  
-          </div>
-        </div> 
-
-        <div class="col-md-12 no_pading ">
-          <div class="col-md-2 text-left">   
-             {{form_label(form.adresse)}}
-          </div>
-          <div class="col-md-4">
-             {{form_widget(form.adresse)}}
-             {{form_errors(form.adresse)}}  
-          </div>
-        </div> 
-
-        <div class="col-md-12 no_pading ">
-          <div class="col-md-2 text-left">   
-             {{form_label(form.ville)}}
-             
-          </div>
-          <div class="col-md-4">
-          {{form_widget(form.ville)}}
-          {{form_errors(form.ville)}}  
-          </div>
-        </div> 
-        <div class="col-md-12 no_pading ">
-          <div class="col-md-4">
-          {{form_widget(form.isProfessionnel)}}
-          </div>
-        </div> 
-     <input type="submit" value="Enregistrer">
-     {{ form_rest(form) }} 
-     {{form_end(form)}}
- {% endblock %}
+ {% extends 'base.html.twig' %}   
+	{% block body %}      
+	{{form_start(form)}} 
+	<link rel="stylesheet" href="{{ asset('public/css/inscription.css') }}" type="text/css"/>  
+	<div class="bg-cont-annonce">
+		<div class="cont-annonce">
+			<div class="create-annonce-title">
+				<div style="float:left;"><h3 style="margin:0;padding:0;">Créer un compte</h3></div>
+				<div style="float:right;padding-top:4px;">Vous avez déjà un compte ? <a class="lk-bu" href="{{path('login')}}">Se connecter</a></div>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+	</div>
+	{% for message in  app.flashes('succesAnnonce') %}  
+	<div class="alert alert-success" role="alert">
+		{{ message}}
+	</div> 
+    {% endfor%}
+	<div style="margin:10px auto 0 auto;max-width:550px;width:100%;background:#f7f7f7;padding:10px;border:1px solid #eaeaea;">
+		<div style="border-bottom:1px solid #eaeaea;padding:5px;">
+			<h4 style="margin:0;padding:0;color:#2952a3;">Informations sur le compte</h4>
+		</div>
+		<div style="margin:10px auto 0 auto;width:100%;max-width:300px;">
+			<div style="padding:0px;">
+				<div>{{form_label(form.username)}}</div>
+				<div style="margin-top:0px;">{{form_widget(form.username)}}</div>
+			</div>
+			<div style="padding-top:5px;">
+				<div>{{form_label(form.email)}}</div>
+				<div style="margin-top:0px;">{{form_widget(form.email)}}</div>
+			</div>
+			<div style="padding-top:5px;">
+				<div>{{form_label(form.password)}}</div>
+				<div style="margin-top:0px;">{{form_widget(form.password)}}</div>
+			</div>
+		</div>
+	</div>
+	<div style="margin:10px auto 0 auto;max-width:550px;width:100%;background:#f7f7f7;padding:10px;border:1px solid #eaeaea;">
+		<div style="border-bottom:1px solid #eaeaea;padding:5px;">
+			<h4 style="margin:0;padding:0;color:#2952a3;">Informations de contact</h4>
+		</div>
+		<div style="margin:10px auto 0 auto;width:100%;max-width:300px;">
+			<div style="padding:0px;">
+				<div>{{form_label(form.telephone)}}</div>
+				<div style="margin-top:0px;">{{form_widget(form.telephone)}}</div>
+			</div>
+			<div style="padding-top:5px;">
+				<div>{{form_label(form.adresse)}}</div>
+				<div style="margin-top:0px;">{{form_widget(form.adresse)}}</div>
+			</div>
+			<div style="padding-top:5px;">
+				<div>{{form_label(form.ville)}}</div>
+				<div style="margin-top:0px;">{{form_widget(form.ville)}}</div>
+			</div>
+			<div style="padding-top:5px;">
+				<div style="margin-top:0px;">{{form_widget(form.isProfessionnel)}}</div>
+			</div>
+		</div>
+	</div>			
+	<div style="margin:20px 0 40px 0;">							
+		<div style="margin:0 auto;width:18%;min-width:100px;">
+			<div id="btnsv2" class="btnfm" style="cursor:pointer;" onclick="$(this).closest('form').submit();"><b>Enregistrer</b></div>
+		</div>
+	</div>	
+    {{ form_rest(form) }} 
+    {{form_end(form)}}
+{% endblock %}
 
