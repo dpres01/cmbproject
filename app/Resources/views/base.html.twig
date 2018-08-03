@@ -14,24 +14,24 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('public/css/head.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('public/css/foot.css') }}">
         <script src="{{ asset('public/js/jquery-3.1.1.min.js')}}"></script>
-	<script src="{{ asset('public/js/jquery-ui.js')}}"></script>
-	<script src="{{ asset('public/js/bootstrap.js') }}"></script>
-	<script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
-	<script src="{{ asset('public/js/general.js') }}"></script>
+		<script src="{{ asset('public/js/jquery-ui.js')}}"></script>
+		<script src="{{ asset('public/js/bootstrap.js') }}"></script>
+		<script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
+		<script src="{{ asset('public/js/general.js') }}"></script>
     </head>
     <body>
-	{% include 'header.html.twig' %}
-	
+	{% include 'header.html.twig' %}	
 	{% if homehead is defined %}
 		{% include 'search-home.html.twig' %}
-	{% else %}
+	{% elseif headsearch is defined %}
 		{% include 'search.html.twig' %}
-	{% endif %}
-	<div class="body-main">
-		{% block body %} {% endblock %}
+	{% endif %}	
+	<div style="background:#{% if colorBody is defined %}{{ colorBody }}{% else %}{{ 'ffffff' }}{% endif %};">
+		<div class="body-main">
+			{% block body %} {% endblock %}
+		</div>    
 	</div>    
     {% block javascripts %}{% endblock %}	
-	{% include 'footer.html.twig' %}
-	
+	{% include 'footer.html.twig' %}	
     </body>
 </html>
