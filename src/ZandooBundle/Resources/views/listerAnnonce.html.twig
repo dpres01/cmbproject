@@ -1,0 +1,203 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<link rel="stylesheet" href="{{ asset('public/css/lister-annonce.css') }}" type="text/css"/> 
+	<div class="bg-cont-annonce">
+		<div class="cont-annonce">
+			<div class="annonce-l" style="">
+				<div class="bx-filter" style="">
+					<div style="text-align:right;">
+						<i class="fa fa-sliders" aria-hidden="true" style="cursor:pointer;" onclick="shfilter();"></i>
+					</div>
+					<div class="filter-annonce">
+						<div style="font-weight:bold;">Prix</div>
+						<div class="filter-prix">
+							<div style="float:left;">
+								<input type="text" value="" class="filter-prix-inp">
+							</div>
+							<div style="float:right;">
+								<input type="text" value="" class="filter-prix-inp">
+							</div>
+							<div style="clear:both;"></div>
+						</div>
+						<div class="filter-title">Catégories</div>
+						<div style="margin-top:5px;">
+							<div style="float:left;">
+								<input type="checkbox" value="" style="">
+							</div>
+							<div class="filter-marg">
+								Appartement
+							</div>
+							<div style="clear:both;"></div>
+						</div>
+						<div style="margin-top:5px;">
+							<div style="float:left;">
+								<input type="checkbox" value="" style="">
+							</div>
+							<div class="filter-marg">
+								Maison
+							</div>
+							<div style="clear:both;"></div>
+						</div>
+						<div class="filter-title">Distance</div>
+						<div style="margin-top:5px;">
+							<div style="">
+								<input type="text" value="" placeholder="Paris" class="filter-dist-inp">
+							</div>
+							<div style="margin-top:10px;">
+								<input type="text" value="" placeholder="1km" class="filter-dist-inp">
+							</div>
+							<div style="clear:both;"></div>
+						</div>
+						<div class="filter-title">Critères</div>
+						<div style="margin-top:5px;">
+							<div style="float:left;">
+								<input type="checkbox" value="" style="">
+							</div>
+							<div class="filter-marg">
+								20m²
+							</div>
+							<div style="clear:both;"></div>
+						</div>
+						<div style="margin-top:5px;">
+							<div style="float:left;">
+								<input type="checkbox" value="" style="">
+							</div>
+							<div class="filter-marg">
+								40m²
+							</div>
+							<div style="clear:both;"></div>
+						</div>
+						<div style="margin-top:5px;">
+							<div style="float:left;">
+								<input type="checkbox" value="" style="">
+							</div>
+							<div class="filter-marg">
+								60m²
+							</div>
+							<div style="clear:both;"></div>
+						</div>
+						<div style="margin-top:5px;">
+							<div style="float:left;">
+								<input type="checkbox" value="" style="">
+							</div>
+							<div class="filter-marg">
+								80m²
+							</div>
+							<div style="clear:both;"></div>
+						</div>
+						<div class="filter-title">Types d'offres</div>
+						<div style="margin-top:5px;">
+							<div style="float:left;">
+								<input type="checkbox" value="" style="">
+							</div>
+							<div class="filter-marg">
+								Offres <span class="filter-nb">(1 251)</span>
+							</div>
+							<div style="float:left;margin-left:35px;">
+								<input type="checkbox" value="" style="">
+							</div>
+							<div class="filter-marg">
+								Demandes <span class="filter-nb">(840)</span>
+							</div>
+							<div style="clear:both;"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="annonce-r" style="">
+				{% for val in data %} 
+					{% if loop.index == 1 %}
+						{% set marg = 0 %}
+					{% else %}
+						{% set marg = 25 %}
+					{% endif %}
+					<div class="bxanon" style="margin-top:{{ marg }}px;">				
+						<div class="bxanon-img">
+							<img src="{{ val.img }}" class="imgmax">
+						</div>
+						<div class="bx-txt">
+							<div class="bx-title truncate">{{ val.title }}</div>
+							<div class="bx-txt-nor">
+								<div class="bx-txt-nor-price-box">
+									<div class="bx-txt-nor-price">{{ val.price }}{{ val.currency }}</div>
+									<div style="margin-top:15px;">
+										<div class="bx-txt-nor-price-offer">
+											Voir offre
+										</div>
+									</div>
+									<div style="margin-top:15px;text-align:center;">
+										{{ val.date }}
+									</div>
+								</div>
+								<div style="float:left;width:350px;">
+									<div style="font-size:13px;padding-top:5px;">{{ val.desc }}</div>
+									<div style="margin-top:15px;">
+										<div class="bx-txt-nor-tbgrd">
+											<div class="bx-txt-nor-tbgrd-elm">
+												Surface<br/><b>98 m²</b>
+											</div>
+											<div class="bx-txt-nor-tbgrd-elm">
+												Pièces<br/><b>4</b>
+											</div>
+											<div class="bx-txt-nor-tbgrd-elm" style="border-right:0px;">
+												Chambres<br/><b>3</b>
+											</div>
+											<div style="clear:both;"></div>
+										</div>
+									</div>
+								</div>
+								<div style="clear:both;"></div>
+							</div>
+							<div class="bx-txt-resp">
+								<div class="bx-price-offer">					
+									<div class="bx-price">{{ val.price }}{{ val.currency }}</div>
+									<div style="float:left;">
+										<div class="bx-offer">
+											Voir offre
+										</div>
+									</div>
+									<div style="clear:both;"></div>
+								</div>
+								<div class="tabgrd" style="">
+									<div class="tbgrd">
+										Surface<br/><b>98 m²</b>
+									</div>
+									<div class="tbgrd">
+										Pièces<br/><b>4</b>
+									</div>
+									<div class="tbgrd" style="border-right:0px;">
+										Chambres<br/><b>3</b>
+									</div>
+									<div style="clear:both;"></div>
+								</div>
+								<div class="bx-date" style="">
+									{{ val.date }}
+								</div>
+							</div>
+						</div>
+						<div style="clear:both;"></div>
+					</div>
+				{% endfor %}
+				<div style="background:#fff;padding:10px;border:1px solid #ccc;margin-top:35px;">					
+					<table style="width:100%;">
+						<tr>
+							<td style="width:15%;">
+								<div style="padding:5px;text-align:center;border:1px solid #ccc;background:#fff;">Précédent</div>
+							</td>
+							<td style="width:70%;">
+								<div style="margin:0 auto;width:100%;max-width:80px;">
+									<span data-page-number="1" data-offset="0" class="currPage">1</span><span data-page-number="1" data-offset="0" class="nextPage">2</span>
+								</div>
+							</td>
+							<td style="width:15%;">
+								<div style="padding:5px;text-align:center;border:0px solid #ccc;background:#005999;color:#fff;">Suivant</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>		
+			<div style="clear:both;"></div>
+		</div>
+	</div>
+{% endblock %}
+

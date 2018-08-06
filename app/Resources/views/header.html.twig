@@ -1,12 +1,20 @@
 	<div style="background:#003580;">
 		<div class="hd-top" style="">			
-			<div style="float:left;"><h3 style="margin:0;padding:0;">Zandoo</h3></div>
+			<div style="float:left;">
+				<a href="{{path('home')}}" style="text-decoration:none;color:#fff;">
+					<h3 style="margin:0;padding:0;">Zandoo</h3>
+				</a>
+			</div>
 			<div class="hd-top-menu" style="">
 				<div class="hd-top-menu-elm">
 					<a class="lk-w" href="{{path('enregistrer_annonce')}}">Déposer une annonce</a>
 				</div>
-				<div class="hd-top-menu-elm">Offres</div>
-				<div class="hd-top-menu-elm">Demandes</div>
+				<div class="hd-top-menu-elm">
+					<a class="lk-w" href="{{path('annonce')}}">Offres</a>
+				</div>
+				<div class="hd-top-menu-elm">
+					<a class="lk-w" href="{{path('annonce')}}">Demandes</a>
+				</div>
 				<div class="hd-top-menu-elm">Mes favoris</div>
 				<div class="hd-top-menu-elm">Boutiques</div>
 				<div class="hd-top-menu-elm" style="margin:0;">Messages</div>
@@ -46,8 +54,12 @@
 			<div class="hd-resp-menu-elm">
 				<a class="lk-w" href="{{path('enregistrer_annonce')}}">Déposer une annonce</a>
 			</div>
-			<div class="hd-resp-menu-elm">Offres</div>
-			<div class="hd-resp-menu-elm">Demandes</div>
+			<div class="hd-resp-menu-elm">
+				<a class="lk-w" href="{{path('annonce')}}">Offres</a>
+			</div>
+			<div class="hd-resp-menu-elm">
+				<a class="lk-w" href="{{path('annonce')}}">Demandes</a>
+			</div>
 			<div class="hd-resp-menu-elm">Mes favoris</div>
 			<div class="hd-resp-menu-elm">Boutiques</div>
 			<div class="hd-resp-menu-elm">Messages</div>
