@@ -15,7 +15,7 @@ class UtilisateurController extends Controller
      /**
      * @Route("/inscription",name="enregistrer_utilisateur")
      */
-    public function inscription(Request $request){
+    public function inscriptionAction(Request $request){
         $utilisateur = new Utilisateur(); 
         $form = $this->createForm(FormUtilisateurType::class, $utilisateur, $options = array());
         $form->handleRequest($request);
