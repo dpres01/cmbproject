@@ -33,9 +33,15 @@ class ZandooController extends Controller
      **/
     public function listerAnnoce(Request $request)
 	{       
-            $em = $this->getDoctrine()->getManager();
-            $annonce = $em->getRepository(Annonce::class)->findAll();
+            $em = $this->getDoctrine()->getManager();  
+            $offset = 1;
+            if ($offset){
+                $offset = (intval($offset) - 1) * 3 ;
+            }
+            
+            $annonce = $em->getRepository(Annonce::class)->findAnnonceByCritere($offset);
             dump($annonce);die;
+                              
             $tab["title"] = "Les Bananes Vertes buttanes";
             $tab["img"] = "/cmbproject/web/public/img/fd8017b0877dc633d90eaa06c011532e7e36172d.jpg";
             $tab["price"] = "99";
@@ -122,6 +128,16 @@ class ZandooController extends Controller
 	{
         $em = $this->getDoctrine()->getManager();
         $annonce = $em->getRepository(Annonce::class)->find($id);
-        return $this->render('@Zandoo/annonce.html.twig',array('annonce'=>$annonce));
+        if($annonce){
+            return $this->render('@Zandoo/annonce.html.twig',
+                    array(
+                            'annonce' => $annonce,
+                            'headsearch' => 1,
+                            'colorBody' => "F7F7F7",
+                    )
+            );
+        }else{
+            throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException( 'Not found!') ;
+        }
     }     
 }

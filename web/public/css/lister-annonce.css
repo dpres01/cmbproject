@@ -116,8 +116,7 @@
 	text-decoration:underline;
 }
 .truncate 
-{
-	
+{	
 	min-width: 123px;
 	white-space: nowrap;
 	overflow: hidden;
@@ -201,6 +200,14 @@
 	border-radius: 2px;
 	text-align:center;
 }
+.shfilter
+{
+	display:none;
+}
+.btn-filter
+{
+	display:block;
+}
 @media(min-width: 350px)
 {
 	.filter-nb
@@ -281,7 +288,15 @@
 	.bxanon
 	{
 		padding:5px;
-	}	
+	}		
+	.shfilter
+	{
+		display:block;
+	}
+	.btn-filter
+	{
+		display:none;
+	}
 }
 @media(min-width: 1118px)
 {
