@@ -11,28 +11,25 @@
              <div class="alert alert-success">
              {{message}}
              </div> 
-        {%endfor %}
-    
+        {%endfor %}    
     {#%endif%#}  
      {#{ dump(app.session.flashbag.get('createUser'))}#}
-     {#{ dump(app.flashes)}#}
-
-	 
-	<link rel="stylesheet" href="{{ asset('public/css/inscription.css') }}" type="text/css"/>  
-	<div style="margin:10px auto 0 auto;max-width:1100px;width:100%;">
-		<div style="float:left;max-width:500px;width:100%;">
-			<div style="width:100%;text-align:center;">
-				<h2 style="margin:0;padding:0;color:#909090;">Nouveau sur Zando ?</h2>
+     {#{ dump(app.flashes)}#}	
+	<link rel="stylesheet" href="{{ asset('public/css/connexion.css') }}" type="text/css"/>  
+	<div class="conn-bx">
+		<div class="conn-lf">
+			<div style="">
+				<h2 class="conn-lf-txt">Nouveau sur Zando ?</h2>
 			</div>		
-			<div style="margin:20px 0 25px 0;">							
-				<div style="margin:0 auto;width:35%;min-width:150px;">
-					<div id="btnsv2" class="btnfm" style="cursor:pointer;background:#888;border-radius:5px;" onclick="">
+			<div class="conn-lf-bx-btn">							
+				<div class="conn-lf-bx-btn-ct">
+					<div class="btnfmg" onclick="">
 						<a class="lk-w" href="{{path('enregistrer_utilisateur')}}">Inscrivez-vous</a>
 					</div>
 				</div>
 			</div>	
-			<div style="margin:0 auto;width:60%;min-width:150px;text-align:center;">
-				<div style="border-top:1px solid #ccc;padding-top:15px;">
+			<div class="conn-lf-txt2-bx">
+				<div class="conn-lf-txt2">
 					Reliant des MILLIONS d'acheteurs et les vendeurs dans le monde entier depuis 2002! 
 				</div>
 				<div style="margin-top:10px;">
@@ -40,32 +37,41 @@
 				</div>
 			</div>
 		</div>
-		<div style="float:right;max-width:500px;width:100%;padding-top:35px;">
-			<div style="width:100%;background:#f7f7f7;padding:10px 10px 20px 10px;border:1px solid #eaeaea;">
-				<div style="border-bottom:1px solid #eaeaea;padding:5px;">
-					<h4 style="margin:0;padding:0;color:#2952a3;">Connectez-vous à votre compte</h4>
+		<div class="conn-rt">
+			<div class="conn-rt-bx">
+				<div class="conn-rt-bx-title">
+					<h4 class="conn-rt-title-ft">Connectez-vous à votre compte</h4>
 				</div>
-				<div style="margin:10px auto 0 auto;width:100%;max-width:300px;">
+				<div class="conn-rt-bx-inp">
 					<form action="{{ path('login_check') }}" method="post">
 					<div style="padding:0px;">
-						<div><label for="username">Login :</label></div>
-						<div style="margin-top:0px;"><input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" /></div>
+						<div><label for="username">Login</label></div>
+						<div style="margin-top:0px;">
+							<input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" />
+						</div>
 					</div>
 					<div style="padding-top:5px;">
-						<div><label for="password">Mot de passe :</label></div>
-						<div style="margin-top:0px;"><input class="form-control" type="password" id="password" name="_password" /></div>
+						<div><label for="password">Mot de passe</label></div>
+						<div style="margin-top:0px;">
+							<input class="form-control" type="password" id="password" name="_password" />
+						</div>
 					</div>
 					<div style="padding-top:5px;">
 						<div>&nbsp;</div>
 						<div style="margin-top:0px;">
-							<div style="margin:0 auto;width:100%;max-width:180px;">
-								<div id="btnsv2" class="btnfm" style="cursor:pointer;" onclick="$(this).closest('form').submit();">
+							<div class="conn-lf-bx-btn-ct2">
+								<div class="btnfm" onclick="$(this).closest('form').submit();">
 									<b>Se connecter</b>
 								</div>
 							</div>
 						</div>
 					</div>
 					</form>
+				</div>
+				<div class="conn-rt-forgot">
+					<a href="{{path('generer_password')}}">
+						Vous avez oublié votre nom d'utilisateur ou mot de passe?
+					</a>
 				</div>
 			</div>
 		</div>

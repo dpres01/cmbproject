@@ -73,3 +73,7 @@ function positionMenu()
         $("#srcbox").removeClass("srchbox-fix"); 
     }
 }
+function shfilter()
+{
+	$(".filter-annonce").toggle();
+}

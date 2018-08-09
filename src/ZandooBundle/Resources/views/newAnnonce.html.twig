@@ -1,0 +1,189 @@
+ {% extends 'base.html.twig' %}
+ {% block body %}
+    {% set isConnected  = "" %}
+    {% if app.user is not empty or form.vars.value.id%}
+        {% set isConnected  = "cached" %}
+    {%endif%}
+	<link rel="stylesheet" href="{{ asset('public/css/annonce-add.css') }}" type="text/css"/>  
+	<div class="bg-cont-annonce">
+		<div class="cont-annonce">
+			<div class="create-annonce-title"><h3 style="margin:0;padding:0;">Déposer une annonce</h3></div>
+		</div>
+	</div>
+	{% for message in  app.flashes('succesAnnonce') %}  
+	<div class="alert alert-success" role="alert">
+		{{ message}}
+	</div> 
+    {% endfor%}
+	{{form_start(form)}}        
+	{{form_errors(form)}}
+	<div class="ann-bx">
+		<div class="ann-bx-title-cnt">						
+			<div class="ann-bx-title-nb">1</div>
+			<div class="ann-bx-title-txt">Détails annonce</div>
+			<div style="clear:both;"></div>
+		</div>
+		<div class="ann-min-bx">
+			<div class="ann-subt">{{form_label(form.categorie)}}</div>
+			<div class="ann-subt-ans-box" style="max-width:350px;">
+				{{form_widget(form.categorie)}}
+                                {{form_errors(form.categorie)}}
+			</div>
+		</div>
+		<div class="ann-min-bx">
+			<div class="ann-subt">{{form_label(form.type)}}</div>
+			<div class="ann-subt-ans-box" style="max-width:350px;">
+				{{form_widget(form.type)}}
+                                {{form_errors(form.type)}}
+			</div>
+		</div>
+		<div class="ann-min-bx">
+			<div class="ann-subt">{{form_label(form.utilisateur.isProfessionnel)}}</div>
+			<div class="ann-subt-ans-box" style="max-width:350px;">
+				{{form_widget(form.utilisateur.isProfessionnel,{attr:{class:isConnected}})}}
+			</div>
+		</div>
+		<div class="ann-min-bx">
+			<div class="ann-subt">{{form_label(form.titre)}}</div>
+			<div class="ann-subt-ans-box" style="max-width:500px;">
+				{{form_widget(form.titre)}}
+                                {{form_errors(form.titre)}}
+			</div>
+		</div>
+		<div class="ann-min-bx">
+			<div class="ann-subt">{{form_label(form.description)}}</div>
+			<div class="ann-subt-ans-box" style="max-width:700px;height:150px;">
+				{{form_widget(form.description, {"attr":{"style":"height:100%;"}})}}
+			</div>
+		</div>
+		<div class="ann-min-bx">
+			<div class="ann-subt">{{form_label(form.prix)}}</div>
+			<div class="ann-subt-ans-box" style="">
+				<div class="ann-subt-ans-inp" style="max-width:80px;">
+					{{form_widget(form.prix)}}
+				</div>
+				<div class="ann-subt-ans-txt" style="max-width:80px;padding:0;">
+					{{form_widget(form.monnaie)}}
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+	</div>
+	<div class="ann-bx" style="margin-top:25px;">
+		<div class="ann-bx-title-cnt">						
+			<div class="ann-bx-title-nb">2</div>
+			<div class="ann-bx-title-txt">Media</div>
+			<div style="clear:both;"></div>
+		</div>
+		<div class="ann-min-bx">
+			<div class="ann-subt">Photos</div>
+			<div class="ann-subt-ans-box">
+				Une annonce avec photo est 5 fois plus consultée qu'une annonce sans photo.
+			</div>
+		</div>
+		<div class="ann-min-bx" style="margin-bottom:10px;">
+			<div style="background:;">
+				<div style="float:left;width:20%;height:100px;text-align:center;background:#fff;">
+					<img src="{{ asset('public/img/add-pic.png') }}" class="imgmax">
+				</div>
+				<div style="float:left;width:20%;height:100px;text-align:center;background:#fff;">
+					<img src="{{ asset('public/img/add-pic.png') }}" class="imgmax">
+				</div>
+				<div style="float:left;width:20%;height:100px;text-align:center;background:#fff;">
+					<img src="{{ asset('public/img/add-pic.png') }}" class="imgmax">
+				</div>
+				<div style="float:left;width:20%;height:100px;text-align:center;background:#fff;">
+					<img src="{{ asset('public/img/add-pic.png') }}" class="imgmax">
+				</div>
+				<div style="float:left;width:20%;height:100px;text-align:center;background:#fff;">
+					<img src="{{ asset('public/img/add-pic.png') }}" class="imgmax">
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			<ul id="email-fields-list"
+				data-prototype="{{ form_widget(form.images.vars.prototype)|e }}"
+				data-widget-tags="{{ '<li></li>'|e }}">
+				{% for image in form.images %}
+					<li>
+						{{ form_errors(image) }}
+						{{ form_widget(image) }}
+					</li>
+				{% endfor %}
+		   </ul>
+			<button type="button" class="add-another-collection-widget" data-list="#email-fields-list">
+				Ajouter une photo
+			</button>
+		</div>
+	</div>	
+	<div class="ann-bx" style="margin-top:25px;">
+		<div class="ann-bx-title-cnt">						
+			<div class="ann-bx-title-nb">3</div>
+			<div class="ann-bx-title-txt">Localisation</div>
+			<div style="clear:both;"></div>
+		</div>
+		<div class="ann-min-bx">
+			<div class="ann-subt">Ville ou code postal {{form_label(form.utilisateur.ville)}}</div>
+			<div class="ann-subt-ans-box" style="max-width:300px;">
+				{{form_widget(form.utilisateur.ville,{attr:{class:isConnected}})}}
+			</div>
+		</div>
+		<div class="ann-min-bx">
+			<div class="ann-subt">{{form_label(form.utilisateur.adresse)}}</div>
+			<div class="ann-subt-ans-box" style="max-width:550px;">
+				{{form_widget(form.utilisateur.adresse,{attr:{class:isConnected}})}}
+			</div>
+		</div>
+	</div>
+	<div class="ann-bx" style="margin-top:25px;">
+		<div class="ann-bx-title-cnt">						
+			<div class="ann-bx-title-nb">4</div>
+			<div class="ann-bx-title-txt">Informations de contact</div>
+			<div style="clear:both;"></div>
+		</div>
+		<div class="ann-min-bx">
+			<div class="ann-subt">{{form_label(form.utilisateur.username)}}</div>
+			<div class="ann-subt-ans-box" style="max-width:200px;">
+				{{form_widget(form.utilisateur.username,{attr:{class:isConnected}})}}
+			</div>
+		</div>
+		<div class="ann-min-bx">
+			<div class="ann-subt">{{form_label(form.utilisateur.password)}}</div>
+			<div class="ann-subt-ans-box" style="max-width:200px;">
+				{{form_widget(form.utilisateur.password,{attr:{class:isConnected}})}}
+			</div>
+		</div>
+		<div class="ann-min-bx">
+			<div class="ann-subt">{{form_label(form.utilisateur.email)}}</div>
+			<div class="ann-subt-ans-box" style="max-width:350px;">
+				{{form_widget(form.utilisateur.email,{attr:{class:isConnected}})}}
+			</div>
+		</div>
+		<div class="ann-min-bx">
+			<div class="ann-subt">{{form_label(form.utilisateur.telephone)}}</div>
+			<div class="ann-subt-ans-box">
+				<div class="ann-subt-ans-inp" style="max-width:200px;">
+					{{form_widget(form.utilisateur.telephone,{attr:{class:isConnected}})}}
+				</div>
+				<div class="ann-subt-ans-txt" style="max-width:400px;">
+					{{form_widget(form.afficherTel)}}
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+	</div>			
+	<div style="margin:20px 0 40px 0;">							
+		<div style="margin:0 auto;width:40%;max-width:150px;">
+			<div class="btnfm" onclick="$(this).closest('form').submit();"><b>Valider</b></div>
+		</div>
+		<div style="clear:both;"></div>
+	</div>	
+	{{form_end(form)}}   
+   <script type='text/javascript'>
+       $(document).ready(function(){
+          $('.cached').parent().parent().each(function(){
+             $(this).remove();
+          })  
+        })
+   </script>
+ {% endblock %}
+
