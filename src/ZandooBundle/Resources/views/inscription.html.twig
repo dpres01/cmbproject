@@ -1,5 +1,6 @@
  {% extends 'base.html.twig' %}   
 	{% block body %}      
+
 	{{form_start(form)}} 
 	<link rel="stylesheet" href="{{ asset('public/css/inscription.css') }}" type="text/css"/>  
 	<div class="bg-cont-annonce">
@@ -38,10 +39,12 @@
 				<div style="padding-top:13px;">
 					<div>{{form_label(form.username)}}</div>
 					<div style="margin-top:0px;">{{form_widget(form.username)}}</div>
+					{{form_errors(form.username)}}
 				</div>
 				<div style="padding-top:5px;">
 					<div>{{form_label(form.password)}}</div>
 					<div style="margin-top:0px;">{{form_widget(form.password)}}</div>
+					{{form_errors(form.password)}}
 				</div>
 			</div>
 		</div>
@@ -55,18 +58,22 @@
 				<div style="padding-top:0px;">
 					<div>{{form_label(form.email)}}</div>
 					<div style="margin-top:0px;">{{form_widget(form.email)}}</div>
+					{{form_errors(form.email)}}
 				</div>
 				<div style="padding-top:5px;">
 					<div>{{form_label(form.telephone)}}</div>
 					<div style="margin-top:0px;">{{form_widget(form.telephone)}}</div>
+					{{form_errors(form.telephone)}}
 				</div>
 				<div style="padding-top:5px;">
 					<div>{{form_label(form.adresse)}}</div>
 					<div style="margin-top:0px;">{{form_widget(form.adresse)}}</div>
+					{{form_errors(form.adresse)}}
 				</div>
 				<div style="padding-top:5px;">
 					<div>{{form_label(form.ville)}}</div>
 					<div style="margin-top:0px;">{{form_widget(form.ville)}}</div>
+					{{form_errors(form.ville)}}
 				</div>
 				<div style="padding-top:5px;display:none;">
 					<div style="margin-top:0px;">{{form_widget(form.isProfessionnel)}}</div>

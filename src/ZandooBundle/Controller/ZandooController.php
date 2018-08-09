@@ -119,6 +119,12 @@ class ZandooController extends Controller
 	{
         $em = $this->getDoctrine()->getManager();
         $annonce = $em->getRepository(Annonce::class)->find($id);
-        return $this->render('@Zandoo/annonce.html.twig',array('annonce'=>$annonce));
+        return $this->render('@Zandoo/annonce.html.twig',
+			array(
+				'annonce' => $annonce,
+				'headsearch' => 1,
+				'colorBody' => "F7F7F7",
+			)
+		);
     }     
 }

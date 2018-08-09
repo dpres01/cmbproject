@@ -5,10 +5,10 @@
 		<div class="cont-annonce">
 			<div class="annonce-l" style="">
 				<div class="bx-filter" style="">
-					<div style="text-align:right;">
+					<div class="btn-filter" style="text-align:right;">
 						<i class="fa fa-sliders" aria-hidden="true" style="cursor:pointer;" onclick="shfilter();"></i>
 					</div>
-					<div class="filter-annonce">
+					<div id="filter-annonce" class="shfilter">
 						<div style="font-weight:bold;">Prix</div>
 						<div class="filter-prix">
 							<div style="float:left;">
@@ -122,7 +122,7 @@
 									<div class="bx-txt-nor-price">{{ val.price }}{{ val.currency }}</div>
 									<div style="margin-top:15px;">
 										<div class="bx-txt-nor-price-offer">
-											Voir offre
+											<a href="{{ path('afficher_annonce', {'id': 1}) }}" class="lk-b">Voir offre</a>
 										</div>
 									</div>
 									<div style="margin-top:15px;text-align:center;">
