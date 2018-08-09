@@ -81,35 +81,40 @@
 		<div class="ann-min-bx" style="margin-bottom:10px;">
 			<div style="background:;">
 				<div style="float:left;width:20%;height:100px;text-align:center;background:#fff;">
-					<img src="{{ asset('public/img/add-pic.png') }}" class="imgmax">
+					<img id="imgadd-0" src="{{ asset('public/img/add-pic.png') }}" class="imgmax addimg">
+					<div style="display:none"><input type="file" data-nb="imginp-0" id="form_annonce_images_0_file" name="form_annonce[images][0][file]" class="fileimg"/></div>
 				</div>
 				<div style="float:left;width:20%;height:100px;text-align:center;background:#fff;">
-					<img src="{{ asset('public/img/add-pic.png') }}" class="imgmax">
+					<img id="imgadd-1" src="{{ asset('public/img/add-pic.png') }}" class="imgmax addimg">
+					<div style="display:none"><input type="file" data-nb="imginp-1" id="form_annonce_images_1_file" name="form_annonce[images][1][file]" class="fileimg"/></div>
 				</div>
 				<div style="float:left;width:20%;height:100px;text-align:center;background:#fff;">
-					<img src="{{ asset('public/img/add-pic.png') }}" class="imgmax">
+					<img id="imgadd-2" src="{{ asset('public/img/add-pic.png') }}" class="imgmax addimg">
+					<div style="display:none"><input type="file" data-nb="imginp-2" id="form_annonce_images_2_file" name="form_annonce[images][2][file]" class="fileimg"/></div>
 				</div>
 				<div style="float:left;width:20%;height:100px;text-align:center;background:#fff;">
-					<img src="{{ asset('public/img/add-pic.png') }}" class="imgmax">
+					<img id="imgadd-3" src="{{ asset('public/img/add-pic.png') }}" class="imgmax addimg">
+					<div style="display:none"><input type="file" data-nb="imginp-3" id="form_annonce_images_3_file" name="form_annonce[images][3][file]" class="fileimg"/></div>
 				</div>
 				<div style="float:left;width:20%;height:100px;text-align:center;background:#fff;">
-					<img src="{{ asset('public/img/add-pic.png') }}" class="imgmax">
+					<img id="imgadd-4" src="{{ asset('public/img/add-pic.png') }}" class="imgmax addimg">
+					<div style="display:none"><input type="file" data-nb="imginp-4" id="form_annonce_images_4_file" name="form_annonce[images][4][file]" class="fileimg"/></div>
 				</div>
 				<div style="clear:both;"></div>
 			</div>
-			<ul id="email-fields-list"
-				data-prototype="{{ form_widget(form.images.vars.prototype)|e }}"
-				data-widget-tags="{{ '<li></li>'|e }}">
-				{% for image in form.images %}
+			<div style="display:none;">
+				<ul id="email-fields-list" data-prototype="{{ form_widget(form.images.vars.prototype)|e }}" data-widget-tags="{{ '<li></li>'|e }}">
+					{% for image in form.images %}
 					<li>
 						{{ form_errors(image) }}
 						{{ form_widget(image) }}
 					</li>
-				{% endfor %}
-		   </ul>
-			<button type="button" class="add-another-collection-widget" data-list="#email-fields-list">
-				Ajouter une photo
-			</button>
+					{% endfor %}
+			    </ul>
+				<button type="button" class="add-another-collection-widget" data-list="#email-fields-list">
+					Ajouter une photo
+				</button>
+			</div>
 		</div>
 	</div>	
 	<div class="ann-bx" style="margin-top:25px;">
@@ -176,11 +181,32 @@
 	</div>	
 	{{form_end(form)}}   
    <script type='text/javascript'>
-       $(document).ready(function(){
-          $('.cached').parent().parent().each(function(){
-             $(this).remove();
-          })  
-        })
+	$(document).ready(function()
+	{	
+		$('.cached').parent().parent().each(function(){ $(this).remove(); })  
+		$('.addimg').click(function()
+		{
+			var nb = $(this).attr("id").split("-")[1];
+			var elem = $("#form_annonce_images_"+nb+"_file");
+			elem.click();
+		});
+	});
+	function readURL(input) 
+	{
+		if (input.files && input.files[0]) 
+		{
+			var reader = new FileReader();
+			reader.onload = function(e) 
+			{
+				var nb = $(input).attr("id").split("_")[3];
+				$('#imgadd-'+nb).attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	$(".fileimg").change(function() {
+		readURL(this);
+	});
    </script>
  {% endblock %}
 
