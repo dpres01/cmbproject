@@ -11,7 +11,7 @@ use ZandooBundle\Form\FormAnnonceType;
 use ZandooBundle\Entity\Utilisateur;
 
 class ZandooController extends Controller
-{	 
+{      
     /**
      * @Route("/zando-index", name="home")
      */
@@ -31,7 +31,7 @@ class ZandooController extends Controller
     /**
      * @Route("/", name="annonce")     
      **/
-    public function listerAnnoce(Request $request)
+    public function listerAnnonce(Request $request)
 	{       
             $em = $this->getDoctrine()->getManager();  
             $offset = 1;
@@ -40,7 +40,7 @@ class ZandooController extends Controller
             }
             
             $annonce = $em->getRepository(Annonce::class)->findAnnonceByCritere($offset);
-            dump($annonce);die;
+            
                               
             $tab["title"] = "Les Bananes Vertes buttanes";
             $tab["img"] = "/cmbproject/web/public/img/fd8017b0877dc633d90eaa06c011532e7e36172d.jpg";
@@ -83,12 +83,11 @@ class ZandooController extends Controller
        
         if(!empty($annonce->getUtilisateur()) && empty($this->getUser()) || (!empty($this->getUser()) && !empty($annonce->getUtilisateur()) && $annonce->getUtilisateur()->getId() != $this->getUser()->getId()) ){
              throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException('Vous n\'avez pas acces à cette page veuillez vous connecté.');          
-        }
-        
+        }    
         $form = $this->createForm(FormAnnonceType::class, $annonce, $options);
         $form->handleRequest($request);
         if($form->isValid() && $form->isSubmitted()){
-           
+        
             try{
                 if($this->getUser()){
                     $utilisateur = $em->getRepository(Utilisateur::class)->find($this->getUser()->getId());
@@ -108,11 +107,13 @@ class ZandooController extends Controller
                 $annonce->setDateCreation(new \DateTime());                        
                 $em->persist($annonce);              
                 $em->flush();
-                $this->addFlash('succesAnnonce', 'votre annonce a été enregistré avec succes!');
+                $this->addFlash('succesAnnonce', 'votre annonce a été enregistré avec succes!');              
+                return $this->redirectToRoute('afficher_annonce',array('id'=>$annonce->getId()));
             }catch(Exception $e){
                echo $e;
             }
-        }
+        }  
+       
         return $this->render('@Zandoo/newAnnonce.html.twig',
 			array(
 				'form' => $form->createView(),
@@ -122,9 +123,9 @@ class ZandooController extends Controller
     }
 	
     /**
-     * @Route("afficher/annonce/{id}", name="afficher_annonce")     
+     * @Route("afficher/annonce/{id}", requirements={"idDossier": "\d+"}, name="afficher_annonce")     
      **/
-    public function afficherAnnoce(Request $request, $id)
+    public function afficherAnnonce(Request $request, $id)
 	{
         $em = $this->getDoctrine()->getManager();
         $annonce = $em->getRepository(Annonce::class)->find($id);

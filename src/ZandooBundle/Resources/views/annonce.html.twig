@@ -2,6 +2,11 @@
  {% block body %}
 	<link rel="stylesheet" href="{{ asset('public/css/annonce.css') }}" type="text/css"/> 
 	<div class="ann-cont">
+        {% for message in  app.flashes('succesAnnonce') %}  
+	<div class="alert alert-success" role="alert">
+		{{ message}}
+	</div> 
+       {% endfor%}  
 		<div class="ann-lf">
 			<div style=""><h3 style="padding:0;margin:0;">Les Bananes Vertes du venezuela</h3></div>
 			<div class="ann-img-all" style="margin-top:15px;">

@@ -16,9 +16,10 @@
 /vendor/
 /web/uploads/
 /web/bundles/
-composer.phar
+/composer.phar
 *.php~
-nbproject/*
+/nbproject/*
 var/logs/dev.log
+var/logs/prod.log
  
 
