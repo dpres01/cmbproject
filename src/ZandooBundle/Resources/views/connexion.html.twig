@@ -17,15 +17,59 @@
      {#{ dump(app.session.flashbag.get('createUser'))}#}
      {#{ dump(app.flashes)}#}
 
-   {# Le formulaire, avec URL de soumission vers la route « login_check » comme on l'a vu #}
-   <form action="{{ path('login_check') }}" method="post">
-        <label for="username">Login :</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}" />
-
-        <label for="password">Mot de passe :</label>
-        <input type="password" id="password" name="_password" />
-        <br />
-        <input type="submit" value="Connexion" />
-   </form>
+	 
+	<link rel="stylesheet" href="{{ asset('public/css/inscription.css') }}" type="text/css"/>  
+	<div style="margin:10px auto 0 auto;max-width:1100px;width:100%;">
+		<div style="float:left;max-width:500px;width:100%;">
+			<div style="width:100%;text-align:center;">
+				<h2 style="margin:0;padding:0;color:#909090;">Nouveau sur Zando ?</h2>
+			</div>		
+			<div style="margin:20px 0 25px 0;">							
+				<div style="margin:0 auto;width:35%;min-width:150px;">
+					<div id="btnsv2" class="btnfm" style="cursor:pointer;background:#888;border-radius:5px;" onclick="">
+						<a class="lk-w" href="{{path('enregistrer_utilisateur')}}">Inscrivez-vous</a>
+					</div>
+				</div>
+			</div>	
+			<div style="margin:0 auto;width:60%;min-width:150px;text-align:center;">
+				<div style="border-top:1px solid #ccc;padding-top:15px;">
+					Reliant des MILLIONS d'acheteurs et les vendeurs dans le monde entier depuis 2002! 
+				</div>
+				<div style="margin-top:10px;">
+					<img src="{{ asset('public/img/bigglobe.png') }}" class="imgmax">
+				</div>
+			</div>
+		</div>
+		<div style="float:right;max-width:500px;width:100%;padding-top:35px;">
+			<div style="width:100%;background:#f7f7f7;padding:10px 10px 20px 10px;border:1px solid #eaeaea;">
+				<div style="border-bottom:1px solid #eaeaea;padding:5px;">
+					<h4 style="margin:0;padding:0;color:#2952a3;">Connectez-vous à votre compte</h4>
+				</div>
+				<div style="margin:10px auto 0 auto;width:100%;max-width:300px;">
+					<form action="{{ path('login_check') }}" method="post">
+					<div style="padding:0px;">
+						<div><label for="username">Login :</label></div>
+						<div style="margin-top:0px;"><input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" /></div>
+					</div>
+					<div style="padding-top:5px;">
+						<div><label for="password">Mot de passe :</label></div>
+						<div style="margin-top:0px;"><input class="form-control" type="password" id="password" name="_password" /></div>
+					</div>
+					<div style="padding-top:5px;">
+						<div>&nbsp;</div>
+						<div style="margin-top:0px;">
+							<div style="margin:0 auto;width:100%;max-width:180px;">
+								<div id="btnsv2" class="btnfm" style="cursor:pointer;" onclick="$(this).closest('form').submit();">
+									<b>Se connecter</b>
+								</div>
+							</div>
+						</div>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div style="clear:both;"></div>
+	</div>
  {% endblock %}
 

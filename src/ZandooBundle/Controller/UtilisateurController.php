@@ -15,7 +15,7 @@ class UtilisateurController extends Controller
      /**
      * @Route("/inscription",name="enregistrer_utilisateur")
      */
-    public function inscription(Request $request){
+    public function inscriptionAction(Request $request){
         $utilisateur = new Utilisateur(); 
         $form = $this->createForm(FormUtilisateurType::class, $utilisateur, $options = array());
         $form->handleRequest($request);
@@ -31,7 +31,10 @@ class UtilisateurController extends Controller
             $this->addFlash('createUser', 'Votre compte a été créé avec succès');
             return $this->redirectToRoute('login');
         }
-        return $this->render('@Zandoo/inscription.html.twig',array('form'=>$form->createView()));
+        return $this->render('@Zandoo/inscription.html.twig',
+			array('form'=>$form->createView()
+			)
+		);
     }
     /**
      * @Route("/login",name="login")

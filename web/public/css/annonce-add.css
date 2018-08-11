@@ -1,0 +1,120 @@
+.bg-cont-annonce
+{
+	background:#F7F7F7;
+}
+.cont-annonce
+{
+	margin:0 auto;width:100%;max-width:1110px;padding-bottom:5px;
+}
+.create-annonce-title
+{
+	border-bottom:0px solid #ccc;padding:0 0 5px 0;
+}
+.ann-title
+{
+	margin:0 auto;max-width:500px;width:100%;padding:10px 0 0 0;
+}
+.selectfm
+{
+	width:100%;height:40px;padding:0 10px;background:#DEDEE1;
+}
+.tipfm
+{
+	width:100%;padding:20px;background:#f1f5f9;color:#333;border:1px solid #003580;margin-top:20px;
+}
+.tipicn
+{
+	float:left;width:10%;
+}
+.tiptxt
+{
+	float:left;width:90%;font-weight:bold;
+}
+.btnfm
+{
+	width:100%;padding:10px 0;
+	text-align:center;color:#fff;background:rgb(0, 53, 128);
+}
+.btnfm:hover
+{
+	background:rgb(0, 53, 128, 0.8);
+}
+.ann-bx
+{
+	background:#fff;padding:15px;
+}
+.ann-bx-title-cnt
+{
+	border-bottom:1px solid #f2f2f2;padding:0 0 10px 0;font-weight:bold;
+}
+.ann-bx-title-nb
+{
+	float:left;background:#f2f2f2;padding:0 5px;margin-right:10px;
+}
+.ann-bx-title-txt
+{
+	float:left;
+}
+.ann-min-bx
+{
+	margin-top:20px;padding-left:15px;
+	font: 13px/16px "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.ann-subt
+{
+	font-weight:bold;
+}
+.ann-subt-ans-box
+{
+	margin:5px 0 0 10px;
+}
+.ann-subt-ans-inp
+{
+	float:left;margin-right:10px;
+}
+.ann-subt-ans-txt
+{
+	float:left;padding-top:3px;
+}
+.ann-cara1
+{
+	width:180px;
+	margin:15px 0 0 0;
+}
+.ann-cara2
+{
+	width:180px;
+	float:left;
+	margin:5px 10px 0 0;
+}
+.ann-cara3
+{
+	padding-top:8px;
+	float:left;
+}
+.ann-img
+{
+	margin:0 auto;text-align:center;width:220px;height:150px;
+	background:#f2f2f2;padding:10px;border:2px solid #ccc;border-radius:5px;cursor:pointer;
+}
+input[type="radio"], input[type="checkbox"] {margin-top:0px;}
+@media(min-width: 492px)
+{
+	.ann-cara1
+	{
+		float:left;
+		width:190px;
+		margin:0 10px 0 0;
+	}
+	.ann-cara2
+	{
+		float:left;
+		width:190px;
+		margin:0 10px 0 0;
+	}
+	.ann-cara3
+	{
+		padding-top:4px;
+		float:left;
+	}
+}

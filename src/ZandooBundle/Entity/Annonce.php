@@ -71,7 +71,7 @@ class Annonce
     /**
      * @var string
      *
-     * @ORM\Column(name="afficher_tel", type="string", length=255,nullable=true)
+     * @ORM\Column(name="afficher_tel", type="boolean")
      */
     private $afficherTel ;// 1 = telephone masqué | 0 =telephone affiché
     
