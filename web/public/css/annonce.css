@@ -1,0 +1,293 @@
+input[type="radio"], input[type="checkbox"] {margin-top:0px;}
+.body-main {
+    padding: 30px 0px;
+}
+.ann-cont
+{
+	padding:0 1%;
+}
+.ann-lf
+{
+	margin:0 1% 0 0;width:100%;
+}
+.ann-rt
+{
+	width:100%;
+}
+.ann-img-all
+{
+	
+}
+.ann-img-lf
+{
+	text-align:center;
+	width:100%;
+}
+.ann-img-mn
+{
+	border:1px solid #ccc;width:100%;height:430px;text-align:center;background:#fff;overflow:hidden;
+}
+.ann-img-rt
+{
+	margin-top:5px;
+	width:100%;
+}
+.ann-img-ot
+{
+	margin-top:0px;margin-right:1%;
+	border:1px solid #ccc;height:133px;text-align:center;background:#fff;overflow:hidden;
+	width:32.33%;
+	float:left;
+}
+.ann-img-ot-lst
+{
+	width:33.33%;
+	margin-right:0;
+}
+.ann-stat-bx
+{
+	margin-top:15px;font-size:12px;
+}
+.ann-stat-elem
+{
+	float:left;margin-right:20px;
+}
+.ann-stat-icon
+{
+	float:left;margin-right:10px;color:#ccc;
+}
+.ann-bar
+{
+	margin-top:15px;background:#fff;padding:10px;font-weight:bold;
+}
+.ann-desc
+{
+	margin-top:15px;padding:10px;font-weight:bold;text-decoration:none;
+}
+.ann-desc-bx
+{
+	margin-top:0px;background:#fff;padding:20px;
+}
+.ann-car-w
+{
+	padding:5px 10px;background:#fff;
+}
+.ann-car-det
+{
+	float:right;font-weight:bold;
+}
+.ann-map-bx
+{
+	margin-top:20px;
+}
+.ann-map-icon
+{
+	display:none;
+}
+.ann-map-street
+{
+	width:100%;padding-top:4px;font-size:12px;
+}
+.ann-map-str
+{
+	float:left;
+	min-width: 100px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	/*width:95%;*/
+}
+.ann-price-bx
+{
+	margin-top:5px;border:1px solid #ccc;background:#fff;padding:10px;text-align:center;
+}
+.ann-price
+{
+	background:#fff;padding:0;color:#A82828;
+}
+.ann-price-ques
+{
+	margin-top:10px;font-size:12px;
+}
+.ann-price-num
+{
+	font-size:14px;font-weight:bold;margin:0 auto;width:220px;padding:10px 0;border:1px solid #ccc;background:#F7F7F7;color:#666974;border-radius:5px;
+}
+.ann-poster-bx
+{
+	margin-top:10px;border:1px solid #ccc;background:#fff;padding:10px;position:relative;
+}
+.ann-poster
+{
+	float:left;font-weight:bold;
+}
+.ann-poster-info
+{
+	margin-top:10px;font-size:12px;display:none;
+}
+.ann-poster-info-elem
+{
+	float:left;margin-right:10px;color:rgb(255,138,0);
+}
+.ann-poster-info-arr
+{
+	position:absolute;
+	width:18px;
+	height:14px;
+	left:50%;
+	right:50%;
+	bottom:5px;
+	text-align:center;
+	color:#ccc;
+}
+.ann-msg-bx
+{
+	margin-top:10px;border:1px solid #ccc;background:#fff;padding:10px;text-align:center;
+}
+.ann-msg-tit
+{
+	font-size:14px;font-weight:bold;
+}
+.ann-msg-inp
+{
+	padding:5px 10px;width:100%;border: 1px solid #DEDEE1;
+}
+.ann-msg-txtarea
+{
+	border:1px solid #DEDEE1;color:#909090;width:100%;height:100px;padding:5px 10px;
+}
+.ann-msg-btn
+{
+	margin:0 auto;width:180px;padding:10px 0;background:#149414;text-align:center;color:#fff;cursor:pointer;
+}
+.ann-sim-bx
+{
+	margin-top:10px;
+	float:left;
+	background:#fff;
+	width:100%;
+	max-width:200px;
+	height:250px;
+	margin-left:2%;/*25px;*/
+}
+.ann-sim-img
+{
+	height:180px;
+	overflow:hidden;
+	text-align:center;
+	width: 100%;
+}
+.ann-sim-txt-bx
+{
+	height:70px;border-top:1px solid #DEDEE1;padding:4%;
+}
+.ann-sim-txt
+{
+	color:#3E414F;font-size:15px;font-weight:bold;position:relative;
+}
+.ann-sim-price
+{
+	position:absolute;right:0;bottom:0;color:#A82828;
+}
+.ann-sim-off
+{
+	padding:0 5px;
+	margin:45px auto 0 auto;
+	width:100%;
+}
+@media(min-width: 370px)
+{	
+	.ann-map-icon
+	{
+		display:block;
+		float:left;color:#003580;width:3%;
+	}
+	.ann-map-street
+	{
+		float:left;
+		width:97%;padding-top:4px;font-size:12px;
+	}
+	.ann-map-str 
+	{		
+		width:95%;
+		max-width: 300px;
+	}
+}
+@media(min-width: 620px)
+{	
+	.ann-img-lf
+	{
+		float:left;
+		margin-right:0.5%;
+		width:74.5%;
+	}
+	.ann-img-rt
+	{
+		float:right;
+		width:25%;
+		margin-top:0;
+	}
+	.ann-img-ot
+	{
+		margin-top:15px;
+		margin-right:0;
+		width:100%;
+		max-width:175px;
+	}		
+	.ann-img-ot-lst
+	{
+		width:100%;
+		margin-right:0;
+	}
+}
+@media(min-width: 850px)
+{	
+	.ann-img-lf
+	{
+		margin-right:0.5%;
+		width:74.5%;
+		max-width:560px;
+	}
+	.ann-img-rt
+	{
+		width:25%;
+		max-width:175px;
+	}
+	.ann-lf
+	{
+		float:left;margin:0 1% 0 0;width:68.17%;/*750px*/
+	}
+	.ann-rt
+	{
+		float:right;max-width:320px;width:30%;
+	}	
+	.ann-map-bx
+	{
+		margin-top:10px;
+	}
+	.ann-map-icon
+	{
+		max-width:18px;width:5%;
+	}
+	.ann-map-street
+	{
+		max-width:302px;width:95%;
+	}
+	.ann-map-str
+	{
+		width:80%;
+		max-width: 234px;
+	}
+}
+@media(min-width: 1100px)
+{
+	.ann-sim-off
+	{
+		margin:45px 0 0 0;
+		padding:0;
+	}
+	.ann-cont
+	{
+		padding:0;
+	}
+}

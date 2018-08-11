@@ -1,186 +1,272 @@
  {% extends 'base.html.twig' %}
  {% block body %}
-    {% set isConnected  = "" %}
-    {% if app.user is not empty or form.vars.value.id%}
-        {% set isConnected  = "cached" %}
-    {%endif%}
-	<link rel="stylesheet" href="{{ asset('public/css/annonce-add.css') }}" type="text/css"/>  
-	<div class="bg-cont-annonce">
-		<div class="cont-annonce">
-			<div class="create-annonce-title"><h3 style="margin:0;padding:0;">Déposer une annonce</h3></div>
-		</div>
-	</div>
-	{% for message in  app.flashes('succesAnnonce') %}  
+	<link rel="stylesheet" href="{{ asset('public/css/annonce.css') }}" type="text/css"/> 
+	<div class="ann-cont">
+        {% for message in  app.flashes('succesAnnonce') %}  
 	<div class="alert alert-success" role="alert">
 		{{ message}}
 	</div> 
-    {% endfor%}
-	{{form_start(form)}}        
-	{{form_errors(form)}}
-	<div class="ann-bx">
-		<div class="ann-bx-title-cnt">						
-			<div class="ann-bx-title-nb">1</div>
-			<div class="ann-bx-title-txt">Détails annonce</div>
-			<div style="clear:both;"></div>
-		</div>
-		<div class="ann-min-bx">
-			<div class="ann-subt">{{form_label(form.categorie)}}</div>
-			<div class="ann-subt-ans-box" style="max-width:350px;">
-				{{form_widget(form.categorie)}}
-			</div>
-		</div>
-		<div class="ann-min-bx">
-			<div class="ann-subt">{{form_label(form.type)}}</div>
-			<div class="ann-subt-ans-box" style="max-width:350px;">
-				{{form_widget(form.type)}}
-			</div>
-		</div>
-		<div class="ann-min-bx">
-			<div class="ann-subt">{{form_label(form.utilisateur.isProfessionnel)}}</div>
-			<div class="ann-subt-ans-box" style="max-width:350px;">
-				{{form_widget(form.utilisateur.isProfessionnel)}}
-			</div>
-		</div>
-		<div class="ann-min-bx">
-			<div class="ann-subt">{{form_label(form.titre)}}</div>
-			<div class="ann-subt-ans-box" style="max-width:500px;">
-				{{form_widget(form.titre)}}
-			</div>
-		</div>
-		<div class="ann-min-bx">
-			<div class="ann-subt">{{form_label(form.description)}}</div>
-			<div class="ann-subt-ans-box" style="max-width:700px;height:150px;">
-				{{form_widget(form.description, {"attr":{"style":"height:100%;"}})}}
-			</div>
-		</div>
-		<div class="ann-min-bx">
-			<div class="ann-subt">{{form_label(form.prix)}}</div>
-			<div class="ann-subt-ans-box" style="">
-				<div class="ann-subt-ans-inp" style="max-width:80px;">
-					{{form_widget(form.prix)}}
+       {% endfor%}  
+		<div class="ann-lf">
+			<div style=""><h3 style="padding:0;margin:0;">Les Bananes Vertes du venezuela</h3></div>
+			<div class="ann-img-all" style="margin-top:15px;">
+				<div class="ann-img-lf">
+					<div class="ann-img-mn">
+						<img src="/public/img/5_59.JPG">
+					</div>
 				</div>
-				<div class="ann-subt-ans-txt" style="max-width:80px;padding:0;">
-					{{form_widget(form.monnaie)}}
+				<div class="ann-img-rt">
+					<div class="ann-img-ot" style="margin-top:0;">
+						<img src="/public/img/5_59.JPG">
+					</div>
+					<div class="ann-img-ot">
+						<img src="/public/img/5_59.JPG">
+					</div>
+					<div class="ann-img-ot ann-img-ot-lst" style="">
+						<img src="/public/img/5_59.JPG">
+					</div>
+					<div style="clear:both;"></div>
+				</div>
+				<div style="clear:both;"></div>
+			</div>		
+			<div class="ann-stat-bx">						
+				<div class="ann-stat-elem">
+					<div class="ann-stat-icon"><i class="fa fa-hourglass-o" style="font-size:14px;"></i></div> 
+					<div style="float:left;">							
+						Publiée la semaine dernière
+					</div> 
+					<div style="clear:both;"></div>
+				</div>						
+				<div class="ann-stat-elem">
+					<div class="ann-stat-icon"><i class="fa fa-eye" style="font-size:14px;"></i></div> 
+					<div style="float:left;">																
+						56 visites
+					</div> 
+					<div style="clear:both;"></div>
+				</div>						
+				<div style="float:left;">
+					<div class="ann-stat-icon"><i class="fa fa-flag-o" style="font-size:14px;"></i></div> 
+					<div style="float:left;">																
+						Signaler cette annonce
+					</div> 
+					<div style="clear:both;"></div>
+				</div>
+				<div style="clear:both;"></div>		
+			</div>	
+			<div class="ann-bar">
+				<div style="float:left;margin-right:20px;">Description</div>
+				<div style="float:left;">Caractéristiques</div>
+				<div style="clear:both;"></div>
+			</div>	
+			<div class="ann-desc">
+				<div><h3 style="padding:0;margin:0;">Description</h3></div>
+			</div>	
+			<div class="ann-desc-bx">
+				<div style="">
+				L'aspirateur balai Dyson V8 ABSOLUTE  HOME renferme un  concentré de technologies. 
+	Il est idéal pour le  nettoyage en profondeur des moquettes ou des sols durs grâce à sa  brosse rouleau doux, sa brosse motorisée et sa mini brosse motorisée !
+	Rechargeable, il vous offre  jusqu'à 40 minutes d'aspiration pour enlever les fines poussières et débris, en un seul passage. Pour une utilisation pratique et polyvalente, il  se transforme en aspirateur à main.
+	Sa  technologie 2 Tier Radial™ permet de produire une aspiration puissante et constante. Il retire des gros débris aux fines poussières autant qu'un aspirateur standard grâce au moteur numérique. 
+
+	Moteur numérique : 
+	Son  moteur numérique Dyson V8 vous assure un meilleur rendement énergétique et une puissance d'aspiration élevée. 
+
+	Technologie 2 Tier Radial™ et filtre à la sortie du moteur :
+	Le V8 Absolute Home est doté de la Technologie 2 Tier Radial™ : les cyclones augmentent le flux d'air et capturent la plus fine poussière et  permet de produire une aspiration puissante et constante.
+
+	Deux modes de puissance et autonomie :
+	Vous disposez de  2 modes pour moduler la puissance en fonction de vos besoins : 
+	- mode normal : 40 minutes en brosses passives et 25 minutes en brosse motorisée (grâce à sa batterie Li-ion) 
+	- mode max :  7 minutes pour les tâches les plus difficiles.
+
+	Brosses :
+	V8 Absolute Home est multi accessoirisé pour vous permettre d'aspirer partout !
+	-  brosse rouleau doux : composée de bandes en nylon doux pour capturer les gros débris tout en maintenant la brosse au contact du sol. Les filaments en fibre de carbone antistatiques enlèvent la fine poussière sur les sols durs (comme le lino, le carrelage ou le parquet).
+	-  brosse motorisée à entraînement direct : les poils rigides en nylon gainés pénètrent et décollent efficacement la poussière des moquettes. 
+				</div>
+			</div>	
+			<div class="ann-desc">
+				<div><h3 style="padding:0;margin:0;">Caractéristiques</h3></div>
+			</div>		
+			<div class="ann-car-w">
+				<div style="float:left;">Fonction vapeur</div>
+				<div class="ann-car-det">Non</div>
+				<div style="clear:both;"></div>	
+			</div>
+			<div style="padding:5px 10px;">
+				<div style="float:left;">Puissance</div>
+				<div class="ann-car-det">21,6 V</div>
+				<div style="clear:both;"></div>	
+			</div>	
+			<div class="ann-car-w">
+				<div style="float:left;">Le plus du produit</div>
+				<div class="ann-car-det">Mutli accessoirisé : idéal pour toute la maison</div>
+				<div style="clear:both;"></div>	
+			</div>		
+			<div style="padding:5px 10px;">
+				<div style="float:left;">Type de batterie</div>
+				<div class="ann-car-det">Lithium</div>
+				<div style="clear:both;"></div>	
+			</div>	
+		</div>	
+		<div class="ann-rt">	
+			<div class="ann-map-bx">
+				<div class="ann-map-icon">
+					<i class="fa fa-map-marker" style="font-size:22px;"></i>
+				</div>
+				<div class="ann-map-street">
+					<div class="ann-map-str">12 rue la chamelle, Braza, 12 451, Congo ...</div> 
+					<div style="float:right;">[carte]</div>
+					<div style="clear:both;"></div>
 				</div>
 				<div style="clear:both;"></div>
 			</div>
-		</div>
-	</div>
-	<div class="ann-bx" style="margin-top:25px;">
-		<div class="ann-bx-title-cnt">						
-			<div class="ann-bx-title-nb">2</div>
-			<div class="ann-bx-title-txt">Media</div>
-			<div style="clear:both;"></div>
-		</div>
-		<div class="ann-min-bx">
-			<div class="ann-subt">Photos</div>
-			<div class="ann-subt-ans-box">
-				Une annonce avec photo est 5 fois plus consultée qu'une annonce sans photo.
-			</div>
-		</div>
-		<div class="ann-min-bx" style="margin-bottom:10px;">
-			<div style="background:;">
-				<div style="float:left;width:20%;height:100px;text-align:center;background:#fff;">
-					<img src="{{ asset('public/img/add-pic.png') }}" class="imgmax">
+			<div class="ann-price-bx">					
+				<div class="ann-price"><h2 style="margin:0;padding:0;">58 €</h2></div>
+				<div class="ann-price-ques">
+					Cette annonce vous intéresse ?
+					<div style="margin:5px 0 10px 0px;">
+						<div class="ann-price-num">
+							Voir numéro de téléphone
+						</div>
+					</div>
 				</div>
-				<div style="float:left;width:20%;height:100px;text-align:center;background:#fff;">
-					<img src="{{ asset('public/img/add-pic.png') }}" class="imgmax">
-				</div>
-				<div style="float:left;width:20%;height:100px;text-align:center;background:#fff;">
-					<img src="{{ asset('public/img/add-pic.png') }}" class="imgmax">
-				</div>
-				<div style="float:left;width:20%;height:100px;text-align:center;background:#fff;">
-					<img src="{{ asset('public/img/add-pic.png') }}" class="imgmax">
-				</div>
-				<div style="float:left;width:20%;height:100px;text-align:center;background:#fff;">
-					<img src="{{ asset('public/img/add-pic.png') }}" class="imgmax">
-				</div>
+			</div>				
+			<div class="ann-poster-bx">					
+				<div class="ann-poster">mathieu18</div>
+				<div style="float:right;"><span class="label label-primary">junior</span></div>
 				<div style="clear:both;"></div>
-			</div>
-			<ul id="email-fields-list"
-				data-prototype="{{ form_widget(form.images.vars.prototype)|e }}"
-				data-widget-tags="{{ '<li></li>'|e }}">
-				{% for image in form.images %}
-					<li>
-						{{ form_errors(image) }}
-						{{ form_widget(image) }}
-					</li>
-				{% endfor %}
-		   </ul>
-			<button type="button" class="add-another-collection-widget" data-list="#email-fields-list">
-				Ajouter une photo
-			</button>
-		</div>
-	</div>	
-	<div class="ann-bx" style="margin-top:25px;">
-		<div class="ann-bx-title-cnt">						
-			<div class="ann-bx-title-nb">3</div>
-			<div class="ann-bx-title-txt">Localisation</div>
-			<div style="clear:both;"></div>
-		</div>
-		<div class="ann-min-bx">
-			<div class="ann-subt">Ville ou code postal {{form_label(form.utilisateur.ville)}}</div>
-			<div class="ann-subt-ans-box" style="max-width:300px;">
-				{{form_widget(form.utilisateur.ville,{attr:{class:isConnected}})}}
-			</div>
-		</div>
-		<div class="ann-min-bx">
-			<div class="ann-subt">{{form_label(form.utilisateur.adresse)}}</div>
-			<div class="ann-subt-ans-box" style="max-width:550px;">
-				{{form_widget(form.utilisateur.adresse,{attr:{class:isConnected}})}}
-			</div>
-		</div>
-	</div>
-	<div class="ann-bx" style="margin-top:25px;">
-		<div class="ann-bx-title-cnt">						
-			<div class="ann-bx-title-nb">4</div>
-			<div class="ann-bx-title-txt">Informations de contact</div>
-			<div style="clear:both;"></div>
-		</div>
-		<div class="ann-min-bx">
-			<div class="ann-subt">{{form_label(form.utilisateur.username)}}</div>
-			<div class="ann-subt-ans-box" style="max-width:200px;">
-				{{form_widget(form.utilisateur.username,{attr:{class:isConnected}})}}
-			</div>
-		</div>
-		<div class="ann-min-bx">
-			<div class="ann-subt">{{form_label(form.utilisateur.password)}}</div>
-			<div class="ann-subt-ans-box" style="max-width:200px;">
-				{{form_widget(form.utilisateur.password,{attr:{class:isConnected}})}}
-			</div>
-		</div>
-		<div class="ann-min-bx">
-			<div class="ann-subt">{{form_label(form.utilisateur.email)}}</div>
-			<div class="ann-subt-ans-box" style="max-width:350px;">
-				{{form_widget(form.utilisateur.email,{attr:{class:isConnected}})}}
-			</div>
-		</div>
-		<div class="ann-min-bx">
-			<div class="ann-subt">{{form_label(form.utilisateur.telephone)}}</div>
-			<div class="ann-subt-ans-box">
-				<div class="ann-subt-ans-inp" style="max-width:200px;">
-					{{form_widget(form.utilisateur.telephone,{attr:{class:isConnected}})}}
+				<div id="mreusr" class="ann-poster-info">						
+					Connectez-vous ou inscrivez-vous pour voir les détails de cette annonce, y compris:
+					<div style="margin:10px 0 10px 15px;">
+						<div>
+							<div class="ann-poster-info-elem">
+								<i class="fa fa-long-arrow-right" style="font-size:16px;"></i>
+							</div> 
+							<div style="float:left;">							
+								Quand ils ont rejoint Zandoo
+							</div> 
+							<div style="clear:both;"></div>
+						</div>
+						<div style="margin-top:0px;">
+							<div class="ann-poster-info-elem">
+								<i class="fa fa-long-arrow-right" style="font-size:16px;"></i>
+							</div> 
+							<div style="float:left;">																
+								À quelle vitesse ils répondent
+							</div> 
+							<div style="clear:both;"></div>
+						</div>
+						<div style="margin-top:0px;">
+							<div class="ann-poster-info-elem">
+								<i class="fa fa-long-arrow-right" style="font-size:16px;"></i>
+							</div> 
+							<div style="float:left;">																
+								D'autres annonces qu'ils ont postées
+							</div> 
+							<div style="clear:both;"></div>
+						</div>
+					</div>
 				</div>
-				<div class="ann-subt-ans-txt" style="max-width:400px;">
-					{{form_widget(form.afficherTel)}}
+				<div class="ann-poster-info-arr">
+					<i id="arrusr" class="fa fa-caret-down" style="font-size:14px;cursor:pointer;"></i>
 				</div>
-				<div style="clear:both;"></div>
 			</div>
-		</div>
-	</div>			
-	<div style="margin:20px 0 40px 0;">							
-		<div style="margin:0 auto;width:20%;">
-			<div id="btnsv2" class="btnfm" style="cursor:pointer;" onclick="$(this).closest('form').submit();"><b>Valider</b></div>
+			<div class="ann-msg-bx">		
+				<div style="margin-top:10px;">
+					<div class="ann-msg-tit">Envoyer un message</div>
+					<div style="margin-top:15px;">
+						<input type="text" value="" class="ann-msg-inp" placeholder="Votre nom">
+					</div>
+					<div style="margin-top:10px;">
+						<input type="text" value="" class="ann-msg-inp" placeholder="Votre e-mail">
+					</div>
+					<div style="margin-top:10px;">
+						<input type="text" value="" class="ann-msg-inp" placeholder="Votre numéro de tél. (optionnel)">
+					</div>
+					<div style="margin-top:15px;">
+						<textarea class="textare form ann-msg-txtarea" id="message" rows="3" placeholder="Your Message" maxlength="1024" name="message"></textarea>
+					</div>
+					<div style="margin:10px 0;">
+						<div class="ann-msg-btn">Envoyer message</div>
+					</div>
+				</div>
+			</div>	
 		</div>
 		<div style="clear:both;"></div>
-	</div>	
-	{{form_end(form)}}   
-   <script type='text/javascript'>
-       $(document).ready(function(){
-          $('.cached').parent().parent().each(function(){
-             $(this).remove();
-          })  
-        })
-   </script>
+	</div>
+	<div class="ann-sim-off" style="">
+		<div style="text-decoration:underline;">
+			<h3 style="padding:0;margin:0;">Offres similaires</h3>
+		</div>
+		<div style="margin-top:10px;">
+			<div class="ann-sim-bx" style="margin-left:0px;">
+				<div style="padding:2%;">
+					<div class="ann-sim-img">
+						<img src="/public/img/sim1.JPG">
+					</div>
+				</div>
+				<div class="ann-sim-txt-bx">
+					<div class="ann-sim-txt">
+						Deol Auto Edmonton - Shop Tires.
+						<div class="ann-sim-price">57 €</div>
+					</div>
+				</div>
+			</div>
+			<div class="ann-sim-bx">
+				<div style="padding:2%;">
+					<div class="ann-sim-img">
+						<img src="/public/img/sim2.JPG">
+					</div>
+				</div>
+				<div class="ann-sim-txt-bx">
+					<div class="ann-sim-txt">
+						Deol Auto Edmonton - Shop Tires.
+						<div class="ann-sim-price">57 €</div>
+					</div>
+				</div>
+			</div>
+			<div class="ann-sim-bx">
+				<div style="padding:2%;">
+					<div class="ann-sim-img">
+						<img src="/public/img/sim3.JPG">
+					</div>
+				</div>
+				<div class="ann-sim-txt-bx">
+					<div class="ann-sim-txt">
+						Deol Auto Edmonton - Shop Tires.
+						<div class="ann-sim-price">57 €</div>
+					</div>
+				</div>
+			</div>
+			<div class="ann-sim-bx">
+				<div style="padding:2%;">
+					<div class="ann-sim-img">
+						<img src="/public/img/sim4.JPG">
+					</div>
+				</div>
+				<div class="ann-sim-txt-bx">
+					<div class="ann-sim-txt">
+						Deol Auto Edmonton - Shop Tires.
+						<div class="ann-sim-price">57 €</div>
+					</div>
+				</div>
+			</div>
+			<div class="ann-sim-bx">
+				<div style="padding:2%;">
+					<div class="ann-sim-img">
+						<img src="/public/img/sim5.JPG">
+					</div>
+				</div>
+				<div class="ann-sim-txt-bx">
+					<div class="ann-sim-txt">
+						Deol Auto Edmonton - Shop Tires.
+						<div class="ann-sim-price">57 €</div>
+					</div>
+				</div>
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+	</div>
  {% endblock %}
 

@@ -95,7 +95,14 @@ class FormAnnonceType extends AbstractType
          return "annonceFormType";
      }
      
-//     public function listeCategorieByFamille($famille,$categorie){
-//         
-//     }
+     public function listeCategorieByFamille($listeFamille,$listeCategorie){
+        $liste = array();
+        foreach($listeFamille as $key=>$famille){
+            foreach($listeCategorie as $categorie){
+                if($famille->getId() == $categorie->getFamille()){
+                  $liste[$famille->getLibelle()] =  array($categorie->getId()=>$categorie->getLibelle());
+                }                 
+            }
+        }
+     }
 }

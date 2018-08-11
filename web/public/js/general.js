@@ -17,7 +17,9 @@ $(document).ready(function()
 		$("#resp-user").toggle();
 	});
 
-        
+	$("#arrusr").click(function(){
+		$("#mreusr").toggle();
+	}); 
    
    $('.add-another-collection-widget').click(function (e) {
     var list = jQuery(jQuery(this).attr('data-list'));
@@ -72,4 +74,13 @@ function positionMenu()
         $(".srchbtn").removeClass("srchbtn-fix"); 
         $("#srcbox").removeClass("srchbox-fix"); 
     }
+}
+function shfilter()
+{
+	var flt = $(".annonce-l").css("float");
+	if(flt == "none")
+	{
+		$("#filter-annonce").toggleClass("shfilter");
+		//$(".filter-annonce").removeClass("filter-annonce");
+	}
 }

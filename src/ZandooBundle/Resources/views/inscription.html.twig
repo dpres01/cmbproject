@@ -1,12 +1,17 @@
  {% extends 'base.html.twig' %}   
 	{% block body %}      
+
 	{{form_start(form)}} 
 	<link rel="stylesheet" href="{{ asset('public/css/inscription.css') }}" type="text/css"/>  
 	<div class="bg-cont-annonce">
 		<div class="cont-annonce">
 			<div class="create-annonce-title">
-				<div style="float:left;"><h3 style="margin:0;padding:0;">Créer un compte</h3></div>
-				<div style="float:right;padding-top:4px;">Vous avez déjà un compte ? <a class="lk-bu" href="{{path('login')}}">Se connecter</a></div>
+				<div class="ins-tit" style="">
+					<h3 style="margin:0;padding:0;">Créer un compte</h3>
+				</div>
+				<div class="ins-tit-lk" style="">
+					Vous avez déjà un compte ? <a class="lk-bu" href="{{path('login')}}">Se connecter</a>
+				</div>
 				<div style="clear:both;"></div>
 			</div>
 		</div>
@@ -16,52 +21,88 @@
 		{{ message}}
 	</div> 
     {% endfor%}
-	<div style="margin:10px auto 0 auto;max-width:550px;width:100%;background:#f7f7f7;padding:10px;border:1px solid #eaeaea;">
-		<div style="border-bottom:1px solid #eaeaea;padding:5px;">
-			<h4 style="margin:0;padding:0;color:#2952a3;">Informations sur le compte</h4>
+	<div class="ins-lf">
+		<div class="ins-bx">
+			<div class="ins-bx-title">
+				<h4 class="ins-bx-title-clr" style="margin:0;padding:0;">
+					Informations sur le compte
+				</h4>
+			</div>
+			<div class="ins-bx-inp">
+				<div style="padding-top:5px;">
+					<div style="float:left;margin-right:10px;"><input type="radio" name="lol"></div>
+					<div class="ins-bx-radio">Particulier</div>
+					<div style="float:left;margin-right:10px;"><input type="radio" name="lol"></div>
+					<div style="float:left;margin-right:0px;">Professionnel</div>				
+					<div style="clear:both;"></div>
+				</div>
+				<div style="padding-top:13px;">
+					<div>{{form_label(form.username)}}</div>
+					<div style="margin-top:0px;">{{form_widget(form.username)}}</div>
+					{{form_errors(form.username)}}
+				</div>
+				<div style="padding-top:5px;">
+					<div>{{form_label(form.password)}}</div>
+					<div style="margin-top:0px;">{{form_widget(form.password)}}</div>
+					{{form_errors(form.password)}}
+				</div>
+			</div>
 		</div>
-		<div style="margin:10px auto 0 auto;width:100%;max-width:300px;">
-			<div style="padding:0px;">
-				<div>{{form_label(form.username)}}</div>
-				<div style="margin-top:0px;">{{form_widget(form.username)}}</div>
+		<div class="ins-bx">
+			<div class="ins-bx-title">
+				<h4 class="ins-bx-title-clr" style="margin:0;padding:0;">
+					Informations de contact
+				</h4>
 			</div>
-			<div style="padding-top:5px;">
-				<div>{{form_label(form.email)}}</div>
-				<div style="margin-top:0px;">{{form_widget(form.email)}}</div>
+			<div class="ins-bx-inp">
+				<div style="padding-top:0px;">
+					<div>{{form_label(form.email)}}</div>
+					<div style="margin-top:0px;">{{form_widget(form.email)}}</div>
+					{{form_errors(form.email)}}
+				</div>
+				<div style="padding-top:5px;">
+					<div>{{form_label(form.telephone)}}</div>
+					<div style="margin-top:0px;">{{form_widget(form.telephone)}}</div>
+					{{form_errors(form.telephone)}}
+				</div>
+				<div style="padding-top:5px;">
+					<div>{{form_label(form.adresse)}}</div>
+					<div style="margin-top:0px;">{{form_widget(form.adresse)}}</div>
+					{{form_errors(form.adresse)}}
+				</div>
+				<div style="padding-top:5px;">
+					<div>{{form_label(form.ville)}}</div>
+					<div style="margin-top:0px;">{{form_widget(form.ville)}}</div>
+					{{form_errors(form.ville)}}
+				</div>
+				<div style="padding-top:5px;display:none;">
+					<div style="margin-top:0px;">{{form_widget(form.isProfessionnel)}}</div>
+				</div>
 			</div>
-			<div style="padding-top:5px;">
-				<div>{{form_label(form.password)}}</div>
-				<div style="margin-top:0px;">{{form_widget(form.password)}}</div>
+		</div>			
+		<div style="margin:20px 0 40px 0;">							
+			<div class="ins-btn">
+				<div class="btnfm" onclick="$(this).closest('form').submit();">
+					<b>Enregistrer</b>
+				</div>
 			</div>
 		</div>
 	</div>
-	<div style="margin:10px auto 0 auto;max-width:550px;width:100%;background:#f7f7f7;padding:10px;border:1px solid #eaeaea;">
-		<div style="border-bottom:1px solid #eaeaea;padding:5px;">
-			<h4 style="margin:0;padding:0;color:#2952a3;">Informations de contact</h4>
+	<div class="ins-rt">
+		<div class="ins-rt-txt">
+			<b>Zandoo</b> - reliant des millions d'acheteurs et des vendeurs depuis 2002.
 		</div>
-		<div style="margin:10px auto 0 auto;width:100%;max-width:300px;">
-			<div style="padding:0px;">
-				<div>{{form_label(form.telephone)}}</div>
-				<div style="margin-top:0px;">{{form_widget(form.telephone)}}</div>
-			</div>
-			<div style="padding-top:5px;">
-				<div>{{form_label(form.adresse)}}</div>
-				<div style="margin-top:0px;">{{form_widget(form.adresse)}}</div>
-			</div>
-			<div style="padding-top:5px;">
-				<div>{{form_label(form.ville)}}</div>
-				<div style="margin-top:0px;">{{form_widget(form.ville)}}</div>
-			</div>
-			<div style="padding-top:5px;">
-				<div style="margin-top:0px;">{{form_widget(form.isProfessionnel)}}</div>
-			</div>
+		<div class="ins-rt-txt2">
+			<div class="ins-rt-txt2-lf">
+				<img src="{{ asset('public/img/lock.png') }}">
+			</div>	
+			<div class="ins-rt-txt2-rt">				
+				Vos informations personnelles sont protégées par la politique de confidentialité de Zandoo et cryptées par la technologie SSL standard de l'industrie pour une expérience d'achat sûre.
+			</div>	
+			<div style="clear:both;"></div>	
 		</div>
-	</div>			
-	<div style="margin:20px 0 40px 0;">							
-		<div style="margin:0 auto;width:18%;min-width:100px;">
-			<div id="btnsv2" class="btnfm" style="cursor:pointer;" onclick="$(this).closest('form').submit();"><b>Enregistrer</b></div>
-		</div>
-	</div>	
+	</div>
+	<div style="clear:both;"></div>	
     {{ form_rest(form) }} 
     {{form_end(form)}}
 {% endblock %}
