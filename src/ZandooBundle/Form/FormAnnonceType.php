@@ -15,6 +15,7 @@ use ZandooBundle\Form\FormUtilisateurType;
 use ZandooBundle\Form\FormImageType;
 use Doctrine\ORM\EntityRepository;
 use ZandooBundle\Entity\Annonce;
+use Symfony\Component\Validator\Constraints\Choice;
 
 /**
  * Description of FormAnnonceType
@@ -27,20 +28,17 @@ class FormAnnonceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('categorie', EntityType::class,array(
-                'class' => 'ZandooBundle:Categorie',
-                'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('c')
-                            ->orderBy('c.numOrdre', 'ASC');
-                    },
-                 'choice_label' => 'libelle',
-                 'required'=> true           
+            ->add('categorie',ChoiceType::class,array(
+                'choices'  =>$this->listeCategorieByFamille($options['famille'],$options['categorie']),               
+                'expanded' =>false ,
+                'label'    =>false,
+                'required' => true           
             )) 
             ->add('type',ChoiceType::class,array(
-                 'choices' => array(
-                       'Offre' => '0',
-                       'Demande' => '1',
-                    ),
+                'choices'    => array(
+                'Offre' => '0',
+                'Demande' => '1',
+                ),
                 'expanded' =>true ,
                 'label'=>false,
                 'required'=> true
@@ -87,7 +85,9 @@ class FormAnnonceType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'ZandooBundle\Entity\Annonce',
-            'connected'=>false
+            'connected'=>false,
+            'categorie'=>null,
+            'famille'=>null
         ));
     }
     
@@ -96,13 +96,14 @@ class FormAnnonceType extends AbstractType
      }
      
      public function listeCategorieByFamille($listeFamille,$listeCategorie){
-        $liste = array();
-        foreach($listeFamille as $key=>$famille){
+        $liste = array("Choississez une categorie"=>"");
+        foreach($listeFamille as $famille){
             foreach($listeCategorie as $categorie){
-                if($famille->getId() == $categorie->getFamille()){
-                  $liste[$famille->getLibelle()] =  array($categorie->getId()=>$categorie->getLibelle());
+                if($famille->getId() == $categorie->getFamille()->getId()){
+                  $liste[$famille->getLibelle()][$categorie->getLibelle()] = $categorie->getId() ;
                 }                 
             }
         }
+       return $liste;
      }
 }

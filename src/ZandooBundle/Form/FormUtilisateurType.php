@@ -46,8 +46,10 @@ class FormUtilisateurType extends AbstractType
                        'Particulier' => '0',
                        'Professionnel' => '1'
                     ),
+                'empty_data' => 'Particulier',
                 'expanded' =>true ,
-                'label'=>false
+                'label'=>false,
+                'required'=> true
             ))                
         ;
     }
