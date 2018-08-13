@@ -11,11 +11,13 @@ use ZandooBundle\Entity\Annonce;
  */
 class AnnonceRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findAnnonceByCritere($offset)
+    public function findAnnonceByCritere($critere)
     {   
         $qb = $this->createQueryBuilder('a')
-                ->setFirstResult($offset)
-                ->setMaxResults(3);
+                ->andWhere('a.actif = 1')
+                ->andWhere('a.type ='.$critere->getType())
+                ->setFirstResult($critere->getOffset())
+                ->setMaxResults(20);
         return  $qb->getQuery()->getResult();
     }
     

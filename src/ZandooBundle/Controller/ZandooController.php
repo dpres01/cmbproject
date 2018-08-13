@@ -11,6 +11,7 @@ use ZandooBundle\Form\FormAnnonceType;
 use ZandooBundle\Entity\Utilisateur;
 use ZandooBundle\Entity\Categorie;
 use ZandooBundle\Entity\Famille;
+use ZandooBundle\Entity\Critere;
 
 class ZandooController extends Controller
 {      
@@ -28,23 +29,58 @@ class ZandooController extends Controller
 			)		
 		);
     }
-	
-	
     /**
-     * @Route("/", name="annonce")     
+     * @Route("/demandes", name="demandess")     
+     **/	
+    public function listerDemandeAction($request){
+        $em = $this->getDoctrine()->getManager(); 
+            $critere = new Critere();
+            $offset = 1;
+            if ($offset){
+                $offset = (intval($offset) - 1) * 20 ;
+            }
+            $critere->setOffset($offset);
+            $critere->setType("1");
+            $annonce = $em->getRepository(Annonce::class)->findAnnonceByCritere($critere);
+            $tab["title"] = "Les Bananes Vertes buttanes";
+            $tab["img"] =  "/web/uploads/documents/11.jpeg";
+            $tab["price"] = "99";
+            $tab["currency"] = "€";
+            $tab["date"] = "Aujourd'hui 17:45";
+            $tab["desc"] = "GXR Suzuki 600 for sale or trade. Would love a camper of sorts. Parked the bike two years ago...";
+
+            $i = 0;
+            $htm = '';
+            while($i < 10)
+            {
+                    $data[] = $tab;
+                    $i++;
+            }
+            return $this->render('@Zandoo/listerAnnonce.html.twig',
+                    array(
+                            'form' => "",
+                            'colorBody' => "F7F7F7",
+                            'headsearch' => 1,
+                            'data' => $data
+                    )
+            );
+    }	
+    /**
+     * @Route("/", name="annonces")     
      **/
     public function listerAnnonce(Request $request)
 	{       
-            $em = $this->getDoctrine()->getManager();  
+            $em = $this->getDoctrine()->getManager(); 
+            $critere = new Critere();
             $offset = 1;
             if ($offset){
-                $offset = (intval($offset) - 1) * 3 ;
+                $offset = (intval($offset) - 1) * 20 ;
             }
-            
-            $annonce = $em->getRepository(Annonce::class)->findAnnonceByCritere($offset);
-                                        
+            $critere->setOffset($offset);
+            $critere->setType("0");
+            $annonce = $em->getRepository(Annonce::class)->findAnnonceByCritere($critere);
+                                    
             $tab["title"] = "Les Bananes Vertes buttanes";
-            //dump($this->getParameter('url_img_test'));die;
             $tab["img"] =  "/web/uploads/documents/11.jpeg";
             $tab["price"] = "99";
             $tab["currency"] = "€";
@@ -84,7 +120,7 @@ class ZandooController extends Controller
         if($this->getUser() && empty($annonce->getId())){
             $options['connected'] = true;
         } 
-         dump($this->getUser());
+        
         if(!empty($annonce->getUtilisateur()) && empty($this->getUser()) || (!empty($this->getUser()) && !empty($annonce->getUtilisateur()) && $annonce->getUtilisateur()->getId() != $this->getUser()->getId()) ){
              throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException('Vous n\'avez pas acces à cette page veuillez vous connecté.');          
         }    
@@ -107,15 +143,15 @@ class ZandooController extends Controller
                    $pwdEncoded = $this->get('security.password_encoder')->encodePassword(new Utilisateur(), $annonce->getUtilisateur()->getPassword());
                    $annonce->getUtilisateur()->setPassword($pwdEncoded);
           
-                }
+                }       
                 $categorie = $em->getRepository(Categorie::class)->find($annonce->getCategorie());
                 $annonce->setCategorie($categorie);
                 $annonce->setDateCreation(new \DateTime());                        
                 $em->persist($annonce);              
                 $em->flush();
                 $this->addFlash('succesAnnonce', 'votre annonce a été enregistré avec succes!');
-                if(is_null($this->getUser()) && $request->request->get('_username') && $request->request->get('_password')){
-                    return $this->redirectToRoute('login_check',array());
+                if(!$this->getUser()){                          
+                    return $this->redirectToRoute('login',array());
                 }
                 return $this->redirectToRoute('afficher_annonce',array('id'=>$annonce->getId()));
             }catch(Exception $e){

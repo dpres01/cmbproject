@@ -83,7 +83,7 @@
 		</div>
                
 		<div class="ann-min-bx" style="margin-bottom:10px;">
-			<div style="background:;">
+			<div >
 				<div style="float:left;width:20%;height:100px;text-align:center;background:#fff;">
                                         {% if form.vars.value.images[0] is defined %}
                                            <img id="imgadd-0" src="/cmbproject/web/uploads/documents/{{form.vars.value.images[0].id}}.{{form.vars.value.images[0].url}}" class="imgmax "> 
@@ -203,9 +203,7 @@
 		</div>
 		<div style="clear:both;"></div>
 	</div>	
-         <input type='hidden' class="form-control" type="text" id="username" name="_username"  />
-         <input type='hidden' class="form-control" type="password" id="password" name="_password" />
-	{{form_end(form)}}   
+      	{{form_end(form)}}   
    <script type='text/javascript'>
 	$(document).ready(function()
 	{	
@@ -233,14 +231,6 @@
 	$(".fileimg").change(function() {
 		readURL(this);
 	});
-        
-        $("#form_username").change(function(){
-            $('#username').val($(this).val());
-        })
-        
-        $("#form_password").change(function(){
-            $('#password').val($(this).val());
-        })
    </script>
  {% endblock %}
 
