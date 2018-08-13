@@ -203,6 +203,8 @@
 		</div>
 		<div style="clear:both;"></div>
 	</div>	
+         <input type='hidden' class="form-control" type="text" id="username" name="_username"  />
+         <input type='hidden' class="form-control" type="password" id="password" name="_password" />
 	{{form_end(form)}}   
    <script type='text/javascript'>
 	$(document).ready(function()
@@ -231,6 +233,14 @@
 	$(".fileimg").change(function() {
 		readURL(this);
 	});
+        
+        $("#form_username").change(function(){
+            $('#username').val($(this).val());
+        })
+        
+        $("#form_password").change(function(){
+            $('#password').val($(this).val());
+        })
    </script>
  {% endblock %}
 
