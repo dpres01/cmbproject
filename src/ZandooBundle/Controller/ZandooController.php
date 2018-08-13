@@ -114,8 +114,8 @@ class ZandooController extends Controller
                 $em->persist($annonce);              
                 $em->flush();
                 $this->addFlash('succesAnnonce', 'votre annonce a été enregistré avec succes!');
-                if(is_null($this->getUser())){
-                    return $this->redirectToRoute('login',array());
+                if(is_null($this->getUser()) && $request->request->get('_username') && $request->request->get('_password')){
+                    return $this->redirectToRoute('login_check',array());
                 }
                 return $this->redirectToRoute('afficher_annonce',array('id'=>$annonce->getId()));
             }catch(Exception $e){
