@@ -9,6 +9,8 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr
+    url_img_test: '/web/%kernel.environment%/public/img/fd8017b0877dc633d90eaa06c011532e7e36172d.jpg'
+    url_upload: '%kernel.project_dir%/web/uploads/documents/'
 
 framework:
     #esi: ~

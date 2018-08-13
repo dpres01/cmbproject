@@ -28,21 +28,16 @@ class Annonce
     private $id;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="titre", type="string")
-     * 
-     * @Assert\NotBlank(message="cette valeur ne doit pas être vide")
-     * 
+     * @ORM\Column(name="titre", type="string") 
      */
     private $titre;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=2000)
-     * @Assert\NotBlank(message="cette valeur ne doit pas être vide")
-     * 
+     * @ORM\Column(name="description", type="string", length=2000) 
      */
     private $description;
 
@@ -83,10 +78,9 @@ class Annonce
     private $dateCreation;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Categorie",cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Categorie")
      * @ORM\JoinColumn(name="categorie_id", referencedColumnName="id",nullable=false)
      * 
-     * @Assert\NotBlank(message="cette valeur ne doit pas être vide")
      *
      * @var utilisateur
      */
@@ -307,7 +301,7 @@ class Annonce
      *
      * @return Annonce
      */
-    public function setCategorie(\ZandooBundle\Entity\Categorie $categorie = null)
+    public function setCategorie($categorie = null)
     {
         $this->categorie = $categorie;
     

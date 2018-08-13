@@ -29,12 +29,20 @@
 				</h4>
 			</div>
 			<div class="ins-bx-inp">
-				<div style="padding-top:5px;">
+				<!--div style="padding-top:5px;">
 					<div style="float:left;margin-right:10px;"><input type="radio" name="lol"></div>
 					<div class="ins-bx-radio">Particulier</div>
 					<div style="float:left;margin-right:10px;"><input type="radio" name="lol"></div>
 					<div style="float:left;margin-right:0px;">Professionnel</div>				
 					<div style="clear:both;"></div>
+				</div-->
+                                <div style="padding-top:5px;">
+					<div>{{form_label(form.isProfessionnel)}}</div>
+                                        {% for child in form.isProfessionnel %}
+					  <div style="float:left;margin-right:50px;">{{form_widget(child)}}</div>
+                                        {% endfor %}
+					{{form_errors(form.isProfessionnel)}}
+                                        <div style="clear:both;"></div>  
 				</div>
 				<div style="padding-top:13px;">
 					<div>{{form_label(form.username)}}</div>
@@ -103,7 +111,6 @@
 		</div>
 	</div>
 	<div style="clear:both;"></div>	
-    {{ form_rest(form) }} 
     {{form_end(form)}}
 {% endblock %}
 
