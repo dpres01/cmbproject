@@ -29,6 +29,12 @@ class Critere
      */   
     private $prixInf;
     
+    private $titre;
+    
+    public function getTitre() {
+        return $this->titre;
+    }
+
     public function getOffset() {
         return $this->offset;
     }
@@ -51,25 +57,34 @@ class Critere
 
     public function setOffset($offset) {
         $this->offset = $offset;
+        return $this;
     }
 
     public function setType($type) {
         $this->type = $type;
+        return $this;
     }
 
     public function setActif($actif) {
         $this->actif = $actif;
+        return $this;
     }
 
     public function setPrixSup($prixSup) {
         $this->prixSup = $prixSup;
+        return $this;
     }
 
     public function setPrixInf($prixInf) {
         $this->prixInf = $prixInf;
+        return $this;
+    }
+   
+    public function setTitre($titre) {
+        $this->titre = $titre;
+        return $this;
     }
 
 
-    
 }
 

@@ -20,9 +20,7 @@ class ZandooController extends Controller
      */
     public function indexAction()
     {    
-        //$em 		= $this->getDoctrine()->getManager();
-        //$test 	=  $em->getRepository('\ZandooBundle\Entity\Categorie')->findCategorieByFamille();
-		$homehead 	= 1;
+        $homehead 	= 1;
         return $this->render('@Zandoo/Default/index.html.twig', 
 			array(
 				//'homehead' => $homehead
@@ -30,9 +28,9 @@ class ZandooController extends Controller
 		);
     }
     /**
-     * @Route("/demandes", name="demandess")     
+     * @Route("/demandes", name="demandes")     
      **/	
-    public function listerDemandeAction($request){
+    public function listerDemandeAction(Request $request){
         $em = $this->getDoctrine()->getManager(); 
             $critere = new Critere();
             $offset = 1;
@@ -40,7 +38,7 @@ class ZandooController extends Controller
                 $offset = (intval($offset) - 1) * 20 ;
             }
             $critere->setOffset($offset);
-            $critere->setType("1");
+            $critere->setType(1);
             $annonce = $em->getRepository(Annonce::class)->findAnnonceByCritere($critere);
             $tab["title"] = "Les Bananes Vertes buttanes";
             $tab["img"] =  "/web/uploads/documents/11.jpeg";
@@ -77,7 +75,7 @@ class ZandooController extends Controller
                 $offset = (intval($offset) - 1) * 20 ;
             }
             $critere->setOffset($offset);
-            $critere->setType("0");
+            $critere->setType(0);
             $annonce = $em->getRepository(Annonce::class)->findAnnonceByCritere($critere);
                                     
             $tab["title"] = "Les Bananes Vertes buttanes";
