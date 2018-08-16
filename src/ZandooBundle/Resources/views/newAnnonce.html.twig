@@ -202,9 +202,13 @@
 			<div class="btnfm" onclick="$(this).closest('form').submit();"><b>Valider</b></div>
 		</div>
 		<div style="clear:both;"></div>
-	</div>	
-         <input type='hidden' class="form-control" type="text" id="username" name="_username"  />
-         <input type='hidden' class="form-control" type="password" id="password" name="_password" />
+	</div>
+        <div>  
+            <p> Cliquez ici si votre article est vendu </p>
+            {% if app.user is not empty and form.vars.value.id%}
+                  <input class="form-control cached" type="submit" id="article-vendu" name="article-vendu" value="Article Vendu" />
+            {% endif %}
+        </div>
 	{{form_end(form)}}   
    <script type='text/javascript'>
 	$(document).ready(function()
@@ -233,14 +237,7 @@
 	$(".fileimg").change(function() {
 		readURL(this);
 	});
-        
-        $("#form_username").change(function(){
-            $('#username').val($(this).val());
-        })
-        
-        $("#form_password").change(function(){
-            $('#password').val($(this).val());
-        })
+             
    </script>
  {% endblock %}
 

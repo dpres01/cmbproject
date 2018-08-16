@@ -19,4 +19,8 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
         return  $qb->getQuery()->getResult();
     }
     
+    public function countAnnonce() {
+        return $this->createQueryBuilder('a')->select('COUNT(a)')->getQuery() ->getSingleScalarResult();
+    }
+    
 }

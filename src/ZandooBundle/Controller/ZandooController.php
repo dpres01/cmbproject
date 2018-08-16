@@ -84,7 +84,7 @@ class ZandooController extends Controller
         if($this->getUser() && empty($annonce->getId())){
             $options['connected'] = true;
         } 
-         dump($this->getUser());
+
         if(!empty($annonce->getUtilisateur()) && empty($this->getUser()) || (!empty($this->getUser()) && !empty($annonce->getUtilisateur()) && $annonce->getUtilisateur()->getId() != $this->getUser()->getId()) ){
              throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException('Vous n\'avez pas acces à cette page veuillez vous connecté.');          
         }    
@@ -137,8 +137,7 @@ class ZandooController extends Controller
     public function afficherAnnonce(Request $request, $id)
 	{
         $em = $this->getDoctrine()->getManager();
-        $annonce = $em->getRepository(Annonce::class)->find($id);
-        dump($this->getUser());
+        $annonce = $em->getRepository(Annonce::class)->find($id);      
         if($annonce){
             return $this->render('@Zandoo/annonce.html.twig',
                     array(
