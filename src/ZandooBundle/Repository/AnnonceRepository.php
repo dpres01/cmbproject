@@ -20,7 +20,7 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
         return  $qb->getQuery()->getResult();
     }
     // nb annonce dans la bdd 
-    public function countAnnonce() {
+    public function countAllAnnonce() {
         return $this->createQueryBuilder('a')->select('COUNT(a)')->getQuery() ->getSingleScalarResult();
     }
     

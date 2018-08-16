@@ -68,6 +68,9 @@ class ZandooController extends Controller
      **/
     public function listerAnnonce(Request $request){       
             $em = $this->getDoctrine()->getManager(); 
+            $repoAnnoce =  $em->getRepository(Annonce::class);
+            
+            $total = $repoAnnoce->countAllAnnonce();
             $critere = new Critere();
             $offset = 1;
             if ($offset){
@@ -75,7 +78,7 @@ class ZandooController extends Controller
             }
             $critere->setOffset($offset);
             $critere->setType(0);
-            $annonce = $em->getRepository(Annonce::class)->findAnnonceByCritere($critere);
+            $annonce = $repoAnnoce->findAnnonceByCritere($critere);
                                     
             $tab["title"] = "Les Bananes Vertes buttanes";
             $tab["img"] =  "/web/uploads/documents/11.jpeg";
@@ -163,7 +166,7 @@ class ZandooController extends Controller
     }
 	
     /**
-     * @Route("afficher/annonce/{id}", requirements={"idDossier": "\d+"}, name="afficher_annonce")     
+     * @Route("afficher/annonce/{id}", requirements={"id": "\d+"}, name="afficher_annonce")     
      **/
     public function afficherAnnonce(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
@@ -179,5 +182,15 @@ class ZandooController extends Controller
         }else{
             throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException( 'Not found!') ;
         }
-    }     
+    } 
+    /**
+     * @Route("desactiver/annonce/{id}", requirements={"id": "\d+"}, name="desactiver_annonce")     
+     **/
+    public function desactiverAnnonce($request,$id){
+       $em = $this->getDoctrine()->getManager();
+       $annonce = $em->getRepository(Annonce::class)->find($id);
+       $annonce->setActif(0);
+       $retour = $annonce->getType() == 1 ?  $this->redirectToRoute('demandes'):$this->redirectToRoute('annonces');  
+       return $retour;
+    }    
 }
