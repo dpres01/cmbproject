@@ -2,6 +2,7 @@
 
 namespace ZandooBundle\Repository;
 use ZandooBundle\Entity\Annonce;
+use ZandooBundle\Entity\Critere;
 
 /**
  * AnnonceRepository
@@ -11,16 +12,45 @@ use ZandooBundle\Entity\Annonce;
  */
 class AnnonceRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findAnnonceByCritere($offset)
-    {   
+    public function findAnnonceByCritere($critere)
+    {   //$critere->setTitre("test")->setPrixSup(500);->setPrixInf(500);
         $qb = $this->createQueryBuilder('a')
-                ->setFirstResult($offset)
-                ->setMaxResults(3);
+                ->andWhere('a.actif = 1');
+        $this->filtrerByCritere($critere, $qb);
         return  $qb->getQuery()->getResult();
     }
-    
+    // nb annonce dans la bdd 
     public function countAnnonce() {
         return $this->createQueryBuilder('a')->select('COUNT(a)')->getQuery() ->getSingleScalarResult();
+    }
+    
+    private function filtrerByCritere ($critere,$qb){
+        
+        if(!is_null($critere->getPrixInf()) && !is_null($critere->getPrixSup()) ){
+            $qb->andWhere($qb->expr()->between('a.prix', ':prixInf',':prixSup'));
+            $qb->setParameters(array('prixInf'=> $critere->getPrixInf(),'prixSup'=>$critere->getPrixSup()));
+           
+        }
+        if(!is_null($critere->getPrixInf()) && is_null($critere->getPrixSup()) ){
+            $qb->andWhere($qb->expr()->gte('a.prix', ':prix'));
+            $qb->setParameter(':prix', $critere->getPrixInf()); 
+        }
+        if(is_null($critere->getPrixInf()) && !is_null($critere->getPrixSup()) ){
+            $qb->andWhere($qb->expr()->lte('a.prix', ':prix'));
+            $qb->setParameter(':prix', $critere->getPrixSup()); 
+        }
+        if(!is_null($critere->getType())){
+            $qb->andWhere($qb->expr()->eq('a.type', ':type'));
+            $qb->setParameter(':type', $critere->getType()); 
+        }
+        if(!is_null($critere->getTitre())){
+            $qb->andWhere($qb->expr()->like('lower(a.titre)', ':titre'));
+            $qb->setParameter(':titre', '%'.strtolower($critere->getTitre()).'%'); 
+        }
+        if(!is_null($critere->getOffset())){
+            $qb->setFirstResult($critere->getOffset())->setMaxResults(20); 
+        }
+        return $qb;
     }
     
 }

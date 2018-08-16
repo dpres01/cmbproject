@@ -83,7 +83,7 @@
 		</div>
                
 		<div class="ann-min-bx" style="margin-bottom:10px;">
-			<div style="background:;">
+			<div >
 				<div style="float:left;width:20%;height:100px;text-align:center;background:#fff;">
                                         {% if form.vars.value.images[0] is defined %}
                                            <img id="imgadd-0" src="/cmbproject/web/uploads/documents/{{form.vars.value.images[0].id}}.{{form.vars.value.images[0].url}}" class="imgmax "> 
@@ -237,7 +237,6 @@
 	$(".fileimg").change(function() {
 		readURL(this);
 	});
-             
    </script>
  {% endblock %}
 

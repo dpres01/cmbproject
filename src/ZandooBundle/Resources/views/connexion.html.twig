@@ -4,17 +4,16 @@
     {% if error %}
        <div class="alert alert-danger">{{ error.message }}</div>
     {% endif %}
-    {#{dump( app.flashes,app.session.flashbag.get('createUser'))}#}
-    {#% if app.session.flashbag.get('createUser') is not empty %#}
-    
         {% for message in  app.flashes('createUser')%}
              <div class="alert alert-success">
              {{message}}
              </div> 
-        {%endfor %}    
-    {#%endif%#}  
-     {#{ dump(app.session.flashbag.get('createUser'))}#}
-     {#{ dump(app.flashes)}#}	
+        {%endfor %} 
+         {% for message in  app.flashes('succesAnnonce')%}
+             <div class="alert alert-success">
+             {{message}}
+             </div> 
+        {%endfor %}       
 	<link rel="stylesheet" href="{{ asset('public/css/connexion.css') }}" type="text/css"/>  
 	<div class="conn-bx">
 		<div class="conn-lf">
