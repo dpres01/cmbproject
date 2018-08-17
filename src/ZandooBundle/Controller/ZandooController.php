@@ -12,6 +12,7 @@ use ZandooBundle\Entity\Utilisateur;
 use ZandooBundle\Entity\Categorie;
 use ZandooBundle\Entity\Famille;
 use ZandooBundle\Entity\Critere;
+use ZandooBundle\Service\Monnaie;
 
 class ZandooController extends Controller
 {      
@@ -30,38 +31,27 @@ class ZandooController extends Controller
     /**
      * @Route("/demandes", name="demandes")     
      **/	
-    public function listerDemandeAction(Request $request){
-        $em = $this->getDoctrine()->getManager(); 
-            $critere = new Critere();
-            $offset = 1;
-            if ($offset){
-                $offset = (intval($offset) - 1) * 20 ;
-            }
-            $critere->setOffset($offset);
-            $critere->setType(1);
-            $annonce = $em->getRepository(Annonce::class)->findAnnonceByCritere($critere);
-            $tab["title"] = "Les Bananes Vertes buttanes";
-            $tab["img"] =  "/web/uploads/documents/11.jpeg";
-            $tab["price"] = "99";
-            $tab["currency"] = "€";
-            $tab["date"] = "Aujourd'hui 17:45";
-            $tab["desc"] = "GXR Suzuki 600 for sale or trade. Would love a camper of sorts. Parked the bike two years ago...";
+    public function listerDemandeAction(Request $request)
+	{
+		$em = $this->getDoctrine()->getManager(); 
+		$critere = new Critere();
+		$offset = 1;
+		if ($offset)
+		{
+			$offset = (intval($offset) - 1) * 20 ;
+		}
+		$critere->setOffset($offset);
+		$critere->setType(1);
+		$annonce = $em->getRepository(Annonce::class)->findAnnonceByCritere($critere);
 
-            $i = 0;
-            $htm = '';
-            while($i < 10)
-            {
-                    $data[] = $tab;
-                    $i++;
-            }
-            return $this->render('@Zandoo/listerAnnonce.html.twig',
-                    array(
-                            'form' => "",
-                            'colorBody' => "F7F7F7",
-                            'headsearch' => 1,
-                            'data' => $data
-                    )
-            );
+		return $this->render('@Zandoo/listerAnnonce.html.twig',
+			array(
+				'form' => "",
+				'colorBody' => "F7F7F7",
+				'headsearch' => 1,
+				'data' => $data
+			)
+		);
     }	
     /**
      * @Route("/", name="annonces")     
@@ -79,7 +69,7 @@ class ZandooController extends Controller
             $critere->setOffset($offset);
             $critere->setType(0);
             $annonce = $repoAnnoce->findAnnonceByCritere($critere);
-                                    
+            //dump($annonce);exit;
             $tab["title"] = "Les Bananes Vertes buttanes";
             $tab["img"] =  "/web/uploads/documents/11.jpeg";
             $tab["price"] = "99";
@@ -99,7 +89,7 @@ class ZandooController extends Controller
                             'form' => "",
                             'colorBody' => "F7F7F7",
                             'headsearch' => 1,
-                            'data' => $data
+                            'data' => $annonce
                     )
             );
     } 
@@ -119,15 +109,20 @@ class ZandooController extends Controller
         if($this->getUser() && empty($annonce->getId())){
             $options['connected'] = true;
         } 
-        if(!empty($annonce->getUtilisateur()) && empty($this->getUser()) || (!empty($this->getUser()) && !empty($annonce->getUtilisateur()) && $annonce->getUtilisateur()->getId() != $this->getUser()->getId()) ){
-             throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException('Vous n\'avez pas acces à cette page veuillez vous connecté.');          
+        if(!empty($annonce->getUtilisateur()) && empty($this->getUser()) || 
+			(!empty($this->getUser()) && !empty($annonce->getUtilisateur()) && 
+			$annonce->getUtilisateur()->getId() != $this->getUser()->getId()))
+		{
+            throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException('Vous n\'avez pas acces à cette page veuillez vous connecté.');          
         }    
         $form = $this->createForm(FormAnnonceType::class, $annonce, $options);
         $form->handleRequest($request);
-        if($form->isValid() && $form->isSubmitted()){
-    
-            try{
-                if($this->getUser()){
+        if($form->isValid() && $form->isSubmitted())
+		{    
+            try
+			{
+                if($this->getUser())
+				{
                     $utilisateur = $em->getRepository(Utilisateur::class)->find($this->getUser()->getId());
                     $utilisateur->setUsername($this->getUser()->getUsername());
                     $utilisateur->setEmail($this->getUser()->getEmail());
@@ -136,11 +131,12 @@ class ZandooController extends Controller
                     $utilisateur->setTelephone($this->getUser()->getTelephone());
                     $utilisateur->setVille($this->getUser()->getVille());                 
                     $annonce->setUtilisateur($utilisateur);
-                }else{                  
+                }
+				else
+				{                  
                    $annonce->getUtilisateur()->setDateCreation(new \DateTime()); 
                    $pwdEncoded = $this->get('security.password_encoder')->encodePassword(new Utilisateur(), $annonce->getUtilisateur()->getPassword());
-                   $annonce->getUtilisateur()->setPassword($pwdEncoded);
-          
+                   $annonce->getUtilisateur()->setPassword($pwdEncoded);          
                 }       
                 $categorie = $em->getRepository(Categorie::class)->find($annonce->getCategorie());
                 $annonce->setCategorie($categorie);
@@ -148,11 +144,14 @@ class ZandooController extends Controller
                 $em->persist($annonce);              
                 $em->flush();
                 $this->addFlash('succesAnnonce', 'votre annonce a été enregistré avec succes!');
-                if(!$this->getUser()){                          
+                if(!$this->getUser())
+				{                          
                     return $this->redirectToRoute('login',array());
                 }
                 return $this->redirectToRoute('afficher_annonce',array('id'=>$annonce->getId()));
-            }catch(Exception $e){
+            }
+			catch(Exception $e)
+			{
                echo $e;
             }
         }  
