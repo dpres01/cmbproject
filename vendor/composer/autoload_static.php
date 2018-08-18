@@ -24,6 +24,10 @@ class ComposerStaticInit19ab2b9d116a4eea24cc57531a5ff76c
         array (
             'ZandooBundle\\' => 13,
         ),
+        'U' => 
+        array (
+            'UserBundle\\' => 11,
+        ),
         'T' => 
         array (
             'Twig\\' => 5,
@@ -93,6 +97,10 @@ class ComposerStaticInit19ab2b9d116a4eea24cc57531a5ff76c
         'ZandooBundle\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/ZandooBundle',
+        ),
+        'UserBundle\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/UserBundle',
         ),
         'Twig\\' => 
         array (

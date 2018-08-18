@@ -111,21 +111,24 @@ class ZandooController extends Controller
         $em = $this->getDoctrine()->getManager();
         if($annonce == NULL){
           $annonce = new Annonce();  
-        }         
+        }else{
+            $categorieID = $annonce->getCategorie()->getId();
+            $annonce->setCategorie($categorieID);
+        }           
         $options['connected'] = false;
         $options['categorie'] = $em->getRepository(Categorie::class)->findAll();
         $options['famille'] = $em->getRepository(Famille::class)->findAll();
-        if($this->getUser() && empty($annonce->getId())){
+        if($this->getUser()){
             $options['connected'] = true;
-        } 
+        }
         
         if(!empty($annonce->getUtilisateur()) && empty($this->getUser()) || (!empty($this->getUser()) && !empty($annonce->getUtilisateur()) && $annonce->getUtilisateur()->getId() != $this->getUser()->getId()) ){
              throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException('Vous n\'avez pas acces à cette page veuillez vous connecté.');          
         }    
         $form = $this->createForm(FormAnnonceType::class, $annonce, $options);
         $form->handleRequest($request);
+        //dump($annonce,$request);die;
         if($form->isValid() && $form->isSubmitted()){
-    
             try{
                 if($this->getUser()){
                     $utilisateur = $em->getRepository(Utilisateur::class)->find($this->getUser()->getId());
@@ -134,7 +137,7 @@ class ZandooController extends Controller
                     $utilisateur->setPassword($this->getUser()->getPassword());
                     $utilisateur->setAdresse($this->getUser()->getAdresse());
                     $utilisateur->setTelephone($this->getUser()->getTelephone());
-                    $utilisateur->setVille($this->getUser()->getVille());                 
+                    $utilisateur->setVille($this->getUser()->getVille());
                     $annonce->setUtilisateur($utilisateur);
                 }else{                  
                    $annonce->getUtilisateur()->setDateCreation(new \DateTime()); 

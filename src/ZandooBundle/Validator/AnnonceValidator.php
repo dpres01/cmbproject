@@ -33,7 +33,7 @@ class AnnonceValidator extends ConstraintValidator
            }
            if($annonce->getImages()!= NULL){
                foreach($annonce->getImages() as $image){
-                  if(!in_array($image->getFile()->getMimeType(),$typeImage)) $formatnonreconnu = true;
+                  if($image->getFile()!= NULL && !in_array($image->getFile()->getMimeType(),$typeImage)) $formatnonreconnu = true;
                }
               if($formatnonreconnu)$this->context->addViolation('format des images acceptés : jpeg,jpg,gif,png,bmp,tiff,psd'); 
            }

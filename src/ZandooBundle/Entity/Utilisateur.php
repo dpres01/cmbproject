@@ -111,7 +111,7 @@ class Utilisateur implements UserInterface
     private $actif = 1;
     /**
      * @var string
-     *
+     * 
      * @ORM\Column(name="date_création", type="date")
      */
     private $dateCreation;
@@ -125,8 +125,9 @@ class Utilisateur implements UserInterface
      * @var string
      *
      * @ORM\Column(name="is_professionnel", type="boolean")
+     * @Assert\NotNull(message="cette valeur ne doit pas être vide")
      */
-    private $isProfessionnel = 0;// 0 = Particulier | 1 = Professionnel
+    private $isProfessionnel = false;// 0 = Particulier | 1 = Professionnel
     
     private $roles = array();
   

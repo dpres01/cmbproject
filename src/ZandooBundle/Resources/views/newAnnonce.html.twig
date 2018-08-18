@@ -37,10 +37,10 @@
                                 {{form_errors(form.type)}}
 			</div>
 		</div>
-		<div class="ann-min-bx">
+		<div class="ann-min-bx {{isConnected}}">
 			<div class="ann-subt">{{form_label(form.utilisateur.isProfessionnel)}}</div>
 			<div class="ann-subt-ans-box" style="max-width:350px;">                               
-				{{form_widget(form.utilisateur.isProfessionnel,{attr:{class:isConnected}})}}                                
+				{{form_widget(form.utilisateur.isProfessionnel)}}                                
 			</div>
 		</div>
 		<div class="ann-min-bx">
@@ -86,7 +86,7 @@
 			<div >
 				<div style="float:left;width:20%;height:100px;text-align:center;background:#fff;">
                                         {% if form.vars.value.images[0] is defined %}
-                                           <img id="imgadd-0" src="/cmbproject/web/uploads/documents/{{form.vars.value.images[0].id}}.{{form.vars.value.images[0].url}}" class="imgmax "> 
+                                           <img id="imgadd-0" src="/Zando/web/uploads/documents/{{form.vars.value.images[0].id}}.{{form.vars.value.images[0].url}}" class="imgmax "> 
                                         {%else%}    
 					<img id="imgadd-0" src="{{ asset('public/img/add-pic.png') }}" class="imgmax addimg">
 					<div style="display:none"><input type="file" data-nb="imginp-0" id="form_annonce_images_0_file" name="form_annonce[images][0][file]" class="fileimg"/></div>
@@ -94,7 +94,7 @@
                                 </div>
 				<div style="float:left;width:20%;height:100px;text-align:center;background:#fff;">
                                         {% if form.vars.value.images[1] is defined %}
-                                           <img id="imgadd-0" src="/cmbproject/web/uploads/documents/{{form.vars.value.images[1].id}}.{{form.vars.value.images[0].url}}" class="imgmax "> 
+                                           <img id="imgadd-0" src="/Zando/web/uploads/documents/{{form.vars.value.images[1].id}}.{{form.vars.value.images[0].url}}" class="imgmax "> 
                                         {%else%} 
 					<img id="imgadd-1" src="{{ asset('public/img/add-pic.png') }}" class="imgmax addimg">
 					<div style="display:none"><input type="file" data-nb="imginp-1" id="form_annonce_images_1_file" name="form_annonce[images][1][file]" class="fileimg"/></div>
@@ -141,7 +141,7 @@
 			</div>
 		</div>
 	</div>	
-	<div class="ann-bx" style="margin-top:25px;">
+	<div class="ann-bx {{isConnected}}" style="margin-top:25px;">
 		<div class="ann-bx-title-cnt">						
 			<div class="ann-bx-title-nb">3</div>
 			<div class="ann-bx-title-txt">Localisation</div>
@@ -150,17 +150,17 @@
 		<div class="ann-min-bx">
 			<div class="ann-subt">Ville ou code postal {{form_label(form.utilisateur.ville)}}</div>
 			<div class="ann-subt-ans-box" style="max-width:300px;">
-				{{form_widget(form.utilisateur.ville,{attr:{class:isConnected}})}}
+				{{form_widget(form.utilisateur.ville)}}
 			</div>
 		</div>
 		<div class="ann-min-bx">
 			<div class="ann-subt">{{form_label(form.utilisateur.adresse)}}</div>
 			<div class="ann-subt-ans-box" style="max-width:550px;">
-				{{form_widget(form.utilisateur.adresse,{attr:{class:isConnected}})}}
+				{{form_widget(form.utilisateur.adresse)}}
 			</div>
 		</div>
 	</div>
-	<div class="ann-bx" style="margin-top:25px;">
+	<div class="ann-bx {{isConnected}}" style="margin-top:25px;">
 		<div class="ann-bx-title-cnt">						
 			<div class="ann-bx-title-nb">4</div>
 			<div class="ann-bx-title-txt">Informations de contact</div>
@@ -169,26 +169,26 @@
 		<div class="ann-min-bx">
 			<div class="ann-subt">{{form_label(form.utilisateur.username)}}</div>
 			<div class="ann-subt-ans-box" style="max-width:200px;">
-				{{form_widget(form.utilisateur.username,{attr:{class:isConnected}})}}
+				{{form_widget(form.utilisateur.username)}}
 			</div>
 		</div>
 		<div class="ann-min-bx">
 			<div class="ann-subt">{{form_label(form.utilisateur.password)}}</div>
 			<div class="ann-subt-ans-box" style="max-width:200px;">
-				{{form_widget(form.utilisateur.password,{attr:{class:isConnected}})}}
+				{{form_widget(form.utilisateur.password)}}
 			</div>
 		</div>
 		<div class="ann-min-bx">
 			<div class="ann-subt">{{form_label(form.utilisateur.email)}}</div>
 			<div class="ann-subt-ans-box" style="max-width:350px;">
-				{{form_widget(form.utilisateur.email,{attr:{class:isConnected}})}}
+				{{form_widget(form.utilisateur.email)}}
 			</div>
 		</div>
 		<div class="ann-min-bx">
 			<div class="ann-subt">{{form_label(form.utilisateur.telephone)}}</div>
 			<div class="ann-subt-ans-box">
 				<div class="ann-subt-ans-inp" style="max-width:200px;">
-					{{form_widget(form.utilisateur.telephone,{attr:{class:isConnected}})}}
+					{{form_widget(form.utilisateur.telephone)}}
 				</div>
 				<div class="ann-subt-ans-txt" style="max-width:400px;">
 					{{form_widget(form.afficherTel)}}
@@ -207,7 +207,7 @@
    <script type='text/javascript'>
 	$(document).ready(function()
 	{	
-		$('.cached').parent().parent().each(function(){ $(this).remove(); })  
+		$('.cached').each(function(){ $(this).css('display','none'); })  
 		$('.addimg').click(function()
 		{
 			var nb = $(this).attr("id").split("-")[1];
