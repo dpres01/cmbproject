@@ -19,6 +19,10 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
         $this->filtrerByCritere($critere, $qb);
         return  $qb->getQuery()->getResult();
     }
+    // nb annonce dans la bdd 
+    public function countAllAnnonce() {
+        return $this->createQueryBuilder('a')->select('COUNT(a)')->getQuery() ->getSingleScalarResult();
+    }
     
     private function filtrerByCritere ($critere,$qb){
         

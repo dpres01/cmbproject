@@ -140,7 +140,7 @@ class Categorie
      *
      * @return Categorie
      */
-    public function setFamille(\ZandooBundle\Entity\Famille $famille = null)
+    public function setFamille( $famille = null)
     {
         $this->famille = $famille;
     
