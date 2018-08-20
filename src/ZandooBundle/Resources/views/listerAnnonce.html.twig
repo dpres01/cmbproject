@@ -104,8 +104,10 @@
 					</div>
 				</div>
 			</div>
+                       
 			<div class="annonce-r" style="">
-				{% for val in data %} 
+				{% for val in annonces %}
+                                  
 					{% if loop.index == 1 %}
 						{% set marg = 0 %}
 					{% else %}
@@ -113,24 +115,26 @@
 					{% endif %}
 					<div class="bxanon" style="margin-top:{{ marg }}px;">				
 						<div class="bxanon-img">
-							<img src="{{ asset(val.img) }}" class="imgmax">
+                                                        {%if  zandoo_service_commun.testExistanceImg(val.images) %}
+							    <img src="{{url_upload}}{{val.images[0].id}}.{{val.images[0].url}}" class="imgmax">
+                                                        {%endif%}
 						</div>
 						<div class="bx-txt">
-							<div class="bx-title truncate">{{ val.title }}</div>
+							<div class="bx-title truncate">{{ val.titre }}</div>
 							<div class="bx-txt-nor">
 								<div class="bx-txt-nor-price-box">
-									<div class="bx-txt-nor-price">{{ val.price }}{{ val.currency }}</div>
+									<div class="bx-txt-nor-price">{{ val.prix }} {{ zandoo_service_commun.typeMonnaie(val.monnaie) }}</div>
 									<div style="margin-top:15px;">
 										<div class="bx-txt-nor-price-offer">
-											<a href="{{ path('afficher_annonce', {'id': 1}) }}" class="lk-b">Voir offre</a>
+											<a href="{{ path('afficher_annonce', {'id': val.id}) }}" class="lk-b">Voir offre</a>
 										</div>
 									</div>
 									<div style="margin-top:15px;text-align:center;">
-										{{ val.date }}
+										{{ zandoo_service_commun.dateConvertText(val.dateCreation) }}
 									</div>
 								</div>
 								<div style="float:left;width:350px;">
-									<div style="font-size:13px;padding-top:5px;">{{ val.desc }}</div>
+									<div style="font-size:13px;padding-top:5px;">{{ val.description }}</div>
 									<div style="margin-top:15px;">
 										<div class="bx-txt-nor-tbgrd">
 											<div class="bx-txt-nor-tbgrd-elm">
@@ -150,7 +154,7 @@
 							</div>
 							<div class="bx-txt-resp">
 								<div class="bx-price-offer">					
-									<div class="bx-price">{{ val.price }}{{ val.currency }}</div>
+									<div class="bx-price">{{ val.prix }} {{ zandoo_service_commun.typeMonnaie(val.monnaie) }}</div>
 									<div style="float:left;">
 										<div class="bx-offer">
 											Voir offre
@@ -171,7 +175,7 @@
 									<div style="clear:both;"></div>
 								</div>
 								<div class="bx-date" style="">
-									{{ val.date }}
+									{{ zandoo_service_commun.dateConvertText(val.dateCreation) }}
 								</div>
 							</div>
 						</div>

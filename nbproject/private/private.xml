@@ -6,7 +6,9 @@
         <group/>
 =======
         <group>
-            <file>file:/C:/wamp/www/zando/vendor/doctrine/orm/lib/Doctrine/ORM/QueryBuilder.php</file>
+            <file>file:/C:/wamp/www/zando/src/ZandooBundle/Repository/AnnonceRepository.php</file>
+            <file>file:/C:/wamp/www/zando/src/ZandooBundle/Controller/ZandooController.php</file>
+            <file>file:/C:/wamp/www/zando/src/ZandooBundle/Entity/Critere.php</file>
         </group>
 >>>>>>> bab8cdc98a5742b671329ab6fce95892116c939b
     </open-files>

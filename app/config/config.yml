@@ -10,7 +10,7 @@ imports:
 parameters:
     locale: fr
     url_img_test: '/web/%kernel.environment%/public/img/fd8017b0877dc633d90eaa06c011532e7e36172d.jpg'
-    url_upload: '%kernel.project_dir%/web/uploads/documents/'
+    url_upload: '/cmbproject/web/uploads/documents/'
 
 framework:
     #esi: ~
@@ -45,6 +45,8 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%' 
     form_themes: ['bootstrap_3_layout.html.twig']
+    globals:
+        zandoo_service_commun: "@zandoo_service_commun"    
 
 # Doctrine Configuration
 doctrine:

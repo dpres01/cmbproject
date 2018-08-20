@@ -37,3 +37,6 @@ services:
     zandoo.annonce_validator:
         class: ZandooBundle\Validator\AnnonceValidator
         arguments: ["@doctrine.orm.entity_manager","@security.token_storage"]
+
+    zandoo_service_commun:
+        class: ZandooBundle\Service\Commun

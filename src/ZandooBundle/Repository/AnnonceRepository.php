@@ -13,10 +13,14 @@ use ZandooBundle\Entity\Critere;
 class AnnonceRepository extends \Doctrine\ORM\EntityRepository
 {
     public function findAnnonceByCritere($critere)
-    {   //$critere->setTitre("test")->setPrixSup(500);->setPrixInf(500);
+    {   
         $qb = $this->createQueryBuilder('a')
+                ->addSelect('img')
+                ->leftJoin('a.images', 'img')
                 ->andWhere('a.actif = 1');
         $this->filtrerByCritere($critere, $qb);
+         $qb->groupBy('a.id');
+        //dump($qb->getQuery()->getResult(),$qb->getQuery()->getSQL());die;
         return  $qb->getQuery()->getResult();
     }
     // nb annonce dans la bdd 

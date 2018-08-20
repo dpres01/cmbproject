@@ -62,7 +62,7 @@ class FormAnnonceType extends AbstractType
                 'expanded' =>false ,
                 'label'=>false
             ))                
-            ->add('afficherTel',CheckboxType::class,array(
+            ->add('cacherTel',CheckboxType::class,array(
                 'label'=>'Masquer le numéro de téléphone pour cette annoce',
                 'required'=> false
             ))
@@ -95,15 +95,19 @@ class FormAnnonceType extends AbstractType
          return "annonceFormType";
      }
      
-     public function listeCategorieByFamille($listeFamille,$listeCategorie){
-        $liste = array("Choississez une categorie"=>"");
-        foreach($listeFamille as $famille){
-            foreach($listeCategorie as $categorie){
-                if($famille->getId() == $categorie->getFamille()->getId()){
-                  $liste[$famille->getLibelle()][$categorie->getLibelle()] = $categorie->getId() ;
+    public function listeCategorieByFamille($listeFamille,$listeCategorie)
+	{		
+        $liste = array("Choississez une categorie" => "");
+        foreach($listeFamille as $famille)
+		{
+            foreach($listeCategorie as $categorie)
+			{
+                if($famille->getId() == $categorie->getFamille()->getId())
+				{
+					$liste[$famille->getLibelle()][$categorie->getLibelle()] = $categorie->getId() ;
                 }                 
             }
         }
-       return $liste;
-     }
+        return $liste;
+    }
 }
