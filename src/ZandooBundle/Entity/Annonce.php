@@ -68,7 +68,7 @@ class Annonce
      *
      * @ORM\Column(name="afficher_tel", type="boolean")
      */
-    private $afficherTel ;// 1 = telephone masqué | 0 =telephone affiché
+    private $cacherTel;// 1 = telephone masqué | 0 =telephone affiché
     
     /**
      * @var string
@@ -223,27 +223,27 @@ class Annonce
     }
 
     /**
-     * Set afficherTel
+     * Set cacherTel
      *
-     * @param string $afficherTel
+     * @param string $cacherTel
      *
      * @return Annonce
      */
-    public function setAfficherTel($afficherTel)
+    public function setCacherTel($cacherTel)
     {
-        $this->afficherTel = $afficherTel;
+        $this->cacherTel= $cacherTel;
     
         return $this;
     }
 
     /**
-     * Get afficherTel
+     * Get cacherTel
      *
      * @return string
      */
-    public function getAfficherTel()
+    public function getCacherTel()
     {
-        return $this->afficherTel;
+        return $this->cacherTel;
     }
 
     /**
