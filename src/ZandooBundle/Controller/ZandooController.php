@@ -142,7 +142,7 @@ class ZandooController extends Controller
                 }
                 return $this->redirectToRoute('afficher_annonce',array('id'=>$annonce->getId()));
             }catch(Exception $e){
-               echo $e;
+               sprintf("Une erreur technique: %s est survenue veuillez contacter l'administrateur ",$e) ;
             }
         }  
        
@@ -161,7 +161,7 @@ class ZandooController extends Controller
     public function afficherAnnonce(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
         $annonce = $em->getRepository(Annonce::class)->find($id);
-        dump($annonce->getImages()[0]);die;
+       // dump($annonce->getImages()[0]);die;
         if($annonce){
             return $this->render('@Zandoo/annonce.html.twig',
                     array(
@@ -184,14 +184,4 @@ class ZandooController extends Controller
        $retour = $annonce->getType() == 1 ?  $this->redirectToRoute('demandes'):$this->redirectToRoute('annonces');  
        return $retour;
     } 
-//    private function convertUtilisateur($user){
-//        $utilisateur->setUsername($user->getUsername());
-//        $utilisateur->setEmail($user->getEmail());
-//        $utilisateur->setPassword($user->getPassword());
-//        $utilisateur->setAdresse($user->getAdresse());
-//        $utilisateur->setTelephone($user->getTelephone());
-//        $utilisateur->setVille($user->getVille());
-//        $utilisateur->setIsProfessionnel($user->getIsProfessionnel());
-//        return  $utilisateur;             
-//    }
 }

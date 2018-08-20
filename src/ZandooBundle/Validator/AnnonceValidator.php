@@ -55,8 +55,11 @@ class AnnonceValidator extends ConstraintValidator
            if($annonce->getUtilisateur()->getEmail() == NULL){
               $this->context->addViolation('Renseigner votre E-mail '); 
            }
+           if($annonce->getUtilisateur()->getUsername()!= NULL && (strlen($annonce->getUtilisateur()->getUsername()) < 5 || strlen($annonce->getUtilisateur()->getUsername()) > 5)){
+              $this->context->addViolation('Le pseudo doit contenir 5 caractères'); 
+           }
            if($annonce->getUtilisateur()->getPassword()!= NULL && strlen($annonce->getUtilisateur()->getPassword()) < 8){
-              $this->context->addViolation('Le mot de passe doit contenir 8 caractère minimum'); 
+              $this->context->addViolation('Le mot de passe doit contenir 8 caractères minimum'); 
            }
             if($annonce->getUtilisateur()->getTelephone() == NULL){
               $this->context->addViolation('Renseigner un numero de téléphone '); 

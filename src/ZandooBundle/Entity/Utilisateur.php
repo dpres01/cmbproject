@@ -35,12 +35,10 @@ class Utilisateur implements UserInterface
      * @ORM\Column(name="pseudo", type="string",length=5,unique=true)
      * 
      * @Assert\NotBlank(message="cette valeur ne doit pas être vide")
-     * @Assert\Length(
-     *      min = 5,
-     *      max = 5,
-     *      exactMessage = "votre pseudo doit contenir {{ limit }} caracteres",
-     *      
-     * )
+     * @Assert\Length( min = 5, max = 5,
+     *    exactMessage = "votre pseudo doit contenir {{ limit }} caracteres",
+     * )     
+     *
      */
     private $username;
     /**

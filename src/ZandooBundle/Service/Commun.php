@@ -37,6 +37,7 @@
 		if (!$full) $string = array_slice($string, 0, 1);
 		return $string ? 'Il y à '.implode(', ', $string).'' : 'maintenant';
 	}
+        
         function testExistanceImg($img){
             return !$img->isEmpty();
         }
