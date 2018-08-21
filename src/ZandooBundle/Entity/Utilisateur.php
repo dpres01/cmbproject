@@ -106,7 +106,7 @@ class Utilisateur implements UserInterface
      *
      * @ORM\Column(name="actif", type="boolean")
      */
-    private $actif = 1;
+    private $actif = true;
     /**
      * @var string
      * 
@@ -118,7 +118,7 @@ class Utilisateur implements UserInterface
      *
      * @ORM\Column(name="is_admin", type="boolean")
      */
-    private $isAdmin = 0;// 0 = Utilisateur normal | 1 = Administrateur
+    private $isAdmin = true;// 0 = Utilisateur normal | 1 = Administrateur
     /**
      * @var string
      *

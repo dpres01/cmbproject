@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use ZandooBundle\Entity\Utilisateur;
 use ZandooBundle\Form\FormUtilisateurType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class UtilisateurController extends Controller
 {	
@@ -31,7 +32,7 @@ class UtilisateurController extends Controller
             $this->addFlash('createUser', 'Votre compte a été créé avec succès');
             return $this->redirectToRoute('login');
         }
-        return $this->render('@Zandoo/inscription.html.twig',
+        return $this->render('@Zandoo/Utilisateur/inscription.html.twig',
 			array('form'=>$form->createView()
 			)
 		);
@@ -50,7 +51,7 @@ class UtilisateurController extends Controller
         // et l'erreur dans le cas où le formulaire a déjà été soumis mais était invalide
         // (mauvais mot de passe par exemple)
         $authenticationUtils = $this->get('security.authentication_utils');
-        return $this->render('@Zandoo/connexion.html.twig', array(
+        return $this->render('@Zandoo/Utilisateur/connexion.html.twig', array(
           'last_username' => $authenticationUtils->getLastUsername(),
           'error'         => $authenticationUtils->getLastAuthenticationError(),
         ));	
@@ -79,7 +80,7 @@ class UtilisateurController extends Controller
                 $this->addFlash('error', 'cet email n\'existe pas');
             }     
          } 
-         return $this->render('@Zandoo/modifierPassword.html.twig', array('form'=>$form->createView())); 
+         return $this->render('@Zandoo/Utilisateur/modifierPassword.html.twig', array('form'=>$form->createView())); 
     }
     
     /**
@@ -110,9 +111,31 @@ class UtilisateurController extends Controller
                    $this->addFlash('error', 'connectez vous ou verifier que vos mot passes soit differents ');
               }
          }
-         return $this->render('@Zandoo/modifierPassword.html.twig', array('form'=>$form->createView()));         
+         return $this->render('@Zandoo/Utilisateur/modifierPassword.html.twig', array('form'=>$form->createView()));         
     }
-      
+    
+    /**
+     * 
+     * @Route("/modifier/utilisateur/{id}",name="modifier_utilisateur")
+     * @ParamConverter("utilisateur", class="ZandooBundle:Utilisateur", isOptional=true)
+     * 
+     */ 
+    public function modifierUtilisateur(Request $request, $utilisateur){
+        if(is_object($this->getUser())){
+            $form = $this->createForm(FormUtilisateurType::class, $utilisateur);
+            $form->handleRequest($request);
+            if($form->isValid() && $form->isSubmitted()){ 
+//                $em = $this->getDoctrine()->getManager();
+//                $em->persist($utilisateur);
+//                $em->flush();
+            }          
+            return $this->render('@Zandoo/Utilisateur/modifierUtilisateur.html.twig', array('form'=>$form->createView()));
+        }else{
+            throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException('Vous n\'avez pas le droit d\'acces à cette page veuillez vous connecté.');  
+        }
+        
+    }
+    
     function RandomString(){
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';        
         $randstring = '';

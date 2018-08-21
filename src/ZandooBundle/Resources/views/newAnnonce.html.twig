@@ -203,10 +203,10 @@
 		</div>
 		<div style="clear:both;"></div>
 	</div>
-        <div>  
-            <p> Cliquez ici si votre article est vendu </p>
+        <div> 
             {% if app.user is not empty and form.vars.value.id%}
-                  <input class="form-control cached" type="submit" id="article-vendu" name="article-vendu" value="Article Vendu" />
+                <p> Cliquez ici si votre article est vendu </p>
+                <input  type="submit" id="article-vendu" name="article-vendu" value="Article Vendu" />
             {% endif %}
         </div>
 	{{form_end(form)}}   

@@ -30,11 +30,13 @@
 				<div class="hd-top-right-user" style="">
 					<i class="fa fa-user-o"></i>
 				</div>
+                                {%if  app.user is empty %}
 				<div class="hd-top-right-register" style="">
-					<div class="btn-insc" style="">
-						<a class="lk-b" href="{{path('enregistrer_utilisateur')}}">S'inscrire</a>
+					<div class="btn-insc" style="">        
+					    <a class="lk-b" href="{{path('enregistrer_utilisateur')}}">S'inscrire</a>
 					</div>
 				</div>
+                                {%endif%}
 				<div style="clear:both;"></div>
 			</div>
 			<div class="hd-top-menu-resp" style="">
