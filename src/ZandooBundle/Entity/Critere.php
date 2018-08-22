@@ -23,13 +23,22 @@ class Critere
      * @var int
      */ 
     private $prixSup;
+    
     /**
      *
      * @var int
      */   
     private $prixInf;
-    
+    /**
+     *
+     * @var string 
+     */
     private $titre;
+    /**
+     * 
+     * @return type
+     */
+    private $idUtilisateur;
     
     public function getTitre() {
         return $this->titre;
@@ -84,6 +93,16 @@ class Critere
         $this->titre = $titre;
         return $this;
     }
+    
+    public function getIdUtilisateur() {
+        return $this->idUtilisateur;
+    }
+
+    public function setIdUtilisateur($idUtilisateur) {
+        $this->idUtilisateur = $idUtilisateur;
+        return $this;
+    }
+
 
 
 }
