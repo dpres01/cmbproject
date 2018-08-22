@@ -169,7 +169,8 @@ class ZandooController extends Controller
      **/
     public function afficherAnnonce(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
-        $annonce = $em->getRepository(Annonce::class)->find($id);      
+        $annonce = $em->getRepository(Annonce::class)->find($id);
+      
         if($annonce){
             return $this->render('@Zandoo/annonce.html.twig',
                     array(
