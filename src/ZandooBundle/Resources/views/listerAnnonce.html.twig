@@ -113,14 +113,16 @@
 					{% else %}
 						{% set marg = 25 %}
 					{% endif %}
-					<div class="bxanon" style="margin-top:{{ marg }}px;">				
-						<div class="bxanon-img">
-                                                        {%if  zandoo_service_commun.testExistanceImg(val.images) %}
-							    <img src="{{url_upload}}{{val.images[0].id}}.{{val.images[0].url}}" class="imgmax">
-                                                        {%endif%}
+					<div class="bxanon" style="margin-top:{{ marg }}px;height:100%;">				
+						<div class="bxanon-img" style="height:100%;">
+                            {%if zandoo_service_commun.testExistanceImg(val.images) %}
+							    <img src="{{asset('/uploads/documents/')}}{{ val.images[0].id}}.{{val.images[0].url}}" class="imgmax">
+							{%else%}
+								<img src="{{ asset('/public/img/nopic1.png') }}" class="imgmax">
+                            {%endif%}
 						</div>
 						<div class="bx-txt">
-							<div class="bx-title truncate">{{ val.titre }}</div>
+							<div class="bx-title truncate">{{ zandoo_service_commun.titreFormatAnnonce(val.titre) }}</div>
 							<div class="bx-txt-nor">
 								<div class="bx-txt-nor-price-box">
 									<div class="bx-txt-nor-price">{{ val.prix }} {{ zandoo_service_commun.typeMonnaie(val.monnaie) }}</div>
@@ -134,20 +136,9 @@
 									</div>
 								</div>
 								<div style="float:left;width:350px;">
-									<div style="font-size:13px;padding-top:5px;">{{ val.description }}</div>
-									<div style="margin-top:15px;">
-										<div class="bx-txt-nor-tbgrd">
-											<div class="bx-txt-nor-tbgrd-elm">
-												Surface<br/><b>98 m²</b>
-											</div>
-											<div class="bx-txt-nor-tbgrd-elm">
-												Pièces<br/><b>4</b>
-											</div>
-											<div class="bx-txt-nor-tbgrd-elm" style="border-right:0px;">
-												Chambres<br/><b>3</b>
-											</div>
-											<div style="clear:both;"></div>
-										</div>
+									<div style="font-size:13px;padding-top:5px;"><b>Description</b>:</div>
+									<div style="margin-top:10px;">
+										{{ val.description }}
 									</div>
 								</div>
 								<div style="clear:both;"></div>
@@ -163,16 +154,7 @@
 									<div style="clear:both;"></div>
 								</div>
 								<div class="tabgrd" style="">
-									<div class="tbgrd">
-										Surface<br/><b>98 m²</b>
-									</div>
-									<div class="tbgrd">
-										Pièces<br/><b>4</b>
-									</div>
-									<div class="tbgrd" style="border-right:0px;">
-										Chambres<br/><b>3</b>
-									</div>
-									<div style="clear:both;"></div>
+									{{ val.description }}
 								</div>
 								<div class="bx-date" style="">
 									{{ zandoo_service_commun.dateConvertText(val.dateCreation) }}

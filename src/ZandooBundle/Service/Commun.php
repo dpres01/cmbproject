@@ -38,9 +38,11 @@
 		return $string ? 'Il y à '.implode(', ', $string).'' : 'maintenant';
 	}
         
-        function testExistanceImg($img){
-            return !$img->isEmpty();
-        }
- }
+	function testExistanceImg($img){
+		return !$img->isEmpty();
+	}
+	
+	function titreFormatAnnonce($_text){ return ucfirst($_text); }
+}
 
 

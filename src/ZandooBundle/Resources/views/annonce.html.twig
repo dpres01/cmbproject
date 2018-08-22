@@ -8,11 +8,16 @@
 	</div> 
        {% endfor%}  
 		<div class="ann-lf">
-			<div style=""><h3 style="padding:0;margin:0;">Les Bananes Vertes du venezuela</h3></div>
+			<div style="">
+				<h3 style="padding:0;margin:0;">
+					{{ zandoo_service_commun.titreFormatAnnonce(annonce.titre) }}
+				</h3>
+			</div>
+			{%if  zandoo_service_commun.testExistanceImg(annonce.images) %}
 			<div class="ann-img-all" style="margin-top:15px;">
 				<div class="ann-img-lf">
 					<div class="ann-img-mn">
-						<img src="/public/img/5_59.JPG">
+						<img src="{{asset('/uploads/documents/')}}{{ annonce.images[0].id}}.{{annonce.images[0].url}}" class="imgmax">
 					</div>
 				</div>
 				<div class="ann-img-rt">
@@ -33,7 +38,7 @@
 				<div class="ann-stat-elem">
 					<div class="ann-stat-icon"><i class="fa fa-hourglass-o" style="font-size:14px;"></i></div> 
 					<div style="float:left;">							
-						Publiée la semaine dernière
+						Publiée {{ zandoo_service_commun.dateConvertText(annonce.dateCreation) }}
 					</div> 
 					<div style="clear:both;"></div>
 				</div>						
@@ -53,57 +58,72 @@
 				</div>
 				<div style="clear:both;"></div>		
 			</div>	
-			<div class="ann-bar">
+			{%endif%}
+			<div class="ann-bar" style="display:none;">
 				<div style="float:left;margin-right:20px;">Description</div>
-				<div style="float:left;">Caractéristiques</div>
+				<div style="float:left;display:none;">Caractéristiques</div>
 				<div style="clear:both;"></div>
 			</div>	
+			{%if  zandoo_service_commun.testExistanceImg(annonce.images) %}
 			<div class="ann-desc">
 				<div><h3 style="padding:0;margin:0;">Description</h3></div>
 			</div>	
 			<div class="ann-desc-bx">
 				<div style="">
-				L'aspirateur balai Dyson V8 ABSOLUTE  HOME renferme un  concentré de technologies. 
-	Il est idéal pour le  nettoyage en profondeur des moquettes ou des sols durs grâce à sa  brosse rouleau doux, sa brosse motorisée et sa mini brosse motorisée !
-	Rechargeable, il vous offre  jusqu'à 40 minutes d'aspiration pour enlever les fines poussières et débris, en un seul passage. Pour une utilisation pratique et polyvalente, il  se transforme en aspirateur à main.
-	Sa  technologie 2 Tier Radial™ permet de produire une aspiration puissante et constante. Il retire des gros débris aux fines poussières autant qu'un aspirateur standard grâce au moteur numérique. 
-
-	Moteur numérique : 
-	Son  moteur numérique Dyson V8 vous assure un meilleur rendement énergétique et une puissance d'aspiration élevée. 
-
-	Technologie 2 Tier Radial™ et filtre à la sortie du moteur :
-	Le V8 Absolute Home est doté de la Technologie 2 Tier Radial™ : les cyclones augmentent le flux d'air et capturent la plus fine poussière et  permet de produire une aspiration puissante et constante.
-
-	Deux modes de puissance et autonomie :
-	Vous disposez de  2 modes pour moduler la puissance en fonction de vos besoins : 
-	- mode normal : 40 minutes en brosses passives et 25 minutes en brosse motorisée (grâce à sa batterie Li-ion) 
-	- mode max :  7 minutes pour les tâches les plus difficiles.
-
-	Brosses :
-	V8 Absolute Home est multi accessoirisé pour vous permettre d'aspirer partout !
-	-  brosse rouleau doux : composée de bandes en nylon doux pour capturer les gros débris tout en maintenant la brosse au contact du sol. Les filaments en fibre de carbone antistatiques enlèvent la fine poussière sur les sols durs (comme le lino, le carrelage ou le parquet).
-	-  brosse motorisée à entraînement direct : les poils rigides en nylon gainés pénètrent et décollent efficacement la poussière des moquettes. 
+				{{annonce.description}}
 				</div>
 			</div>	
-			<div class="ann-desc">
+			{%else%}
+			<div class="ann-desc-bx" style="margin-top:15px;">
+				<div><h4 style="padding:0;margin:0;">Description</h4></div>
+				<div style="margin-top:10px;">
+				{{annonce.description}}
+				</div>
+			</div>					
+			<div class="ann-stat-bx">						
+				<div class="ann-stat-elem">
+					<div class="ann-stat-icon"><i class="fa fa-hourglass-o" style="font-size:14px;"></i></div> 
+					<div style="float:left;">							
+						Publiée {{ zandoo_service_commun.dateConvertText(annonce.dateCreation) }}
+					</div> 
+					<div style="clear:both;"></div>
+				</div>						
+				<div class="ann-stat-elem">
+					<div class="ann-stat-icon"><i class="fa fa-eye" style="font-size:14px;"></i></div> 
+					<div style="float:left;">																
+						56 visites
+					</div> 
+					<div style="clear:both;"></div>
+				</div>						
+				<div style="float:left;">
+					<div class="ann-stat-icon"><i class="fa fa-flag-o" style="font-size:14px;"></i></div> 
+					<div style="float:left;">																
+						Signaler cette annonce
+					</div> 
+					<div style="clear:both;"></div>
+				</div>
+				<div style="clear:both;"></div>		
+			</div>
+			{%endif%}	
+			<div class="ann-desc" style="display:none;">
 				<div><h3 style="padding:0;margin:0;">Caractéristiques</h3></div>
 			</div>		
-			<div class="ann-car-w">
+			<div class="ann-car-w" style="display:none;">
 				<div style="float:left;">Fonction vapeur</div>
 				<div class="ann-car-det">Non</div>
 				<div style="clear:both;"></div>	
 			</div>
-			<div style="padding:5px 10px;">
+			<div style="padding:5px 10px;display:none;">
 				<div style="float:left;">Puissance</div>
 				<div class="ann-car-det">21,6 V</div>
 				<div style="clear:both;"></div>	
 			</div>	
-			<div class="ann-car-w">
+			<div class="ann-car-w" style="display:none;">
 				<div style="float:left;">Le plus du produit</div>
 				<div class="ann-car-det">Mutli accessoirisé : idéal pour toute la maison</div>
 				<div style="clear:both;"></div>	
 			</div>		
-			<div style="padding:5px 10px;">
+			<div style="padding:5px 10px;display:none;">
 				<div style="float:left;">Type de batterie</div>
 				<div class="ann-car-det">Lithium</div>
 				<div style="clear:both;"></div>	
@@ -122,7 +142,7 @@
 				<div style="clear:both;"></div>
 			</div>
 			<div class="ann-price-bx">					
-				<div class="ann-price"><h2 style="margin:0;padding:0;">58 €</h2></div>
+				<div class="ann-price"><h2 style="margin:0;padding:0;">{{ annonce.prix }} {{ zandoo_service_commun.typeMonnaie(annonce.monnaie) }}</h2></div>
 				<div class="ann-price-ques">
 					Cette annonce vous intéresse ?
 					<div style="margin:5px 0 10px 0px;">
@@ -174,21 +194,23 @@
 			</div>
 			<div class="ann-msg-bx">		
 				<div style="margin-top:10px;">
-					<div class="ann-msg-tit">Envoyer un message</div>
-					<div style="margin-top:15px;">
-						<input type="text" value="" class="ann-msg-inp" placeholder="Votre nom">
-					</div>
-					<div style="margin-top:10px;">
-						<input type="text" value="" class="ann-msg-inp" placeholder="Votre e-mail">
-					</div>
-					<div style="margin-top:10px;">
-						<input type="text" value="" class="ann-msg-inp" placeholder="Votre numéro de tél. (optionnel)">
-					</div>
-					<div style="margin-top:15px;">
-						<textarea class="textare form ann-msg-txtarea" id="message" rows="3" placeholder="Your Message" maxlength="1024" name="message"></textarea>
+					<div id="msgposter" style="display:none;">
+						<div class="ann-msg-tit">Votre message <a href="" style="color:#ccc;font-weight:normal;" onclick="$('#msgposter').hide();return false;">[x]</a></div>
+						<div style="margin-top:15px;">
+							<input type="text" value="" class="ann-msg-inp" placeholder="Votre nom">
+						</div>
+						<div style="margin-top:10px;">
+							<input type="text" value="" class="ann-msg-inp" placeholder="Votre e-mail">
+						</div>
+						<div style="margin-top:10px;">
+							<input type="text" value="" class="ann-msg-inp" placeholder="Votre numéro de tél. (optionnel)">
+						</div>
+						<div style="margin-top:15px;">
+							<textarea class="textare form ann-msg-txtarea" id="message" rows="3" placeholder="Votre Message" maxlength="1024" name="message"></textarea>
+						</div>
 					</div>
 					<div style="margin:10px 0;">
-						<div class="ann-msg-btn">Envoyer message</div>
+						<div onclick="$('#msgposter').show();" class="ann-msg-btn">Envoyer message</div>
 					</div>
 				</div>
 			</div>	

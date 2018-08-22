@@ -13,68 +13,68 @@
     color: gray;
 }
 .highcharts-exporting-group, 
-.highcharts-title, 
-.highcharts-subtitle,
 .highcharts-button
 {
 	display:none;
-}
+}	
 </style>
-<script src="https://code.highcharts.com/maps/highmaps.js"></script>
-<script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/mapdata/countries/cd/cd-all.js"></script>
-<link rel="stylesheet" href="{{ asset('public/css/connexion.css') }}" type="text/css"/> 
-<div style="margin:0 auto;width:100%;max-width:700px;border:0px solid red;">
-	<div style="float:left;width:50%;">
-		<div style="padding:5px;text-align:center;border:1px solid #005999;background:#fff;color:#005999;width:100%;max-width:200px;">
-			<i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Deposer une annonce
+<link rel="stylesheet" href="{{ asset('public/css/home.css') }}" type="text/css"/> 
+<div class="hm-btns">
+	<div class="hm-cntbtn1">
+		<div class="hm-btn1">
+			<a style="color:#005999;text-decoration:none;" href="{{path('enregistrer_annonce')}}">
+				<i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Deposer une annonce
+			</a>
 		</div>
 	</div>
-	<div style="float:right;width:50%;">	
-		<div style="float:right;padding:5px;text-align:center;border:1px solid #ccc;background:#fff;color:#333;width:100%;max-width:225px;">
+	<div class="hm-cntbtn2">	
+		<div class="hm-btn2">
 			<i class="fa fa-map-marker"></i>&nbsp;&nbsp;Rechercher autour de moi
 		</div>
 		<div style="clear:both;"></div>
 	</div>
 	<div style="clear:both;"></div>
 </div>
-<div style="margin-top:20px;border:0px solid #000;">
+<div class="hm-cntmap" style="">
 	<div style="">
-		<div style="float:left;width:50%;margin-right:10%;">		
-			<div id="container" style="top:0;left:0;"></div>
+		<div class="hm-map">		
+			<div id="container" style="max-height:450px;"></div>
 		</div>
-		<div style="float:left;width:40%;font-size:14px;margin-top:50px;">	
-			<table style="width:90%;">
+		<div class="hm-place">	
+			<table class="hm-tab" align="center">
 			<tr>
 				<td>
-					<div>Bas-Uele <span style="font-size:13px;color:#808080;">(1 250)</span></div>
-					<div style="margin-top:5px;">Équateur <span style="font-size:13px;color:#808080;">(250)</span></div>
-					<div style="margin-top:5px;">Haut-Katanga <span style="font-size:13px;color:#808080;">(50)</span></div>
-					<div style="margin-top:5px;">Haut-Lomami <span style="font-size:13px;color:#808080;">(150)</span></div>
-					<div style="margin-top:5px;">Haut-Uele <span style="font-size:13px;color:#808080;">(500)</span></div>
-					<div style="margin-top:5px;">Ituri <span style="font-size:13px;color:#808080;">(100)</span></div>
-					<div style="margin-top:5px;">Kasaï <span style="font-size:13px;color:#808080;">(2 850)</span></div>
-					<div style="margin-top:5px;">Kasaï-Central <span style="font-size:13px;color:#808080;">(10)</span></div>
-					<div style="margin-top:5px;">Kasaï-Oriental <span style="font-size:13px;color:#808080;">(12)</span></div>
-					<div style="margin-top:5px;">Kinshasa <span style="font-size:13px;color:#808080;">(250)</span></div>
-					<div style="margin-top:5px;">Kongo Central <span style="font-size:13px;color:#808080;">(950)</span></div>
-					<div style="margin-top:5px;">Kwango <span style="font-size:13px;color:#808080;">(650)</span></div>
-					<div style="margin-top:5px;">Kwilu <span style="font-size:13px;color:#808080;">(330)</span></div>
+					<div>Bas-Uele <span class="hm-place-nb">(1 250)</span></div>
+					<div class="hm-place-sp">Équateur <span class="hm-place-nb">(250)</span></div>
+					<div class="hm-place-sp">Haut-Katanga <span class="hm-place-nb">(50)</span></div>
+					<div class="hm-place-sp">Haut-Lomami <span class="hm-place-nb">(150)</span></div>
+					<div class="hm-place-sp">Haut-Uele <span class="hm-place-nb">(500)</span></div>
+					<div class="hm-place-sp">Ituri <span class="hm-place-nb">(100)</span></div>
+					<div class="hm-place-sp">Kasaï <span class="hm-place-nb">(2 850)</span></div>
+					<div class="hm-place-sp">Kasaï-Central <span class="hm-place-nb">(10)</span></div>
+					<div class="hm-place-sp">Kasaï-Oriental <span class="hm-place-nb">(12)</span></div>
+					<div class="hm-place-sp">Kinshasa <span class="hm-place-nb">(250)</span></div>
+					<div class="hm-place-sp">Kongo Central <span class="hm-place-nb">(950)</span></div>
+					<div class="hm-place-sp">Kwango <span class="hm-place-nb">(650)</span></div>
+					<div class="hm-place-sp">Kwilu <span class="hm-place-nb">(330)</span></div>
 				</td>
 				<td>
-					<div style="margin-top:0px;">Lomami <span style="font-size:13px;color:#808080;">(1 001)</span></div>
-					<div style="margin-top:5px;">Lualaba <span style="font-size:13px;color:#808080;">(400)</span></div>
-					<div style="margin-top:5px;">Mai-Ndombe <span style="font-size:13px;color:#808080;">(399)</span></div>
-					<div style="margin-top:5px;">Maniema <span style="font-size:13px;color:#808080;">(159)</span></div>
-					<div style="margin-top:5px;">Mongala <span style="font-size:13px;color:#808080;">(1 250)</span></div>
-					<div style="margin-top:5px;">Nord-Ubangi <span style="font-size:13px;color:#808080;">(50)</span></div>
-					<div style="margin-top:5px;">North Kivu <span style="font-size:13px;color:#808080;">(39)</span></div>
-					<div style="margin-top:5px;">Sankuru <span style="font-size:13px;color:#808080;">(211)</span></div>
-					<div style="margin-top:5px;">South Kivu <span style="font-size:13px;color:#808080;">(540)</span></div>
-					<div style="margin-top:5px;">Sud-Ubangi <span style="font-size:13px;color:#808080;">(750)</span></div>
-					<div style="margin-top:5px;">Tanganyika <span style="font-size:13px;color:#808080;">(550)</span></div>
-					<div style="margin-top:5px;">Tshopo <span style="font-size:13px;color:#808080;">(880)</span></div>
-					<div style="margin-top:5px;">Tshuapa <span style="font-size:13px;color:#808080;">(77)</span></div>
+					<div class="hm-tabsep">&nbsp;</div>
+				</td>
+				<td>
+					<div style="margin-top:0px;">Lomami <span class="hm-place-nb">(1 001)</span></div>
+					<div class="hm-place-sp">Lualaba <span class="hm-place-nb">(400)</span></div>
+					<div class="hm-place-sp">Mai-Ndombe <span class="hm-place-nb">(399)</span></div>
+					<div class="hm-place-sp">Maniema <span class="hm-place-nb">(159)</span></div>
+					<div class="hm-place-sp">Mongala <span class="hm-place-nb">(1 250)</span></div>
+					<div class="hm-place-sp">Nord-Ubangi <span class="hm-place-nb">(50)</span></div>
+					<div class="hm-place-sp">North Kivu <span class="hm-place-nb">(39)</span></div>
+					<div class="hm-place-sp">Sankuru <span class="hm-place-nb">(211)</span></div>
+					<div class="hm-place-sp">South Kivu <span class="hm-place-nb">(540)</span></div>
+					<div class="hm-place-sp">Sud-Ubangi <span class="hm-place-nb">(750)</span></div>
+					<div class="hm-place-sp">Tanganyika <span class="hm-place-nb">(550)</span></div>
+					<div class="hm-place-sp">Tshopo <span class="hm-place-nb">(880)</span></div>
+					<div class="hm-place-sp">Tshuapa <span class="hm-place-nb">(77)</span></div>
 				</td>
 			</tr>
 			</table>
@@ -89,20 +89,23 @@
 		</div>
 		<div style="background:#fff;padding:10px 20px;">
 			<div>EMPLOI ></div>
-			<div style="margin-top:5px;">VEHICULES ></div>
-			<div style="margin-top:5px;">IMMOBILIER ></div>
-			<div style="margin-top:5px;">VACANCES ></div>
-			<div style="margin-top:5px;">MAISON ></div>
-			<div style="margin-top:5px;">MULTIMEDIA ></div>
-			<div style="margin-top:5px;">LOISIRS ></div>
-			<div style="margin-top:5px;">MATERIEL PROFESSIONNEL ></div>
-			<div style="margin-top:5px;">AUTRES ></div>
+			<div class="hm-place-sp">VEHICULES ></div>
+			<div class="hm-place-sp">IMMOBILIER ></div>
+			<div class="hm-place-sp">VACANCES ></div>
+			<div class="hm-place-sp">MAISON ></div>
+			<div class="hm-place-sp">MULTIMEDIA ></div>
+			<div class="hm-place-sp">LOISIRS ></div>
+			<div class="hm-place-sp">MATERIEL PROFESSIONNEL ></div>
+			<div class="hm-place-sp">AUTRES ></div>
 		</div>
 	</div>
 </div>
-
+<script src="{{ asset('public/js/highmaps.js') }}"></script>
+<script src="{{ asset('public/js/exporting.js') }}"></script>
+<script src="{{ asset('public/js/cd-all.js') }}"></script>
 <script>
-$(document).ready(function(){
+$(document).ready(function()
+{
 	// Prepare demo data
 	// Data is joined to map using value of 'hc-key' property by default.
 	// See API docs for 'joinBy' for more info on linking data and map.
@@ -121,39 +124,34 @@ $(document).ready(function(){
 	];
 
 	// Create the chart
-	Highcharts.mapChart('container', {
-		chart: {
-			map: 'countries/cd/cd-all'
-		},
-
-		title: {
-			text: 'Highmaps basic demo'
-		},
-
-		subtitle: {
-			text: 'Source map: <a href="http://code.highcharts.com/mapdata/countries/cd/cd-all.js">Democratic Republic of the Congo</a>'
-		},
-
-		mapNavigation: {
+	Highcharts.mapChart('container',
+	{
+		chart: {map: 'countries/cd/cd-all'},
+		title: {text: null},
+		subtitle: {text: null},
+		legend: {enabled: false},
+		tooltip: {enabled: false},
+		mapNavigation: 
+		{
 			enabled: true,
-			buttonOptions: {
+			buttonOptions: 
+			{
 				verticalAlign: 'bottom'
 			}
 		},
-
-		colorAxis: {
-			min: 0
-		},
-
+		colorAxis: {min: 0},
 		series: [{
 			data: data,
-			name: 'Random data',
-			states: {
-				hover: {
+			name: 'Département',
+			states: 
+			{
+				hover: 
+				{
 					color: '#BADA55'
 				}
 			},
-			dataLabels: {
+			dataLabels: 
+			{
 				enabled: true,
 				format: '{point.name}'
 			}
