@@ -58,7 +58,7 @@ class ZandooController extends Controller
                     $i++;
             }
             
-		return $this->render('@Zandoo/listerAnnonce.html.twig',
+		return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',
 			array(
 				'form' => "",
 				'colorBody' => "F7F7F7",
@@ -84,7 +84,7 @@ class ZandooController extends Controller
             $critere->setType(0);
             $annonces = $repoAnnoce->findAnnonceByCritere($critere);   
         
-            return $this->render('@Zandoo/listerAnnonce.html.twig',
+            return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',
                     array(
                             'form' => "",
                             'colorBody' => "F7F7F7",
@@ -146,7 +146,7 @@ class ZandooController extends Controller
             }
         }  
        
-        return $this->render('@Zandoo/newAnnonce.html.twig',
+        return $this->render('@Zandoo/Annonce/newAnnonce.html.twig',
 			array(
 				'form' => $form->createView(),
 				'colorBody' => "F7F7F7",
@@ -163,7 +163,7 @@ class ZandooController extends Controller
         $annonce = $em->getRepository(Annonce::class)->find($id);
        // dump($annonce->getImages()[0]);die;
         if($annonce){
-            return $this->render('@Zandoo/annonce.html.twig',
+            return $this->render('@Zandoo/Annonce/annonce.html.twig',
                     array(
                             'annonce' => $annonce,
                             'headsearch' => 1,
