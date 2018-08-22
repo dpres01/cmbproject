@@ -62,7 +62,7 @@ class FormAnnonceType extends AbstractType
                 'expanded' =>false ,
                 'label'=>false
             ))                
-            ->add('afficherTel',CheckboxType::class,array(
+            ->add('cacherTel',CheckboxType::class,array(
                 'label'=>'Masquer le numéro de téléphone pour cette annoce',
                 'required'=> false
             ))

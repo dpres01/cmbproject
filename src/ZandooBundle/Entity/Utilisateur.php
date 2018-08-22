@@ -35,12 +35,10 @@ class Utilisateur implements UserInterface
      * @ORM\Column(name="pseudo", type="string",length=5,unique=true)
      * 
      * @Assert\NotBlank(message="cette valeur ne doit pas être vide")
-     * @Assert\Length(
-     *      min = 5,
-     *      max = 5,
-     *      exactMessage = "votre pseudo doit contenir {{ limit }} caracteres",
-     *      
-     * )
+     * @Assert\Length( min = 5, max = 5,
+     *    exactMessage = "votre pseudo doit contenir {{ limit }} caracteres",
+     * )     
+     *
      */
     private $username;
     /**
@@ -108,10 +106,10 @@ class Utilisateur implements UserInterface
      *
      * @ORM\Column(name="actif", type="boolean")
      */
-    private $actif = 1;
+    private $actif = true;
     /**
      * @var string
-     *
+     * 
      * @ORM\Column(name="date_création", type="date")
      */
     private $dateCreation;
@@ -120,13 +118,14 @@ class Utilisateur implements UserInterface
      *
      * @ORM\Column(name="is_admin", type="boolean")
      */
-    private $isAdmin = 0;// 0 = Utilisateur normal | 1 = Administrateur
+    private $isAdmin = true;// 0 = Utilisateur normal | 1 = Administrateur
     /**
      * @var string
      *
      * @ORM\Column(name="is_professionnel", type="boolean")
+     * @Assert\NotNull(message="cette valeur ne doit pas être vide")
      */
-    private $isProfessionnel = 0;// 0 = Particulier | 1 = Professionnel
+    private $isProfessionnel = false;// 0 = Particulier | 1 = Professionnel
     
     private $roles = array();
   
