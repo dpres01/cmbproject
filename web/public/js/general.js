@@ -60,6 +60,7 @@ function positionMenu()
     {
         fix = 1;  
         $(".srchinp").css("height", "30px");   
+        $(".srchsel").css("height", "30px");   
         $(".srchcheck").addClass("srchcheck-fix"); 
         $(".srchboxall").addClass("srchboxall-fix"); 
         $(".srchbtn").addClass("srchbtn-fix"); 
@@ -69,6 +70,7 @@ function positionMenu()
     {
         fix = 0;
         $(".srchinp").css("height", "50px");
+        $(".srchsel").css("height", "50px");
         $(".srchcheck").removeClass("srchcheck-fix"); 
         $(".srchboxall").removeClass("srchboxall-fix"); 
         $(".srchbtn").removeClass("srchbtn-fix"); 

@@ -1,0 +1,98 @@
+.body-main {
+    padding: 15px 5px;
+}
+.hm-btns
+{
+	margin:0 auto;width:100%;max-width:700px;
+}
+.hm-cntbtn1
+{
+	margin:0 auto;
+	width:100%;
+	max-width:200px;
+}
+.hm-cntbtn2
+{
+	margin:10px auto 0 auto;
+	width:100%;
+	max-width:225px;
+}
+.hm-btn1
+{
+	padding:5px;text-align:center;border:1px solid #005999;background:#fff;color:#005999;width:100%;max-width:200px;
+}
+.hm-btn2
+{
+	float:right;padding:5px;text-align:center;border:1px solid #ccc;background:#fff;color:#333;width:100%;max-width:225px;
+}
+.hm-cntmap
+{
+	margin-top:0px;
+	margin-bottom:30px;
+}
+.hm-map
+{
+	margin:0 auto;width:100%;
+}
+.hm-place
+{
+	width:100%;
+	font-size:14px;
+	margin:0 auto 35px auto;
+}
+.hm-place-nb
+{
+	font-size:13px;color:#808080;
+}
+.hm-place-sp
+{
+	margin-top:5px;
+}
+.hm-tab
+{
+	width:auto;
+}
+.hm-tabsep
+{
+	display:block;
+	width:100px;
+}
+@media(min-width: 440px)
+{
+	.hm-cntbtn1
+	{
+		float:left;width:50%;
+	}
+	.hm-cntbtn2
+	{
+		margin:0;
+		float:right;width:50%;
+	}
+}
+@media(min-width: 760px)
+{
+	.hm-map
+	{
+		float:left;width:50%;margin:0 10% 0 0;
+	}
+	.hm-place
+	{
+		float:left;width:40%;font-size:14px;margin:50px 0 0 0;
+	}
+	.hm-tab
+	{
+		width:90%;
+		max-width:400px;
+	}
+	.hm-tabsep
+	{
+		display:none;
+	}
+}
+@media(min-width: 850px)
+{
+	.hm-cntmap
+	{
+		margin-top:20px;
+	}
+}

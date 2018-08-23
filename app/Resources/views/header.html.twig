@@ -15,28 +15,44 @@
 				<div class="hd-top-menu-elm">
 					<a class="lk-w" href="{{path('demandes')}}">Demandes</a>
 				</div>
-				<div class="hd-top-menu-elm">Mes favoris</div>
+				<div class="hd-top-menu-elm">
+					<a class="lk-w" href="{{path('login')}}">Mes favoris</a>
+				</div>
 				<div class="hd-top-menu-elm">Boutiques</div>
 				<div class="hd-top-menu-elm" style="margin:0;">Messages</div>
 				<div style="clear:both;"></div>
 			</div>
 			<div class="hd-top-menu-right" style="">
 				<div class="hd-top-menu-right-elm">
-					<i class="fa fa-folder-o"></i>
+					<a class="lk-w" href="{{path('login')}}">
+						<i class="fa fa-folder-o"></i>
+					</a>
 				</div>
 				<div class="hd-top-menu-right-elm">
-					<i class="fa fa-comment-o"></i>
+					<a class="lk-w" href="{{path('login')}}">
+						<i class="fa fa-comment-o"></i>
+					</a>
 				</div>
+                {%if  app.user is empty %}                                
 				<div class="hd-top-right-user" style="">
-					<i class="fa fa-user-o"></i>
+					<a class="lk-w" href="{{path('login')}}">
+						<i class="fa fa-user-o"></i>
+					</a>
 				</div>
-                                {%if  app.user is empty %}
+                {%else%}
+                                <div class="hd-top-right-user" style="">
+					<a class="lk-w" href="{#{path('modifier_utilisateur',{'id':app.user.id})}#}">
+						<i class="fa fa-user-o"></i>
+					</a>
+				</div>
+                {%endif%} 
+                {%if  app.user is empty %}
 				<div class="hd-top-right-register" style="">
 					<div class="btn-insc" style="">        
 					    <a class="lk-b" href="{{path('enregistrer_utilisateur')}}">S'inscrire</a>
 					</div>
 				</div>
-                                {%endif%}
+                {%endif%}
 				<div style="clear:both;"></div>
 			</div>
 			<div class="hd-top-menu-resp" style="">
@@ -62,16 +78,32 @@
 			<div class="hd-resp-menu-elm">
 				<a class="lk-w" href="{{path('demandes')}}">Demandes</a>
 			</div>
-			<div class="hd-resp-menu-elm">Mes favoris</div>
+			<div class="hd-resp-menu-elm">
+				<a class="lk-w" href="{{path('login')}}">Mes favoris</a>
+			</div>
 			<div class="hd-resp-menu-elm">Boutiques</div>
 			<div class="hd-resp-menu-elm">Messages</div>
 		</div>
 		<div id="resp-user" class="hd-resp-user" style="">
-			<div class="hd-resp-menu-elm">Mon compte</div>
-			<div class="hd-resp-menu-elm">Mes favoris</div>
-			<div class="hd-resp-menu-elm">Mes messages</div>
+                    {%if  app.user is empty %}
+			<div class="hd-resp-menu-elm">
+				<a class="lk-w" href="{{path('login')}}">Mon compte</a>
+			</div>
+                    {%else%}
+                        <div class="hd-resp-menu-elm">
+				<a class="lk-w" href="{#{path('modifier_utilisateur',{'id':app.user.id})}#}">Modifier mon compte</a>
+			</div>
+                    {%endif%}
+			<div class="hd-resp-menu-elm">
+				<a class="lk-w" href="{{path('login')}}">Mes favoris</a>
+			</div>
+			<div class="hd-resp-menu-elm">
+				<a class="lk-w" href="{{path('login')}}">Mes messages</a>
+			</div>
+			{%if  app.user is empty %}
             <div class="hd-resp-menu-elm">
 				<a class="lk-w" href="{{path('enregistrer_utilisateur')}}">S'inscrire</a>
 			</div>
+			{%endif%}
 		</div>
 	</div>
