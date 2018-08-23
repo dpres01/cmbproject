@@ -198,7 +198,7 @@ class Image
     {
         // the absolute directory url where uploaded
         // documents should be saved
-        return __DIR__.'../../../../web/'.$this->getUploadDir();
+        return __DIR__.'../../../../web/public/'.$this->getUploadDir();
     }
 
     protected function getUploadDir()

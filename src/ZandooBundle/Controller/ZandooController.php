@@ -23,7 +23,7 @@ class ZandooController extends Controller
     {    
         $homehead 	= 1;
         return $this->render('@Zandoo/Default/index.html.twig', 
-			array(
+	             array(
 				//'homehead' => $homehead
 			)		
 		);
@@ -81,6 +81,7 @@ class ZandooController extends Controller
         }
         $critere->setOffset($offset);
         $critere->setType(0);
+
         $annonces = $repoAnnoce->findAnnonceByCritere($critere);   
 
         return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',
@@ -94,6 +95,7 @@ class ZandooController extends Controller
                         )
         );
     }    
+
     /**
      * @Route("/annonce/{id}",defaults={"id" = null}, name="enregistrer_annonce")
      * @ParamConverter("annonce", class="ZandooBundle:Annonce", isOptional=true)
@@ -157,29 +159,28 @@ class ZandooController extends Controller
     /**
      * @Route("afficher/annonce/{id}", requirements={"id": "\d+"}, name="afficher_annonce")     
      **/
-    public function afficherAnnonce(Request $request, $id)
-	{
+    public function afficherAnnonce(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
-        $annonce = $em->getRepository(Annonce::class)->find($id);
 
-        //dump($annonce->getImages());exit;
-        if($annonce)
-		{
+        $critere = new Critere();
+        $critere->setIdUtilisateur($id);
+        $annonce = $em->getRepository(Annonce::class)->find($id);//->findAnnonceByCritere($critere);
+        //dump($annonce->getutilisateur()->getEmail());exit;
+        if($annonce){
             return $this->render('@Zandoo/Annonce/annonce.html.twig',
-				array
-				(
-					'annonce'    => $annonce,
-					'headsearch' => 1,
-					'colorBody'  => "F7F7F7",
-					'url_upload'=> $this->getParameter('url_upload'),
-				)
-                );
+				array(
+                                        'annonce'    => $annonce,
+                                        'headsearch' => 1,
+                                        'colorBody'  => "F7F7F7",
+                                        'url_upload'=> $this->getParameter('url_upload'),
+				) );
+
         }
-		else
-		{
+	else{
             throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException( 'Not found!');
         }
     } 
+    
     /**
      * @Route("desactiver/annonce/{id}", requirements={"id": "\d+"}, name="desactiver_annonce")     
      **/

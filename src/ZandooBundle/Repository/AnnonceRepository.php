@@ -15,8 +15,9 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
     public function findAnnonceByCritere($critere)
     {   
         $qb = $this->createQueryBuilder('a')
-                ->addSelect('img')
+                ->addSelect('img','user')
                 ->leftJoin('a.images', 'img')
+                ->leftJoin('a.utilisateur', 'user')
                 ->andWhere('a.actif = 1');
         $this->filtrerByCritere($critere, $qb);
          $qb->groupBy('a.id');
@@ -50,6 +51,10 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
         if(!is_null($critere->getTitre())){
             $qb->andWhere($qb->expr()->like('lower(a.titre)', ':titre'));
             $qb->setParameter(':titre', '%'.strtolower($critere->getTitre()).'%'); 
+        }
+        if(!is_null($critere->getIdUtilisateur())){
+            $qb->andWhere($qb->expr()->eq('a.utilisateur', ':id'));
+            $qb->setParameter(':id', $critere->getIdUtilisateur()); 
         }
         if(!is_null($critere->getOffset())){
             $qb->setFirstResult($critere->getOffset())->setMaxResults(20); 
