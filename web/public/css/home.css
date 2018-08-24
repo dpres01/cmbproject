@@ -61,14 +61,13 @@
 {
 	display:block;
 	width:100%;
-	max-width:200px;
 	margin:20px auto;
 }
 .hm-sel
 {
 	height:40px;
 	padding:0 4px;
-	width:200px;
+	width:100%;
 }
 .hm-divtab
 {
