@@ -30,7 +30,7 @@ class FormAnnonceType extends AbstractType
         $builder
             ->add('categorie',ChoiceType::class,array(
                 'choices'  =>$this->listeCategorieByFamille($options['famille'],$options['categorie']),               
-                'expanded' =>false ,
+                'expanded' =>false,
                 'label'    =>false,
                 'required' => true           
             )) 
@@ -50,6 +50,12 @@ class FormAnnonceType extends AbstractType
             ->add('description', TextareaType::class,array(
                  'label' =>'Decrivez votre annonce (600 caractères max)',
                  'required'=> true                 
+            ))
+            ->add('villeAnnonce',ChoiceType::class,array(
+                'choices'  =>$this->listeVilles($options['ville']),        
+                'expanded' =>false,
+                'label'    =>false,
+                'required'=> false                 
             ))
             ->add('prix',TextType::class,array(
                 'required'=> false
@@ -87,7 +93,8 @@ class FormAnnonceType extends AbstractType
             'data_class' => 'ZandooBundle\Entity\Annonce',
             'connected'=>false,
             'categorie'=>null,
-            'famille'=>null
+            'famille'=>null,
+            'ville'=>null
         ));
     }
     
@@ -102,12 +109,20 @@ class FormAnnonceType extends AbstractType
 		{
             foreach($listeCategorie as $categorie)
 			{
-                if($famille->getId() == $categorie->getFamille()->getId())
-				{
-					$liste[$famille->getLibelle()][$categorie->getLibelle()] = $categorie->getId() ;
+                if($famille->getId() == $categorie->getFamille()->getId()){
+		    $liste[$famille->getLibelle()][$categorie->getLibelle()] = $categorie->getId() ;
                 }                 
             }
         }
+        return $liste;
+    }
+    // liste de villes
+    public function listeVilles($listeVilles)
+	{		
+        $liste = array("Choissisez une ville(si differente de celle de l'utilisateur)" => "");
+        foreach($listeVilles as $ville){    
+	  $liste[$ville->getLibelle()] = $ville->getId() ;
+        }                 
         return $liste;
     }
 }

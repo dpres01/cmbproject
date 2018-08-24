@@ -78,6 +78,13 @@ class Annonce
     private $dateCreation;
     
     /**
+     * @var string
+     *
+     * @ORM\Column(name="date_modif", type="date",nullable=true)
+     */
+    private $dateModification ;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="Categorie")
      * @ORM\JoinColumn(name="categorie_id", referencedColumnName="id",nullable=false)
      * 
@@ -112,8 +119,15 @@ class Annonce
      */
     private $images;
     
+    /**
+     * @ORM\ManyToOne(targetEntity="Ville")
+     * @ORM\JoinColumn(name="ville_id", referencedColumnName="id",nullable=true)
+     */
+    private $villeAnnonce;
+    
     public function __construct(){
         $this->images = new ArrayCollection();
+        $this->dateModification = new \DateTime();
     }
 
     /**
@@ -355,13 +369,49 @@ class Annonce
         $this->monnaie = $monnaie;
         return $this;
     }
-    
+    /**
+     * 
+     * @return Image
+     */
     public function getImages() {
         return $this->images;
     }
-
+    /**
+     * 
+     * @param \ZandooBundle\Entity\Image $images
+     * @return $this
+     */
     public function setImages(Image $images) {
         $this->images[] = $images;
         return $this; 
     }
+    /**
+     * 
+     * @return villeAnnonce
+     */
+    function getVilleAnnonce() {
+        return $this->villeAnnonce;
+    }
+   /**
+    * 
+    * @param type $villeAnnonce
+    */
+    function setVilleAnnonce($villeAnnonce) {
+        $this->villeAnnonce = $villeAnnonce;
+    }
+    /**
+     * 
+     * @return dateModification
+     */
+    function getDateModification() {
+        return $this->dateModification;
+    }
+  /**
+   * 
+   * @param type $dateModification
+   */
+    function setDateModification($dateModification) {
+        $this->dateModification = $dateModification;
+    }
+
 }

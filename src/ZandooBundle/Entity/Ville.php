@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Annonce
  *
- * @ORM\Table(name="PROFIL")
- * @ORM\Entity(repositoryClass="ZandooBundle\Repository\CategorieRepository")
+ * @ORM\Table(name="Ville")
+ * @ORM\Entity(repositoryClass="ZandooBundle\Repository\VilleRepository")
  */
-class Profil
+class Ville
 {
     /**
      * @var int
@@ -31,17 +31,16 @@ class Profil
     /**
      * @var string
      *
-     * @ORM\Column(name="libelle", type="string",length=255)
+     * @ORM\Column(name="code_postal", type="string")
      */
-    private $libelle;// particulier,professionnel
+    private $codePostal;
     
     /**
      * @var string
      *
-     * @ORM\Column(name="num_ordre", type="integer")
+     * @ORM\Column(name="libelle", type="string",length=255)
      */
-    private $numOrdre;
-     
+    private $libelle;// particulier,professionnel  
 
     /**
      * Get id
@@ -100,28 +99,21 @@ class Profil
     {
         return $this->libelle;
     }
-
     /**
-     * Set numOrdre
-     *
-     * @param integer $numOrdre
-     *
-     * @return Profil
+     * 
+     * @return string
      */
-    public function setNumOrdre($numOrdre)
-    {
-        $this->numOrdre = $numOrdre;
-    
+    function getCodePostal() {
+        return $this->codePostal;
+    }
+    /**
+     * 
+     * @param type $codePostale
+     */
+    function setCodePostal($codePostal) {
+        $this->codePostal = $codePostal;
         return $this;
     }
 
-    /**
-     * Get numOrdre
-     *
-     * @return integer
-     */
-    public function getNumOrdre()
-    {
-        return $this->numOrdre;
-    }
+
 }
