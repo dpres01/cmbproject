@@ -12,7 +12,9 @@ use ZandooBundle\Entity\Utilisateur;
 use ZandooBundle\Entity\Categorie;
 use ZandooBundle\Entity\Famille;
 use ZandooBundle\Entity\Critere;
+use ZandooBundle\Entity\Ville;
 use ZandooBundle\Service\Monnaie;
+
 
 class ZandooController extends Controller
 {      
@@ -106,11 +108,14 @@ class ZandooController extends Controller
           $annonce = new Annonce();  
         }else{
             $categorieID = $annonce->getCategorie()->getId();
+            $villeID = $annonce->getVilleAnnonce()->getId();
             $annonce->setCategorie($categorieID);
+            $annonce->setVilleAnnonce($villeID);
         }           
         $options['connected'] = false;
         $options['categorie'] = $em->getRepository(Categorie::class)->findAll();
         $options['famille'] = $em->getRepository(Famille::class)->findAll();
+        $options['ville'] = $em->getRepository(Ville::class)->findAll();
         if($this->getUser()){
             $options['connected'] = true;
         }        
@@ -133,7 +138,9 @@ class ZandooController extends Controller
                    $annonce->getUtilisateur()->setPassword($pwdEncoded);          
                 }       
                 $categorie = $em->getRepository(Categorie::class)->find($annonce->getCategorie());
+                $villeannonce = $em->getRepository(Ville::class)->find($annonce->getVilleAnnonce());
                 $annonce->setCategorie($categorie);
+                $annonce->setVilleAnnonce($villeannonce);
                 $annonce->setDateCreation(new \DateTime());
                 $em->persist($annonce);              
                 $em->flush();
@@ -165,7 +172,7 @@ class ZandooController extends Controller
         $critere = new Critere();
         $critere->setIdUtilisateur($id);
         $annonce = $em->getRepository(Annonce::class)->find($id);//->findAnnonceByCritere($critere);
-        //dump($annonce->getutilisateur()->getEmail());exit;
+        //dump($annonce->getImages()->getValues());exit;
         if($annonce){
             return $this->render('@Zandoo/Annonce/annonce.html.twig',
 				array(
@@ -174,7 +181,6 @@ class ZandooController extends Controller
                                         'colorBody'  => "F7F7F7",
                                         'url_upload'=> $this->getParameter('url_upload'),
 				) );
-
         }
 	else{
             throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException( 'Not found!');

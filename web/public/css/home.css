@@ -57,6 +57,22 @@
 	display:block;
 	width:100px;
 }
+.hm-selreg
+{
+	display:block;
+	width:100%;
+	margin:20px auto;
+}
+.hm-sel
+{
+	height:40px;
+	padding:0 4px;
+	width:100%;
+}
+.hm-divtab
+{
+	display:none;
+}
 @media(min-width: 440px)
 {
 	.hm-cntbtn1
@@ -67,6 +83,17 @@
 	{
 		margin:0;
 		float:right;width:50%;
+	}
+}
+@media(min-width: 600px)
+{
+	.hm-selreg
+	{
+		display:none;
+	}
+	.hm-divtab
+	{
+		display:block;
 	}
 }
 @media(min-width: 760px)
