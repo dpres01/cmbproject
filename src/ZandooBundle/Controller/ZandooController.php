@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use ZandooBundle\Entity\Annonce;
 use ZandooBundle\Form\FormAnnonceType;
 use ZandooBundle\Entity\Utilisateur;
@@ -92,8 +93,7 @@ class ZandooController extends Controller
                                 'form' => "",
                                 'colorBody' => "F7F7F7",
                                 'headsearch' => 1,
-                                'annonces' => $annonces,
-                                'url_upload'=> $this->getParameter('url_upload')
+                                'annonces' => $annonces
                         )
         );
     }    
@@ -171,8 +171,7 @@ class ZandooController extends Controller
 
         $critere = new Critere();
         $critere->setIdUtilisateur($id);
-        $annonce = $em->getRepository(Annonce::class)->find($id);//->findAnnonceByCritere($critere);
-        //dump($annonce->getImages()->getValues());exit;
+        $annonce = $em->getRepository(Annonce::class)->find($id);
         if($annonce){
             return $this->render('@Zandoo/Annonce/annonce.html.twig',
 				array(
@@ -190,11 +189,42 @@ class ZandooController extends Controller
     /**
      * @Route("desactiver/annonce/{id}", requirements={"id": "\d+"}, name="desactiver_annonce")     
      **/
-    public function desactiverAnnonceAction($request,$id){
+    public function desactiverAnnonceAction(Request $request,$id){
        $em = $this->getDoctrine()->getManager();
        $annonce = $em->getRepository(Annonce::class)->find($id);
        $annonce->setActif(0);
        $retour = $annonce->getType() == 1 ?  $this->redirectToRoute('demandes'):$this->redirectToRoute('annonces');  
        return $retour;
-    } 
+    }
+     /**
+     * @Route("recherche", name="chercher_annonces")     
+     **/
+     public function chercheAnnonceAction(Request $request){
+        $resp = new JsonResponse();
+        $retour = array();
+        $offset = 1;
+        if ($offset){
+                $offset = (intval($offset) - 1) * 20 ;
+        }
+         $critere = new Critere();
+         $critere->setTitre('test')
+                 ->setCategorie(1)
+                 ->setOffset($offset);
+         $em = $this->getDoctrine()->getManager();         
+         $annonces = $em->getRepository(Annonce::class)->findAnnonceByCritere($critere);
+         foreach($annonces as $key=>$annonce){
+             $retour[$key]['titre']= $annonce->getTitre();
+             $retour[$key]['description']= $annonce->getDescription();
+             $retour[$key]['prix']= $annonce->getPrix();
+             $retour[$key]['monnaie']= $annonce->getMonnaie();
+             if(!$annonce->getImages()->isEmpty()){
+                 $tabImg = $annonce->getImages();
+                 $retour[$key]['image']= $tabImg[0]->getId().'.'.$tabImg[0]->getUrl();
+             }             
+         }
+         
+         $resp->setData($retour);
+         return $resp; 
+     }
+    
 }

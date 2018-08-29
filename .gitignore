@@ -20,5 +20,8 @@
 /nbproject/*
 var/logs/dev.log
 var/logs/prod.log
+/public/img
+/public/uploads
+/web/images/
  
 

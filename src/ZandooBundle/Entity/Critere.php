@@ -36,9 +36,19 @@ class Critere
     private $titre;
     /**
      * 
-     * @return type
+     * @return utilisateur
      */
     private $idUtilisateur;
+    /**
+     *
+     * @var int 
+     */
+    private $categorie;
+    /**
+     *
+     * @var string 
+     */
+    private $description;
     
     public function getTitre() {
         return $this->titre;
@@ -102,8 +112,24 @@ class Critere
         $this->idUtilisateur = $idUtilisateur;
         return $this;
     }
+  
+    public function getCategorie() {
+        return $this->categorie;       
+    }
 
-
+    public function setCategorie($categorie) {
+        $this->categorie = $categorie;
+        return $this;
+    }
+    
+    public function getDescription() {
+        return $this->description;
+    }
+    
+    public function setDescription($description) {
+        $this->description = $description;
+        return $this;
+    }
 
 }
 

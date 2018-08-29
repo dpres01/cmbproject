@@ -17,11 +17,12 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->createQueryBuilder('a')
                 ->addSelect('img','user')
                 ->leftJoin('a.images', 'img')
+                ->leftJoin('a.categorie', 'cat')
                 ->leftJoin('a.utilisateur', 'user')
                 ->andWhere('a.actif = 1');
-        $this->filtrerByCritere($critere, $qb);
+         $this->filtrerByCritere($critere, $qb);
          $qb->groupBy('a.id');
-        //dump($qb->getQuery()->getResult(),$qb->getQuery()->getSQL());die;
+       //dump($qb->getQuery()->getResult(),$qb->getQuery()->getSQL());die;
         return  $qb->getQuery()->getResult();
     }
     // nb annonce dans la bdd 
@@ -48,13 +49,19 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
             $qb->andWhere($qb->expr()->eq('a.type', ':type'));
             $qb->setParameter(':type', $critere->getType()); 
         }
-        if(!is_null($critere->getTitre())){
-            $qb->andWhere($qb->expr()->like('lower(a.titre)', ':titre'));
-            $qb->setParameter(':titre', '%'.strtolower($critere->getTitre()).'%'); 
-        }
+        
         if(!is_null($critere->getIdUtilisateur())){
             $qb->andWhere($qb->expr()->eq('a.utilisateur', ':id'));
             $qb->setParameter(':id', $critere->getIdUtilisateur()); 
+        }
+        if(!is_null($critere->getCategorie())){
+            $qb->andWhere($qb->expr()->eq('a.categorie', ':cat'));
+            $qb->setParameter(':cat', $critere->getCategorie()); 
+        }
+        if(!is_null($critere->getTitre())){
+            $qb->andWhere($qb->expr()->like('lower(a.titre)', ':titre'));
+            $qb->orWhere($qb->expr()->like('lower(a.description)', ':titre'));
+            $qb->setParameter(':titre', '%'.strtolower($critere->getTitre()).'%'); 
         }
         if(!is_null($critere->getOffset())){
             $qb->setFirstResult($critere->getOffset())->setMaxResults(20); 
