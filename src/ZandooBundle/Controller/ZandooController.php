@@ -58,25 +58,39 @@ class ZandooController extends Controller
     /**
      * @Route("/", name="annonces")     
      **/
-    public function listerAnnonce(Request $request){       
+    public function listerAnnonce(Request $request)
+	{       
+		$search  = $request->query->get('q');
+		$cat 	 = $request->query->get('cat');
+		$titre 	 = $request->query->get('tre');
+		$urgente = $request->query->get('urg');
+		
         $em = $this->getDoctrine(); 
         $repoAnnoce =  $em->getRepository(Annonce::class);
 
         $total = $repoAnnoce->countAllAnnonce();
         $critere = new Critere();
         $offset = 1;
-        if ($offset){
-                $offset = (intval($offset) - 1) * 20 ;
+        if ($offset)
+		{
+            $offset = (intval($offset) - 1) * 20 ;
         }
         $critere->setOffset($offset);
         $critere->setType(0);
         $annonces = $repoAnnoce->findAnnonceByCritere($critere);   
-        return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',array(
-                                'form' => "",
-                                'colorBody' => "F7F7F7",
-                                'headsearch' => 1,
-                                'annonces' => $annonces
-                          ));
+        return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',
+			array
+			(
+					'form' 		 => "",
+					'colorBody'  => "F7F7F7",
+					'headsearch' => 1,
+					'annonces'   => $annonces,
+					'search'     => $search,
+					'cat'   	 => $cat,
+					'titres'     => $titre,
+					'urgentes'   => $urgente,
+			)
+        );
     }    
 
     /**
@@ -147,7 +161,7 @@ class ZandooController extends Controller
 			array(
 				'form' => $form->createView(),
 				'colorBody' => "F7F7F7",
-                                'url_upload'=> $this->getParameter('url_upload')
+                'url_upload'=> $this->getParameter('url_upload')
 			)
 		);
     }
@@ -161,16 +175,22 @@ class ZandooController extends Controller
         $critere = new Critere();
         $critere->setIdUtilisateur($id);
         $annonce = $em->getRepository(Annonce::class)->find($id);
+		$nbImg = count($annonce->getImages());
+		
+		
         if($annonce){
             return $this->render('@Zandoo/Annonce/annonce.html.twig',
 				array(
-                                        'annonce'    => $annonce,
-                                        'headsearch' => 1,
-                                        'colorBody'  => "F7F7F7",
-                                        'url_upload'=> $this->getParameter('url_upload'),
-				) );
+					'annonce'    => $annonce,
+					'headsearch' => 1,
+					'colorBody'  => "F7F7F7",
+					'nbImg'      => $nbImg,
+					'url_upload'=> $this->getParameter('url_upload'),
+				)
+			);
         }
-	else{
+		else
+		{
             throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException( 'Not found!');
         }
     } 
@@ -188,7 +208,8 @@ class ZandooController extends Controller
      /**
      * @Route("recherche", name="chercher_annonces")     
      **/
-     public function chercheAnnonceAction(Request $request){
+     public function chercheAnnonceAction(Request $request)
+	 {
         $resp = new JsonResponse();
         $retour = array();
         $offset = 1;

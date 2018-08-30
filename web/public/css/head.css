@@ -136,6 +136,11 @@
     font-weight: 500;
     line-height: 1.1;
     color: inherit;	
+	cursor:pointer;
+}
+.srchbtn:hover
+{
+	background:rgb(0, 89, 153, 0.8);
 }
 .srchbtn-fix
 {

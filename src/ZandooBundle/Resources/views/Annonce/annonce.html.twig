@@ -13,7 +13,9 @@
 					{{ zandoo_service_commun.titreFormatAnnonce(annonce.titre) }}
 				</h3>
 			</div>
+			<!--IMAGES EXISTS-->
 			{%if  zandoo_service_commun.testExistanceImg(annonce.images) %}
+			{%if nbImg > 1 %}
 			<div class="ann-img-all" style="margin-top:15px;">
 				<div class="ann-img-lf">
 					<div class="ann-img-mn">
@@ -21,19 +23,34 @@
 					</div>
 				</div>
 				<div class="ann-img-rt">
+					{%if annonce.images[1] is defined%}
 					<div class="ann-img-ot" style="margin-top:0;">
-						<img src="/public/img/5_59.JPG">
+						<img src="{{asset('bundles/zandoo/uploads/documents/')}}{{ annonce.images[1].id}}.{{annonce.images[1].url}}" class="imgmax">
 					</div>
+						{%if annonce.images[2] is defined%}
 					<div class="ann-img-ot">
-						<img src="/public/img/5_59.JPG">
+						<img src="{{asset('bundles/zandoo/uploads/documents/')}}{{ annonce.images[2].id}}.{{annonce.images[2].url}}" class="imgmax">
 					</div>
+							{%if annonce.images[3] is defined%}
 					<div class="ann-img-ot ann-img-ot-lst" style="">
-						<img src="/public/img/5_59.JPG">
+						<img src="{{asset('bundles/zandoo/uploads/documents/')}}{{ annonce.images[3].id}}.{{annonce.images[3].url}}" class="imgmax">
 					</div>
+							{%endif%}
+						{%endif%}
+					{%endif%}
 					<div style="clear:both;"></div>
 				</div>
 				<div style="clear:both;"></div>
-			</div>		
+			</div>
+			{%elseif nbImg == 1 %}
+			<div class="ann-img-all" style="margin-top:15px;">
+				<div class="ann-img-one">
+					<div class="ann-img-mn">
+						<img src="{{asset('bundles/zandoo/uploads/documents/')}}{{ annonce.images[0].id}}.{{annonce.images[0].url}}" class="imgmax">
+					</div>
+				</div>
+			</div>
+			{%endif%}			
 			<div class="ann-stat-bx">						
 				<div class="ann-stat-elem">
 					<div class="ann-stat-icon"><i class="fa fa-hourglass-o" style="font-size:14px;"></i></div> 
@@ -57,14 +74,7 @@
 					<div style="clear:both;"></div>
 				</div>
 				<div style="clear:both;"></div>		
-			</div>	
-			{%endif%}
-			<div class="ann-bar" style="display:none;">
-				<div style="float:left;margin-right:20px;">Description</div>
-				<div style="float:left;display:none;">Caractéristiques</div>
-				<div style="clear:both;"></div>
-			</div>	
-			{%if  zandoo_service_commun.testExistanceImg(annonce.images) %}
+			</div>					
 			<div class="ann-desc">
 				<div><h3 style="padding:0;margin:0;">Description</h3></div>
 			</div>	
@@ -73,6 +83,7 @@
 				{{annonce.description}}
 				</div>
 			</div>	
+			<!--END IMAGES EXISTS-->
 			{%else%}
 			<div class="ann-desc-bx" style="margin-top:15px;">
 				<div><h4 style="padding:0;margin:0;">Description</h4></div>
@@ -104,30 +115,7 @@
 				</div>
 				<div style="clear:both;"></div>		
 			</div>
-			{%endif%}	
-			<div class="ann-desc" style="display:none;">
-				<div><h3 style="padding:0;margin:0;">Caractéristiques</h3></div>
-			</div>		
-			<div class="ann-car-w" style="display:none;">
-				<div style="float:left;">Fonction vapeur</div>
-				<div class="ann-car-det">Non</div>
-				<div style="clear:both;"></div>	
-			</div>
-			<div style="padding:5px 10px;display:none;">
-				<div style="float:left;">Puissance</div>
-				<div class="ann-car-det">21,6 V</div>
-				<div style="clear:both;"></div>	
-			</div>	
-			<div class="ann-car-w" style="display:none;">
-				<div style="float:left;">Le plus du produit</div>
-				<div class="ann-car-det">Mutli accessoirisé : idéal pour toute la maison</div>
-				<div style="clear:both;"></div>	
-			</div>		
-			<div style="padding:5px 10px;display:none;">
-				<div style="float:left;">Type de batterie</div>
-				<div class="ann-car-det">Lithium</div>
-				<div style="clear:both;"></div>	
-			</div>	
+			{%endif%}
 		</div>	
 		<div class="ann-rt">	
 			<div class="ann-map-bx">
@@ -135,7 +123,9 @@
 					<i class="fa fa-map-marker" style="font-size:22px;"></i>
 				</div>
 				<div class="ann-map-street">
-					<div class="ann-map-str">12 rue la chamelle, Braza, 12 451, Congo ...</div> 
+					<div class="ann-map-str">
+						{%if annonce.villeAnnonce%}{{annonce.villeAnnonce}}, {%endif%}{%if annonce.villeAnnonce%}{{annonce.villeAnnonce}}, {%endif%}Congo
+					</div> 
 					<div style="float:right;">[carte]</div>
 					<div style="clear:both;"></div>
 				</div>
@@ -146,9 +136,12 @@
 				<div class="ann-price-ques">
 					Cette annonce vous intéresse ?
 					<div style="margin:5px 0 10px 0px;">
+						{%if annonce.cacherTel == false%}
 						<div class="ann-price-num">
-							Voir numéro de téléphone
+							<div id="phone1">Voir numéro de téléphone</div>
+							<div id="phone2" style="display:none;">{{annonce.utilisateur.telephone}}</div>
 						</div>
+						{%endif%}
 					</div>
 				</div>
 			</div>				

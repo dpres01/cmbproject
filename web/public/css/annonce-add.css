@@ -42,6 +42,19 @@ input[type="radio"], input[type="checkbox"] {margin-top:0px;}
 {
 	background:rgb(0, 53, 128, 0.8);
 }
+.btnfmgreen
+{
+	padding:10px 0;
+	text-align:center;
+	color:#fff;
+	background:rgb(20, 148, 20);
+	cursor:pointer;
+	
+}
+.btnfmgreen:hover
+{
+	background:rgb(20, 148, 20, 0.8);
+}
 .ann-bx
 {
 	background:#fff;padding:15px;
