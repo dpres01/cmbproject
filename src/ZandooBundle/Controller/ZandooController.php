@@ -46,28 +46,14 @@ class ZandooController extends Controller
             $critere->setOffset($offset);
             $critere->setType(1);
             $annonce = $em->getRepository(Annonce::class)->findAnnonceByCritere($critere);       
-            $tab["titre"] = "Les Bananes Vertes buttanes";
-            $tab["img"] =  "/web/uploads/documents/37.jpeg";
-            $tab["prix"] = "99";
-            $tab["monnaie"] = "€";
-            $tab["dateCreation"] = new \DateTime();
-            $tab["description"] = "GXR Suzuki 600 for sale or trade. Would love a camper of sorts. Parked the bike two years ago...";
-
-            $i = 0;
-            $htm = '';
-            while($i < 10)
-            {
-                    $data[] = $tab;
-                    $i++;
-            }
-		return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',
-			array(
-				'form' => "",
-				'colorBody' => "F7F7F7",
-				'headsearch' => 1,
-				'data' => $data
-			)
-		);
+            return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',
+                    array(
+                            'form' => "",
+                            'colorBody' => "F7F7F7",
+                            'headsearch' => 1,
+                            'data' => v
+                    )
+            );
     }	
     /**
      * @Route("/", name="annonces")     
@@ -84,18 +70,13 @@ class ZandooController extends Controller
         }
         $critere->setOffset($offset);
         $critere->setType(0);
-
         $annonces = $repoAnnoce->findAnnonceByCritere($critere);   
-
-        return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',
-                        array
-                        (
+        return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',array(
                                 'form' => "",
                                 'colorBody' => "F7F7F7",
                                 'headsearch' => 1,
                                 'annonces' => $annonces
-                        )
-        );
+                          ));
     }    
 
     /**
@@ -105,7 +86,8 @@ class ZandooController extends Controller
     public function creerModifierAnnoce(Request $request, $annonce){
         $em = $this->getDoctrine()->getManager();
         if($annonce == NULL){
-          $annonce = new Annonce();  
+          $annonce = new Annonce(); 
+          $annonce->setDateCreation(new \DateTime());
         }else{
             $categorieID = $annonce->getCategorie()->getId();
             $villeID = $annonce->getVilleAnnonce()->getId();
@@ -138,10 +120,17 @@ class ZandooController extends Controller
                    $annonce->getUtilisateur()->setPassword($pwdEncoded);          
                 }       
                 $categorie = $em->getRepository(Categorie::class)->find($annonce->getCategorie());
-                $villeannonce = $em->getRepository(Ville::class)->find($annonce->getVilleAnnonce());
                 $annonce->setCategorie($categorie);
-                $annonce->setVilleAnnonce($villeannonce);
-                $annonce->setDateCreation(new \DateTime());
+                if(!is_null($annonce->getVilleAnnonce())){
+                    $villeannonce = $em->getRepository(Ville::class)->find($annonce->getVilleAnnonce());
+                    $annonce->setVilleAnnonce($villeannonce);
+                }
+                if(is_null($villeannonce) && $this->getUser()){
+                    $annonce->setVilleAnnonce($utilisateur->getVille());
+                }
+                if(is_null($annonce)){
+                    $annonce->setDateModification(new \DateTime());                    
+                }
                 $em->persist($annonce);              
                 $em->flush();
                 $this->addFlash('succesAnnonce', 'votre annonce a été enregistré avec succes!');

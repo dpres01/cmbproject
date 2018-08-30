@@ -17,12 +17,12 @@ class UtilisateurController extends Controller
      * @Route("/inscription",name="enregistrer_utilisateur")
      */
     public function inscriptionAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
         $utilisateur = new Utilisateur(); 
         $form = $this->createForm(FormUtilisateurType::class, $utilisateur, $options = array());
         $form->handleRequest($request);
         if($form->isValid() && $form->isSubmitted()){
-            //Enregistrment de l'annonce et de l'utilisateur
-            $em = $this->getDoctrine()->getManager();
+            //Enregistrment de l'annonce et de l'utilisateur            
             $pwdEncoded = $this->get('security.password_encoder')->encodePassword($utilisateur, $utilisateur->getPassword());
             $utilisateur->setDateCreation(new \DateTime());
             $utilisateur->setPassword($pwdEncoded);
