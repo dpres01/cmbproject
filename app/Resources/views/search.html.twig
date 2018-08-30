@@ -1,12 +1,13 @@
 	<div id="srcbox" class="srch-box-all">
 		<div class="srchboxall">		
+			<form method="GET" action="{{path('annonces')}}" id="srch" name="search">
 			<div class="srchinputs">
 				<div class="srch1">
-					<input type="text" placeholder="Que recherchez-vous ?" class="srchinp" name="" id="recherche" value=""/>
+					<input type="text" placeholder="Que recherchez-vous ?" class="srchinp" name="q" id="recherche" value="{%if search is defined %}{{search}}{%endif%}"/>
 				</div>
 				<div class="srch2">
 					<select id="form_search_categorie" name="cat" class="form-control srchsel">
-					<option value="" selected="selected">Toutes les catégories</option><optgroup label="EMPLOI ">
+					<option value="0" selected="selected">Toutes les catégories</option><optgroup label="EMPLOI ">
 					<option value="1">Offres d'emploi </option><option value="2">Offres d'emploi Cadresnouveau </option></optgroup><optgroup label="VEHICULES ">
 					<option value="3">Voitures </option><option value="4">Motos </option><option value="5">Caravaning </option><option value="6">Utilitaires </option><option value="7">Equipement Auto </option><option value="8">Equipement Moto </option><option value="9">Equipement Caravaning </option><option value="10">Nautisme </option><option value="11">Equipement Nautisme </option></optgroup><optgroup label="IMMOBILIER ">
 					<option value="12">Ventes immobilières </option><option value="13">Immobilier Neufnouveau </option><option value="14">Locations </option><option value="15">Colocations </option><option value="16">Bureaux &amp; Commerces </option></optgroup><optgroup label="VACANCES ">
@@ -19,7 +20,7 @@
 					</select>
 				</div>
 				<div class="srch3">		
-					<div class="srchbtn" style="color:#fff;">
+					<div class="srchbtn" onclick="$(this).closest('form').submit();" style="color:#fff;">
 						Recherchez
 					</div>
 				</div>
@@ -28,7 +29,7 @@
 			<div class="srchcheck" style="">
 				<div class="srccrt1-all" style="">
 					<div style="float:left;margin:0 5px 0 0;">
-						<input type="checkbox" style="padding:0 10px 0 0;" name="id-recherche" id="" value=""/>
+						<input type="checkbox" style="padding:0 10px 0 0;" name="tre" id="" value="1" {%if titre is defined %}{{' checked'}}{%endif%}/>
 					</div>
 					<div style="float:left;margin:0 0px 0 0;">
 						Recherche dans le titre <span class="srctitre">uniquement</span>
@@ -37,7 +38,7 @@
 				</div>
 				<div class="srccrt2-all" style="">
 					<div style="float:left;margin:0 5px 0 0;">
-						<input type="checkbox" style="padding:0 10px 0 0;" name="" id="" value=""/>
+						<input type="checkbox" style="padding:0 10px 0 0;" name="urg" id="" value="1" {%if urgente is defined %}{{' checked'}}{%endif%}/>
 					</div>
 					<div style="float:left;margin:0 10px 0 0;">
 						Annonces urgentes
@@ -60,6 +61,7 @@
 					</div>
 				</div>
 				<div style="clear:both;"></div>
-			</div>
+			</div>			
+			</form>
 		</div>
 	</div>
