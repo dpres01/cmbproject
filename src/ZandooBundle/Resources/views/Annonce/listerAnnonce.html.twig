@@ -4,7 +4,8 @@
 {% set urgente = urgentes %}
 {% extends 'base.html.twig' %}
 {% block body %}
-	<link rel="stylesheet" href="{{ asset('public/css/lister-annonce.css') }}" type="text/css"/> 
+	<link rel="stylesheet" href="{{ asset('public/css/lister-annonce.css') }}" type="text/css"/>
+	<link rel="stylesheet" href="{{ asset('public/css/button.css') }}" type="text/css"/>
 	<div class="bg-cont-annonce">
 		<div class="cont-annonce">
 			<div class="annonce-l" style="">
@@ -13,7 +14,13 @@
 						<i class="fa fa-sliders" aria-hidden="true" style="cursor:pointer;" onclick="shfilter();"></i>
 					</div>
 					<div id="filter-annonce" class="shfilter">
-						<div style="font-weight:bold;">Prix</div>
+						<div style="font-weight:bold;">
+							<div style="float:left;">Prix</div>
+							<div style="float:left;margin:1px 0 0 6px;color:#337ab7;">
+								<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+							</div>
+							<div style="clear:both;"></div>
+						</div>
 						<div class="filter-prix">
 							<div style="float:left;">
 								<input type="text" value="" class="filter-prix-inp">
@@ -24,25 +31,27 @@
 							<div style="clear:both;"></div>
 						</div>
 						<div class="filter-title">Catégories</div>
-						<div style="margin-top:5px;">
-							<div style="float:left;">
-								<input type="checkbox" value="" style="">
+						<div style="font-size:13px;">
+							<div style="margin-top:5px;">
+								<div class="filter-marg">
+									<a href="#">Appartement</a>
+								</div>
+								<div style="clear:both;"></div>
 							</div>
-							<div class="filter-marg">
-								Appartement
+							<div style="margin-top:5px;">
+								<div class="filter-marg">
+									<a href="#">Maison</a>
+								</div>
+								<div style="clear:both;"></div>
+							</div>
+						</div>
+						<div class="filter-title">
+							<div style="float:left;">Distance</div>
+							<div style="float:left;margin:1px 0 0 6px;color:#337ab7;">
+								<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
 							</div>
 							<div style="clear:both;"></div>
 						</div>
-						<div style="margin-top:5px;">
-							<div style="float:left;">
-								<input type="checkbox" value="" style="">
-							</div>
-							<div class="filter-marg">
-								Maison
-							</div>
-							<div style="clear:both;"></div>
-						</div>
-						<div class="filter-title">Distance</div>
 						<div style="margin-top:5px;">
 							<div style="">
 								<input type="text" value="" placeholder="Paris" class="filter-dist-inp">
@@ -52,80 +61,45 @@
 							</div>
 							<div style="clear:both;"></div>
 						</div>
-						<div class="filter-title">Critères</div>
-						<div style="margin-top:5px;">
-							<div style="float:left;">
-								<input type="checkbox" value="" style="">
-							</div>
-							<div class="filter-marg">
-								20m²
-							</div>
-							<div style="clear:both;"></div>
-						</div>
-						<div style="margin-top:5px;">
-							<div style="float:left;">
-								<input type="checkbox" value="" style="">
-							</div>
-							<div class="filter-marg">
-								40m²
-							</div>
-							<div style="clear:both;"></div>
-						</div>
-						<div style="margin-top:5px;">
-							<div style="float:left;">
-								<input type="checkbox" value="" style="">
-							</div>
-							<div class="filter-marg">
-								60m²
-							</div>
-							<div style="clear:both;"></div>
-						</div>
-						<div style="margin-top:5px;">
-							<div style="float:left;">
-								<input type="checkbox" value="" style="">
-							</div>
-							<div class="filter-marg">
-								80m²
-							</div>
-							<div style="clear:both;"></div>
-						</div>
 						<div class="filter-title">Types d'offres</div>
-						<div style="margin-top:5px;">
-							<div style="float:left;">
-								<input type="checkbox" value="" style="">
+						<div style="font-size:13px;">
+							<div style="margin-top:5px;">
+								<div class="filter-marg">
+									<a href="#">Offres <span class="filter-nb">(1 251)</span></a>
+								</div>
+								<div style="clear:both;"></div>
 							</div>
-							<div class="filter-marg">
-								Offres <span class="filter-nb">(1 251)</span>
+							<div style="margin-top:5px;">
+								<div class="filter-marg">
+									<a href="#">Demandes <span class="filter-nb">(840)</span></a>
+								</div>
+								<div style="clear:both;"></div>
 							</div>
-							<div style="float:left;margin-left:35px;">
-								<input type="checkbox" value="" style="">
-							</div>
-							<div class="filter-marg">
-								Demandes <span class="filter-nb">(840)</span>
-							</div>
-							<div style="clear:both;"></div>
+						</div>
+						<div style="margin:20px auto 0 auto;width:100%;max-width:136px;">
+							<a href="#" class="myButton">Réinitialiser</a>
 						</div>
 					</div>
 				</div>
 			</div>
-                       
+
 			<div class="annonce-r" style="">
 				{% for val in annonces %}
-                                  
+
 					{% if loop.index == 1 %}
 						{% set marg = 0 %}
 					{% else %}
 						{% set marg = 25 %}
 					{% endif %}
-                                         
-					<div class="bxanon" style="margin-top:{{ marg }}px;height:100%;">				
+
+					<div class="bxanon" style="margin-top:{{ marg }}px;height:100%;">
 						<div class="bxanon-img" style="height:100%;">
-                                                    {%if zandoo_service_commun.testExistanceImg(val.images) %}
-                                                          <img src="{{asset('bundles/zandoo/uploads/documents/'~val.images[0].id~'.'~val.images[0].url)}}" class="imgmax">
-                                                          
-                                                    {%else%}
-                                                          <img src="{{ asset('bundles/zandoo/img/nopic1.png')}}" class="imgmax">
-                                                    {%endif%}
+							{%if zandoo_service_commun.testExistanceImg(val.images) %}
+								  <img src="{{asset('bundles/zandoo/uploads/documents/'~val.images[0].id~'.'~val.images[0].url)}}" class="imgmax">
+
+							{%else%}
+								  <img src="{{ asset('bundles/zandoo/img/nopic1.png')}}" class="imgmax">
+							{%endif%}
 						</div>
 						<div class="bx-txt">
 							<div class="bx-title truncate">{{ zandoo_service_commun.titreFormatAnnonce(val.titre) }}</div>
@@ -150,7 +124,7 @@
 								<div style="clear:both;"></div>
 							</div>
 							<div class="bx-txt-resp">
-								<div class="bx-price-offer">					
+								<div class="bx-price-offer">
 									<div class="bx-price">{{ val.prix }} {{ zandoo_service_commun.typeMonnaie(val.monnaie) }}</div>
 									<div style="float:left;">
 										<div class="bx-offer">
@@ -170,15 +144,24 @@
 						<div style="clear:both;"></div>
 					</div>
 				{% endfor %}
-				<div style="background:#fff;padding:10px;border:1px solid #ccc;margin-top:35px;">					
+				<div style="background:#fff;padding:10px;border:1px solid #ccc;margin-top:35px;">
 					<table style="width:100%;">
 						<tr>
 							<td style="width:15%;">
 								<div style="padding:5px;text-align:center;border:1px solid #ccc;background:#fff;">Précédent</div>
 							</td>
 							<td style="width:70%;">
-								<div style="margin:0 auto;width:100%;max-width:80px;">
-									<span data-page-number="1" data-offset="0" class="currPage">1</span><span data-page-number="1" data-offset="0" class="nextPage">2</span>
+								<div style="margin:0 auto;width:100%;max-width:150px;">
+									<table align="center">
+									<tr>
+										<td>
+											<input type="text" name="" value="1" id="" class="form-control" style="width:60px;text-align:center;">
+										</td>
+										<td>
+											&nbsp;/&nbsp;250
+										</td>
+									</tr>
+									</table>
 								</div>
 							</td>
 							<td style="width:15%;">
@@ -187,7 +170,7 @@
 						</tr>
 					</table>
 				</div>
-			</div>		
+			</div>
 			<div style="clear:both;"></div>
 		</div>
 	</div>
