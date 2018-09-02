@@ -55,7 +55,12 @@
 			<div class="ann-subt-ans-box" style="max-width:500px;">
 				{{form_widget(form.villeAnnonce)}}
 			</div>
-		</div>        
+		</div>   
+                <div class="ann-min-bx">			
+			<div class="ann-subt-ans-box" style="max-width:500px;">
+				{{form_widget(form.urgent)}}
+			</div>
+		</div> 
 		<div class="ann-min-bx">
 			<div class="ann-subt">{{form_label(form.description)}}</div>
 			<div class="ann-subt-ans-box" style="max-width:700px;height:150px;">
@@ -203,20 +208,16 @@
 			</div>
 		</div>
 	</div>			
-	<div style="margin:20px 0 40px 0;max-width:400px;">	
+	<div style="margin:20px 0 40px 0;max-width:400px;">
+                {% if app.user is not empty and form.vars.value.id and form.vars.type == '0' %}
 		<div class="ann-btn-vd" style="float:left;width:48%;max-width:150px;">
 			<div class="btnfmgreen"><b>Vendu</b></div>
 		</div>
+                {% endif %}
 		<div style="float:right;width:48%;max-width:150px;">
 			<div class="btnfm" onclick="$(this).closest('form').submit();"><b>Valider</b></div>
 		</div>
 		<div style="clear:both;"></div>
-	</div>
-	<div> 
-		{% if app.user is not empty and form.vars.value.id%}
-			<p> Cliquez ici si votre article est vendu </p>
-			<input  type="submit" id="article-vendu" name="article-vendu" value="Article Vendu" />
-		{% endif %}
 	</div>
 	{{form_end(form)}}   
 	<script type='text/javascript'>

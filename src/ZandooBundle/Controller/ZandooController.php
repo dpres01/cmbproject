@@ -24,15 +24,12 @@ class ZandooController extends Controller
      */
     public function indexAction()
     {    
-        $homehead 	= 1;
-        return $this->render('@Zandoo/Default/index.html.twig', 
-	             array(
-				//'homehead' => $homehead
-			)		
-		);
+        return $this->render('@Zandoo/Default/index.html.twig');
     }
+    
     /**
-     * @Route("/demandes", name="demandes")     
+     * @Route("/demandes", name="demandes") 
+     *     
      **/	
     public function listerDemandeAction(Request $request)
 	{
@@ -56,19 +53,18 @@ class ZandooController extends Controller
             );
     }	
     /**
-     * @Route("/", name="annonces")     
+     * @Route("/", name="annonces") 
+     *     
      **/
-    public function listerAnnonce(Request $request)
-	{       
-		$search  = $request->query->get('q');
-		$cat 	 = $request->query->get('cat');
-		$titre 	 = $request->query->get('tre');
-		$urgente = $request->query->get('urg');
-		
+    public function listerAnnonce(Request $request){       	
         $em = $this->getDoctrine(); 
         $repoAnnoce =  $em->getRepository(Annonce::class);
-
-        $total = $repoAnnoce->countAllAnnonce();
+        
+        $search  = $request->query->get('q');
+        $cat 	 = $request->query->get('cat');
+        $titre 	 = $request->query->get('tre');
+        $urgentes = $request->query->get('urg');
+        
         $critere = new Critere();
         $offset = 1;
         if ($offset)
@@ -76,21 +72,25 @@ class ZandooController extends Controller
             $offset = (intval($offset) - 1) * 20 ;
         }
         $critere->setOffset($offset);
+        $critere->setCategorie($cat);
+        $critere->setTitre($search);
+        $critere->setUrgent($urgentes);
+        $critere->setTitreUniquement($titre);
         $critere->setType(0);
-        $annonces = $repoAnnoce->findAnnonceByCritere($critere);   
-        return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',
-			array
-			(
-					'form' 		 => "",
-					'colorBody'  => "F7F7F7",
-					'headsearch' => 1,
-					'annonces'   => $annonces,
-					'search'     => $search,
-					'cat'   	 => $cat,
-					'titres'     => $titre,
-					'urgentes'   => $urgente,
+        $annonces = $repoAnnoce->findAnnonceByCritere($critere); 
+        $total = intval(ceil($repoAnnoce->countAllAnnonce($critere)/20));
+        return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',array(
+                                'form'       => "",
+                                'colorBody'  => "F7F7F7",
+                                'headsearch' => 1,
+                                'annonces'   => $annonces,
+                                'search'     => $search,
+                                'cat'        => $cat,
+                                'titres'     => $titre,
+                                'urgentes'   => $urgentes,
+                                'total'      => $total
 			)
-        );
+                );
     }    
 
     /**

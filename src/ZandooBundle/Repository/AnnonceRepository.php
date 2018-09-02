@@ -26,8 +26,11 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
         return  $qb->getQuery()->getResult();
     }
     // nb annonce dans la bdd 
-    public function countAllAnnonce() {
-        return $this->createQueryBuilder('a')->select('COUNT(a)')->getQuery() ->getSingleScalarResult();
+    public function countAllAnnonce($critere) {
+        $critere->setOffset('');
+        $qb = $this->createQueryBuilder('a');
+        $this->filtrerByCritere($critere,$qb);
+        return $qb->select('COUNT(a)')->getQuery() ->getSingleScalarResult();
     }
     
     private function filtrerByCritere ($critere,$qb){
@@ -60,7 +63,9 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
         }
         if(!is_null($critere->getTitre())){
             $qb->andWhere($qb->expr()->like('lower(a.titre)', ':titre'));
-            $qb->orWhere($qb->expr()->like('lower(a.description)', ':titre'));
+            if(is_null($critere->getTitreUniquement())){
+                $qb->orWhere($qb->expr()->like('lower(a.description)', ':titre'));
+            }           
             $qb->setParameter(':titre', '%'.strtolower($critere->getTitre()).'%'); 
         }
         if(!is_null($critere->getOffset())){
