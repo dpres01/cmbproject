@@ -96,7 +96,8 @@ class Utilisateur implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="ville", type="string",length=255)
+     * @ORM\ManyToOne(targetEntity="Ville")
+     * @ORM\JoinColumn(name="ville_id", referencedColumnName="id",nullable=false)
      * @Assert\NotBlank(message="cette valeur ne doit pas être vide")
      * 
      */
