@@ -124,6 +124,16 @@ class Annonce
      * @ORM\JoinColumn(name="ville_id", referencedColumnName="id",nullable=true)
      */
     private $villeAnnonce;
+    /**
+     * @ORM\Column(name="urgent", type="boolean")
+     * @var boolean 
+     */
+    private $urgent;
+    /**
+     *@ORM\Column(name="generateur_id", type="string")
+     * @var string 
+     */
+    private $generateurId;
     
     public function __construct(){
         $this->images = new ArrayCollection();
@@ -412,6 +422,34 @@ class Annonce
    */
     function setDateModification($dateModification) {
         $this->dateModification = $dateModification;
+    }
+    /**
+     * 
+     * @return urgent
+     */
+    public function getUrgent() {
+        return $this->urgent;
+    }
+    /**
+     * 
+     * @param type $urgent
+     */
+    public function setUrgent($urgent) {
+        $this->urgent = $urgent;
+    }
+    /**
+     * 
+     * @return generateurId
+     */
+    public function getGenerateurId() {
+        return $this->generateurId;
+    }
+    /**
+     * 
+     * @param type $generateurId
+     */
+     public function setGenerateurId($generateurId) {
+        $this->generateurId = $generateurId;
     }
 
 }

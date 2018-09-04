@@ -81,8 +81,8 @@ class SearchCategorie
 		62 => 9,
     );
 	
-	//Variable généré avec un script php une fois récupéré donnée depuis la table categorie de la BDD.
-	//voir fin fichier exemple du script
+    //Variable généré avec un script php une fois récupéré donnée depuis la table categorie de la BDD.
+    //voir fin fichier exemple du script
     public static $SELECT_OPTION = array(
 		1  => 'Offres d\'emploi',
 		2  => 'Voitures',

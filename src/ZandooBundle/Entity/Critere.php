@@ -49,6 +49,16 @@ class Critere
      * @var string 
      */
     private $description;
+    /**
+     *
+     * @var boolean
+     */
+    private $urgent;
+    /**
+     *
+     * @var boolean
+     */
+    private $titreUniquement;
     
     public function getTitre() {
         return $this->titre;
@@ -128,6 +138,23 @@ class Critere
     
     public function setDescription($description) {
         $this->description = $description;
+        return $this;
+    }
+    
+    public function getUrgent() {
+        return $this->urgent;
+    }
+
+    public function setUrgent($urgent) {
+        $this->urgent = $urgent;
+    }
+    
+    public function getTitreUniquement() {
+        return $this->titreUniquement;
+    }
+
+    public function setTitreUniquement($titreUniquement) {
+        $this->titreUniquement = $titreUniquement;
         return $this;
     }
 

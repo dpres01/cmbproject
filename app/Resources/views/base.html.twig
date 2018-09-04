@@ -31,25 +31,7 @@
 			{% block body %} {% endblock %}
 		</div>    
 	</div>    
-    {% block javascripts %}
-<script type='text/javascript'>
-    var route = "{{ path('chercher_annonces')}}";
-                            $(document).ready(function()
-                           {	
-	
-                                $('.srch3').on('click',
-                                    function (){
-                                        console.log('ici');
-                                        $.ajax({
-                                            url: route,
-                                            success: function(result){
-                                                //$("#div1").html(result);
-                                        }});
-                                        //$.ajax()
-                                    }
-                                            )})
-                            
-                        </script>{% endblock %}	
-	{% include 'footer.html.twig' %}	
+    {% block javascripts %}{% endblock %}	
+    {% include 'footer.html.twig' %}	
     </body>
 </html>
