@@ -57,7 +57,7 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
             $qb->andWhere($qb->expr()->eq('a.utilisateur', ':id'));
             $qb->setParameter(':id', $critere->getIdUtilisateur()); 
         }
-        if(!is_null($critere->getCategorie())){
+        if(!is_null($critere->getCategorie()) && $critere->getCategorie()!='0'){
             $qb->andWhere($qb->expr()->eq('a.categorie', ':cat'));
             $qb->setParameter(':cat', $critere->getCategorie()); 
         }

@@ -30,7 +30,7 @@ class ZandooController extends Controller
     /**
      * @Route("/demandes", name="demandes") 
      *     
-     **/	
+     */	
     public function listerDemandeAction(Request $request)
 	{
             $em = $this->getDoctrine(); 
@@ -54,19 +54,56 @@ class ZandooController extends Controller
                             'colorBody'  => "F7F7F7",
                             'headsearch' => 1,
                             'annonces'   => $annonces,
-							'search'     => '',
+			     'search'     => '',
                             'cat'        => '',
                             'titres'     => '',
                             'urgentes'   => '',
-							'total'      => array_merge($total,array(3,4,5,6,7,8,9,10)),
+			    'total'      => array_merge($total,array(3,4,5,6,7,8,9,10)),
                     )
             );
     }	
+    
+    /**
+     * @Route("/annonces", name="listes_annonces") 
+     *     
+     */	
+    public function listerAnnoncesAction(Request $request)
+	{
+            $em = $this->getDoctrine(); 
+            $repoAnnoce =  $em->getRepository(Annonce::class); 
+            $critere = new Critere();
+            $offset = 1;
+            if ($offset)
+            {
+                $offset = (intval($offset) - 1) * 20 ;
+            }
+            $critere->setOffset($offset);
+            $critere->setType(0);
+            $annonces = $repoAnnoce->findAnnonceByCritere($critere);        
+			$nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/20));
+			for($i = 1; $i <= $nbr ;$i++){
+				$total[] = $i;
+			}			
+            return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',
+                    array(
+                            'form'       => "",
+                            'colorBody'  => "F7F7F7",
+                            'headsearch' => 1,
+                            'annonces'   => $annonces,
+			     'search'     => '',
+                            'cat'        => '',
+                            'titres'     => '',
+                            'urgentes'   => '',
+			    'total'      => array_merge($total,array(3,4,5,6,7,8,9,10)),
+                    )
+            );
+    }	
+    
     /**
      * @Route("/", name="annonces") 
      *     
-     **/
-    public function listerAnnonce(Request $request){       	
+     */
+    public function rechercheAnnonce(Request $request){       	
         $em = $this->getDoctrine(); 
         $repoAnnoce =  $em->getRepository(Annonce::class);
         $total = array();
@@ -87,7 +124,7 @@ class ZandooController extends Controller
         $critere->setTitre($search);
         $critere->setUrgent($urgentes);
         $critere->setTitreUniquement($titre);
-        $critere->setType(0);
+      
         $annonces = $repoAnnoce->findAnnonceByCritere($critere); 
         $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/20));
         for($i = 1; $i <= $nbr ;$i++){
@@ -182,7 +219,8 @@ class ZandooController extends Controller
 	
     /**
      * @Route("afficher/annonce/{id}", requirements={"id": "\d+"}, name="afficher_annonce")     
-     **/
+     *
+     */
     public function afficherAnnonce(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
 
@@ -211,7 +249,8 @@ class ZandooController extends Controller
     
     /**
      * @Route("desactiver/annonce/{id}", requirements={"id": "\d+"}, name="desactiver_annonce")     
-     **/
+     *
+     */
     public function desactiverAnnonceAction(Request $request,$id){
        $em = $this->getDoctrine()->getManager();
        $annonce = $em->getRepository(Annonce::class)->find($id);
@@ -219,9 +258,10 @@ class ZandooController extends Controller
        $retour = $annonce->getType() == 1 ?  $this->redirectToRoute('demandes'):$this->redirectToRoute('annonces');  
        return $retour;
     }
-     /**
+    /**
      * @Route("recherche", name="chercher_annonces")     
-     **/
+     *
+     */
      public function chercheAnnonceAction(Request $request)
 	 {
         $resp = new JsonResponse();
