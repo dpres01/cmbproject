@@ -13,6 +13,7 @@
 /var/sessions/*
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
+/vendor/
 /web/uploads/
 /web/bundles/
 /composer.phar
@@ -20,5 +21,7 @@
 /nbproject/*
 var/logs/dev.log
 var/logs/prod.log
+!jlmk 147741adg
+
  
 
