@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>{% block header %} {% include
+'AnsmStdCommunFrontBundle:Layout:header.html.twig' %} {% endblock %}
+</head>
+<body>
+	{% block body %}{% endblock %} {% block javascripts %}{% endblock %}
+	<div id="PageErreurGenerique" class="container">
+		<div id="EnTete" class="col-md-12 row"></div>
+		<div id="contenu" class="col-md-12 row text-center">
+			<div id="code" class="col-md-6">
+				<span>{{ status_code }}</span>
+			</div>
+			<div class="col-md-6">
+				<div id="libelle">
+					<span> {{ status_text | trans}}</span>
+				</div>
+				<div id="lien">
+					<p>
+						<span>Veuillez vous rediriger</span>
+					</p>
+					<p>
+						<span><a href='{{ path(home)}}'>vers la page d'accueil</a></span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
