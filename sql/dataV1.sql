@@ -25,5 +25,17 @@ INSERT INTO Ville(id,actif,libelle,code_postal) VALUES ('24','1','Tanganyika','V
 INSERT INTO Ville(id,actif,libelle,code_postal) VALUES ('25','1','Tshopo','V025');
 INSERT INTO Ville(id,actif,libelle,code_postal) VALUES ('26','1','Tshuapa','V026');
 
+--- Alimentation motif ----
+INSERT INTO motif(id,actif,libelle,date_creation) VALUES ('1','1','Fraude',NOW());
+INSERT INTO motif(id,actif,libelle,date_creation) VALUES ('2','1','Doublon',NOW());
+INSERT INTO motif(id,actif,libelle,date_creation) VALUES ('3','1','Mauvaise Catégorie',NOW());
+INSERT INTO motif(id,actif,libelle,date_creation) VALUES ('4','1','Professionnel',NOW());
+INSERT INTO motif(id,actif,libelle,date_creation) VALUES ('5','1','Déjà Vendu',NOW());
+INSERT INTO motif(id,actif,libelle,date_creation) VALUES ('6','1','Discrimination',NOW());
+INSERT INTO motif(id,actif,libelle,date_creation) VALUES ('7','1','Incitation à la haine',NOW());
+INSERT INTO motif(id,actif,libelle,date_creation) VALUES ('8','1','Placée dans la mauvaise catégorie',NOW());
+INSERT INTO motif(id,actif,libelle,date_creation) VALUES ('9','1','Autre',NOW());
+
+
 
 

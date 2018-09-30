@@ -3,13 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/cmbproject/src/ZandooBundle/Resources/views/Annonce/listerAnnonce.html.twig</file>
-            <file>file:/C:/wamp/www/cmbproject/src/ZandooBundle/Repository/AnnonceRepository.php</file>
-            <file>file:/C:/wamp/www/cmbproject/src/ZandooBundle/Entity/Critere.php</file>
             <file>file:/C:/wamp/www/cmbproject/src/ZandooBundle/Controller/ZandooController.php</file>
-            <file>file:/C:/wamp/www/cmbproject/src/ZandooBundle/Service/Commun.php</file>
-            <file>file:/C:/wamp/www/cmbproject/app/Resources/views/search.html.twig</file>
-            <file>file:/C:/wamp/www/cmbproject/src/ZandooBundle/Form/FormAnnonceType.php</file>
         </group>
     </open-files>
 </project-private>

@@ -109,7 +109,7 @@
 				<div style="float:left;">
 					<div class="ann-stat-icon"><i class="fa fa-flag-o" style="font-size:14px;"></i></div> 
 					<div style="float:left;">																
-						Signaler cette annonce
+						Signaler cette annonce                                                
 					</div> 
 					<div style="clear:both;"></div>
 				</div>
@@ -209,6 +209,19 @@
 			</div>	
 		</div>
 		<div style="clear:both;"></div>
+                <div>
+                   {{form_start(form)}} 
+                     {{form_label(form.motif)}}
+                     {{form_widget(form.motif)}}
+                     {{form_label(form.nom)}}
+                     {{form_widget(form.nom)}}
+                     {{form_label(form.email)}}
+                     {{form_widget(form.email)}}
+                     {{form_label(form.message)}}
+                     {{form_widget(form.message)}}
+                     <input type="submit" value="envoyer">
+                    {{form_end(form)}}
+                <div/>
 	</div>
 	<div class="ann-sim-off" style="">
 		<div style="text-decoration:underline;">

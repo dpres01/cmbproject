@@ -16,6 +16,9 @@ use ZandooBundle\Entity\Famille;
 use ZandooBundle\Entity\Critere;
 use ZandooBundle\Entity\Ville;
 use ZandooBundle\Service\Monnaie;
+use ZandooBundle\Entity\Signalement;
+use ZandooBundle\Entity\Motif;
+use ZandooBundle\Form\FormSignalementType;
 
 
 class ZandooController extends Controller
@@ -237,26 +240,33 @@ class ZandooController extends Controller
      */
     public function afficherAnnonce(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
-
         $critere = new Critere();
         $critere->setIdUtilisateur($id);
         $annonce = $em->getRepository(Annonce::class)->find($id);
-		$nbImg = count($annonce->getImages());
-		
-		
+	$nbImg = count($annonce->getImages());
+        $signalement = new Signalement(); 
+        $options['motif'] = $em->getRepository(Motif::class)->findAll();
+	$form = $this->createForm(FormSignalementType::class ,$signalement,$options);
+        $form->handleRequest($request);
+        
+        if($form->isValid() && $form->isSubmitted()){
+            $motif = $em->getRepository(Motif::class)->find($signalement->getMotif());
+            $signalement->setMotif($motif);
+            $signalement->setAnnonce($annonce);            
+            $em->persist($signalement);
+            $em->flush();
+        } 
         if($annonce){
             return $this->render('@Zandoo/Annonce/annonce.html.twig',
 				array(
 					'annonce'    => $annonce,
+                                        'form'       =>$form->createView(),    
 					'headsearch' => 1,
 					'colorBody'  => "F7F7F7",
 					'nbImg'      => $nbImg,
 					'url_upload'=> $this->getParameter('url_upload'),
-				)
-			);
-        }
-		else
-		{
+				));
+        }else{
             throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException( 'Not found!');
         }
     } 
