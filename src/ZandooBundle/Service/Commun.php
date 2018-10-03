@@ -78,7 +78,7 @@
             }
             return $url .= (empty($url))? "?".$key."=".$val : "&".$key."=".$val;
         }
-            
+                   
 }
 
 

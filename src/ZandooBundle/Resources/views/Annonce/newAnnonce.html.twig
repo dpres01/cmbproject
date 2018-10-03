@@ -209,11 +209,16 @@
 		</div>
 	</div>			
 	<div style="margin:20px 0 40px 0;max-width:400px;">
-                {% if app.user is not empty and form.vars.value.id and form.vars.type == '0' %}
+                {% if app.user is not empty and form.vars.value.id %}
 		<div class="ann-btn-vd" style="float:left;width:48%;max-width:150px;">
-			<div class="btnfmgreen"><b>Vendu</b></div>
+                        {% if form.vars.value.type == '0' %}
+			   <div class="btnfmgreen"><b>Vendu</b></div>
+                         {% else %}  
+                           <div class="btnfmgreen"><b>Trouvé</b></div>
+                        {% endif %}
 		</div>
                 {% endif %}
+       
 		<div style="float:right;width:48%;max-width:150px;">
 			<div class="btnfm" onclick="$(this).closest('form').submit();"><b>Valider</b></div>
 		</div>

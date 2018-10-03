@@ -74,7 +74,7 @@ class UtilisateurController extends Controller
                 $pwdEncoded = $this->get('security.password_encoder')->encodePassword($utilisateur,$randPassword);          
                 $utilisateur->setPassword($pwdEncoded); 
                 $em->flush();           
-                //$this->get('zandoo.mail')->sendMail($email,$randPassword);
+                $this->get('zandoo.mail')->sendMail($email,$randPassword);
                 $this->addFlash('succes', 'un email vous a été envoyer avec votre nouveau mot de passe verifiez votre spam!');
             }else{
                 $this->addFlash('error', 'cet email n\'existe pas');

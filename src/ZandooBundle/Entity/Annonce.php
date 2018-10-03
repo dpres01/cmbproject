@@ -13,6 +13,8 @@ use ZandooBundle\Validator\Annonce as AnnonceConstraint;
  * @ORM\Table(name="ANNONCE")
  * @ORM\Entity(repositoryClass="ZandooBundle\Repository\AnnonceRepository")
  * 
+ * @ORM\HasLifecycleCallbacks
+ * 
  * @AnnonceConstraint
  * 
  */
@@ -451,5 +453,23 @@ class Annonce
      public function setGenerateurId($generateurId) {
         $this->generateurId = $generateurId;
     }
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function generateurIdRand(){
+      $this->generateurId  = $this->randomString().$this->id;
+    }
+    
+    private function randomString(){
+            $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';        
+            $randstring = '';
+            $retour = '';
+            for ($i = 0; $i < 8; $i++) {
+                $retour = $characters[rand(0, strlen($characters)-1)]; 
+                $randstring .= $retour;
+            }
+            return $randstring;
+        }
 
 }
