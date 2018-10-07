@@ -146,47 +146,31 @@
 				{% endfor %}
 				<div style="background:#fff;padding:10px;border:1px solid #ccc;margin-top:35px;">
 					<table style="width:100%;">
-						<tr>
-							<!--td style="width:15%;">
-								<div style="padding:5px;text-align:center;border:1px solid #ccc;background:#fff;">Précédent</div>
-							</t#-->
-							<!--td style="width:70%;">
-								<div style="margin:0 auto;width:100%;max-width:150px;">
-									<table align="center">
-									<tr-->
-                                                                         <nav aria-label="Page navigation example">
-                                                                            <ul class="pagination justify-content-end">
-                                                                              <li class="page-item disabled">
-                                                                                <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                                                              </li>
-                                                                              {%for t in total%}				
-										  <li class="page-item"><a class="page-link" href="#">{{t}}</a></li>										
-                                                                               {%endfor%}                   
-                                                                              <li class="page-item">
-                                                                                <a class="page-link" href="#">Next</a>
-                                                                              </li>
-                                                                            </ul>
-                                                                          </nav>
-                                                                            {#%for t in total%#}
-										<!--td>
-										     <input type="text" name="" value="{#{t}#}" id="" class="form-control" style="width:60px;text-align:center;">
-										</td-->
-                                                                            {#%endfor%#}    
-										<!--td>
-											&nbsp;/&nbsp;
-										</td>
-									</tr>
-									</table>
-								</div>
-							</td>
-							<td style="width:15%;">
-								<div style="padding:5px;text-align:center;border:0px solid #ccc;background:#005999;color:#fff;">Suivant</div>
-							</td-->
+						<tr>					
+                                                    <nav aria-label="Page navigation example">
+                                                       <ul class="pagination justify-content-end">
+                                                         <li class="page-item disabled">
+                                                           <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                                         </li>
+                                                         {{category}}
+                                                         {%for t in total%}				
+                                                             <li class="page-item">
+                                                                 <a class="page-link pagination" href="{{ zandoo_service_commun.generateUrl("p", t) }}">
+                                                                    {{t}}
+                                                                 </a>
+                                                             </li>										
+                                                          {%endfor%}                   
+                                                         <li class="page-item">
+                                                           <a class="page-link" href="#">Next</a>
+                                                         </li>
+                                                       </ul>
+                                                     </nav>                                                      
 						</tr>
 					</table>
 				</div>
 			</div>
 			<div style="clear:both;"></div>
+                         </form> 
 		</div>
 	</div>
 {% endblock %}

@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\Session;
 use ZandooBundle\Entity\Annonce;
 use ZandooBundle\Form\FormAnnonceType;
 use ZandooBundle\Entity\Utilisateur;
@@ -15,6 +16,9 @@ use ZandooBundle\Entity\Famille;
 use ZandooBundle\Entity\Critere;
 use ZandooBundle\Entity\Ville;
 use ZandooBundle\Service\Monnaie;
+use ZandooBundle\Entity\Signalement;
+use ZandooBundle\Entity\Motif;
+use ZandooBundle\Form\FormSignalementType;
 
 
 class ZandooController extends Controller
@@ -34,20 +38,26 @@ class ZandooController extends Controller
     public function listerDemandeAction(Request $request)
 	{
             $em = $this->getDoctrine(); 
-            $repoAnnoce =  $em->getRepository(Annonce::class); 
+            $repoAnnonce =  $em->getRepository(Annonce::class); 
+            $offset   = $request->query->get('p');
             $critere = new Critere();
-            $offset = 1;
-            if ($offset)
-            {
+            $session = new Session();
+            $offset  = empty($offset) ? 1 : $offset ;
+            $numPage    = $offset;
+            if($offset and intval($offset) > 0){
                 $offset = (intval($offset) - 1) * 20 ;
-            }
+            }             
             $critere->setOffset($offset);
             $critere->setType(1);
-            $annonces = $repoAnnoce->findAnnonceByCritere($critere);        
-			$nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/20));
-			for($i = 1; $i <= $nbr ;$i++){
-				$total[] = $i;
-			}			
+            $annonces = $repoAnnonce->findAnnonceByCritere($critere);                    
+            if(empty($session->get('nbr_demandes'))){
+                $nbr = intval(ceil($repoAnnonce->countAllAnnonce($critere)/20));
+                $session->set('nbr_demandes',$nbr);
+            }
+            $nbr = $session->get('nbr_demandes');
+            for($i = 1; $i <= $nbr ;$i++){
+                    $total[] = $i;
+            }			
             return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',
                     array(
                             'form'       => "",
@@ -107,26 +117,32 @@ class ZandooController extends Controller
         $em = $this->getDoctrine(); 
         $repoAnnoce =  $em->getRepository(Annonce::class);
         $total = array();
-        
-        $search  = $request->query->get('q');
-        $cat 	 = $request->query->get('cat');
-        $titre 	 = $request->query->get('tre');
+        $search   = $request->query->get('q');
+        $cat 	  = $request->query->get('cat');
+        $titre 	  = $request->query->get('tre');
         $urgentes = $request->query->get('urg');
+        $offset   = $request->query->get('p');
         
         $critere = new Critere();
-        $offset = 1;
-        if ($offset)
-		{
+        $session = new Session();
+        $offset  = empty($offset) ? 1 : $offset ;        
+        $cat     = intval($cat) > 0 ? $cat : null; 
+        $numPage    = $offset;
+        if($offset and intval($offset) > 0){
             $offset = (intval($offset) - 1) * 20 ;
-        }
+        }        
         $critere->setOffset($offset);
         $critere->setCategorie($cat);
         $critere->setTitre($search);
         $critere->setUrgent($urgentes);
         $critere->setTitreUniquement($titre);
-      
-        $annonces = $repoAnnoce->findAnnonceByCritere($critere); 
-        $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/20));
+        
+        $annonces = $repoAnnoce->findAnnonceByCritere($critere);
+        if(empty($session->get('nbr'))){
+            $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/20));
+            $session->set('nbr',$nbr);
+        }
+        $nbr = $session->get('nbr');
         for($i = 1; $i <= $nbr ;$i++){
             $total[] = $i;
         }
@@ -139,6 +155,7 @@ class ZandooController extends Controller
                                 'cat'        => $cat,
                                 'titres'     => $titre,
                                 'urgentes'   => $urgentes,
+                                'numPage'    =>$numPage,
                                 'total'      => array_merge($total,array(3,4,5,6,7,8,9,10)),
 			)
                 );
@@ -155,7 +172,7 @@ class ZandooController extends Controller
           $annonce->setDateCreation(new \DateTime());
         }else{
             $categorieID = $annonce->getCategorie()->getId();
-            $villeID = $annonce->getVilleAnnonce()->getId();
+            $villeID = $annonce->getVilleAnnonce() ? $annonce->getVilleAnnonce()->getId(): null;
             $annonce->setCategorie($categorieID);
             $annonce->setVilleAnnonce($villeID);
         }           
@@ -223,26 +240,33 @@ class ZandooController extends Controller
      */
     public function afficherAnnonce(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
-
         $critere = new Critere();
         $critere->setIdUtilisateur($id);
         $annonce = $em->getRepository(Annonce::class)->find($id);
-		$nbImg = count($annonce->getImages());
-		
-		
+	$nbImg = count($annonce->getImages());
+        $signalement = new Signalement(); 
+        $options['motif'] = $em->getRepository(Motif::class)->findAll();
+	$form = $this->createForm(FormSignalementType::class ,$signalement,$options);
+        $form->handleRequest($request);
+        
+        if($form->isValid() && $form->isSubmitted()){
+            $motif = $em->getRepository(Motif::class)->find($signalement->getMotif());
+            $signalement->setMotif($motif);
+            $signalement->setAnnonce($annonce);            
+            $em->persist($signalement);
+            $em->flush();
+        } 
         if($annonce){
             return $this->render('@Zandoo/Annonce/annonce.html.twig',
 				array(
 					'annonce'    => $annonce,
+                                        'form'       =>$form->createView(),    
 					'headsearch' => 1,
 					'colorBody'  => "F7F7F7",
 					'nbImg'      => $nbImg,
 					'url_upload'=> $this->getParameter('url_upload'),
-				)
-			);
-        }
-		else
-		{
+				));
+        }else{
             throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException( 'Not found!');
         }
     } 

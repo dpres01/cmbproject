@@ -45,13 +45,7 @@ class FormUtilisateurType extends AbstractType
                 'expanded' =>false,
                 'required'=> false                  
             ))        
-                
-//            ->add('ville',ChoiceType::class,array(
-//                'choices'  =>$this->listeVilles($options['liste_ville']),        
-//                'expanded' =>false,
-//                'label' =>"Ville *",
-//                'required'=> false                  
-//            ))    
+                    
             ->add('isProfessionnel',ChoiceType::class,array(
                  'choices' => array(
                        'Particulier' => '0',
