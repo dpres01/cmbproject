@@ -50,11 +50,11 @@ class ZandooController extends Controller
             $critere->setOffset($offset);
             $critere->setType(1);
             $annonces = $repoAnnonce->findAnnonceByCritere($critere);                    
-            if(empty($session->get('nbr_demandes'))){
+            //if(empty($session->get('nbr_demandes'))){
                 $nbr = intval(ceil($repoAnnonce->countAllAnnonce($critere)/20));
                 $session->set('nbr_demandes',$nbr);
-            }
-            $nbr = $session->get('nbr_demandes');
+            //}
+            //$nbr = $session->get('nbr_demandes');
             for($i = 1; $i <= $nbr ;$i++){
                     $total[] = $i;
             }			
@@ -90,10 +90,10 @@ class ZandooController extends Controller
             $critere->setOffset($offset);
             $critere->setType(0);
             $annonces = $repoAnnoce->findAnnonceByCritere($critere);        
-			$nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/20));
-			for($i = 1; $i <= $nbr ;$i++){
-				$total[] = $i;
-			}			
+	    $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/20));
+	    for($i = 1; $i <= $nbr ;$i++){
+		$total[] = $i;
+	    }			
             return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',
                     array(
                             'form'       => "",
@@ -138,15 +138,16 @@ class ZandooController extends Controller
         $critere->setTitreUniquement($titre);
         
         $annonces = $repoAnnoce->findAnnonceByCritere($critere);
-        if(empty($session->get('nbr'))){
+        
+        //if(empty($session->get('nbr'))){
             $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/20));
             $session->set('nbr',$nbr);
-        }
-        $nbr = $session->get('nbr');
+        //}
+        //$nbr = $session->get('nbr');
         for($i = 1; $i <= $nbr ;$i++){
             $total[] = $i;
         }
-        //dump($annonces);die;
+        //dump($annonces,$numPage);
         return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',array(
                                 'form'       => "",
                                 'colorBody'  => "F7F7F7",
