@@ -1,8 +1,8 @@
 	<div style="background:#003580;">
 		<div class="hd-top" style="">			
-			<div style="float:left;">
+			<div style="float:left;padding-top:8px;">
 				<a href="{{path('home')}}" style="text-decoration:none;color:#fff;">
-					<h3 style="margin:0;padding:0;">Z______</h3>
+					<h3 style="margin:0;padding:0;">Zandoo</h3>
 				</a>
 			</div>
 			<div class="hd-top-menu" style="">
@@ -40,12 +40,12 @@
 					</a>
 				</div>
                 {%else%}    
-                                <div class="hd-top-right-user" style="">
+                <div class="hd-top-right-user" style="">
 					<a class="lk-w" href="{#{path('modifier_utilisateur',{'id':app.user.id})}#}">
 						<i class="fa fa-user-o"></i>
 					</a>
 				</div>
-                                <div class="hd-top-right-user" style="">
+                <div class="hd-top-right-user" style="">
 					<a class="lk-w" href="{{path('logout')}}">
 						<i class="fa fa-sign-out"></i>
 					</a>
@@ -60,12 +60,12 @@
                 {%endif%}
 				<div style="clear:both;"></div>
 			</div>
-			<div class="hd-top-menu-resp" style="">
+			<div class="hd-top-menu-resp" style="padding-bottom:12px;">
 				<div id="respuser" class="hd-top-right-user" style="cursor:pointer;">
 					<i id="respusericnop" class="fa fa-user-o"></i>
 					<i id="respusericncl" class="fa fa-times" style="display:none;"></i>
 				</div>
-				<div id="respmn" style="float:left;padding-top:2px;cursor:pointer;width:15px;">
+				<div id="respmn" class="hd-top-right-menu" style="">
 					<i id="respmnicnop" class="fa fa-bars"></i>
 					<i id="respmnicncl" class="fa fa-times" style="display:none;"></i>
 				</div>
@@ -90,18 +90,18 @@
 			<div class="hd-resp-menu-elm">Messages</div>
 		</div>
 		<div id="resp-user" class="hd-resp-user" style="">
-                    {%if  app.user is empty %}
+            {%if  app.user is empty %}
 			<div class="hd-resp-menu-elm">
 				<a class="lk-w" href="{{path('login')}}">Mon compte</a>
 			</div>
-                    {%else%}
-                        <div class="hd-resp-menu-elm">
+            {%else%}
+            <div class="hd-resp-menu-elm">
 				<a class="lk-w" href="{#{path('modifier_utilisateur',{'id':app.user.id})}#}">Modifier mon compte</a>
 			</div>
-                        <div class="hd-resp-menu-elm">
+            <div class="hd-resp-menu-elm">
 				<a class="lk-w" href="{{path('logout')}}">Se déconnecter</a>
 			</div>
-                    {%endif%}
+            {%endif%}
 			<div class="hd-resp-menu-elm">
 				<a class="lk-w" href="{#{path('login')}#}">Mes favoris</a>
 			</div>

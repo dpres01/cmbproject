@@ -181,13 +181,6 @@
 		display:inline;
 	}
 }
-@media(min-width: 1100px)
-{
-	.hd-top
-	{
-		padding:5px 0;
-	}
-}
 @media(min-width: 1120px)
 {
 	.srchbox

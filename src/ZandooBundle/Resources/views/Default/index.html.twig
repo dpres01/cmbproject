@@ -19,22 +19,6 @@
 }	
 </style>
 <link rel="stylesheet" href="{{ asset('public/css/home.css') }}" type="text/css"/> 
-<div class="hm-btns">
-	<div class="hm-cntbtn1">
-		<div class="hm-btn1">
-			<a style="color:#005999;text-decoration:none;" href="{{path('enregistrer_annonce')}}">
-				<i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Deposer une annonce
-			</a>
-		</div>
-	</div>
-	<div class="hm-cntbtn2">	
-		<div class="hm-btn2">
-			<i class="fa fa-map-marker"></i>&nbsp;&nbsp;Rechercher autour de moi
-		</div>
-		<div style="clear:both;"></div>
-	</div>
-	<div style="clear:both;"></div>
-</div>
 <div class="hm-cntmap" style="">
 	<div style="">
 		<div class="hm-map">		
@@ -159,7 +143,7 @@ $(document).ready(function()
 	// Create the chart
 	Highcharts.mapChart('container',
 	{
-		chart: {map: 'countries/cd/cd-all'},
+		chart: {map: 'countries/cd/cd-all', cursor:'pointer', },
 		title: {text: null},
 		subtitle: {text: null},
 		legend: {enabled: false},
@@ -175,12 +159,13 @@ $(document).ready(function()
 		colorAxis: {min: 0},
 		series: [{
 			data: data,
+			cursor: 'pointer',
 			name: 'Département',
 			states: 
 			{
 				hover: 
 				{
-					color: '#BADA55'
+					color: '#faec00'
 				}
 			},
 			dataLabels: 
