@@ -21,6 +21,7 @@ jQuery('.add-another-collection-widget').click(function (e) {
         // create a new list element and add it to the list
         var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
         newElem.appendTo(list);
+		
     });   
 });
 

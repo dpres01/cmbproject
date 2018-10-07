@@ -183,7 +183,8 @@ class ZandooController extends Controller
         $options['ville'] = $em->getRepository(Ville::class)->findAll();
         if($this->getUser()){
             $options['connected'] = true;
-        }        
+        } 
+        dump($annonce);
         if(!empty($annonce->getUtilisateur()) && empty($this->getUser()) || 
         (!empty($this->getUser()) && !empty($annonce->getUtilisateur()) && $annonce->getUtilisateur()->getId() != $this->getUser()->getId())){
              throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException('Vous n\'avez pas le droit d\'acces à cette page veuillez vous connecté.');          
