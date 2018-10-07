@@ -35,6 +35,8 @@ INSERT INTO motif(id,actif,libelle,date_creation) VALUES ('6','1','Discriminatio
 INSERT INTO motif(id,actif,libelle,date_creation) VALUES ('7','1','Incitation à la haine',NOW());
 INSERT INTO motif(id,actif,libelle,date_creation) VALUES ('8','1','Placée dans la mauvaise catégorie',NOW());
 INSERT INTO motif(id,actif,libelle,date_creation) VALUES ('9','1','Autre',NOW());
+--- alimentation generateur_id ---
+update `annonce` set generateur_id = concat('abcdefgh',id)WHERE generateur_id is null;
 
 
 

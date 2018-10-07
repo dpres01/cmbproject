@@ -146,6 +146,7 @@ class ZandooController extends Controller
         for($i = 1; $i <= $nbr ;$i++){
             $total[] = $i;
         }
+        //dump($annonces);die;
         return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',array(
                                 'form'       => "",
                                 'colorBody'  => "F7F7F7",
@@ -162,7 +163,7 @@ class ZandooController extends Controller
     }    
 
     /**
-     * @Route("/annonce/{id}",defaults={"id" = null}, name="enregistrer_annonce")
+     * @Route("/annonce/{generateurId}",defaults={"generateurId" = null}, name="enregistrer_annonce")
      * @ParamConverter("annonce", class="ZandooBundle:Annonce", isOptional=true)
      */
     public function creerModifierAnnoce(Request $request, $annonce){
@@ -182,7 +183,8 @@ class ZandooController extends Controller
         $options['ville'] = $em->getRepository(Ville::class)->findAll();
         if($this->getUser()){
             $options['connected'] = true;
-        }        
+        } 
+        dump($annonce);
         if(!empty($annonce->getUtilisateur()) && empty($this->getUser()) || 
         (!empty($this->getUser()) && !empty($annonce->getUtilisateur()) && $annonce->getUtilisateur()->getId() != $this->getUser()->getId())){
              throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException('Vous n\'avez pas le droit d\'acces à cette page veuillez vous connecté.');          
@@ -213,13 +215,20 @@ class ZandooController extends Controller
                 if(is_null($annonce)){
                     $annonce->setDateModification(new \DateTime());                    
                 }
-                $em->persist($annonce);              
+                $em->persist($annonce);               
+                $em->flush();
+                if(!is_null($annonce->getGenerateurId()) or !empty($annonce->getGenerateurId())){
+                     $gen = $annonce->getGenerateurId();                    
+                }else{
+                     $gen = $annonce->getId();
+                     $annonce->setGenerateurId($annonce->getId());    
+                }
                 $em->flush();
                 $this->addFlash('succesAnnonce', 'votre annonce a été enregistré avec succes!');
                 if(!$this->getUser()){                          
                     return $this->redirectToRoute('login',array());
                 }
-                return $this->redirectToRoute('afficher_annonce',array('id'=>$annonce->getId()));
+                return $this->redirectToRoute('afficher_annonce',array('id'=>$gen));
             }catch(Exception $e){
                sprintf("Une erreur technique: %s est survenue veuillez contacter l'administrateur ",$e) ;
             }
@@ -235,14 +244,14 @@ class ZandooController extends Controller
     }
 	
     /**
-     * @Route("afficher/annonce/{id}", requirements={"id": "\d+"}, name="afficher_annonce")     
+     * @Route("afficher/annonce/{id}",  name="afficher_annonce")     
      *
      */
     public function afficherAnnonce(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
         $critere = new Critere();
         $critere->setIdUtilisateur($id);
-        $annonce = $em->getRepository(Annonce::class)->find($id);
+        $annonce = $em->getRepository(Annonce::class)->findOneBy(array('generateurId'=>$id));
 	$nbImg = count($annonce->getImages());
         $signalement = new Signalement(); 
         $options['motif'] = $em->getRepository(Motif::class)->findAll();
