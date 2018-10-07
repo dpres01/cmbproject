@@ -1,5 +1,6 @@
 <?php
  namespace ZandooBundle\Service;
+ use ZandooBundle\Entity\SearchCategorie;
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -43,6 +44,24 @@
 	}
 	
 	function titreFormatAnnonce($_text){ return ucfirst($_text); }
+	
+	function getCategorieGroup()
+	{
+		$tmp = new SearchCategorie();
+		return $tmp->getSelectGroup();
+	}
+	
+	function getCategorieGroupOption()
+	{
+		$tmp = new SearchCategorie();
+		return $tmp->getSelectGroupOption();
+	}
+	
+	function getCategorieOption()
+	{
+		$tmp = new SearchCategorie();
+		return $tmp->getSelectOption();
+	}
 }
 
 

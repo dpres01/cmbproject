@@ -43,11 +43,16 @@ $(document).ready(function()
         var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
         newElem.appendTo(list);
     });
+	
+	$(".ann-price-num").click(function()
+	{
+		$("#phone1").toggle();
+		$("#phone2").toggle();
+	});
    
     //fly menu
     $(window).scroll(function(){ positionMenu(); });
     positionMenu();
-    //console.log(jquery('.cached'));
 });
 
 var fix = 0;

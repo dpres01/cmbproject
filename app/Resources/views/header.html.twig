@@ -10,7 +10,7 @@
 					<a class="lk-w" href="{{path('enregistrer_annonce')}}">Déposer une annonce</a>
 				</div>
 				<div class="hd-top-menu-elm">
-					<a class="lk-w" href="{{path('annonces')}}">Offres</a>
+					<a class="lk-w" href="{{path('listes_annonces')}}">Offres</a>
 				</div>
 				<div class="hd-top-menu-elm">
 					<a class="lk-w" href="{{path('demandes')}}">Demandes</a>
@@ -39,12 +39,17 @@
 						<i class="fa fa-user-o"></i>
 					</a>
 				</div>
-                {%else%}
+                {%else%}    
                                 <div class="hd-top-right-user" style="">
 					<a class="lk-w" href="{#{path('modifier_utilisateur',{'id':app.user.id})}#}">
 						<i class="fa fa-user-o"></i>
 					</a>
 				</div>
+                                <div class="hd-top-right-user" style="">
+					<a class="lk-w" href="{{path('logout')}}">
+						<i class="fa fa-sign-out"></i>
+					</a>
+				</div>                
                 {%endif%} 
                 {%if  app.user is empty %}
 				<div class="hd-top-right-register" style="">
@@ -76,7 +81,7 @@
 				<a class="lk-w" href="{{path('annonces')}}">Offres</a>
 			</div>
 			<div class="hd-resp-menu-elm">
-				<a class="lk-w" href="{{path('demandes')}}">Demandes</a>
+				<a class="lk-w" href="{{path('listes_annonces')}}">Demandes</a>
 			</div>
 			<div class="hd-resp-menu-elm">
 				<a class="lk-w" href="{{path('login')}}">Mes favoris</a>
@@ -93,12 +98,15 @@
                         <div class="hd-resp-menu-elm">
 				<a class="lk-w" href="{#{path('modifier_utilisateur',{'id':app.user.id})}#}">Modifier mon compte</a>
 			</div>
+                        <div class="hd-resp-menu-elm">
+				<a class="lk-w" href="{{path('logout')}}">Se déconnecter</a>
+			</div>
                     {%endif%}
 			<div class="hd-resp-menu-elm">
-				<a class="lk-w" href="{{path('login')}}">Mes favoris</a>
+				<a class="lk-w" href="{#{path('login')}#}">Mes favoris</a>
 			</div>
 			<div class="hd-resp-menu-elm">
-				<a class="lk-w" href="{{path('login')}}">Mes messages</a>
+				<a class="lk-w" href="{#{path('login')}#}">Mes messages</a>
 			</div>
 			{%if  app.user is empty %}
             <div class="hd-resp-menu-elm">

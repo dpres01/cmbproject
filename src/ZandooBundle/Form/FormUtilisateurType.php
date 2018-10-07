@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use ZandooBundle\Entity\Utilisateur;
 
 
@@ -38,9 +39,19 @@ class FormUtilisateurType extends AbstractType
             ->add('adresse',TextType::class,array(
                 'label' =>"Adresse *"              
             ))
-            ->add('ville',TextType::class,array(
-                'label' =>"Ville *"
-            ))    
+            ->add('ville',EntityType::class,array(
+                'class'  =>  \ZandooBundle\Entity\Ville::class,        
+                'choice_label' =>"libelle",
+                'expanded' =>false,
+                'required'=> false                  
+            ))        
+                
+//            ->add('ville',ChoiceType::class,array(
+//                'choices'  =>$this->listeVilles($options['liste_ville']),        
+//                'expanded' =>false,
+//                'label' =>"Ville *",
+//                'required'=> false                  
+//            ))    
             ->add('isProfessionnel',ChoiceType::class,array(
                  'choices' => array(
                        'Particulier' => '0',
@@ -58,7 +69,8 @@ class FormUtilisateurType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => Utilisateur::class,
-            'connected'=>false
+            'connected'=>false,
+            'liste_ville'=>null
         ));
     }
      public function getName(){

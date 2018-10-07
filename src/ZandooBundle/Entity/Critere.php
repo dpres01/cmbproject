@@ -36,9 +36,29 @@ class Critere
     private $titre;
     /**
      * 
-     * @return type
+     * @return utilisateur
      */
     private $idUtilisateur;
+    /**
+     *
+     * @var int 
+     */
+    private $categorie;
+    /**
+     *
+     * @var string 
+     */
+    private $description;
+    /**
+     *
+     * @var boolean
+     */
+    private $urgent;
+    /**
+     *
+     * @var boolean
+     */
+    private $titreUniquement;
     
     public function getTitre() {
         return $this->titre;
@@ -102,8 +122,41 @@ class Critere
         $this->idUtilisateur = $idUtilisateur;
         return $this;
     }
+  
+    public function getCategorie() {
+        return $this->categorie;       
+    }
 
+    public function setCategorie($categorie) {
+        $this->categorie = $categorie;
+        return $this;
+    }
+    
+    public function getDescription() {
+        return $this->description;
+    }
+    
+    public function setDescription($description) {
+        $this->description = $description;
+        return $this;
+    }
+    
+    public function getUrgent() {
+        return $this->urgent;
+    }
 
+    public function setUrgent($urgent) {
+        $this->urgent = $urgent;
+    }
+    
+    public function getTitreUniquement() {
+        return $this->titreUniquement;
+    }
+
+    public function setTitreUniquement($titreUniquement) {
+        $this->titreUniquement = $titreUniquement;
+        return $this;
+    }
 
 }
 

@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use ZandooBundle\Entity\Annonce;
 use ZandooBundle\Form\FormAnnonceType;
 use ZandooBundle\Entity\Utilisateur;
@@ -23,79 +24,124 @@ class ZandooController extends Controller
      */
     public function indexAction()
     {    
-        $homehead 	= 1;
-        return $this->render('@Zandoo/Default/index.html.twig', 
-	             array(
-				//'homehead' => $homehead
-			)		
-		);
+        return $this->render('@Zandoo/Default/index.html.twig');
     }
+    
     /**
-     * @Route("/demandes", name="demandes")     
-     **/	
+     * @Route("/demandes", name="demandes") 
+     *     
+     */	
     public function listerDemandeAction(Request $request)
 	{
-            $em = $this->getDoctrine()->getManager(); 
+            $em = $this->getDoctrine(); 
+            $repoAnnoce =  $em->getRepository(Annonce::class); 
             $critere = new Critere();
             $offset = 1;
             if ($offset)
             {
-                    $offset = (intval($offset) - 1) * 20 ;
+                $offset = (intval($offset) - 1) * 20 ;
             }
             $critere->setOffset($offset);
             $critere->setType(1);
-            $annonce = $em->getRepository(Annonce::class)->findAnnonceByCritere($critere);       
-            $tab["titre"] = "Les Bananes Vertes buttanes";
-            $tab["img"] =  "/web/uploads/documents/37.jpeg";
-            $tab["prix"] = "99";
-            $tab["monnaie"] = "€";
-            $tab["dateCreation"] = new \DateTime();
-            $tab["description"] = "GXR Suzuki 600 for sale or trade. Would love a camper of sorts. Parked the bike two years ago...";
-
-            $i = 0;
-            $htm = '';
-            while($i < 10)
-            {
-                    $data[] = $tab;
-                    $i++;
-            }
-		return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',
-			array(
-				'form' => "",
-				'colorBody' => "F7F7F7",
-				'headsearch' => 1,
-				'data' => $data
-			)
-		);
+            $annonces = $repoAnnoce->findAnnonceByCritere($critere);        
+			$nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/20));
+			for($i = 1; $i <= $nbr ;$i++){
+				$total[] = $i;
+			}			
+            return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',
+                    array(
+                            'form'       => "",
+                            'colorBody'  => "F7F7F7",
+                            'headsearch' => 1,
+                            'annonces'   => $annonces,
+			     'search'     => '',
+                            'cat'        => '',
+                            'titres'     => '',
+                            'urgentes'   => '',
+			    'total'      => array_merge($total,array(3,4,5,6,7,8,9,10)),
+                    )
+            );
     }	
+    
     /**
-     * @Route("/", name="annonces")     
-     **/
-    public function listerAnnonce(Request $request){       
+     * @Route("/annonces", name="listes_annonces") 
+     *     
+     */	
+    public function listerAnnoncesAction(Request $request)
+	{
+            $em = $this->getDoctrine(); 
+            $repoAnnoce =  $em->getRepository(Annonce::class); 
+            $critere = new Critere();
+            $offset = 1;
+            if ($offset)
+            {
+                $offset = (intval($offset) - 1) * 20 ;
+            }
+            $critere->setOffset($offset);
+            $critere->setType(0);
+            $annonces = $repoAnnoce->findAnnonceByCritere($critere);        
+			$nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/20));
+			for($i = 1; $i <= $nbr ;$i++){
+				$total[] = $i;
+			}			
+            return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',
+                    array(
+                            'form'       => "",
+                            'colorBody'  => "F7F7F7",
+                            'headsearch' => 1,
+                            'annonces'   => $annonces,
+			     'search'     => '',
+                            'cat'        => '',
+                            'titres'     => '',
+                            'urgentes'   => '',
+			    'total'      => array_merge($total,array(3,4,5,6,7,8,9,10)),
+                    )
+            );
+    }	
+    
+    /**
+     * @Route("/", name="annonces") 
+     *     
+     */
+    public function rechercheAnnonce(Request $request){       	
         $em = $this->getDoctrine(); 
         $repoAnnoce =  $em->getRepository(Annonce::class);
-
-        $total = $repoAnnoce->countAllAnnonce();
+        $total = array();
+        
+        $search  = $request->query->get('q');
+        $cat 	 = $request->query->get('cat');
+        $titre 	 = $request->query->get('tre');
+        $urgentes = $request->query->get('urg');
+        
         $critere = new Critere();
         $offset = 1;
-        if ($offset){
-                $offset = (intval($offset) - 1) * 20 ;
+        if ($offset)
+		{
+            $offset = (intval($offset) - 1) * 20 ;
         }
         $critere->setOffset($offset);
-        $critere->setType(0);
-
-        $annonces = $repoAnnoce->findAnnonceByCritere($critere);   
-
-        return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',
-                        array
-                        (
-                                'form' => "",
-                                'colorBody' => "F7F7F7",
+        $critere->setCategorie($cat);
+        $critere->setTitre($search);
+        $critere->setUrgent($urgentes);
+        $critere->setTitreUniquement($titre);
+      
+        $annonces = $repoAnnoce->findAnnonceByCritere($critere); 
+        $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/20));
+        for($i = 1; $i <= $nbr ;$i++){
+            $total[] = $i;
+        }
+        return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',array(
+                                'form'       => "",
+                                'colorBody'  => "F7F7F7",
                                 'headsearch' => 1,
-                                'annonces' => $annonces,
-                                'url_upload'=> $this->getParameter('url_upload')
-                        )
-        );
+                                'annonces'   => $annonces,
+                                'search'     => $search,
+                                'cat'        => $cat,
+                                'titres'     => $titre,
+                                'urgentes'   => $urgentes,
+                                'total'      => array_merge($total,array(3,4,5,6,7,8,9,10)),
+			)
+                );
     }    
 
     /**
@@ -105,7 +151,8 @@ class ZandooController extends Controller
     public function creerModifierAnnoce(Request $request, $annonce){
         $em = $this->getDoctrine()->getManager();
         if($annonce == NULL){
-          $annonce = new Annonce();  
+          $annonce = new Annonce(); 
+          $annonce->setDateCreation(new \DateTime());
         }else{
             $categorieID = $annonce->getCategorie()->getId();
             $villeID = $annonce->getVilleAnnonce()->getId();
@@ -138,10 +185,17 @@ class ZandooController extends Controller
                    $annonce->getUtilisateur()->setPassword($pwdEncoded);          
                 }       
                 $categorie = $em->getRepository(Categorie::class)->find($annonce->getCategorie());
-                $villeannonce = $em->getRepository(Ville::class)->find($annonce->getVilleAnnonce());
                 $annonce->setCategorie($categorie);
-                $annonce->setVilleAnnonce($villeannonce);
-                $annonce->setDateCreation(new \DateTime());
+                if(!is_null($annonce->getVilleAnnonce())){
+                    $villeannonce = $em->getRepository(Ville::class)->find($annonce->getVilleAnnonce());
+                    $annonce->setVilleAnnonce($villeannonce);
+                }
+                if(is_null($villeannonce) && $this->getUser()){
+                    $annonce->setVilleAnnonce($utilisateur->getVille());
+                }
+                if(is_null($annonce)){
+                    $annonce->setDateModification(new \DateTime());                    
+                }
                 $em->persist($annonce);              
                 $em->flush();
                 $this->addFlash('succesAnnonce', 'votre annonce a été enregistré avec succes!');
@@ -158,43 +212,83 @@ class ZandooController extends Controller
 			array(
 				'form' => $form->createView(),
 				'colorBody' => "F7F7F7",
-                                'url_upload'=> $this->getParameter('url_upload')
+                'url_upload'=> $this->getParameter('url_upload')
 			)
 		);
     }
 	
     /**
      * @Route("afficher/annonce/{id}", requirements={"id": "\d+"}, name="afficher_annonce")     
-     **/
+     *
+     */
     public function afficherAnnonce(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
 
         $critere = new Critere();
         $critere->setIdUtilisateur($id);
-        $annonce = $em->getRepository(Annonce::class)->find($id);//->findAnnonceByCritere($critere);
-        //dump($annonce->getImages()->getValues());exit;
+        $annonce = $em->getRepository(Annonce::class)->find($id);
+		$nbImg = count($annonce->getImages());
+		
+		
         if($annonce){
             return $this->render('@Zandoo/Annonce/annonce.html.twig',
 				array(
-                                        'annonce'    => $annonce,
-                                        'headsearch' => 1,
-                                        'colorBody'  => "F7F7F7",
-                                        'url_upload'=> $this->getParameter('url_upload'),
-				) );
+					'annonce'    => $annonce,
+					'headsearch' => 1,
+					'colorBody'  => "F7F7F7",
+					'nbImg'      => $nbImg,
+					'url_upload'=> $this->getParameter('url_upload'),
+				)
+			);
         }
-	else{
+		else
+		{
             throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException( 'Not found!');
         }
     } 
     
     /**
      * @Route("desactiver/annonce/{id}", requirements={"id": "\d+"}, name="desactiver_annonce")     
-     **/
-    public function desactiverAnnonceAction($request,$id){
+     *
+     */
+    public function desactiverAnnonceAction(Request $request,$id){
        $em = $this->getDoctrine()->getManager();
        $annonce = $em->getRepository(Annonce::class)->find($id);
        $annonce->setActif(0);
        $retour = $annonce->getType() == 1 ?  $this->redirectToRoute('demandes'):$this->redirectToRoute('annonces');  
        return $retour;
-    } 
+    }
+    /**
+     * @Route("recherche", name="chercher_annonces")     
+     *
+     */
+     public function chercheAnnonceAction(Request $request)
+	 {
+        $resp = new JsonResponse();
+        $retour = array();
+        $offset = 1;
+        if ($offset){
+                $offset = (intval($offset) - 1) * 20 ;
+        }
+         $critere = new Critere();
+         $critere->setTitre('test')
+                 ->setCategorie(1)
+                 ->setOffset($offset);
+         $em = $this->getDoctrine()->getManager();         
+         $annonces = $em->getRepository(Annonce::class)->findAnnonceByCritere($critere);
+         foreach($annonces as $key=>$annonce){
+             $retour[$key]['titre']= $annonce->getTitre();
+             $retour[$key]['description']= $annonce->getDescription();
+             $retour[$key]['prix']= $annonce->getPrix();
+             $retour[$key]['monnaie']= $annonce->getMonnaie();
+             if(!$annonce->getImages()->isEmpty()){
+                 $tabImg = $annonce->getImages();
+                 $retour[$key]['image']= $tabImg[0]->getId().'.'.$tabImg[0]->getUrl();
+             }             
+         }
+         
+         $resp->setData($retour);
+         return $resp; 
+     }
+    
 }

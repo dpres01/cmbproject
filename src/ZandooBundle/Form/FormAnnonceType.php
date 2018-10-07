@@ -44,9 +44,13 @@ class FormAnnonceType extends AbstractType
                 'required'=> true
             ))                
             ->add('titre',TextType::class,array(
-                'label' =>"Titre de l'annoonce",
+                'label' =>"Titre de l'annonce",
                 'required'=> true
             ))
+            ->add('urgent',CheckboxType::class,array(
+                'label' =>"Urgent",
+                'required' =>false 
+            ))    
             ->add('description', TextareaType::class,array(
                  'label' =>'Decrivez votre annonce (600 caractères max)',
                  'required'=> true                 

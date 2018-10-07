@@ -21,7 +21,13 @@
 /nbproject/*
 var/logs/dev.log
 var/logs/prod.log
+<<<<<<< HEAD
 !jlmk 147741adg
 
+=======
+/public/img
+/public/uploads
+/web/images/
+>>>>>>> f7c50dda6ee1d9db0cf70a744e65a5a1e2aeff09
  
 
