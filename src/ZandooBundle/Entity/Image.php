@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * Annonce
+ * Image
  *
  * @ORM\Table(name="IMAGE")
  * @ORM\Entity(repositoryClass="ZandooBundle\Repository\CategorieRepository")

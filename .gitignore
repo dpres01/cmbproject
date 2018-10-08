@@ -13,6 +13,7 @@
 /var/sessions/*
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
+/vendor/
 /web/uploads/
 /web/bundles/
 /composer.phar
@@ -20,8 +21,18 @@
 /nbproject/*
 var/logs/dev.log
 var/logs/prod.log
+<<<<<<< HEAD
+<<<<<<< HEAD
+!jlmk 147741adg
+
+=======
 /public/img
 /public/uploads
+=======
+/public/img/
+/public/uploads/
+>>>>>>> 3ac74821e87fab67f061ffa08c1ff00d96feb120
 /web/images/
+>>>>>>> f7c50dda6ee1d9db0cf70a744e65a5a1e2aeff09
  
 

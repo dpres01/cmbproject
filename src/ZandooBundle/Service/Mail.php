@@ -19,7 +19,6 @@
        mail($destinataire, $subject, $message, 'webmaster@example.com');//$headers);
          
      }
-
  }
 
 

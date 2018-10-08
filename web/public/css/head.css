@@ -2,20 +2,26 @@
 {
 	width:100%;
 	max-width:1100px;
-	padding:5px 10px;
+	padding:0px 15px;
 	margin:0 auto;
 	color:#fff;
+}
+.ht-top-mr-resp
+{
+	margin-bottom:250px;
 }
 .hd-top-menu
 {
 	display:none;
 	float:left;
-	margin:5px 20px 0 40px;
+	margin:0px 20px 0 40px;
 	font-size:13px;
 }
 .hd-top-menu-elm
 {
-	float:left;margin:0 20px 0 0;
+	float:left;
+	margin:0 20px 0 0;
+	padding:12px 0;
 }
 .hd-top-menu-right
 {
@@ -25,7 +31,10 @@
 }
 .hd-top-menu-right-elm
 {
-	float:left;margin:0 15px 0 0;padding-top:2px;
+	float:left;
+	margin:0 15px 0 0;
+	padding:10px 0 0 0;
+	font-size:18px;
 }
 .btn-insc
 {
@@ -33,7 +42,14 @@
 }
 .hd-resp-menu
 {
-	padding:0px 10px 10px 10px;display:none;
+	padding:0px 10px 10px 10px;display:none;   
+	position: absolute;
+    top: 46px;
+    left: 0px;
+    width: 100%;
+    height: 165px;
+	z-index:250;
+	background:#003580;
 }
 .hd-resp-menu-elm
 {
@@ -41,7 +57,15 @@
 }
 .hd-resp-user
 {
-	padding:0px 10px 10px 10px;display:none;
+	padding:0px 10px 10px 10px;
+	position: absolute;
+    top: 46px;
+    left: 0px;
+    width: 100%;
+    height: 165px;
+	display:none;
+	z-index:250;
+	background:#003580;
 }
 .hd-top-menu-resp
 {
@@ -52,11 +76,19 @@
 .hd-top-right-user
 {
 	float:left;
-	margin:0 20px 0 0;
-	padding-top:2px;
+	margin:0 30px 0 0;
+	padding-top:9px;
+	font-size:18px;
+	position:relative;
+}
+.hd-top-right-menu
+{
+	float:left;padding-top:9px;cursor:pointer;width:15px;font-size:18px;
+	position:relative;
 }
 .hd-top-right-register
 {
+	padding-top:9px;
 	float:left;
 }
 .titlemn
@@ -83,7 +115,7 @@
 }
 .srchboxall-fix
 {
-	padding:0 0 10px 0!important;
+	padding:0 10px 10px 10px!important;
 }
 .srchinputs
 {
@@ -221,6 +253,10 @@
 {
 	background:#faec00;color:#000;text-align:center;font-size:12px;border-radius:5px;height:100%;width:175px;padding:5px 15px;
 }
+.clse-resp-menu
+{
+	display:block;
+}
 @media(min-width: 300px)
 {
 	.srctitre
@@ -288,6 +324,14 @@
 }
 @media(min-width: 870px)
 {
+	.clse-resp-menu
+	{
+		display:none;
+	}
+	.ht-top-mr-resp
+	{
+		margin-bottom:140px;
+	}
 	.hd-top-menu, .hd-top-menu-right
 	{
 		display:block;
@@ -335,7 +379,7 @@
 {
 	.hd-top
 	{
-		padding:5px 0;
+		padding:0;
 	}
 }
 @media(min-width: 1120px)

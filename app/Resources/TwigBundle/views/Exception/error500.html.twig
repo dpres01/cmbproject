@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="code" class="col-md-6">
+        <span>{{ status_code }}</span>
+    </div>
+    <div class="col-md-6">
+            <div id="libelle">
+                    <span>Erreur du serveur.</span>
+            </div>
+            <div id="lien">
+                    <p>
+                        <span>Une erreur est survenue: erreur interne du serveur.</span>
+                    </p>
+                    <p>&nbsp;</p>
+            </div>
+    </div>
+{% endblock %}

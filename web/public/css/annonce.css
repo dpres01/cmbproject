@@ -172,10 +172,21 @@ input[type="radio"], input[type="checkbox"] {margin-top:0px;}
 	margin-top:10px;
 	float:left;
 	background:#fff;
-	width:100%;
-	max-width:200px;
+	width:49%;
 	height:250px;
-	margin-left:2%;/*25px;*/
+	margin-left:2%;
+}
+.ann-sim-bxlst
+{
+	display:none;
+}
+.ann-sim-bxlst1
+{
+	display:none;
+}
+.ann-sim-bxlst2
+{
+	display:none;
 }
 .ann-sim-img
 {
@@ -220,6 +231,17 @@ input[type="radio"], input[type="checkbox"] {margin-top:0px;}
 		max-width: 300px;
 	}
 }
+@media(min-width: 550px)
+{
+	.ann-sim-bx
+	{
+		width:32%;
+	}
+	.ann-sim-bxlst2
+	{
+		display:block;
+	}
+}
 @media(min-width: 620px)
 {	
 	.ann-img-lf
@@ -246,6 +268,17 @@ input[type="radio"], input[type="checkbox"] {margin-top:0px;}
 	{
 		width:100%;
 		margin-right:0;
+	}
+}
+@media(min-width: 750px)
+{
+	.ann-sim-bx
+	{
+		width:23.5%;
+	}
+	.ann-sim-bxlst1
+	{
+		display:block;
 	}
 }
 @media(min-width: 850px)
@@ -285,6 +318,17 @@ input[type="radio"], input[type="checkbox"] {margin-top:0px;}
 	{
 		width:80%;
 		max-width: 234px;
+	}
+}
+@media(min-width: 950px)
+{
+	.ann-sim-bx
+	{
+		width:18.4%;
+	}
+	.ann-sim-bxlst
+	{
+		display:block;
 	}
 }
 @media(min-width: 1100px)

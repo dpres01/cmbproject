@@ -66,7 +66,7 @@
 					</div> 
 					<div style="clear:both;"></div>
 				</div>						
-				<div style="float:left;">
+				<div id="signal" style="float:left;cursor:pointer;">
 					<div class="ann-stat-icon"><i class="fa fa-flag-o" style="font-size:14px;"></i></div> 
 					<div style="float:left;">																
 						Signaler cette annonce
@@ -109,7 +109,7 @@
 				<div style="float:left;">
 					<div class="ann-stat-icon"><i class="fa fa-flag-o" style="font-size:14px;"></i></div> 
 					<div style="float:left;">																
-						Signaler cette annonce
+						Signaler cette annonce                                                
 					</div> 
 					<div style="clear:both;"></div>
 				</div>
@@ -124,9 +124,8 @@
 				</div>
 				<div class="ann-map-street">
 					<div class="ann-map-str">
-						{%if annonce.villeAnnonce%}{{annonce.villeAnnonce}}, {%endif%}{%if annonce.villeAnnonce%}{{annonce.villeAnnonce}}, {%endif%}Congo
+						{%if annonce.villeAnnonce%}{{annonce.villeAnnonce.libelle}}, {%endif%}{%if annonce.villeAnnonce%}{{annonce.villeAnnonce.libelle}}, {%endif%}Congo
 					</div> 
-					<div style="float:right;">[carte]</div>
 					<div style="clear:both;"></div>
 				</div>
 				<div style="clear:both;"></div>
@@ -241,7 +240,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="ann-sim-bx">
+			<div class="ann-sim-bx ann-sim-bxlst2">
 				<div style="padding:2%;">
 					<div class="ann-sim-img">
 						<img src="/public/img/sim3.JPG">
@@ -254,7 +253,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="ann-sim-bx">
+			<div class="ann-sim-bx ann-sim-bxlst1">
 				<div style="padding:2%;">
 					<div class="ann-sim-img">
 						<img src="/public/img/sim4.JPG">
@@ -267,7 +266,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="ann-sim-bx">
+			<div class="ann-sim-bx ann-sim-bxlst">
 				<div style="padding:2%;">
 					<div class="ann-sim-img">
 						<img src="/public/img/sim5.JPG">
@@ -283,5 +282,37 @@
 			<div style="clear:both;"></div>
 		</div>
 	</div>
+	<div class="modal fade bs-example-modal-sm" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+		<div class="modal-dialog modal-sm" role="document" style="width:440px;margin-top:10%;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">Signaler une annonce</h4>
+				</div>
+				{{form_start(form)}} 
+				<div class="modal-body">
+					<div style="margin-top:0px;">
+						{{form_label(form.motif)}}
+						{{form_widget(form.motif)}}
+					</div>
+					<div style="margin-top:10px;">
+						{{form_label(form.nom)}}
+						{{form_widget(form.nom)}}
+					</div>
+					<div style="margin-top:10px;">
+						{{form_label(form.email)}}
+						{{form_widget(form.email)}}
+					</div>
+					<div style="margin-top:10px;">
+						{{form_label(form.message)}}
+						{{form_widget(form.message)}}
+					</div>
+					<div style="margin:15px 0 10px 0;">
+						<input type="submit" value="envoyer">
+					</div>
+				</div>
+				{{form_end(form)}}
+			</div>
+		</div>
+	</div>	
  {% endblock %}
 

@@ -62,6 +62,23 @@
 		$tmp = new SearchCategorie();
 		return $tmp->getSelectOption();
 	}
+        
+        function generateUrl($key, $val)
+        { 
+            $url = "";
+            if(!empty($_GET))
+            {
+                foreach($_GET AS $k => $v)
+                {             
+                    if($key != $k){
+                        $url .= (empty($url)) ? "?" : "&";  
+                        $url .= $k."=".$v;                     
+                    }                  
+                }
+            }
+            return $url .= (empty($url))? "?".$key."=".$val : "&".$key."=".$val;
+        }
+                   
 }
 
 

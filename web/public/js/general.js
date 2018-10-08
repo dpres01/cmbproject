@@ -3,20 +3,25 @@ $(document).ready(function()
 	$("#respmn").click(function(){
 		$("#respmnicnop").toggle();
 		$("#respmnicncl").toggle();
-		$("#resp-user").hide();
-		$("#resp-menu").toggle();
+		$("#resp-user").removeClass("clse-resp-menu");
+		//$("#resp-menu").toggle();
 		$("#respusericnop").show();
 		$("#respusericncl").hide();
+		$("#resp-menu").toggleClass("clse-resp-menu");
 	});
 	$("#respuser").click(function(){		
 		$("#respusericnop").toggle();
 		$("#respusericncl").toggle();
 		$("#respmnicnop").show();
 		$("#respmnicncl").hide();
-		$("#resp-menu").hide();
-		$("#resp-user").toggle();
+		$("#resp-menu").removeClass("clse-resp-menu");
+		//$("#resp-user").toggle();
+		$("#resp-user").toggleClass("clse-resp-menu");
 	});
 
+	$("#signal").click(function(){
+		$('#reportModal').modal('toggle');
+	});
 	$("#arrusr").click(function(){
 		$("#mreusr").toggle();
 	}); 
@@ -70,6 +75,7 @@ function positionMenu()
         $(".srchboxall").addClass("srchboxall-fix"); 
         $(".srchbtn").addClass("srchbtn-fix"); 
         $("#srcbox").addClass("srchbox-fix");
+        $(".hd-top").addClass("ht-top-mr-resp");
     }
     else if(fix == 1)
     {
@@ -80,6 +86,7 @@ function positionMenu()
         $(".srchboxall").removeClass("srchboxall-fix"); 
         $(".srchbtn").removeClass("srchbtn-fix"); 
         $("#srcbox").removeClass("srchbox-fix"); 
+        $(".hd-top").removeClass("ht-top-mr-resp");
     }
 }
 function shfilter()
