@@ -9,12 +9,8 @@
             <file>file:/C:/wamp/www/cmbproject/src/ZandooBundle/Resources/views/Annonce/listerAnnonce.html.twig</file>
             <file>file:/C:/wamp/www/cmbproject/src/ZandooBundle/Resources/views/Annonce/annonce.html.twig</file>
             <file>file:/C:/wamp/www/cmbproject/src/ZandooBundle/Controller/ZandooController.php</file>
-            <file>file:/C:/wamp/www/cmbproject/src/ZandooBundle/Entity/Image.php</file>
             <file>file:/C:/wamp/www/cmbproject/src/ZandooBundle/Entity/Annonce.php</file>
             <file>file:/C:/wamp/www/cmbproject/src/ZandooBundle/Resources/views/Annonce/newAnnonce.html.twig</file>
-            <file>file:/C:/wamp/www/cmbproject/app/config/services.yml</file>
-            <file>file:/C:/wamp/www/cmbproject/src/ZandooBundle/Service/Mail.php</file>
-            <file>file:/C:/wamp/www/cmbproject/sql/dataV1.sql</file>
         </group>
 >>>>>>> eb545b51d439940566a786952e15f1942bca6bd6
     </open-files>

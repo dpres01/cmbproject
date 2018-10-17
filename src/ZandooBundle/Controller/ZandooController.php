@@ -150,7 +150,7 @@ class ZandooController extends Controller
         for($i = 1; $i <= $nbr ;$i++){
             $total[] = $i;
         }
-        //dump($annonces,$numPage);
+        
         return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',array(
                                 'form'       => "",
                                 'colorBody'  => "F7F7F7",
@@ -188,9 +188,9 @@ class ZandooController extends Controller
         if($this->getUser()){
             $options['connected'] = true;
         } 
-        dump($annonce);
-        if(!empty($annonce->getUtilisateur()) && empty($this->getUser()) || 
-        (!empty($this->getUser()) && !empty($annonce->getUtilisateur()) && $annonce->getUtilisateur()->getId() != $this->getUser()->getId())){
+        dump($annonce->getUtilisateur());
+        if(!$this->getUser()->getIsAdmin() && (!empty($annonce->getUtilisateur()) && empty($this->getUser()) || 
+        (!empty($this->getUser()) && !empty($annonce->getUtilisateur()) && $annonce->getUtilisateur()->getId() != $this->getUser()->getId()))){
              throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException('Vous n\'avez pas le droit d\'acces à cette page veuillez vous connecté.');          
         }    
         $form = $this->createForm(FormAnnonceType::class, $annonce, $options);
