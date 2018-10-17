@@ -64,7 +64,7 @@ class ZandooController extends Controller
                             'colorBody'  => "F7F7F7",
                             'headsearch' => 1,
                             'annonces'   => $annonces,
-			     'search'     => '',
+			    'search'     => '',
                             'cat'        => '',
                             'titres'     => '',
                             'urgentes'   => '',
@@ -74,15 +74,18 @@ class ZandooController extends Controller
     }	
     
     /**
-     * @Route("/annonces", name="listes_annonces") 
+     * @Route("/offres", name="listes_annonces") 
      *     
      */	
     public function listerAnnoncesAction(Request $request)
 	{
             $em = $this->getDoctrine(); 
             $repoAnnoce =  $em->getRepository(Annonce::class); 
+            $offset   = $request->query->get('p');
             $critere = new Critere();
-            $offset = 1;
+            $session = new Session();
+            $offset  = empty($offset) ? 1 : $offset ;
+            $numPage    = $offset;
             if ($offset)
             {
                 $offset = (intval($offset) - 1) * 20 ;
@@ -100,7 +103,7 @@ class ZandooController extends Controller
                             'colorBody'  => "F7F7F7",
                             'headsearch' => 1,
                             'annonces'   => $annonces,
-			     'search'     => '',
+			    'search'     => '',
                             'cat'        => '',
                             'titres'     => '',
                             'urgentes'   => '',
