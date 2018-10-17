@@ -218,10 +218,10 @@
                         {% endif %}
 		</div>
                 {% endif %}
-                 {% if app.user.id == form.vars.value.utilisateur.id %}
-		<div style="float:right;width:48%;max-width:150px;">
-			<div class="btnfm" onclick="$(this).closest('form').submit();"><b>Valider</b></div>
-		</div>
+                 {% if proprietaireAnnonce %}
+                        <div style="float:right;width:48%;max-width:150px;">
+                                <div class="btnfm" onclick="$(this).closest('form').submit();"><b>Valider</b></div>
+                        </div>
                   {% endif %}
 		<div style="clear:both;"></div>
 	</div>

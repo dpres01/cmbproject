@@ -188,8 +188,9 @@ class ZandooController extends Controller
         if($this->getUser()){
             $options['connected'] = true;
         } 
-        dump($annonce->getUtilisateur());
-        if(!$this->getUser()->getIsAdmin() && (!empty($annonce->getUtilisateur()) && empty($this->getUser()) || 
+        $userConnect = ($this->getUser()) ?  $this->getUser()->getIsAdmin(): false;
+       
+        if(!$userConnect && (!empty($annonce->getUtilisateur()) && empty($this->getUser()) || 
         (!empty($this->getUser()) && !empty($annonce->getUtilisateur()) && $annonce->getUtilisateur()->getId() != $this->getUser()->getId()))){
              throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException('Vous n\'avez pas le droit d\'acces à cette page veuillez vous connecté.');          
         }    
@@ -242,7 +243,8 @@ class ZandooController extends Controller
 			array(
 				'form' => $form->createView(),
 				'colorBody' => "F7F7F7",
-                'url_upload'=> $this->getParameter('url_upload')
+                                'url_upload'=> $this->getParameter('url_upload'),
+                                'proprietaireAnnonce'=> $this->estPropritaireAnnonce($annonce->getUtilisateur(),$this->getUser())
 			)
 		);
     }
@@ -326,6 +328,19 @@ class ZandooController extends Controller
          
          $resp->setData($retour);
          return $resp; 
+     }
+     
+     private function estPropritaireAnnonce ($utilisateAnnonce,$utilusateuConnecte){
+         //dump($utilusateuConnecte,$utilisateAnnonce);die;
+         if($utilusateuConnecte == null){
+             return true;
+         }
+         if($utilisateAnnonce == null){
+             return true;
+         }
+         if($utilusateuConnecte != null && $utilisateAnnonce!= null){
+             return $utilusateuConnecte->getId() == $utilisateAnnonce->getId();
+         }
      }
     
 }
