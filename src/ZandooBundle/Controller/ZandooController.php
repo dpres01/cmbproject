@@ -38,6 +38,7 @@ class ZandooController extends Controller
     public function listerDemandeAction(Request $request)
 	{
             $em = $this->getDoctrine(); 
+			$total = array();
             $repoAnnonce =  $em->getRepository(Annonce::class); 
             $offset   = $request->query->get('p');
             $critere = new Critere();
@@ -56,7 +57,7 @@ class ZandooController extends Controller
             //}
             //$nbr = $session->get('nbr_demandes');
             for($i = 1; $i <= $nbr ;$i++){
-                    $total[] = $i;
+              $total[] = $i;
             }			
             return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',
                     array(
@@ -64,11 +65,11 @@ class ZandooController extends Controller
                             'colorBody'  => "F7F7F7",
                             'headsearch' => 1,
                             'annonces'   => $annonces,
-			    'search'     => '',
+			                'search'     => '',
                             'cat'        => '',
                             'titres'     => '',
                             'urgentes'   => '',
-			    'total'      => array_merge($total,array(3,4,5,6,7,8,9,10)),
+			                'total'      => array_merge($total,array(3,4,5,6,7,8,9,10)),
                     )
             );
     }	
@@ -78,22 +79,23 @@ class ZandooController extends Controller
      *     
      */	
     public function listerAnnoncesAction(Request $request)
-	{
-            $em = $this->getDoctrine(); 
-            $repoAnnoce =  $em->getRepository(Annonce::class); 
-            $offset   = $request->query->get('p');
-            $critere = new Critere();
-            $session = new Session();
-            $offset  = empty($offset) ? 1 : $offset ;
-            $numPage    = $offset;
-            if ($offset)
-            {
-                $offset = (intval($offset) - 1) * 20 ;
-            }
-            $critere->setOffset($offset);
-            $critere->setType(0);
-            $annonces = $repoAnnoce->findAnnonceByCritere($critere);        
+{
+		$em = $this->getDoctrine(); 
+		$repoAnnoce =  $em->getRepository(Annonce::class); 
+		$offset   = $request->query->get('p');
+		$critere = new Critere();
+		$session = new Session();
+		$offset  = empty($offset) ? 1 : $offset ;
+		$numPage    = $offset;
+		if ($offset)
+		{
+			$offset = (intval($offset) - 1) * 20 ;
+		}
+		$critere->setOffset($offset);
+		$critere->setType(0);
+		$annonces = $repoAnnoce->findAnnonceByCritere($critere);   		
 	    $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/20));
+		
 	    for($i = 1; $i <= $nbr ;$i++){
 		$total[] = $i;
 	    }			
@@ -103,11 +105,11 @@ class ZandooController extends Controller
                             'colorBody'  => "F7F7F7",
                             'headsearch' => 1,
                             'annonces'   => $annonces,
-			    'search'     => '',
+			                'search'     => '',
                             'cat'        => '',
                             'titres'     => '',
                             'urgentes'   => '',
-			    'total'      => array_merge($total,array(3,4,5,6,7,8,9,10)),
+			                'total'      => array_merge($total,array(3,4,5,6,7,8,9,10)),
                     )
             );
     }	
@@ -118,6 +120,7 @@ class ZandooController extends Controller
      */
     public function rechercheAnnonce(Request $request){       	
         $em = $this->getDoctrine(); 
+		$total = array();
         $repoAnnoce =  $em->getRepository(Annonce::class);
         $total = array();
         $search   = $request->query->get('q');
@@ -172,6 +175,7 @@ class ZandooController extends Controller
      */
     public function creerModifierAnnoce(Request $request, $annonce){
         $em = $this->getDoctrine()->getManager();
+		$total = array();
         if($annonce == NULL){
           $annonce = new Annonce(); 
           $annonce->setDateCreation(new \DateTime());
@@ -331,7 +335,6 @@ class ZandooController extends Controller
      }
      
      private function estPropritaireAnnonce ($utilisateAnnonce,$utilusateuConnecte){
-         //dump($utilusateuConnecte,$utilisateAnnonce);die;
          if($utilusateuConnecte == null){
              return true;
          }
