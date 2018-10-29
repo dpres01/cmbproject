@@ -79,10 +79,10 @@
 					<div class="bxanon" style="margin-top:{{ marg }}px;height:100%;">
 						<div class="bxanon-img" style="height:100%;">
 							{%if zandoo_service_commun.testExistanceImg(val.images) %}
-								  <img src="{{asset('bundles/zandoo/uploads/documents/'~val.images[0].id~'.'~val.images[0].url)}}" class="imgmax">
+								  <img src="{{asset('public/uploads/documents/'~val.images[0].id~'.'~val.images[0].url)}}" class="imgmax">
 
 							{%else%}
-								  <img src="{{ asset('bundles/zandoo/img/nopic1.png')}}" class="imgmax">
+								  <img src="{{ asset('public/img/nopic1.png')}}" class="imgmax">
 							{%endif%}
 						</div>
 						<div class="bx-txt">

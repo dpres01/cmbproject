@@ -198,7 +198,7 @@ class Image
     {
         // the absolute directory url where uploaded
         // documents should be saved
-        return '/var/www/cmbproject/web/bundles/zandoo/'.$this->getUploadDir();
+        return '/var/www/cmbproject/web/public/'.$this->getUploadDir();
     }
 
     protected function getUploadDir()
