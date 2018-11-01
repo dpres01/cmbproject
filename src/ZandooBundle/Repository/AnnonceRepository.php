@@ -21,7 +21,7 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
                 ->leftJoin('a.utilisateur', 'user')
                 ->andWhere('a.actif = 1');
          $this->filtrerByCritere($critere, $qb);
-         $qb->groupBy('a.id');
+         $qb->orderBy('a.id','DESC');
          //dump($qb->getQuery()->getResult(),$qb->getQuery()->getSQL(),$qb->getQuery()->getParameters());die;
         return  $qb->getQuery()->getResult();
     }

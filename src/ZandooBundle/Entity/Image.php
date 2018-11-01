@@ -157,7 +157,7 @@ class Image
         $this->getFile()->move(
             $this->getUploadRootDir(),
             $this->id.'.'.$this->getFile()->guessExtension()
-        );
+        ); 
         $this->setFile(null);
     }
 
@@ -198,7 +198,7 @@ class Image
     {
         // the absolute directory url where uploaded
         // documents should be saved
-        return __DIR__.'../../../../web/bundles/zandoo/'.$this->getUploadDir();
+        return '/var/www/cmbproject/web/bundles/zandoo/'.$this->getUploadDir();
     }
 
     protected function getUploadDir()

@@ -132,7 +132,7 @@ class Annonce
      */
     private $urgent;
     /**
-     *@ORM\Column(name="generateur_id", type="string")
+     * @ORM\Column(name="generateur_id", type="string",nullable=true)
      * @var string 
      */
     private $generateurId;
