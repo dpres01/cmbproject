@@ -19,21 +19,21 @@
 			<div class="ann-img-all" style="margin-top:15px;">
 				<div class="ann-img-lf">
 					<div class="ann-img-mn">
-						<img src="{{asset('bundles/zandoo/uploads/documents/')}}{{ annonce.images[0].id}}.{{annonce.images[0].url}}" class="imgmax">
+						<img src="{{asset('public/uploads/documents/')}}{{ annonce.images[0].id}}.{{annonce.images[0].url}}" class="imgmax">
 					</div>
 				</div>
 				<div class="ann-img-rt">
 					{%if annonce.images[1] is defined%}
 					<div class="ann-img-ot" style="margin-top:0;">
-						<img src="{{asset('bundles/zandoo/uploads/documents/')}}{{ annonce.images[1].id}}.{{annonce.images[1].url}}" class="imgmax">
+						<img src="{{asset('public/uploads/documents/')}}{{ annonce.images[1].id}}.{{annonce.images[1].url}}" class="imgmax">
 					</div>
 						{%if annonce.images[2] is defined%}
 					<div class="ann-img-ot">
-						<img src="{{asset('bundles/zandoo/uploads/documents/')}}{{ annonce.images[2].id}}.{{annonce.images[2].url}}" class="imgmax">
+						<img src="{{asset('public/uploads/documents/')}}{{ annonce.images[2].id}}.{{annonce.images[2].url}}" class="imgmax">
 					</div>
 							{%if annonce.images[3] is defined%}
 					<div class="ann-img-ot ann-img-ot-lst" style="">
-						<img src="{{asset('bundles/zandoo/uploads/documents/')}}{{ annonce.images[3].id}}.{{annonce.images[3].url}}" class="imgmax">
+						<img src="{{asset('public/uploads/documents/')}}{{ annonce.images[3].id}}.{{annonce.images[3].url}}" class="imgmax">
 					</div>
 							{%endif%}
 						{%endif%}
@@ -46,7 +46,7 @@
 			<div class="ann-img-all" style="margin-top:15px;">
 				<div class="ann-img-one">
 					<div class="ann-img-mn">
-						<img src="{{asset('bundles/zandoo/uploads/documents/')}}{{ annonce.images[0].id}}.{{annonce.images[0].url}}" class="imgmax">
+						<img src="{{asset('public/uploads/documents/')}}{{ annonce.images[0].id}}.{{annonce.images[0].url}}" class="imgmax">
 					</div>
 				</div>
 			</div>
@@ -217,7 +217,7 @@
 			<div class="ann-sim-bx" style="margin-left:0px;">
 				<div style="padding:2%;">
 					<div class="ann-sim-img">
-						<img src="/public/img/sim1.JPG">
+						<img src="{{asset('public/img/sim1.JPG')}}">
 					</div>
 				</div>
 				<div class="ann-sim-txt-bx">
@@ -230,7 +230,7 @@
 			<div class="ann-sim-bx">
 				<div style="padding:2%;">
 					<div class="ann-sim-img">
-						<img src="/public/img/sim2.JPG">
+						<img src="{{asset('public/img/sim2.JPG')}}"}}">
 					</div>
 				</div>
 				<div class="ann-sim-txt-bx">
@@ -243,7 +243,7 @@
 			<div class="ann-sim-bx ann-sim-bxlst2">
 				<div style="padding:2%;">
 					<div class="ann-sim-img">
-						<img src="/public/img/sim3.JPG">
+						<img src= "{{asset('public/img/sim3.JPG')}}">
 					</div>
 				</div>
 				<div class="ann-sim-txt-bx">
@@ -256,7 +256,7 @@
 			<div class="ann-sim-bx ann-sim-bxlst1">
 				<div style="padding:2%;">
 					<div class="ann-sim-img">
-						<img src="/public/img/sim4.JPG">
+						<img src={{asset('public/img/sim4.JPG')}}>
 					</div>
 				</div>
 				<div class="ann-sim-txt-bx">
@@ -269,7 +269,7 @@
 			<div class="ann-sim-bx ann-sim-bxlst">
 				<div style="padding:2%;">
 					<div class="ann-sim-img">
-						<img src="/public/img/sim5.JPG">
+						<img src="{{asset('public/img/sim5.JPG')}}">
 					</div>
 				</div>
 				<div class="ann-sim-txt-bx">

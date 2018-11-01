@@ -189,7 +189,7 @@ class UploadedFile extends File
             if ($this->test) {
                 return parent::move($directory, $name);
             }
-
+         
             $target = $this->getTargetFile($directory, $name);
 
             set_error_handler(function ($type, $msg) use (&$error) { $error = $msg; });

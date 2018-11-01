@@ -79,14 +79,14 @@
 					<div class="bxanon" style="margin-top:{{ marg }}px;height:100%;">
 						<div class="bxanon-img" style="height:100%;">
 							{%if zandoo_service_commun.testExistanceImg(val.images) %}
-								  <img src="{{asset('bundles/zandoo/uploads/documents/'~val.images[0].id~'.'~val.images[0].url)}}" class="imgmax">
+								  <img src="{{asset('public/uploads/documents/'~val.images[0].id~'.'~val.images[0].url)}}" class="imgmax">
 
 							{%else%}
-								  <img src="{{ asset('bundles/zandoo/img/nopic1.png')}}" class="imgmax">
+								  <img src="{{ asset('public/img/nopic1.png')}}" class="imgmax">
 							{%endif%}
 						</div>
 						<div class="bx-txt">
-							<div class="bx-title truncate">{{ zandoo_service_commun.titreFormatAnnonce(val.titre) }}</div>
+							<div class="bx-title truncate"><a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">{{ zandoo_service_commun.titreFormatAnnonce(val.titre) }}</a></div>
 							<div class="bx-txt-nor">
 								<div class="bx-txt-nor-price-box">
 									<div class="bx-txt-nor-price">{{ val.prix }} {{ zandoo_service_commun.typeMonnaie(val.monnaie) }}</div>

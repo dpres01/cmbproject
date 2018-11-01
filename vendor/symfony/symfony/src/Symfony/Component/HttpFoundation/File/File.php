@@ -92,7 +92,7 @@ class File extends \SplFileInfo
     public function move($directory, $name = null)
     {
         $target = $this->getTargetFile($directory, $name);
-
+         
         set_error_handler(function ($type, $msg) use (&$error) { $error = $msg; });
         $renamed = rename($this->getPathname(), $target);
         restore_error_handler();
@@ -106,7 +106,7 @@ class File extends \SplFileInfo
     }
 
     protected function getTargetFile($directory, $name = null)
-    {
+    {   //dump($directory, $name,!is_dir("/var/www/cmbproject/web/public/uploads/documents"));die;
         if (!is_dir($directory)) {
             if (false === @mkdir($directory, 0777, true) && !is_dir($directory)) {
                 throw new FileException(sprintf('Unable to create the "%s" directory', $directory));
