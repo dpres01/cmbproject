@@ -197,8 +197,8 @@ class Image
     protected function getUploadRootDir()
     {
         // the absolute directory url where uploaded
-        // documents should be saved
-        return '/var/www/cmbproject/web/public/'.$this->getUploadDir();
+        // documents should be saved 		echo $_SERVER['DOCUMENT_ROOT'];exit;
+        return $_SERVER['DOCUMENT_ROOT'].'/public/'.$this->getUploadDir();
     }
 
     protected function getUploadDir()
