@@ -56,8 +56,8 @@ $(document).ready(function()
 	});
    
     //fly menu
-    $(window).scroll(function(){ positionMenu(); });
-    positionMenu();
+    //$(window).scroll(function(){ positionMenu(); });
+    //positionMenu();
 });
 
 var fix = 0;

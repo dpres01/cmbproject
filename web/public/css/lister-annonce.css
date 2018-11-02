@@ -77,8 +77,14 @@
 {
 	float:left;
 	width:40%;
+	height:139px;
 	max-width:188px;
-	margin-right:2%;
+	margin-right:2%;    
+	display: inline-block;
+    vertical-align: top;
+    position: relative;
+    border: 1px solid #ccc;
+    background: #f2f2f2;
 }
 .bx-txt
 {

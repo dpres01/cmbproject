@@ -77,16 +77,21 @@
 					{% endif %}
 
 					<div class="bxanon" style="margin-top:{{ marg }}px;height:100%;">
-						<div class="bxanon-img" style="height:100%;">
+						<div class="bxanon-img">
+							<a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">
 							{%if zandoo_service_commun.testExistanceImg(val.images) %}
-								  <img src="{{asset('public/uploads/documents/'~val.images[0].id~'.'~val.images[0].url)}}" class="imgmax">
-
+								  <img src="{{asset('public/uploads/documents/'~val.images[0].id~'.'~val.images[0].url)}}" class="mmax">
 							{%else%}
 								  <img src="{{ asset('public/img/nopic1.png')}}" class="imgmax">
 							{%endif%}
+							</a>
 						</div>
 						<div class="bx-txt">
-							<div class="bx-title truncate"><a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">{{ zandoo_service_commun.titreFormatAnnonce(val.titre) }}</a></div>
+							<div class="bx-title truncate">
+								<a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">
+									{{ zandoo_service_commun.titreFormatAnnonce(val.titre) }}
+								</a>
+							</div>
 							<div class="bx-txt-nor">
 								<div class="bx-txt-nor-price-box">
 									<div class="bx-txt-nor-price">{{ val.prix }} {{ zandoo_service_commun.typeMonnaie(val.monnaie) }}</div>
@@ -112,7 +117,9 @@
 									<div class="bx-price">{{ val.prix }} {{ zandoo_service_commun.typeMonnaie(val.monnaie) }}</div>
 									<div style="float:left;">
 										<div class="bx-offer">
-											Voir offre
+											<a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">
+												Voir offre
+											</a>
 										</div>
 									</div>
 									<div style="clear:both;"></div>
@@ -131,24 +138,24 @@
 				<div style="background:#fff;padding:10px;border:1px solid #ccc;margin-top:35px;">
 					<table style="width:100%;">
 						<tr>					
-                                                    <nav aria-label="Page navigation example">
-                                                       <ul class="pagination justify-content-end">
-                                                         <li class="page-item disabled">
-                                                           <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                                         </li>
-                                                         {{category}}
-                                                         {%for t in total%}				
-                                                             <li class="page-item">
-                                                                 <a class="page-link pagination" href="{{ zandoo_service_commun.generateUrl("p", t) }}">
-                                                                    {{t}}
-                                                                 </a>
-                                                             </li>										
-                                                          {%endfor%}                   
-                                                         <li class="page-item">
-                                                           <a class="page-link" href="#">Next</a>
-                                                         </li>
-                                                       </ul>
-                                                     </nav>                                                      
+							<nav aria-label="Page navigation example">
+							   <ul class="pagination justify-content-end">
+								 <li class="page-item disabled">
+								   <a class="page-link" href="#" tabindex="-1">Previous</a>
+								 </li>
+								 {{category}}
+								 {%for t in total%}				
+									 <li class="page-item">
+										 <a class="page-link pagination" href="{{ zandoo_service_commun.generateUrl("p", t) }}">
+											{{t}}
+										 </a>
+									 </li>										
+								  {%endfor%}                   
+								 <li class="page-item">
+								   <a class="page-link" href="#">Next</a>
+								 </li>
+							   </ul>
+							 </nav>                                                      
 						</tr>
 					</table>
 				</div>
