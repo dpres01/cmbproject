@@ -7,6 +7,8 @@ services:
         arguments: ["@security.password_encoder"] 
     zandoo.mail:
         class: ZandooBundle\Service\Mail 
+        arguments: ["@mailer","@templating"]
+        public: true
 #    zandoo.annonce_validator:
 #        class: ZandooBundle\Validator\AnnonceValidator
 #        arguments: ["@doctrine.orm.entity_manager"]
