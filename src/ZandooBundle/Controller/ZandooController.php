@@ -69,13 +69,13 @@ class ZandooController extends Controller
                             'cat'        => '',
                             'titres'     => '',
                             'urgentes'   => '',
-			                'total'      => array_merge($total,array(3,4,5,6,7,8,9,10)),
+			    'total'      => $total,
                     )
             );
     }	
     
     /**
-     * @Route("/offres", name="listes_annonces") 
+     * @Route("/offres", name="offres") 
      *     
      */	
     public function listerAnnoncesAction(Request $request)
@@ -109,7 +109,7 @@ class ZandooController extends Controller
                             'cat'        => '',
                             'titres'     => '',
                             'urgentes'   => '',
-			                'total'      => array_merge($total,array(3,4,5,6,7,8,9,10)),
+			    'total'      => $total,
                     )
             );
     }	
@@ -164,7 +164,7 @@ class ZandooController extends Controller
                                 'titres'     => $titre,
                                 'urgentes'   => $urgentes,
                                 'numPage'    =>$numPage,
-                                'total'      => array_merge($total,array(3,4,5,6,7,8,9,10)),
+                                'total'      => $total,
 			)
                 );
     }    
