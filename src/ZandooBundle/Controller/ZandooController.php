@@ -15,10 +15,10 @@ use ZandooBundle\Entity\Categorie;
 use ZandooBundle\Entity\Famille;
 use ZandooBundle\Entity\Critere;
 use ZandooBundle\Entity\Ville;
-use ZandooBundle\Service\Monnaie;
 use ZandooBundle\Entity\Signalement;
 use ZandooBundle\Entity\Motif;
 use ZandooBundle\Form\FormSignalementType;
+use ZandooBundle\Form\FormUtilisateurType;
 
 
 class ZandooController extends Controller
@@ -69,13 +69,13 @@ class ZandooController extends Controller
                             'cat'        => '',
                             'titres'     => '',
                             'urgentes'   => '',
-			                'total'      => array_merge($total,array(3,4,5,6,7,8,9,10)),
+			    'total'      => $total
                     )
             );
     }	
     
     /**
-     * @Route("/offres", name="listes_annonces") 
+     * @Route("/offres", name="offres") 
      *     
      */	
     public function listerAnnoncesAction(Request $request)
@@ -109,7 +109,7 @@ class ZandooController extends Controller
                             'cat'        => '',
                             'titres'     => '',
                             'urgentes'   => '',
-			                'total'      => array_merge($total,array(3,4,5,6,7,8,9,10)),
+			    'total'      =>$total
                     )
             );
     }	
@@ -164,7 +164,7 @@ class ZandooController extends Controller
                                 'titres'     => $titre,
                                 'urgentes'   => $urgentes,
                                 'numPage'    =>$numPage,
-                                'total'      => array_merge($total,array(3,4,5,6,7,8,9,10)),
+                                'total'      => $total
 			)
                 );
     }    
@@ -300,6 +300,27 @@ class ZandooController extends Controller
        $annonce->setActif(0);
        $retour = $annonce->getType() == 1 ?  $this->redirectToRoute('demandes'):$this->redirectToRoute('annonces');  
        return $retour;
+    }
+    /**
+     * 
+     *  @Route("comptes/{id}", name="compte_utilisateurs")
+     *  @ParamConverter("utilisateur", class="ZandooBundle:Utilisateur", isOptional=true)
+     * 
+     */
+    public function annonceByUtilisateurAction(Request $request,$utilisateur){
+        $repoAnnoce = $this->getDoctrine()->getRepository(Annonce::class); 
+        $critere = new Critere();
+        $form = $this->createForm(FormUtilisateurType::class,$utilisateur,array());
+        $critere->setIdUtilisateur($utilisateur->getId());	
+	$annonces = $repoAnnoce->findAnnonceByCritere($critere);
+        if($form->isValid() && $form->isSubmitted()){
+            //TODO
+        }
+        return $this->render('@Zandoo/Annonce/utilisateurAnnonce.html.twig',array(
+                                    'annonces'=>$annonces,
+                                    'utilisateur'=>$utilisateur,
+                                    'form'=>$form->createView()
+         )); 
     }
     /**
      * @Route("recherche", name="chercher_annonces")     

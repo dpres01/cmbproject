@@ -1,0 +1,56 @@
+ {% extends 'base.html.twig' %}
+ {% block body %}
+    <link rel="stylesheet" href="{{ asset('public/css/annonce.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ asset('public/css/prettyPhoto.css') }}" type="text/css"/>
+    <div class="ann-cont">
+    {% for message in  app.flashes('succesAnnonce') %}
+    <div class="alert alert-success" role="alert">
+            {{ message}}
+    </div>
+   {% endfor%}
+    <h3> Utilisateur </h3>
+    <table class="table">     
+        <tr>
+            <td>  PSEUDO </td>
+            <td> {{ utilisateur.username}} </td>
+        </tr>
+        <tr>
+            <td> @Mail </td>
+            <td> {{ utilisateur.email}}</td>
+        </tr>
+        <tr>
+            <td> PARTICULIER </td> 
+            <td> {%if utilisateur.isProfessionnel%} NON {%else%} OUI{%endif%}</td>
+        </tr> 
+        <tr>
+            <td> VILLE </td>
+            <td> {{ utilisateur.ville.libelle}}</td>
+        </tr> 
+        <tr> 
+            <td> TELEPHONE </td> 
+           <td> {{ utilisateur.telephone}}</td>
+       </tr>    
+    </table>
+      {{form(form)}}
+    <h3> Listes annonces </h3>
+    <table class="table">  
+       <th> 
+           TITRE
+       </th>
+       <th>
+           TYPE
+       </th>
+       <th>
+           DATE
+       </th>     
+       {%for annonce in  annonces%}
+       <tr>
+           <td> {{annonce.titre}} </td>
+           <td> {%if annonce.type %} Demande {%else%} Offre{%endif%}</td>
+           <td> {{annonce.dateCreation|date('d/m/Y')}}</td>
+       </tr>
+       {%endfor%}
+    </table>
+       
+ {% endblock %}
+
