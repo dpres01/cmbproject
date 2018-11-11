@@ -89,6 +89,41 @@ function positionMenu()
         $(".hd-top").removeClass("ht-top-mr-resp");
     }
 }
+function filter(str)
+{
+	var obj = {};
+	if(str == 'pr')
+	{
+		obj = {
+			price_start: $("#pr1").val(),
+			price_to:    $("#pr2").val(),
+		};
+	}
+	if(obj)
+	{
+		postAjx(obj, function()
+		{
+			console.log("okok");
+		});
+	}
+}
+function postAjx(_obj, _callback)
+{
+	var jqxhr = $.post( "/recherche", _obj, function()
+	{
+		//alert( "success" );
+	}).done(function()
+	{
+		//alert( "second success" );
+		return _callback();
+	}).fail(function() 
+	{
+		//alert( "error" );
+	}).always(function() 
+	{
+		//alert( "finished" );
+	});
+}
 function shfilter()
 {
 	var flt = $(".annonce-l").css("float");
