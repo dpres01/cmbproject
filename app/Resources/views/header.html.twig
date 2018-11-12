@@ -10,7 +10,7 @@
 					<a class="lk-w" href="{{path('enregistrer_annonce')}}">Déposer une annonce</a>
 				</div>
 				<div class="hd-top-menu-elm">
-					<a class="lk-w" href="{{path('listes_annonces')}}">Offres</a>
+					<a class="lk-w" href="{{path('offres')}}">Offres</a>
 				</div>
 				<div class="hd-top-menu-elm">
 					<a class="lk-w" href="{{path('demandes')}}">Demandes</a>
@@ -23,42 +23,35 @@
 				<div style="clear:both;"></div>
 			</div>
 			<div class="hd-top-menu-right" style="">
+                        {%if app.user %}    
 				<div class="hd-top-menu-right-elm">
-					<a class="lk-w" href="{{path('login')}}">
+					<a class="lk-w" href="{{path('compte_utilisateurs',{'id':app.user.id})}}">
 						<i class="fa fa-folder-o"></i>
 					</a>
 				</div>
 				<div class="hd-top-menu-right-elm">
-					<a class="lk-w" href="{{path('login')}}">
+					<a class="lk-w" href="#{#{path('login')}#}">
 						<i class="fa fa-comment-o"></i>
 					</a>
 				</div>
-                {%if  app.user is empty %}                                
-				<div class="hd-top-right-user" style="">
-					<a class="lk-w" href="{{path('login')}}">
-						<i class="fa fa-user-o"></i>
-					</a>
-				</div>
-                {%else%}    
-                <div class="hd-top-right-user" style="">
-					<a class="lk-w" href="{#{path('modifier_utilisateur',{'id':app.user.id})}#}">
-						<i class="fa fa-user-o"></i>
-					</a>
-				</div>
-                <div class="hd-top-right-user" style="">
-					<a class="lk-w" href="{{path('logout')}}">
-						<i class="fa fa-sign-out"></i>
-					</a>
-				</div>                
-                {%endif%} 
-                {%if  app.user is empty %}
-				<div class="hd-top-right-register" style="">
-					<div class="btn-insc" style="">        
-					    <a class="lk-b" href="{{path('enregistrer_utilisateur')}}">S'inscrire</a>
-					</div>
-				</div>
-                {%endif%}
-				<div style="clear:both;"></div>
+                                <div class="hd-top-right-user" style="">
+                                        <a class="lk-w" href="{{path('logout')}}">
+                                                <i class="fa fa-sign-out"></i>
+                                        </a>
+		                </div>                
+                        {%else%}                                
+                                <div class="hd-top-right-user" style="">
+                                        <a class="lk-w" href="{{path('login')}}">
+                                                <i class="fa fa-user-o"></i>
+                                        </a>
+                                </div> 
+                                <div class="hd-top-right-register" style="">
+                                        <div class="btn-insc" style="">        
+                                            <a class="lk-b" href="{{path('enregistrer_utilisateur')}}">S'inscrire</a>
+                                        </div>
+                                </div>                
+                        {%endif%} 
+			<div style="clear:both;"></div>
 			</div>
 			<div class="hd-top-menu-resp" style="padding-bottom:12px;">
 				<div id="respuser" class="hd-top-right-user" style="cursor:pointer;">
@@ -78,10 +71,10 @@
 				<a class="lk-w" href="{{path('enregistrer_annonce')}}">Déposer une annonce</a>
 			</div>
 			<div class="hd-resp-menu-elm">
-				<a class="lk-w" href="{{path('annonces')}}">Offres</a>
+				<a class="lk-w" href="{{path('offres')}}">Offres</a>
 			</div>
 			<div class="hd-resp-menu-elm">
-				<a class="lk-w" href="{{path('listes_annonces')}}">Demandes</a>
+				<a class="lk-w" href="{{path('demandes')}}">Demandes</a>
 			</div>
 			<div class="hd-resp-menu-elm">
 				<a class="lk-w" href="{{path('login')}}">Mes favoris</a>
@@ -92,26 +85,24 @@
 		<div id="resp-user" class="hd-resp-user" style="">
             {%if  app.user is empty %}
 			<div class="hd-resp-menu-elm">
-				<a class="lk-w" href="{{path('login')}}">Mon compte</a>
+				<a class="lk-w" href="{{path('login')}}">Se connecter </a>
 			</div>
+                        <div class="hd-resp-menu-elm">
+		             <a class="lk-w" href="{{path('enregistrer_utilisateur')}}">S'inscrire</a>
+			</div>			
             {%else%}
-            <div class="hd-resp-menu-elm">
-				<a class="lk-w" href="{#{path('modifier_utilisateur',{'id':app.user.id})}#}">Modifier mon compte</a>
-			</div>
-            <div class="hd-resp-menu-elm">
-				<a class="lk-w" href="{{path('logout')}}">Se déconnecter</a>
-			</div>
-            {%endif%}
+                        <div class="hd-resp-menu-elm">
+			    <a class="lk-w" href="{{path('compte_utilisateurs',{'id':app.user.id})}}">Mon compte</a>
+			</div>                                  
 			<div class="hd-resp-menu-elm">
 				<a class="lk-w" href="{#{path('login')}#}">Mes favoris</a>
 			</div>
 			<div class="hd-resp-menu-elm">
 				<a class="lk-w" href="{#{path('login')}#}">Mes messages</a>
 			</div>
-			{%if  app.user is empty %}
-            <div class="hd-resp-menu-elm">
-				<a class="lk-w" href="{{path('enregistrer_utilisateur')}}">S'inscrire</a>
+                         <div class="hd-resp-menu-elm">
+			    <a class="lk-w" href="{{path('logout')}}">Se déconnecter</a>
 			</div>
-			{%endif%}
+            {%endif%}            
 		</div>
 	</div>

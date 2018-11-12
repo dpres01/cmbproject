@@ -18,8 +18,8 @@
 /web/bundles/
 /composer.phar
 *.php~
-/nbproject/*
-var/logs/dev.log
+nbproject/*
+var/logs/dev.log0.1
 var/logs/prod.log
 /public/img
 /public/uploads

@@ -21,27 +21,25 @@ class UtilisateurController extends Controller
         $utilisateur = new Utilisateur(); 
         $form = $this->createForm(FormUtilisateurType::class, $utilisateur, $options = array());
         $form->handleRequest($request);
-        if($form->isValid() && $form->isSubmitted()){
-            //Enregistrment de l'annonce et de l'utilisateur            
-            $pwdEncoded = $this->get('security.password_encoder')->encodePassword($utilisateur, $utilisateur->getPassword());
-            $utilisateur->setDateCreation(new \DateTime());
-            $utilisateur->setPassword($pwdEncoded);
-            $em->persist($utilisateur);              
-            $em->flush();
-            //$this->get('session')->getFlashBag()->add('createUser', 'Votre compte a été créé avec succès');
-            $this->addFlash('createUser', 'Votre compte a été créé avec succès');
-            return $this->redirectToRoute('login');
+        if($form->isValid() && $form->isSubmitted()){          
+                //Enregistrment de l'annonce et de l'utilisateur         
+                $pwdEncoded = $this->get('security.password_encoder')->encodePassword($utilisateur, $utilisateur->getPassword());
+                $passWord = $utilisateur->getPassword();
+                $utilisateur->setDateCreation(new \DateTime());
+                $utilisateur->setPassword($pwdEncoded);
+                $em->persist($utilisateur);              
+                $em->flush();
+                $msg = $this->get('zandoo.mail')->sendInitAccountEmail($utilisateur,$passWord);
+                $msg ? $this->addFlash('createUser', 'Votre compte a été créé avec succès, un mail vous est envoyé veuillez verifie vos spam') : $this->addFlash('createUserFailed', 'Erreur lors de la création de l\'utilisateur');           
+                return $this->redirectToRoute('login'); 
         }
-        return $this->render('@Zandoo/Utilisateur/inscription.html.twig',
-			array('form'=>$form->createView()
-			)
-		);
+        return $this->render('@Zandoo/Utilisateur/inscription.html.twig',array('form'=>$form->createView()));
     }
     /**
      * @Route("/login",name="login")
      */
     public function loginAction(Request $request)
-    {    
+    {          
         // Si le visiteur est déjà identifié, on le redirige vers l'accueil
         if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
           return $this->redirectToRoute('enregistrer_annonce');
@@ -74,8 +72,8 @@ class UtilisateurController extends Controller
                 $pwdEncoded = $this->get('security.password_encoder')->encodePassword($utilisateur,$randPassword);          
                 $utilisateur->setPassword($pwdEncoded); 
                 $em->flush();           
-                $this->get('zandoo.mail')->sendMail($email,$randPassword);
-                $this->addFlash('succes', 'un email vous a été envoyer avec votre nouveau mot de passe verifiez votre spam!');
+                $this->get('zandoo.mail')->sendMail($utilisateur,$randPassword);
+                $this->addFlash('succes', 'un email vous a été envoyer avec votre nouveau mot de passe verifiez votre spam!');                             
             }else{
                 $this->addFlash('error', 'cet email n\'existe pas');
             }     

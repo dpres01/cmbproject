@@ -44,7 +44,8 @@ input[type="radio"], input[type="checkbox"] {margin-top:0px;}
 .ann-img-ot
 {
 	margin-top:0px;margin-right:1%;
-	border:1px solid #ccc;max-height:133px;text-align:center;background:#fff;overflow:hidden;
+	border:1px solid #ccc;
+	height:133px;text-align:center;background:#fff;overflow:hidden;
 	width:32.33%;
 	float:left;
 	display: inline-block;
