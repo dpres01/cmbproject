@@ -65,7 +65,7 @@ class ZandooController extends Controller
                             'colorBody'  => "F7F7F7",
                             'headsearch' => 1,
                             'annonces'   => $annonces,
-			                'search'     => '',
+			    'search'     => '',
                             'cat'        => '',
                             'titres'     => '',
                             'urgentes'   => '',
@@ -119,8 +119,7 @@ class ZandooController extends Controller
      *     
      */
     public function rechercheAnnonce(Request $request){       	
-        $em = $this->getDoctrine(); 
-		$total = array();
+        $em = $this->getDoctrine(); 	
         $repoAnnoce =  $em->getRepository(Annonce::class);
         $total = array();
         $search   = $request->query->get('q');
@@ -301,6 +300,21 @@ class ZandooController extends Controller
        $retour = $annonce->getType() == 1 ?  $this->redirectToRoute('demandes'):$this->redirectToRoute('annonces');  
        return $retour;
     }
+    
+    /**
+     * 
+     *  @Route("comptes/{id}", name="compte_utilisateurs")
+     *  @ParamConverter("utilisateur", class="ZandooBundle:Utilisateur", isOptional=true)
+     * 
+     */
+    public function annonceByUtilisateurAction(Request $request,$utilisateur){
+        $repoAnnoce = $this->getDoctrine()->getRepository(Annonce::class); 
+        $critere = new Critere();
+        $critere->setIdUtilisateur($utilisateur->getId());	
+	$annonces = $repoAnnoce->findAnnonceByCritere($critere);
+       // dump($annonces);die;
+        return $this->render('@Zandoo/Annonce/utilisateurAnnonce.html.twig',array('annonces'=>$annonces,'utilisateur'=>$utilisateur)); 
+    }
     /**
      * @Route("recherche", name="chercher_annonces")     
      *
@@ -313,13 +327,13 @@ class ZandooController extends Controller
         if ($offset){
                 $offset = (intval($offset) - 1) * 20 ;
         }
-         $critere = new Critere();
-         $critere->setTitre('test')
+        $critere = new Critere();
+        $critere->setTitre('test')
                  ->setCategorie(1)
                  ->setOffset($offset);
-         $em = $this->getDoctrine()->getManager();         
-         $annonces = $em->getRepository(Annonce::class)->findAnnonceByCritere($critere);
-         foreach($annonces as $key=>$annonce){
+        $em = $this->getDoctrine()->getManager();         
+        $annonces = $em->getRepository(Annonce::class)->findAnnonceByCritere($critere);
+        foreach($annonces as $key=>$annonce){
              $retour[$key]['titre']= $annonce->getTitre();
              $retour[$key]['description']= $annonce->getDescription();
              $retour[$key]['prix']= $annonce->getPrix();
@@ -328,16 +342,13 @@ class ZandooController extends Controller
                  $tabImg = $annonce->getImages();
                  $retour[$key]['image']= $tabImg[0]->getId().'.'.$tabImg[0]->getUrl();
              }             
-         }
+        }
          
          $resp->setData($retour);
          return $resp; 
      }
      
-     private function estPropritaireAnnonce ($utilisateAnnonce,$utilusateuConnecte){
-         if($utilusateuConnecte == null){
-             return true;
-         }
+     private function estPropritaireAnnonce ($utilisateAnnonce,$utilusateuConnecte){       
          if($utilisateAnnonce == null){
              return true;
          }
