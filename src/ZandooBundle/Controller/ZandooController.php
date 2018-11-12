@@ -15,10 +15,10 @@ use ZandooBundle\Entity\Categorie;
 use ZandooBundle\Entity\Famille;
 use ZandooBundle\Entity\Critere;
 use ZandooBundle\Entity\Ville;
-use ZandooBundle\Service\Monnaie;
 use ZandooBundle\Entity\Signalement;
 use ZandooBundle\Entity\Motif;
 use ZandooBundle\Form\FormSignalementType;
+use ZandooBundle\Form\FormUtilisateurType;
 
 
 class ZandooController extends Controller
@@ -69,7 +69,7 @@ class ZandooController extends Controller
                             'cat'        => '',
                             'titres'     => '',
                             'urgentes'   => '',
-			    'total'      => $total,
+			    'total'      => $total
                     )
             );
     }	
@@ -109,7 +109,7 @@ class ZandooController extends Controller
                             'cat'        => '',
                             'titres'     => '',
                             'urgentes'   => '',
-			    'total'      => $total,
+			    'total'      =>$total
                     )
             );
     }	
@@ -163,7 +163,7 @@ class ZandooController extends Controller
                                 'titres'     => $titre,
                                 'urgentes'   => $urgentes,
                                 'numPage'    =>$numPage,
-                                'total'      => $total,
+                                'total'      => $total
 			)
                 );
     }    
@@ -310,10 +310,17 @@ class ZandooController extends Controller
     public function annonceByUtilisateurAction(Request $request,$utilisateur){
         $repoAnnoce = $this->getDoctrine()->getRepository(Annonce::class); 
         $critere = new Critere();
+        $form = $this->createForm(FormUtilisateurType::class,$utilisateur,array());
         $critere->setIdUtilisateur($utilisateur->getId());	
 	$annonces = $repoAnnoce->findAnnonceByCritere($critere);
-       // dump($annonces);die;
-        return $this->render('@Zandoo/Annonce/utilisateurAnnonce.html.twig',array('annonces'=>$annonces,'utilisateur'=>$utilisateur)); 
+        if($form->isValid() && $form->isSubmitted()){
+            //TODO
+        }
+        return $this->render('@Zandoo/Annonce/utilisateurAnnonce.html.twig',array(
+                                    'annonces'=>$annonces,
+                                    'utilisateur'=>$utilisateur,
+                                    'form'=>$form->createView()
+         )); 
     }
     /**
      * @Route("recherche", name="chercher_annonces")     

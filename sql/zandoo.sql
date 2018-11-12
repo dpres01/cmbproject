@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `annonce` (
   KEY `IDX_C9106DFFBCF5E72D` (`categorie_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=46 ;
 
+ALTER TABLE ANNONCE MODIFY generateur_id VARCHAR(255);
 
 --
 -- Structure de la table `annonce_images`
@@ -82,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `categorie` (
 -- Contenu de la table `categorie`
 --
 
-INSERT INTO `categorie` (`id`, `famille_id`, `actif`, `libelle`, `num_ordre`) VALUES
+INSERT INTO `CATEGORIE` (`id`, `famille_id`, `actif`, `libelle`, `num_ordre`) VALUES
 (1, 1, 1, 'Offres d''emploi ', 1),
 (2, 1, 1, 'Offres d''emploi Cadresnouveau ', 2),
 (3, 2, 1, 'Voitures ', 3),
@@ -188,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `famille` (
 -- Contenu de la table `famille`
 --
 
-INSERT INTO `famille` (`id`, `actif`, `libelle`, `num_ordre`) VALUES
+INSERT INTO `FAMILLE` (`id`, `actif`, `libelle`, `num_ordre`) VALUES
 (1, 1, 'EMPLOI ', 1),
 (2, 1, 'VEHICULES ', 2),
 (3, 1, 'IMMOBILIER ', 3),
@@ -228,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `motif` (
 -- Contenu de la table `motif`
 --
 
-INSERT INTO `motif` (`id`, `actif`, `date_creation`, `libelle`) VALUES
+INSERT INTO `MOTIF` (`id`, `actif`, `date_creation`, `libelle`) VALUES
 (1, 1, '2018-09-29', 'Fraude'),
 (2, 1, '2018-09-29', 'Doublon'),
 (3, 1, '2018-09-29', 'Mauvaise Catégorie'),
@@ -297,7 +298,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 -- Structure de la table `ville`
 --
 
-CREATE TABLE IF NOT EXISTS `ville` (
+CREATE TABLE IF NOT EXISTS `VILLE` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `actif` tinyint(1) NOT NULL,
   `code_postal` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -309,7 +310,7 @@ CREATE TABLE IF NOT EXISTS `ville` (
 -- Contenu de la table `ville`
 --
 
-INSERT INTO `ville` (`id`, `actif`, `code_postal`, `libelle`) VALUES
+INSERT INTO `VILLE` (`id`, `actif`, `code_postal`, `libelle`) VALUES
 (1, 1, 'V001', 'Bas-Uele'),
 (2, 1, 'V002', 'Équateur '),
 (3, 1, 'V003', 'Haut-Katanga'),
