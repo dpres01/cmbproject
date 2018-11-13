@@ -1,0 +1,51 @@
+{% if total > 0 %}
+<div style="background:#fff;padding:10px 10px 7px 10px;border:1px solid #ccc;margin-top:35px;">
+    <table style="width:100%;">
+        <tr>         
+            {% set debut = max(numPage-4, numPage) %} 
+            {% set fin = min(numPage+4, total) %}
+            {%set diff = fin - debut %}
+            {%set t = 3 %}
+            {% if diff < 4 and diff >= 0%}
+                 {%for i in  1..4%}
+                    {%if diff == t%}
+                        {%set debut = numPage - loop.index %}                                          
+                    {%endif%}
+                    {%set t = t - 1%}
+                 {%endfor%}
+            {%endif %} 
+            {%if debut < 1%}
+                {%set debut = 1 %}                                          
+            {%endif%}
+            <nav aria-label="Page navigation example" style="margin:0;padding:0;">
+                <ul class="pagination justify-content-end" style="margin:0;padding:0;">        
+                    <li {% if numPage > 1 %} class="page-item" {%else%}class="page-item disabled" {%endif%}>
+                      <a class="page-link" {% if numPage > 1 %} href="{{ zandoo_service_commun.generateUrl("p", numPage-1) }}" {%endif%}>Précedent</a>
+                    </li> 
+                    {%if debut > 1 and total > 4 %} 
+                       <li class="page-item disabled" >
+                           <span>...</span>
+                       </li>    
+                   {%endif%}
+                     {%for t in range(debut,fin)|sort%}				
+                       <li class="page-item {% if t == numPage %} active{%endif%}" >
+                           <a href="{{ zandoo_service_commun.generateUrl("p", t) }}">{{t}}</a>
+                       </li>										
+                     {%endfor%}
+                    {%if fin < total %} 
+                        <li class="page-item disabled" >
+                              <span>...</span>
+                        </li>
+                        <li class="page-item" >
+                              <a href="{{ zandoo_service_commun.generateUrl("p", total) }}">{{total}}</a>
+                        </li>
+                    {%endif%}
+                    <li {% if total == 1 or numPage >= total%} class="page-item disabled" {%else%}class="page-item" {%endif%} >
+                      <a id="id-suivant" class="page-link" {% if total > 1 and numPage < total%} href="{{ zandoo_service_commun.generateUrl("p", numPage+1) }}" {%endif%}>Suivant</a>
+                    </li>
+                 </ul>
+            </nav>                                                      
+        </tr>
+    </table>
+</div>
+{%endif%}                    
