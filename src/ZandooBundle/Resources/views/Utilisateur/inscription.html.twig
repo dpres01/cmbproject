@@ -49,38 +49,7 @@
                             </div>
 			</div>
 		</div>
-		<div class="ins-bx">
-			<div class="ins-bx-title">
-				<h4 class="ins-bx-title-clr" style="margin:0;padding:0;">
-					Informations de contact
-				</h4>
-			</div>
-			<div class="ins-bx-inp">
-				<div style="padding-top:0px;">
-					<div>{{form_label(form.email)}}</div>
-					<div style="margin-top:0px;">{{form_widget(form.email)}}</div>
-					{{form_errors(form.email)}}
-				</div>
-				<div style="padding-top:5px;">
-					<div>{{form_label(form.telephone)}}</div>
-					<div style="margin-top:0px;">{{form_widget(form.telephone)}}</div>
-					{{form_errors(form.telephone)}}
-				</div>
-				<div style="padding-top:5px;">
-					<div>{{form_label(form.adresse)}}</div>
-					<div style="margin-top:0px;">{{form_widget(form.adresse)}}</div>
-					{{form_errors(form.adresse)}}
-				</div>
-				<div style="padding-top:5px;">
-					<div>{{form_label(form.ville)}}</div>
-					<div style="margin-top:0px;">{{form_widget(form.ville)}}</div>
-					{{form_errors(form.ville)}}
-				</div>
-				<div style="padding-top:5px;display:none;">
-					<div style="margin-top:0px;">{{form_widget(form.isProfessionnel)}}</div>
-				</div>
-			</div>
-		</div>			
+		{%include 'ZandooBundle:Utilisateur:informationContactUtilisateur.htm.twig'%}		
 		<div style="margin:20px 0 40px 0;">							
 			<div class="ins-btn">
 				<div class="btnfm" onclick="$(this).closest('form').submit();">

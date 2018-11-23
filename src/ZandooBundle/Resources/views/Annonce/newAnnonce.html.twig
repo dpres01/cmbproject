@@ -212,9 +212,13 @@
                 {% if app.user is not empty and form.vars.value.id %}
 		<div class="ann-btn-vd" style="float:left;width:48%;max-width:150px;">
                         {% if form.vars.value.type == '0' %}
-			   <div class="btnfmgreen"><b>Vendu</b></div>
-                         {% else %}  
-                           <div class="btnfmgreen"><b>Trouvé</b></div>
+                            <a href={{path('desactiver_annonce',{'id':form.vars.value.id})}}>
+                                <div class="btnfmgreen"><b>Vendu</b></div>
+                            </a>
+                         {% else %} 
+                            <a href={{path('desactiver_annonce',{'id':form.vars.value.id})}}>  
+                                <div class="btnfmgreen"><b>Trouvé</b></div>
+                            </a>
                         {% endif %}
 		</div>
                 {% endif %}
@@ -227,32 +231,32 @@
 	</div>
 	{{form_end(form)}}   
 	<script type='text/javascript'>
-	$(document).ready(function()
-	{	
-		$('.cached').each(function(){ $(this).css('display','none'); })  
-		$('.addimg').click(function()
-		{
-			var nb = $(this).attr("id").split("-")[1];
-			var elem = $("#form_annonce_images_"+nb+"_file");
-			elem.click();
-		});
-	});
-	function readURL(input) 
-	{
-		if (input.files && input.files[0]) 
-		{
-			var reader = new FileReader();
-			reader.onload = function(e) 
-			{
-				var nb = $(input).attr("id").split("_")[3];
-				$('#imgadd-'+nb).attr('src', e.target.result);
-			}
-			reader.readAsDataURL(input.files[0]);
-		}
-	}
-	$(".fileimg").change(function() {
-		readURL(this);
-	});
-    </script>
+            $(document).ready(function()
+            {	
+                $('.cached').each(function(){ $(this).css('display','none'); })  
+                $('.addimg').click(function()
+                {
+                    var nb = $(this).attr("id").split("-")[1];
+                    var elem = $("#form_annonce_images_"+nb+"_file");
+                    elem.click();
+                });
+        });
+            function readURL(input) 
+            {
+                if (input.files && input.files[0]) 
+                {
+                    var reader = new FileReader();
+                    reader.onload = function(e) 
+                    {
+                        var nb = $(input).attr("id").split("_")[3];
+                        $('#imgadd-'+nb).attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $(".fileimg").change(function() {
+                    readURL(this);
+            });
+        </script>
     {% endblock %}
 

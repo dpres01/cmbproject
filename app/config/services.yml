@@ -40,3 +40,9 @@ services:
 
     zandoo_service_commun:
         class: ZandooBundle\Service\Commun
+        
+    ZandooBundle\Service\DTO\UtilisateurConvert:
+        autowire: true
+        public: true
+    
+   

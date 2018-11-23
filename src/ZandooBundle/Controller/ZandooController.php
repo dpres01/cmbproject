@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use ZandooBundle\Entity\Annonce;
 use ZandooBundle\Form\FormAnnonceType;
 use ZandooBundle\Entity\Utilisateur;
+use ZandooBundle\Form\FormUtilisateurModificationType;
 use ZandooBundle\Entity\Categorie;
 use ZandooBundle\Entity\Famille;
 use ZandooBundle\Entity\Critere;
@@ -19,6 +20,8 @@ use ZandooBundle\Entity\Signalement;
 use ZandooBundle\Entity\Motif;
 use ZandooBundle\Form\FormSignalementType;
 use ZandooBundle\Form\FormUtilisateurType;
+use ZandooBundle\Entity\UtilisateurModification;
+use ZandooBundle\Service\DTO\UtilisateurConvert;
 
 
 class ZandooController extends Controller
@@ -273,10 +276,14 @@ class ZandooController extends Controller
      */
     public function desactiverAnnonceAction(Request $request,$id){
        $em = $this->getDoctrine()->getManager();
-       $annonce = $em->getRepository(Annonce::class)->find($id);
+       $annonce = $em->getRepository(Annonce::class)->find($id);       
        $annonce->setActif(0);
-       $retour = $annonce->getType() == 1 ?  $this->redirectToRoute('demandes'):$this->redirectToRoute('annonces');  
-       return $retour;
+       $em->flush();
+       if(!empty($request->query->get('isUser'))){
+           return $this->redirectToRoute('compte_utilisateurs',array('id'=>$this->getUser()->getId())) ;
+       }else{
+            return $retour = $annonce->getType() == 1 ?  $this->redirectToRoute('demandes'):$this->redirectToRoute('annonces');     
+       } 
     }
     
     /**
@@ -286,52 +293,25 @@ class ZandooController extends Controller
      * 
      */
     public function annonceByUtilisateurAction(Request $request,$utilisateur){
-        $repoAnnoce = $this->getDoctrine()->getRepository(Annonce::class); 
+        $em = $this->getDoctrine()->getManager();
+        $repoAnnoce = $em->getRepository(Annonce::class); 
         $critere = new Critere();
-        $form = $this->createForm(FormUtilisateurType::class,$utilisateur,array());
+        $convert = $this->get(UtilisateurConvert::class);
+        $utilisateurModif = $convert->convert($utilisateur);
+        $form = $this->createForm(FormUtilisateurModificationType::class,$utilisateurModif,array()); 
         $critere->setIdUtilisateur($utilisateur->getId());	
-	$annonces = $repoAnnoce->findAnnonceByCritere($critere);
-        if($form->isValid() && $form->isSubmitted()){
-            //TODO
-        }
+	$annonces = $repoAnnoce->findAnnonceByCritere($critere);        
+        $form->handleRequest($request); 
+        if($form->isSubmitted() && $form->isValid()){
+            $convert->convert($utilisateurModif,$utilisateur);
+            $em->flush();     
+        }   
         return $this->render('@Zandoo/Annonce/utilisateurAnnonce.html.twig',array(
                                     'annonces'=>$annonces,
-                                    'utilisateur'=>$utilisateur,
+                                    'utilisateur'=>$utilisateur,                                    
                                     'form'=>$form->createView()
          )); 
     }
-    /**
-     * @Route("recherche", name="chercher_annonces")     
-     *
-     */
-     public function chercheAnnonceAction(Request $request)
-	 {
-        $resp = new JsonResponse();
-        $retour = array();
-        $offset = 1;
-        if ($offset){
-                $offset = (intval($offset) - 1) * 20 ;
-        }
-        $critere = new Critere();
-        $critere->setTitre('test')
-                 ->setCategorie(1)
-                 ->setOffset($offset);
-        $em = $this->getDoctrine()->getManager();         
-        $annonces = $em->getRepository(Annonce::class)->findAnnonceByCritere($critere);
-        foreach($annonces as $key=>$annonce){
-             $retour[$key]['titre']= $annonce->getTitre();
-             $retour[$key]['description']= $annonce->getDescription();
-             $retour[$key]['prix']= $annonce->getPrix();
-             $retour[$key]['monnaie']= $annonce->getMonnaie();
-             if(!$annonce->getImages()->isEmpty()){
-                 $tabImg = $annonce->getImages();
-                 $retour[$key]['image']= $tabImg[0]->getId().'.'.$tabImg[0]->getUrl();
-             }             
-        }
-         
-         $resp->setData($retour);
-         return $resp; 
-     }
      
      private function estPropritaireAnnonce ($utilisateAnnonce,$utilusateuConnecte){       
          if($utilisateAnnonce == null){
