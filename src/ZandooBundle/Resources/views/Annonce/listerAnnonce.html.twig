@@ -119,7 +119,7 @@
 									<div style="float:left;">
 										<div class="bx-offer">
 											<a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">
-												Voir offre
+											{% if val.type %} Voir demande {%else%} Voir offre {%endif%}
 											</a>
 										</div>
 									</div>
@@ -136,7 +136,7 @@
 						<div style="clear:both;"></div>
 					</div>
 				{% endfor %}			
-                             {%include 'ZandooBundle:commun:pagination.html.twig'%}                                 
+                             {% include 'ZandooBundle:Commun:pagination.html.twig'%}                                 
 			</div>
 			<div style="clear:both;"></div>
                          </form> 
