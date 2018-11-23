@@ -23,9 +23,11 @@
 				<div style="clear:both;"></div>
 			</div>
 			<div class="hd-top-menu-right" style="">
+
                         {%if app.user %}    
 				<div class="hd-top-menu-right-elm">
 					<a class="lk-w" href="{{path('compte_utilisateurs',{'id':app.user.id})}}">
+
 						<i class="fa fa-folder-o"></i>
 					</a>
 				</div>
@@ -33,12 +35,12 @@
 					<a class="lk-w" href="#{#{path('login')}#}">
 						<i class="fa fa-comment-o"></i>
 					</a>
-				</div>
+				</div>                                                                             
                                 <div class="hd-top-right-user" style="">
-                                        <a class="lk-w" href="{{path('logout')}}">
-                                                <i class="fa fa-sign-out"></i>
-                                        </a>
-		                </div>                
+					<a class="lk-w" href="{{path('logout')}}">
+						<i class="fa fa-sign-out"></i>
+					</a>
+				</div>               
                         {%else%}                                
                                 <div class="hd-top-right-user" style="">
                                         <a class="lk-w" href="{{path('login')}}">
@@ -83,6 +85,7 @@
 			<div class="hd-resp-menu-elm">Messages</div>
 		</div>
 		<div id="resp-user" class="hd-resp-user" style="">
+
             {%if  app.user is empty %}
 			<div class="hd-resp-menu-elm">
 				<a class="lk-w" href="{{path('login')}}">Se connecter </a>

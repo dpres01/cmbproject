@@ -10,16 +10,16 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use ZandooBundle\Entity\Utilisateur;
+use ZandooBundle\Entity\UtilisateurModification;
 
 
 
 /**
- * Description of FormAnnonceType
+ * Description of utilisateurModificationFormType
  *
  * @author frup70988
  */
-class FormUtilisateurType extends AbstractType 
+class FormUtilisateurModificationType extends AbstractType 
 {   
     public function buildForm(FormBuilderInterface $builder, array $options)
     {   
@@ -27,12 +27,9 @@ class FormUtilisateurType extends AbstractType
             ->add('username',TextType::class,array(
                 'label' =>"Pseudo *"                
             ))
-             ->add('email',EmailType::class,array(
+            ->add('email',EmailType::class,array(
                 'label' =>"Adresse e-mail *"                
-            ))
-           ->add('password',PasswordType::class,array(
-                'label' => "Mot de passe *",            
-            ))          
+            ))                   
             ->add('telephone',TelType::class,array(
                 'label' =>"Téléphone *"
             ))
@@ -43,7 +40,7 @@ class FormUtilisateurType extends AbstractType
                 'class'  =>  \ZandooBundle\Entity\Ville::class,        
                 'choice_label' =>"libelle",
                 'label' =>"ville *",
-                'placeholder' => 'Choississez une ville',
+                'placeholder' => "Choississez une ville",
                 'expanded' =>false,
                 'required'=> false                  
             ))        
@@ -64,12 +61,13 @@ class FormUtilisateurType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => Utilisateur::class,
-            'liste_ville'=>null
+            'data_class' => UtilisateurModification::class,
+            'disabledPassword' => false,
+            'liste_ville' => null
         ));
     }
     public function getName(){
-         return "utilisateurFormType";
+         return "utilisateurModificationFormType";
     }
     
 

@@ -1,38 +1,41 @@
+
  {% extends 'base.html.twig' %}
  {% block body %}
-    <link rel="stylesheet" href="{{ asset('public/css/annonce.css') }}" type="text/css"/>
-    <link rel="stylesheet" href="{{ asset('public/css/prettyPhoto.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ asset('public/css/inscription.css') }}" type="text/css"/>
     <div class="ann-cont">
     {% for message in  app.flashes('succesAnnonce') %}
     <div class="alert alert-success" role="alert">
             {{ message}}
     </div>
    {% endfor%}
-    <h3> Utilisateur </h3>
-    <table class="table">     
-        <tr>
-            <td>  PSEUDO </td>
-            <td> {{ utilisateur.username}} </td>
-        </tr>
-        <tr>
-            <td> @Mail </td>
-            <td> {{ utilisateur.email}}</td>
-        </tr>
-        <tr>
-            <td> PARTICULIER </td> 
-            <td> {%if utilisateur.isProfessionnel%} NON {%else%} OUI{%endif%}</td>
-        </tr> 
-        <tr>
-            <td> VILLE </td>
-            <td> {{ utilisateur.ville.libelle}}</td>
-        </tr> 
-        <tr> 
-            <td> TELEPHONE </td> 
-           <td> {{ utilisateur.telephone}}</td>
-       </tr>    
-    </table>
-      {{form(form)}}
-    <h3> Listes annonces </h3>
+    <h3> Modifier Utilisateur </h3>     
+     {{form_start(form)}}
+    <div class="ins-bx">
+        <div class="ins-bx-title">
+            <h4 class="ins-bx-title-clr" style="margin:0;padding:0;">
+                    Informations sur le compte
+            </h4>
+        </div>
+        <div class="ins-bx-inp" >				
+            <div style="padding-top:5px;">
+                <div>{{form_label(form.isProfessionnel)}}</div>
+                {% for child in form.isProfessionnel %}
+                  <div style="float:left;margin-right:50px;">{{form_widget(child)}}</div>
+                {% endfor %}
+                {{form_errors(form.isProfessionnel)}}
+                <div style="clear:both;"></div>  
+            </div>
+            <div style="padding-top:13px;">
+                <div>{{form_label(form.username)}}</div>
+                <div style="margin-top:0px;">{{form_widget(form.username)}}</div>
+                {{form_errors(form.username)}}
+            </div>                           
+        </div>
+     </div>
+     {%include 'ZandooBundle:Utilisateur:informationContactUtilisateur.htm.twig'%}
+      <input type="submit" class="btn btn-primary" value = "Modifier Utilisateur">
+       {{form_end(form)}}
+    <h3> Listes de Mes Annonces </h3>
     <table class="table">  
        <th> 
            TITRE
@@ -42,12 +45,26 @@
        </th>
        <th>
            DATE
-       </th>     
+       </th>
+       <th>
+           ACTIONS
+       </th> 
        {%for annonce in  annonces%}
        <tr>
            <td> {{annonce.titre}} </td>
            <td> {%if annonce.type %} Demande {%else%} Offre{%endif%}</td>
            <td> {{annonce.dateCreation|date('d/m/Y')}}</td>
+           <td>
+               <a href={{path('enregistrer_annonce',{'generateurId':annonce.generateurId})}}>
+                   <button title ="cliquer pour modifier l'annonce" class="btn btn-primary">Modifier</button>
+               </a>
+               <a href={{path('desactiver_annonce',{'id':annonce.id})}}?isUser=1>
+                   <button title ="cliquer pour valider l'annonce" class="btn btn-success"> {%if annonce.type %} Trouvé {%else%} Vendu{%endif%} </button>
+               </a>
+               <a href={{path('desactiver_annonce',{'id':annonce.id})}}>
+                   <button title ="cliquer pour supprimer l'annonce" class="btn btn-danger"> Supprimer </button>
+               </a>
+           <td>
        </tr>
        {%endfor%}
     </table>

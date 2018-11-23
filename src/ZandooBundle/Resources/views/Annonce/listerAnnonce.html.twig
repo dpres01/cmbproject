@@ -23,7 +23,7 @@
 						</div>
 						<div class="filter-prix">
 							<div style="float:left;">
-								<input type="text" value="" id="pr1" class="filter-prix-inp">
+								<input type="text"s value="" id="pr1" class="filter-prix-inp">
 							</div>
 							<div style="float:left;">&nbsp;-&nbsp;</div>
 							<div style="float:left;">
@@ -98,7 +98,7 @@
 									<div class="bx-txt-nor-price">{{ val.prix }} {{ zandoo_service_commun.typeMonnaie(val.monnaie) }}</div>
 									<div style="margin-top:15px;">
 										<div class="bx-txt-nor-price-offer">
-											<a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">Voir offre</a>
+										    <a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">{%if val.type%}Voir demande{%else%}Voir offre{%endif%}</a>
 										</div>
 									</div>
 									<div style="margin-top:15px;text-align:center;">
@@ -119,7 +119,7 @@
 									<div style="float:left;">
 										<div class="bx-offer">
 											<a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">
-												Voir offre
+											{% if val.type %} Voir demande {%else%} Voir offre {%endif%}
 											</a>
 										</div>
 									</div>
@@ -135,33 +135,12 @@
 						</div>
 						<div style="clear:both;"></div>
 					</div>
-				{% endfor %}
-				<div style="background:#fff;padding:10px 10px 7px 10px;border:1px solid #ccc;margin-top:35px;">
-					<table style="width:100%;">
-						<tr>					
-							<nav aria-label="Page navigation example" style="margin:0;padding:0;">
-							   <ul class="pagination justify-content-end" style="margin:0;padding:0;">
-								 <li class="page-item disabled">
-								   <a class="page-link" href="#" tabindex="-1">Précedent</a>
-								 </li>
-								 {{category}}
-								 {%for t in total%}				
-									 <li class="page-item">
-										 <a href="{{ zandoo_service_commun.generateUrl("p", t) }}">{{t}}</a>
-									 </li>										
-								  {%endfor%}                   
-								 <li class="page-item">
-								   <a class="page-link" href="#">Suivant</a>
-								 </li>
-							   </ul>
-							 </nav>                                                      
-						</tr>
-					</table>
-				</div>
+				{% endfor %}			
+                             {% include 'ZandooBundle:Commun:pagination.html.twig'%}                                 
 			</div>
 			<div style="clear:both;"></div>
                          </form> 
 		</div>
-	</div>
+	</div>                                                    
 {% endblock %}
-
+    

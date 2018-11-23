@@ -119,7 +119,7 @@ class Utilisateur implements UserInterface
      *
      * @ORM\Column(name="is_admin", type="boolean")
      */
-    private $isAdmin = true;// 0 = Utilisateur normal | 1 = Administrateur
+    private $isAdmin = false;// 0 = Utilisateur normal | 1 = Administrateur
     /**
      * @var string
      *
