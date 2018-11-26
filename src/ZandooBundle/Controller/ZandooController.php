@@ -115,6 +115,9 @@ class ZandooController extends Controller
         
         $total = array();
         $search   = $request->query->get('q');
+        $priceFrom= $request->query->get('price_start');
+        $priceTo  = $request->query->get('price_to');
+        $cat 	  = $request->query->get('cat');
         $cat 	  = $request->query->get('cat');
         $titre 	  = $request->query->get('tre');
         $urgentes = $request->query->get('urg');
@@ -144,6 +147,8 @@ class ZandooController extends Controller
                                 'titres'     => $titre,
                                 'urgentes'   => $urgentes,
                                 'numPage'    =>$offset,
+                                'priceFrom'  =>$priceFrom,
+                                'priceTo'    =>$priceTo,
                                 'total'      => $nbr
 			)
                 );

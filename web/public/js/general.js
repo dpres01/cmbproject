@@ -101,10 +101,17 @@ function filter(str)
 	}
 	if(obj)
 	{
+		var uri = generateUrl("", obj);
+		if(uri)
+		{
+			window.location = uri;
+		}
+		/*
 		postAjx(obj, function()
 		{
-			console.log("okok");
+			//console.log("okok");
 		});
+		*/
 	}
 }
 function postAjx(_obj, _callback)
@@ -124,6 +131,26 @@ function postAjx(_obj, _callback)
 		//alert( "finished" );
 	});
 }
+function generateUrl(url, params) 
+{
+    var i = 0, key;
+    for (key in params) 
+	{
+		if(params[key])
+		{
+			if (i === 0) {
+				url += "?";
+			} else {
+				url += "&";
+			}
+			url += key;
+			url += '=';
+			url += params[key];
+			i++;
+		}
+    }
+    return url;
+}
 function shfilter()
 {
 	var flt = $(".annonce-l").css("float");
@@ -133,3 +160,9 @@ function shfilter()
 		//$(".filter-annonce").removeClass("filter-annonce");
 	}
 }
+
+//compte
+$('#myTabs a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
