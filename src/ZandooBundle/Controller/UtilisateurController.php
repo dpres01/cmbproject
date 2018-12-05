@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use ZandooBundle\Entity\Utilisateur;
 use ZandooBundle\Form\FormUtilisateurType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use ZandooBundle\Form\FormPasswordModificationType;
+use ZandooBundle\Entity\Contact;
 
 class UtilisateurController extends Controller
 {	
@@ -21,27 +23,25 @@ class UtilisateurController extends Controller
         $utilisateur = new Utilisateur(); 
         $form = $this->createForm(FormUtilisateurType::class, $utilisateur, $options = array());
         $form->handleRequest($request);
-        if($form->isValid() && $form->isSubmitted()){
-            //Enregistrment de l'annonce et de l'utilisateur            
-            $pwdEncoded = $this->get('security.password_encoder')->encodePassword($utilisateur, $utilisateur->getPassword());
-            $utilisateur->setDateCreation(new \DateTime());
-            $utilisateur->setPassword($pwdEncoded);
-            $em->persist($utilisateur);              
-            $em->flush();
-            //$this->get('session')->getFlashBag()->add('createUser', 'Votre compte a été créé avec succès');
-            $this->addFlash('createUser', 'Votre compte a été créé avec succès');
-            return $this->redirectToRoute('login');
+        if($form->isValid() && $form->isSubmitted()){          
+                //Enregistrment de l'annonce et de l'utilisateur         
+                $pwdEncoded = $this->get('security.password_encoder')->encodePassword($utilisateur, $utilisateur->getPassword());
+                $passWord = $utilisateur->getPassword();
+                $utilisateur->setDateCreation(new \DateTime());
+                $utilisateur->setPassword($pwdEncoded);
+                $em->persist($utilisateur);              
+                $em->flush();
+                $msg = $this->get('zandoo.mail')->sendInitAccountEmail($utilisateur,$passWord);
+                $msg ? $this->addFlash('createUser', 'Votre compte a été créé avec succès, un mail vous est envoyé veuillez verifie vos spam') : $this->addFlash('createUserFailed', 'Erreur lors de la création de l\'utilisateur');           
+                return $this->redirectToRoute('login'); 
         }
-        return $this->render('@Zandoo/Utilisateur/inscription.html.twig',
-			array('form'=>$form->createView()
-			)
-		);
+        return $this->render('@Zandoo/Utilisateur/inscription.html.twig',array('form'=>$form->createView()));
     }
     /**
      * @Route("/login",name="login")
      */
     public function loginAction(Request $request)
-    {    
+    {          
         // Si le visiteur est déjà identifié, on le redirige vers l'accueil
         if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
           return $this->redirectToRoute('enregistrer_annonce');
@@ -74,13 +74,13 @@ class UtilisateurController extends Controller
                 $pwdEncoded = $this->get('security.password_encoder')->encodePassword($utilisateur,$randPassword);          
                 $utilisateur->setPassword($pwdEncoded); 
                 $em->flush();           
-                $this->get('zandoo.mail')->sendMail($email,$randPassword);
-                $this->addFlash('succes', 'un email vous a été envoyer avec votre nouveau mot de passe verifiez votre spam!');
+                $this->get('zandoo.mail')->sendMail($utilisateur,$randPassword);
+                $this->addFlash('succes', 'un email vous a été envoyer avec votre nouveau mot de passe verifiez votre spam!');                             
             }else{
                 $this->addFlash('error', 'cet email n\'existe pas');
             }     
          } 
-         return $this->render('@Zandoo/Utilisateur/modifierPassword.html.twig', array('form'=>$form->createView())); 
+         return $this->render('@Zandoo/Utilisateur/genererPassword.html.twig', array('form'=>$form->createView())); 
     }
     
     /**
@@ -88,21 +88,17 @@ class UtilisateurController extends Controller
      */
     public function modifierPasswordAction(Request $request)
     {    
-         $form = $this->createFormBuilder()
-                 ->add('ancien_password',PasswordType::class,array(
-                     'label'=>'Ancien mot de passe',
-                 ))
-                 ->add('nouveau_password',PasswordType::class,array(
-                     'label'=>'Nouveau mot de passe',
-                 ))
-                 ->getForm();
+         $utilisateur = $this->getUser();
+         $em = $this->getDoctrine()->getManager();
+         $encoder = $this->get('security.password_encoder');
+         $form =$this->createForm(FormPasswordModificationType::class,null,array('em'=>$em,'user'=>$utilisateur,'encoder'=>$encoder)); 
          $form->handleRequest($request);
-         if($form->isSubmitted()){       
-              $ancien = $request->request->all()['form']['ancien_password'];
-              $nouveau = $request->request->all()['form']['nouveau_password'];
+         
+         if($form->isValid() && $form->isSubmitted()){ 
+              $ancien = $request->request->all()['form_password_modification']['passwordOld'];
+              $nouveau = $request->request->all()['form_password_modification']['password'];        
               if($ancien != $nouveau && !empty($this->getUser())){
-                  $em = $this->getDoctrine()->getManager();
-                  $utilisateur = $em->getRepository(Utilisateur::class)->findOneBy(array('email'=>$this->getUser()->getEmail()));
+                  $utilisateur = $em->getRepository(Utilisateur::class)->find(array('id'=>$utilisateur->getId()));
                   $pwdEncoded = $this->get('security.password_encoder')->encodePassword($utilisateur,$nouveau);
                   $utilisateur->setPassword($pwdEncoded); 
                   $em->flush();
@@ -111,7 +107,8 @@ class UtilisateurController extends Controller
                    $this->addFlash('error', 'connectez vous ou verifier que vos mot passes soit differents ');
               }
          }
-         return $this->render('@Zandoo/Utilisateur/modifierPassword.html.twig', array('form'=>$form->createView()));         
+         return $this->redirectToRoute('compte_utilisateurs',array('id'=>$this->getUser()->getId())) ;
+         //$this->render('@Zandoo/Annonce/utilisateurAnnonce.html.twig'));         
     }
     
     /**
@@ -134,6 +131,16 @@ class UtilisateurController extends Controller
             throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException('Vous n\'avez pas le droit d\'acces à cette page veuillez vous connecté.');  
         }
         
+    }
+    
+    /**
+     * @Route("messages/{id}", requirements={"id": "\d+"}, name="messages_utilisateur")     
+     *
+     */
+    public function messageByUtilisateurAction(Request $request,$id){
+       $em = $this->getDoctrine()->getManager();
+       $messages = $em->getRepository(Contact::class)->findMessageByUtilisateur($id);       
+       return $this->render('@Zandoo/Utilisateur/messageByUtilisateur.html.twig', array("messages"=>$messages));     
     }
     
     function RandomString(){

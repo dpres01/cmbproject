@@ -8,7 +8,7 @@
  */
  class Commun
  {
-    public function typeMonnaie($type = true){ return ($type == true) ? "Fc" : "$"; }
+    public function typeMonnaie($type = true){ return ($type == true) ? "$" : "Fc"; }
     public function dateConvertText($datetime, $full = false)
 	{ 
 		$now = new \DateTime;

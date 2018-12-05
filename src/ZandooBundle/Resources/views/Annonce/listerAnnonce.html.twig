@@ -16,22 +16,23 @@
 					<div id="filter-annonce" class="shfilter">
 						<div style="font-weight:bold;">
 							<div style="float:left;">Prix</div>
-							<div style="float:left;margin:1px 0 0 6px;color:#337ab7;">
+							<div style="float:left;margin:1px 0 0 6px;color:#337ab7;cursor:pointer;" onclick="filter('pr');">
 								<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
 							</div>
 							<div style="clear:both;"></div>
 						</div>
 						<div class="filter-prix">
 							<div style="float:left;">
-								<input type="text" value="" class="filter-prix-inp">
+								<input type="text" value="{{priceFrom}}" id="pr1" class="filter-prix-inp">
 							</div>
-							<div style="float:right;">
-								<input type="text" value="" class="filter-prix-inp">
+							<div style="float:left;">&nbsp;-&nbsp;</div>
+							<div style="float:left;">
+								<input type="text" value="{{priceTo}}" id="pr2" class="filter-prix-inp">
 							</div>
 							<div style="clear:both;"></div>
 						</div>
-						<div class="filter-title">Catégories</div>
-						<div style="font-size:13px;">
+						<div class="filter-title" style="display:none;">Catégories</div>
+						<div style="font-size:13px;display:none;">
 							<div style="margin-top:5px;">
 								<div class="filter-marg">
 									<a href="#">Appartement</a>
@@ -45,8 +46,8 @@
 								<div style="clear:both;"></div>
 							</div>
 						</div>
-						<div class="filter-title">Types d'offres</div>
-						<div style="font-size:13px;">
+						<div class="filter-title" style="display:none;">Types d'offres</div>
+						<div style="font-size:13px;display:none;">
 							<div style="margin-top:5px;">
 								<div class="filter-marg">
 									<a href="#">Offres <span class="filter-nb">(1 251)</span></a>
@@ -60,7 +61,7 @@
 								<div style="clear:both;"></div>
 							</div>
 						</div>
-						<div style="margin:20px auto 0 auto;width:100%;max-width:136px;">
+						<div style="margin:20px auto 0 auto;width:100%;max-width:136px;display:none;">
 							<a href="#" class="myButton">Réinitialiser</a>
 						</div>
 					</div>
@@ -77,22 +78,27 @@
 					{% endif %}
 
 					<div class="bxanon" style="margin-top:{{ marg }}px;height:100%;">
-						<div class="bxanon-img" style="height:100%;">
+						<div class="bxanon-img">
+							<a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">
 							{%if zandoo_service_commun.testExistanceImg(val.images) %}
-								  <img src="{{asset('bundles/zandoo/uploads/documents/'~val.images[0].id~'.'~val.images[0].url)}}" class="imgmax">
-
+								  <img src="{{asset('public/uploads/documents/'~val.images[0].id~'.'~val.images[0].url)}}" class="mmax">
 							{%else%}
-								  <img src="{{ asset('bundles/zandoo/img/nopic1.png')}}" class="imgmax">
+								  <img src="{{ asset('public/img/nopic1.png')}}" class="imgmax">
 							{%endif%}
+							</a>
 						</div>
 						<div class="bx-txt">
-							<div class="bx-title truncate">{{ zandoo_service_commun.titreFormatAnnonce(val.titre) }}</div>
+							<div class="bx-title truncate">
+								<a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">
+									{{ zandoo_service_commun.titreFormatAnnonce(val.titre) }}
+								</a>
+							</div>
 							<div class="bx-txt-nor">
 								<div class="bx-txt-nor-price-box">
 									<div class="bx-txt-nor-price">{{ val.prix }} {{ zandoo_service_commun.typeMonnaie(val.monnaie) }}</div>
 									<div style="margin-top:15px;">
 										<div class="bx-txt-nor-price-offer">
-											<a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">Voir offre</a>
+										    <a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">{%if val.type%}Voir demande{%else%}Voir offre{%endif%}</a>
 										</div>
 									</div>
 									<div style="margin-top:15px;text-align:center;">
@@ -112,7 +118,9 @@
 									<div class="bx-price">{{ val.prix }} {{ zandoo_service_commun.typeMonnaie(val.monnaie) }}</div>
 									<div style="float:left;">
 										<div class="bx-offer">
-											Voir offre
+											<a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">
+											{% if val.type %} Voir demande {%else%} Voir offre {%endif%}
+											</a>
 										</div>
 									</div>
 									<div style="clear:both;"></div>
@@ -127,35 +135,12 @@
 						</div>
 						<div style="clear:both;"></div>
 					</div>
-				{% endfor %}
-				<div style="background:#fff;padding:10px;border:1px solid #ccc;margin-top:35px;">
-					<table style="width:100%;">
-						<tr>					
-                                                    <nav aria-label="Page navigation example">
-                                                       <ul class="pagination justify-content-end">
-                                                         <li class="page-item disabled">
-                                                           <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                                         </li>
-                                                         {{category}}
-                                                         {%for t in total%}				
-                                                             <li class="page-item">
-                                                                 <a class="page-link pagination" href="{{ zandoo_service_commun.generateUrl("p", t) }}">
-                                                                    {{t}}
-                                                                 </a>
-                                                             </li>										
-                                                          {%endfor%}                   
-                                                         <li class="page-item">
-                                                           <a class="page-link" href="#">Next</a>
-                                                         </li>
-                                                       </ul>
-                                                     </nav>                                                      
-						</tr>
-					</table>
-				</div>
+				{% endfor %}			
+                             {% include 'ZandooBundle:Commun:pagination.html.twig'%}                                 
 			</div>
 			<div style="clear:both;"></div>
                          </form> 
 		</div>
-	</div>
+	</div>                                                    
 {% endblock %}
-
+    

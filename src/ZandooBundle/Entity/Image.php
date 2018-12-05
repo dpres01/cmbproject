@@ -157,7 +157,7 @@ class Image
         $this->getFile()->move(
             $this->getUploadRootDir(),
             $this->id.'.'.$this->getFile()->guessExtension()
-        );
+        ); 
         $this->setFile(null);
     }
 
@@ -197,8 +197,8 @@ class Image
     protected function getUploadRootDir()
     {
         // the absolute directory url where uploaded
-        // documents should be saved
-        return __DIR__.'../../../../web/bundles/zandoo/'.$this->getUploadDir();
+        // documents should be saved 		echo $_SERVER['DOCUMENT_ROOT'];exit;
+        return $_SERVER['DOCUMENT_ROOT'].'/public/'.$this->getUploadDir();
     }
 
     protected function getUploadDir()

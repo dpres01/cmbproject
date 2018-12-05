@@ -11,7 +11,8 @@ use ZandooBundle\Entity\Critere;
  * repository methods below.
  */
 class AnnonceRepository extends \Doctrine\ORM\EntityRepository
-{
+{   
+    const MAX_RESULT = 20;
     public function findAnnonceByCritere($critere)
     {   
         $qb = $this->createQueryBuilder('a')
@@ -20,9 +21,10 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
                 ->leftJoin('a.categorie', 'cat')
                 ->leftJoin('a.utilisateur', 'user')
                 ->andWhere('a.actif = 1');
+         !is_null($critere->getOffset()) ?  $critere->setOffset((intval($critere->getOffset()) - 1) * $this::MAX_RESULT) : null ;
          $this->filtrerByCritere($critere, $qb);
-         $qb->groupBy('a.id');
-         //dump($qb->getQuery()->getResult(),$qb->getQuery()->getSQL(),$qb->getQuery()->getParameters());die;
+         $qb->orderBy('a.id','DESC');
+         //dump($critere,$qb->getQuery()->getResult(),$qb->getQuery()->getSQL(),$qb->getQuery()->getParameters());die;
         return  $qb->getQuery()->getResult();
     }
     // nb annonce dans la bdd 
@@ -69,7 +71,7 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
             $qb->setParameter(':titre', '%'.strtolower($critere->getTitre()).'%'); 
         }
         if(!is_null($critere->getOffset())){
-            $qb->setFirstResult($critere->getOffset())->setMaxResults(20); 
+            $qb->setFirstResult($critere->getOffset())->setMaxResults($this::MAX_RESULT); 
         }
         return $qb;
     }

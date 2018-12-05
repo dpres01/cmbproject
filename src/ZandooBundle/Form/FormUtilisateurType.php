@@ -31,7 +31,7 @@ class FormUtilisateurType extends AbstractType
                 'label' =>"Adresse e-mail *"                
             ))
            ->add('password',PasswordType::class,array(
-                'label' =>"Mot de passe *"                
+                'label' => "Mot de passe *",            
             ))          
             ->add('telephone',TelType::class,array(
                 'label' =>"Téléphone *"
@@ -42,6 +42,8 @@ class FormUtilisateurType extends AbstractType
             ->add('ville',EntityType::class,array(
                 'class'  =>  \ZandooBundle\Entity\Ville::class,        
                 'choice_label' =>"libelle",
+                'label' =>"ville *",
+                'placeholder' => 'Choississez une ville',
                 'expanded' =>false,
                 'required'=> false                  
             ))        
@@ -63,12 +65,12 @@ class FormUtilisateurType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => Utilisateur::class,
-            'connected'=>false,
             'liste_ville'=>null
         ));
     }
-     public function getName(){
+    public function getName(){
          return "utilisateurFormType";
-     }
+    }
+    
 
 }

@@ -31,7 +31,10 @@ input[type="radio"], input[type="checkbox"] {margin-top:0px;}
 .ann-img-mn
 {
 	border:1px solid #ccc;width:100%;text-align:center;background:#fff;overflow:hidden;
-	max-height: 430px;
+	height: 430px;   
+	display: inline-block;
+    vertical-align: top;
+    position: relative;
 }
 .ann-img-rt
 {
@@ -41,9 +44,13 @@ input[type="radio"], input[type="checkbox"] {margin-top:0px;}
 .ann-img-ot
 {
 	margin-top:0px;margin-right:1%;
-	border:1px solid #ccc;max-height:133px;text-align:center;background:#fff;overflow:hidden;
+	border:1px solid #ccc;
+	height:133px;text-align:center;background:#fff;overflow:hidden;
 	width:32.33%;
 	float:left;
+	display: inline-block;
+    vertical-align: top;
+    position: relative;
 }
 .ann-img-ot-lst
 {

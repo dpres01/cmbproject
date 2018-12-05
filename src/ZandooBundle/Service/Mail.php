@@ -1,23 +1,73 @@
 <?php
  namespace ZandooBundle\Service;
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
- class Mail{
-     
-     public function sendMail($destinataire,$randPassword){
-        $subject = 'changement de mot de passe';
-        $message = 'Bonjour votre nouveau mot de passe est'.$randPassword.'\n ce ci est un mail automatique inutile d\'y repondre';
-        $headers = array(
-           'From' => 'webmaster@example.com',
-           'Reply-To' => 'webmaster@example.com',
-           'X-Mailer' => 'PHP/' . phpversion()
-       );
+ 
+ use Symfony\Bundle\TwigBundle\TwigEngine;
+ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-       mail($destinataire, $subject, $message, 'webmaster@example.com');//$headers);
-         
+ class Mail{
+    private $mailer;
+    public $templating;
+
+    public function __construct(\Swift_Mailer $mailer,TwigEngine $template){
+        $this->mailer = $mailer;
+        $this->templating = $template;
+    }
+     
+    public function sendMail($utilisateur,$randPassword){
+  
+        $message = (new \Swift_Message('Changement de mot de passe'))              
+             ->setFrom($_SERVER["SERVER_ADMIN"])
+             ->setTo($utilisateur->getEmail())
+             ->setBody(
+                 $this->templating->render(
+                     '@Zandoo/Emails/modificationPassword.html.twig',
+                     array( 
+                             'utilisateur' =>$utilisateur,
+                             'password'=>$randPassword
+                )),'text/html');
+        $this->mailer->send($message);                    
+    }
+     
+    public function sendInitAccountEmail($utilisateur,$passWord){
+        try{   
+            $message = (new \Swift_Message('Création de votre compte'))              
+                 ->setFrom($_SERVER["SERVER_ADMIN"])
+                 ->setTo($utilisateur->getEmail())
+                 ->setBody(
+                     $this->templating->render(
+                         '@Zandoo/Emails/creationUtilisateur.html.twig',
+                         array(
+                                'utilisateur' => $utilisateur,
+                                'password'=>$passWord)
+                     ),
+                     'text/html'
+                 );
+                $this->mailer->send($message); 
+                return 1;
+            }catch(\ Exception $e){
+                return 0;
+        }             
+    }
+    
+     public function sendMailContactMessage($annonce,$contatMessage){
+         try{   
+            $message = (new \Swift_Message('Message de contact pour l\'annonce '.$annonce->getTitre() ))              
+                 ->setFrom($_SERVER["SERVER_ADMIN"])
+                 ->setTo($annonce->getUtilisateur()->getEmail(),$annonce->getUtilisateur()->getUsername())
+                 ->setBody(
+                     $this->templating->render(
+                         '@Zandoo/Emails/messageContact.html.twig',
+                         array(
+                                'annonce' => $annonce,
+                                'messageContact'=>$contatMessage)
+                     ),
+                     'text/html'
+                 );
+                $this->mailer->send($message); 
+                return 1;
+            }catch(\ Exception $e){
+                return 0;
+        }        
      }
  }
 

@@ -4,16 +4,24 @@
     {% if error %}
        <div class="alert alert-danger">{{ error.message }}</div>
     {% endif %}
-        {% for message in  app.flashes('createUser')%}
-             <div class="alert alert-success">
-             {{message}}
-             </div> 
-        {%endfor %} 
-         {% for message in  app.flashes('succesAnnonce')%}
-             <div class="alert alert-success">
-             {{message}}
-             </div> 
-        {%endfor %}       
+    
+    {% for message in  app.flashes('createUser')%}
+         <div class="alert alert-success">
+         {{message}}
+         </div> 
+    {%endfor %} 
+    
+    {% for message in  app.flashes('createUserFailed')%}
+         <div class="alert alert-danger">
+         {{message}}
+         </div> 
+    {%endfor %} 
+    
+    {% for message in  app.flashes('succesAnnonce')%}
+        <div class="alert alert-success">
+        {{message}}
+        </div> 
+   {%endfor %}       
 	<link rel="stylesheet" href="{{ asset('public/css/connexion.css') }}" type="text/css"/>  
 	<div class="conn-bx">
 		<div class="conn-lf">
@@ -32,7 +40,7 @@
 					Reliant des MILLIONS d'acheteurs et les vendeurs dans le monde entier depuis 2002! 
 				</div>
 				<div style="margin-top:10px;">
-					<img src="{{ asset('bundles/zandoo/img/bigglobe.png') }}" class="imgmax">
+					<img src="{{ asset('public/img/bigglobe.png') }}" class="imgmax">
 				</div>
 			</div>
 		</div>

@@ -9,10 +9,12 @@ use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Annonce
+ * Utilisateur
  *
  * @ORM\Table(name="UTILISATEUR")
  * @ORM\Entity(repositoryClass="ZandooBundle\Repository\UtilisateurRepository")
+ * 
+ * @ORM\HasLifecycleCallbacks
  * 
  * @UniqueEntity("username",message="ce pseudo existe.")
  * @UniqueEntity("email",message="cet email existe.")
@@ -119,7 +121,7 @@ class Utilisateur implements UserInterface
      *
      * @ORM\Column(name="is_admin", type="boolean")
      */
-    private $isAdmin = true;// 0 = Utilisateur normal | 1 = Administrateur
+    private $isAdmin = false;// 0 = Utilisateur normal | 1 = Administrateur
     /**
      * @var string
      *
@@ -396,5 +398,8 @@ class Utilisateur implements UserInterface
     }
     public function eraseCredentials()
     {
+    }
+    function __toString() {
+        return (string)$this->username.$this->email.$this->telephone.$this->adresse.$this->ville.(int)$this->isProfessionnel;
     }
 }
