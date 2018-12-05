@@ -1,0 +1,50 @@
+{#%set url = url %#}
+<div style="margin-top:10px;">
+    {{form_start(formContact)}}
+        <!--div class="alert alert-success" role="alert">
+		{#{form_errors(formContact)}#}
+	</div-->
+        {% if msgSuccess is defined %}
+            <div class="alert alert-success" role="alert">
+                    {{ msgSuccess}}
+            </div>
+        {% endif%}
+       
+        {% if msgError is defined%}
+            <div class="alert alert-danger" role="alert">
+                    {{ msgError}}
+            </div>
+        {% endif%}
+       
+        <div id="msgposter" style="display:none;">
+            <div class="ann-msg-tit" id="id-fermer-contact">Votre message <a href="" style="color:#ccc;font-weight:normal;" onclick="$('#msgposter').hide(); $('#id-contact-msg').val('');return false;">[x]</a></div>
+            <div style="margin-top:15px;">
+            {{form_widget(formContact.nom)}}
+            {{form_errors(formContact.nom)}}
+                <!--input type="text" value="" class="ann-msg-inp" placeholder="Votre nom"-->
+            </div>
+            <div style="margin-top:10px;">
+                {{form_widget(formContact.email)}}
+                {{form_errors(formContact.email)}}
+                    <!--input type="text" value="" class="ann-msg-inp" placeholder="Votre e-mail"-->
+            </div>
+            <div style="margin-top:10px;">
+                 {{form_widget(formContact.telephone)}}
+                 {{form_errors(formContact.telephone)}}
+                    <!--input type="text" value="" class="ann-msg-inp" placeholder="Votre numéro de tél. (optionnel)"-->
+            </div>
+            <div style="margin-top:15px;">
+                {{form_widget(formContact.message)}}
+                {{form_errors(formContact.message)}}
+                    <!--textarea class="textare form ann-msg-txtarea" id="message" rows="3" placeholder="Votre Message" maxlength="1024" name="message"></textarea-->
+            </div>                                               
+        </div>
+        <div style="margin:10px 0;">
+                <div id="id-ouvrir-contact" onclick="initMessageContact('{{url}}')" class="ann-msg-btn">Envoyer message</div>
+        </div>
+        {{form_rest(formContact)}}
+      
+    {{form_end(formContact)}}  
+</div>
+
+   

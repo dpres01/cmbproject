@@ -1,0 +1,128 @@
+ {% extends 'base.html.twig' %}
+ {% block body %}
+    <link rel="stylesheet" href="{{ asset('public/css/inscription.css') }}" type="text/css"/>
+    <div class="ann-cont">
+    {% for message in  app.flashes('succesModif') %}
+    <div class="alert alert-success" role="alert">
+            {{ message}}
+    </div>
+   {% endfor%}
+	<div>
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Mon compte</a></li>
+			<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Mes annonces</a></li>
+		</ul>
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="home" style="padding:20px;">
+                               {# Mofication Details Utilisateur #}
+				{{form_start(form)}}
+					<div style="border-bottom:1px solid #f2f2f2;padding:0 0 10px 0;">
+						<h3 style="margin:0;padding:0;color:#003580;">
+							Détails du compte
+						</h3>					
+					</div>
+					<div style="margin:10px 0 0 0;">
+						<div style="padding-top:5px;">
+							<div>{{form_label(form.isProfessionnel)}}</div>
+							{% for child in form.isProfessionnel %}
+								<div style="float:left;margin-right:50px;">{{form_widget(child)}}</div>
+							{% endfor %}
+							{{form_errors(form.isProfessionnel)}}
+							<div style="clear:both;"></div>  
+						</div>
+						<div style="padding-top:10px;">
+							<div>{{form_label(form.username)}}</div>
+							<div style="margin-top:0px;max-width:250px;">{{form_widget(form.username)}}</div>
+							{{form_errors(form.username)}}
+						</div> 					
+					</div>
+					<div style="margin-top:40px;border-bottom:1px solid #f2f2f2;padding:0 0 10px 0;">
+						<h3 style="margin:0;padding:0;color:#003580;">
+							Information de contact
+						</h3>					
+					</div>
+					<div style="margin:10px 0 0 0;">
+						<div style="padding-top:0px;max-width:300px;">
+							<div>{{form_label(form.email)}}</div>
+							<div style="margin-top:0px;">{{form_widget(form.email)}}</div>
+							{{form_errors(form.email)}}
+						</div>
+						<div style="padding-top:10px;max-width:180px;">
+							<div>{{form_label(form.telephone)}}</div>
+							<div style="margin-top:0px;">{{form_widget(form.telephone)}}</div>
+							{{form_errors(form.telephone)}}
+						</div>
+						<div style="padding-top:10px;max-width:500px;">
+							<div>{{form_label(form.adresse)}}</div>
+							<div style="margin-top:0px;">{{form_widget(form.adresse)}}</div>
+							{{form_errors(form.adresse)}}
+						</div>
+						<div style="padding-top:10px;max-width:250px;">
+							<div>{{form_label(form.ville)}}</div>
+							<div style="margin-top:0px;">{{form_widget(form.ville)}}</div>
+							{{form_errors(form.ville)}}
+						</div>
+						<div style="padding:30px 0 50px 0;text-align:center;"><input type="submit" class="btn btn-primary" value = "Modifier"></div>
+					</div>
+				{{form_end(form)}}
+                                {# Mofication Mot de passe #}
+                                {{form_start(formPassword)}}
+                                <div style="border-bottom:1px solid #f2f2f2;padding:0 0 10px 0;">
+                                    <h3 style="margin:0;padding:0;color:#003580;">
+                                            Modification du Mot de passe
+                                    </h3>					
+				</div>
+                                <div style="margin:10px 0 0 0;">
+                                    <div style="padding-top:10px;max-width:250px;">
+                                        <div>{{form_label(formPassword.passwordOld)}}</div>
+                                        <div style="margin-top:0px;">{{form_widget(formPassword.passwordOld)}}</div>
+                                         {{form_errors(formPassword.passwordOld)}}
+				     </div>
+                                      <div style="padding-top:10px;max-width:250px;">
+                                        <div>{{form_label(formPassword.password)}}</div>
+                                        <div style="margin-top:0px;">{{form_widget(formPassword.password)}}</div>
+                                        {{form_errors(formPassword.password)}}
+				     </div>
+                                      <div style="padding-top:10px;max-width:250px;">
+                                        <div>{{form_label(formPassword.passwordConfirm)}}</div>
+                                        <div style="margin-top:0px;">{{form_widget(formPassword.passwordConfirm)}}</div>
+                                        {{form_errors(formPassword.passwordConfirm)}}
+				     </div>
+                                    <div style="padding:30px 0 50px 0;text-align:center;"><input type="submit" class="btn btn-primary" value = "Modifier Mot de passe"></div>
+                                </div>    
+                                {{form_end(formPassword)}}
+			</div>
+			<div role="tabpanel" class="tab-pane" id="profile" style="padding:20px;">
+				<table class="table table-hover">
+					<thead> <tr> <th>#</th> <th>Titre</th> <th>Type</th> <th>Date</th> <th>&nbsp;</th> </tr> </thead>
+					<tbody> 
+						{%for annonce in  annonces%}
+						<tr> 
+							<th scope="row">{{loop.index}}</th> 
+							<td>{{annonce.titre}}</td> 
+							<td>{%if annonce.type %} Demande {%else%} Offre{%endif%}</td>
+							<td>{{annonce.dateCreation|date('d/m/Y')}}</td> 
+							<td style="text-align:right;">
+								<a href={{path('enregistrer_annonce',{'generateurId':annonce.generateurId})}}>
+								    <button title ="cliquer pour modifier l'annonce" class="btn btn-primary btn-xs">Modifier</button>
+								</a>
+								<a href={{path('desactiver_annonce',{'id':annonce.id})}}?isUser=1>
+								    <button title ="cliquer pour valider l'annonce" class="btn btn-success btn-xs"> 
+										{%if annonce.type %} Trouvé {%else%} Vendu{%endif%} 
+									</button>
+								</a>
+								<a href={{path('desactiver_annonce',{'id':annonce.id})}}>
+								    <button title ="cliquer pour supprimer l'annonce" class="btn btn-danger btn-xs"> Supprimer </button>
+								</a>							
+							</td> 
+						</tr> 
+						{%endfor%}
+					</tbody>					
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
