@@ -3,13 +3,9 @@
 	<link rel="stylesheet" href="{{ asset('public/css/annonce.css') }}" type="text/css"/>
 	<link rel="stylesheet" href="{{ asset('public/css/prettyPhoto.css') }}" type="text/css"/>
 	<div class="ann-cont">
-        {% for message in  app.flashes('succesAnnonce') %}
-	<div class="alert alert-success" role="alert">
-		{{ message}}
-	</div>
-       {% endfor%}
-       <input id = 'id-contact-msg' type='hidden' value="">
-		<div class="ann-lf">
+	<div id="id-msg-send" > </div>        
+        <input id = 'id-contact-msg' type='hidden' value="">
+	<div class="ann-lf">
 			<div style="">
 				<h3 style="padding:0;margin:0;">
 					{{ zandoo_service_commun.titreFormatAnnonce(annonce.titre) }}
@@ -215,7 +211,7 @@
 			<div class="ann-sim-bx">
 				<div style="padding:2%;">
 					<div class="ann-sim-img">
-						<img src="{{asset('public/img/sim2.JPG')}}"}}">
+						<img src="{{asset('public/img/sim2.JPG')}}">
 					</div>
 				</div>
 				<div class="ann-sim-txt-bx">
@@ -266,40 +262,20 @@
 			</div>
 			<div style="clear:both;"></div>
 		</div>
-	</div>
-	<div class="modal fade bs-example-modal-sm" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+	</div>  
+        <div class="modal fade bs-example-modal-sm" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
 		<div class="modal-dialog modal-sm" role="document" style="width:440px;margin-top:10%;">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title" id="myModalLabel">Signaler une annonce</h4>
-				</div>
-				{{form_start(form)}}
-				<div class="modal-body">
-					<div style="margin-top:0px;">
-						{{form_label(form.motif)}}
-						{{form_widget(form.motif)}}
-					</div>
-					<div style="margin-top:10px;">
-						{{form_label(form.nom)}}
-						{{form_widget(form.nom)}}
-					</div>
-					<div style="margin-top:10px;">
-						{{form_label(form.email)}}
-						{{form_widget(form.email)}}
-					</div>
-					<div style="margin-top:10px;">
-						{{form_label(form.message)}}
-						{{form_widget(form.message)}}
-					</div>
-					<div style="margin:15px 0 10px 0;">
-						<input type="submit" value="envoyer">
-					</div>
-				</div>
-                                {{form_rest(form)}}       
-				{{form_end(form)}}
-			</div>
-		</div>
-	</div>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">Signaler une annonce</h4>
+                        </div> 
+                        <div class="modal-body">
+                           {%include 'ZandooBundle:Commun:formSignalement.html.twig' %}
+                        </div>
+                    </div>
+            </div>
+        </div>                        
+       
 	<!-- The Modal -->
 	<div id="myModal" class="mmodal">
 	<span class="close">&times;</span>

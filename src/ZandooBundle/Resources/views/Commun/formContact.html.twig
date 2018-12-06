@@ -1,9 +1,6 @@
-{#%set url = url %#}
+{%set type = 1%}
 <div style="margin-top:10px;">
-    {{form_start(formContact)}}
-        <!--div class="alert alert-success" role="alert">
-		{#{form_errors(formContact)}#}
-	</div-->
+    {{form_start(formContact)}}    
         {% if msgSuccess is defined %}
             <div class="alert alert-success" role="alert">
                     {{ msgSuccess}}
@@ -40,10 +37,9 @@
             </div>                                               
         </div>
         <div style="margin:10px 0;">
-                <div id="id-ouvrir-contact" onclick="initMessageContact('{{url}}')" class="ann-msg-btn">Envoyer message</div>
+                <div id="id-ouvrir-contact" onclick="initMessageContact('{{url}}',{{type}})" class="ann-msg-btn">Envoyer message</div>
         </div>
         {{form_rest(formContact)}}
-      
     {{form_end(formContact)}}  
 </div>
 

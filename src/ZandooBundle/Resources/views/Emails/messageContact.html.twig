@@ -2,7 +2,7 @@
 
 <p>Nom Contact        : <strong>{{ messageContact.nom }}</strong></p>
 <p>Email Contact      : <strong>{{ messageContact.email }}</strong></p>
-{% if messageContact.telephone %}
+{% if messageContact.telephone is defined%}
 <p>Téléphone Contact  : <strong>{{ messageContact.telephone }}</strong></p>
 {% endif %}
 <p>Message Contact: {{ messageContact.message }} </p>

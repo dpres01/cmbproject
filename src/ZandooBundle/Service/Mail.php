@@ -49,15 +49,16 @@
         }             
     }
     
-     public function sendMailContactMessage($annonce,$contatMessage){
-         try{   
-            $message = (new \Swift_Message('Message de contact pour l\'annonce '.$annonce->getTitre() ))              
+    public function sendMailContactMessage($annonce,$contatMessage){
+         try{  
+         $destinateur =  ($contatMessage instanceof \ZandooBundle\Entity\Signalement) ? 'chirac.mbala@gmail.com': $annonce->getUtilisateur()->getEmail();   
+         $message = (new \Swift_Message('Message de contact pour l\'annonce '.$annonce->getTitre() ))              
                  ->setFrom($_SERVER["SERVER_ADMIN"])
-                 ->setTo($annonce->getUtilisateur()->getEmail(),$annonce->getUtilisateur()->getUsername())
+                 ->setTo($destinateur)
                  ->setBody(
                      $this->templating->render(
-                         '@Zandoo/Emails/messageContact.html.twig',
-                         array(
+                        '@Zandoo/Emails/messageContact.html.twig',
+                        array(
                                 'annonce' => $annonce,
                                 'messageContact'=>$contatMessage)
                      ),

@@ -2,6 +2,7 @@
 namespace ZandooBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Signalement
@@ -24,6 +25,8 @@ class Signalement
      * @var string
      *
      * @ORM\Column(name="nom", type="string")
+     * 
+     * @Assert\NotBlank(message="cette valeur ne doit pas être vide")
      */
     private $nom;
     
@@ -31,6 +34,13 @@ class Signalement
      * @var string
      *
      * @ORM\Column(name="email", type="string")
+     * 
+     * @Assert\NotBlank(message="cette valeur ne doit pas être vide")
+     * @Assert\Email(
+     *     message = "cette adresse email '{{ value }}' n'est pas valide.",
+     *     checkMX = true
+     * )
+     * 
      */
     private $email;
     
@@ -38,6 +48,9 @@ class Signalement
      * @var string
      *
      * @ORM\Column(name="message", type="string",length=1000)
+     * 
+     * @Assert\NotBlank(message="cette valeur ne doit pas être vide")
+     * 
      */
     private $message;
     
@@ -45,6 +58,9 @@ class Signalement
      * 
      * @ORM\ManyToOne(targetEntity="Motif")
      * @ORM\JoinColumn(name="motif_id", referencedColumnName="id",nullable=false)
+     * 
+     * @Assert\NotBlank(message="cette valeur ne doit pas être vide,selection une valeur")
+     * 
      * @var type 
      */
     private $motif;

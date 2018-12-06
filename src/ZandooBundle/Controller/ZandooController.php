@@ -213,26 +213,37 @@ class ZandooController extends Controller
     
         $critere->setIdUtilisateur($id);
         $annonce = $em->getRepository(Annonce::class)->findOneBy(array('generateurId'=>$id)); 
-       
+        
         $signalement = new Signalement(); 
         $options['motif'] = $em->getRepository(Motif::class)->findAll();
 	$form = $this->createForm(FormSignalementType::class ,$signalement,$options);
         $form->handleRequest($request);
-        
-        if($form->isValid() && $form->isSubmitted()){
-            $motif = $em->getRepository(Motif::class)->find($signalement->getMotif());
-            $signalement->setMotif($motif);
-            $signalement->setAnnonce($annonce);            
-            $em->persist($signalement);
-            $em->flush();
-        } 
-        
+       
         $contatMessage = new Contact();       
         $formContact = $this->createForm(FormContactType::class ,$contatMessage,array());
-        $formContact->handleRequest($request);       
-        if($request->isXmlHttpRequest()){ 
+        $formContact->handleRequest($request); 
+        // Message pop-in signaler annonce
+        if($request->isXmlHttpRequest() && $request->query->get('type') == 2){           
+            $retour = array('url'=>$annonce->getGenerateurId(),'form'=>$form->createView());
+            if($form->isValid() && $form->isSubmitted()){
+                $motif = $em->getRepository(Motif::class)->find($signalement->getMotif());
+                $signalement->setMotif($motif);
+                $signalement->setAnnonce($annonce);              
+                $this->get('zandoo.mail')->sendMailContactMessage($annonce,$signalement);
+                $content = array('template' => $this->renderView('@Zandoo/Commun/formSignalement.html.twig',$retour));
+                $em->persist($signalement);
+                $em->flush();
+                return $reponse->setData($content);
+            }else{
+                $reponse->setStatusCode(400);
+                $retour['msgSignError']= "votre formulaire contient des erreurs ou Actualiser votre page (F5)";
+                $content = array('template' => $this->renderView('@Zandoo/Commun/formSignalement.html.twig',$retour));            
+                return $reponse->setData($content);  
+            }     
+        }       
+        // Message contact proprietaire annonce      
+        if($request->isXmlHttpRequest() && $request->query->get('type') == 1){ 
             $retour = array('url'=>$annonce->getGenerateurId(),'formContact'=>$formContact->createView());
-            
             if($formContact->isValid() && $formContact->isSubmitted()){
                 $contatMessage->setAnnonce($annonce);
                 $em->persist($contatMessage);

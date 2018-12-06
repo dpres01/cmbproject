@@ -1,0 +1,33 @@
+{%set type = 2%}
+{{form_start(form)}}
+{% if msgSignError is defined%}
+    <div class="alert alert-danger" role="alert">
+        {{ msgSignError}}
+    </div>
+{% endif%}
+<div style="margin-top:0px;">
+    {{form_label(form.motif)}}
+    {{form_widget(form.motif)}}
+    {{form_errors(form.motif)}}
+</div>
+<div style="margin-top:10px;">
+    {{form_label(form.nom)}}
+    {{form_widget(form.nom)}}
+    {{form_errors(form.nom)}}
+</div>
+<div style="margin-top:10px;">
+    {{form_label(form.email)}}
+    {{form_widget(form.email)}}
+    {{form_errors(form.email)}}
+</div>
+<div style="margin-top:10px;">
+    {{form_label(form.message)}}
+    {{form_widget(form.message)}}
+    {{form_errors(form.message)}}
+</div>
+<div style="margin:15px 0 10px 0;">
+    <div onclick="initMessageContact('{{url}}',{{type}})" class="ann-msg-btn">Signaler</div>
+    <!--input type="submit" value="envoyer"-->
+</div>
+{{form_rest(form)}}       
+{{form_end(form)}}

@@ -138,7 +138,7 @@ function filter(str)
 		/*
 		postAjx(obj, function()
 		{
-			//console.log("okok");
+			
 		});
 		*/
 	}
@@ -190,11 +190,13 @@ function shfilter()
 	}
 }
 
-function initMessageContact(url){
-    if($('#id-contact-msg').val()!='' && $('#id-contact-msg').val()!='undefined'){
+function initMessageContact(url,type){
+   
+   if(type == 1 ){
+       if($('#id-contact-msg').val()!='' && $('#id-contact-msg').val()!='undefined'){
         var form = $("form[name='form_contact']");
         $.ajax({
-            url : url,
+            url : url+'?type='+type,
             type: 'POST',
             data: form.serialize(),
             success : function(requete){
@@ -210,12 +212,36 @@ function initMessageContact(url){
                             $('#id-add-form').html(requete.responseJSON.template);
                             $('#msgposter').show();                         
                         }
-                    }            
-         });
-    }else{
-      $('#msgposter').show();
-      $('#id-contact-msg').val('open');
-    }   
+                     }            
+                });
+        }else{
+          $('#msgposter').show();
+          $('#id-contact-msg').val('open');
+        }   
+       
+   }else {
+       var form = $("form[name='form_signalement']");     
+        $.ajax({
+            url : url+'?type='+type,
+            type: 'POST',
+            data: form.serialize(),
+            success : function(requete){                       
+                       $('#reportModal').modal('toggle');
+                       $("input[id^='form_']").val('');
+                       $("#form_signalement_message").val('');   
+                       $("input:radio").attr("checked",false);
+                       $('<div id="id-msg-envoi-modal" class="alert alert-success" role="alert"> Votre message est envoyé avec success </div>').insertBefore( $('#id-contact-msg'));                         
+            },
+            statusCode:{ 
+                       400: function(requete) {  
+                           $(".modal-body").html(requete.responseJSON.template);
+                           
+                           //$(".modal-body").hmtl(requete.responseJSON.template);                      
+                        }
+                     }            
+                });
+   }
+    
 }
 
 //compte

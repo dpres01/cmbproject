@@ -380,15 +380,6 @@ ALTER TABLE `signalement`
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
-CREATE TABLE visite 
-  ( 
-     id          INT auto_increment NOT NULL, 
-     date_visite DATETIME NOT NULL, 
-     ip          VARCHAR(55) NOT NULL, 
-     PRIMARY KEY(id) 
-  ) defaultcharacter SET utf8 COLLATE utf8_unicode_ci engine = innodb; 
-
-
 CREATE TABLE annonce_visite 
   ( 
      annonce_id INT NOT NULL, 
@@ -396,6 +387,17 @@ CREATE TABLE annonce_visite
      INDEX idx_d03b8fa58805ab2f (annonce_id), 
      INDEX idx_d03b8fa5c1c5dc59 (visite_id), 
      PRIMARY KEY(annonce_id, visite_id) 
+  ) 
+DEFAULT CHARACTER SET utf8 
+COLLATE utf8_unicode_ci 
+engine = innodb; 
+
+CREATE TABLE visite 
+  ( 
+     id          INT auto_increment NOT NULL, 
+     date_visite DATETIME NOT NULL, 
+     ip    VARCHAR(55) NOT NULL, 
+     PRIMARY KEY(id) 
   ) 
 DEFAULT CHARACTER SET utf8 
 COLLATE utf8_unicode_ci 
