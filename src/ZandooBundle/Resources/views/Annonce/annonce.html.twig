@@ -183,83 +183,39 @@
 				</div>
 			</div>
 			<div class="ann-msg-bx" id='id-add-form'>  
-                            {% set url = path('afficher_annonce',{'id':annonce.generateurId}) %}
-                            {%include 'ZandooBundle:Commun:formContact.html.twig' %}	
+                            {% set url = path('afficher_annonce',{'id':annonce.generateurId}) %}                         
+                            {%include 'ZandooBundle:Commun:formContact.html.twig' with {'url':url} %}	
 			</div>
 		</div>
 		<div style="clear:both;"></div>
-	</div>
-                                
+	</div>                        
 	<div class="ann-sim-off" style="">
 		<div style="text-decoration:underline;">
 			<h3 style="padding:0;margin:0;">Offres similaires</h3>
 		</div>
 		<div style="margin-top:10px;">
+		   {% for anonSim in annonSimilaires %}             
 			<div class="ann-sim-bx" style="margin-left:0px;">
 				<div style="padding:2%;">
 					<div class="ann-sim-img">
-						<img src="{{asset('public/img/sim1.JPG')}}">
+                                            {%if  zandoo_service_commun.testExistanceImg(anonSim.images) %}
+                                            <img src="{{asset('public/uploads/documents/')}}{{ anonSim.images[0].id}}.{{anonSim.images[0].url}}" >
+				            <!--img src="{#{asset('public/img/sim1.JPG')}#}"-->
+                                            {%endif%}
 					</div>
 				</div>
+                                        
 				<div class="ann-sim-txt-bx">
-					<div class="ann-sim-txt">
-						Deol Auto Edmonton - Shop Tires.
-						<div class="ann-sim-price">57 €</div>
-					</div>
+                                       <a href = {{path('afficher_annonce',{'id':anonSim.generateurId})}} >
+                                            <div class="ann-sim-txt">
+                                                {{anonSim.titre}}
+                                                <div class="ann-sim-price"> {{anonSim.prix}} {{ zandoo_service_commun.typeMonnaie(annonce.monnaie) }}</div>
+                                            </div>
+                                        </a>
 				</div>
-			</div>
-			<div class="ann-sim-bx">
-				<div style="padding:2%;">
-					<div class="ann-sim-img">
-						<img src="{{asset('public/img/sim2.JPG')}}">
-					</div>
-				</div>
-				<div class="ann-sim-txt-bx">
-					<div class="ann-sim-txt">
-						Deol Auto Edmonton - Shop Tires.
-						<div class="ann-sim-price">57 €</div>
-					</div>
-				</div>
-			</div>
-			<div class="ann-sim-bx ann-sim-bxlst2">
-				<div style="padding:2%;">
-					<div class="ann-sim-img">
-						<img src= "{{asset('public/img/sim3.JPG')}}">
-					</div>
-				</div>
-				<div class="ann-sim-txt-bx">
-					<div class="ann-sim-txt">
-						Deol Auto Edmonton - Shop Tires.
-						<div class="ann-sim-price">57 €</div>
-					</div>
-				</div>
-			</div>
-			<div class="ann-sim-bx ann-sim-bxlst1">
-				<div style="padding:2%;">
-					<div class="ann-sim-img">
-						<img src={{asset('public/img/sim4.JPG')}}>
-					</div>
-				</div>
-				<div class="ann-sim-txt-bx">
-					<div class="ann-sim-txt">
-						Deol Auto Edmonton - Shop Tires.
-						<div class="ann-sim-price">57 €</div>
-					</div>
-				</div>
-			</div>
-			<div class="ann-sim-bx ann-sim-bxlst">
-				<div style="padding:2%;">
-					<div class="ann-sim-img">
-						<img src="{{asset('public/img/sim5.JPG')}}">
-					</div>
-				</div>
-				<div class="ann-sim-txt-bx">
-					<div class="ann-sim-txt">
-						Deol Auto Edmonton - Shop Tires.
-						<div class="ann-sim-price">57 €</div>
-					</div>
-				</div>
-			</div>
+		        </div>		
+		</div>
+            {%endfor%}
 			<div style="clear:both;"></div>
 		</div>
 	</div>  
@@ -270,7 +226,7 @@
                                 <h4 class="modal-title" id="myModalLabel">Signaler une annonce</h4>
                         </div> 
                         <div class="modal-body">
-                           {%include 'ZandooBundle:Commun:formSignalement.html.twig' %}
+                           {%include 'ZandooBundle:Commun:formSignalement.html.twig' with {'url':url}%}
                         </div>
                     </div>
             </div>

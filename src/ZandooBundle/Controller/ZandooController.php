@@ -210,10 +210,13 @@ class ZandooController extends Controller
         $em = $this->getDoctrine()->getManager();
         $critere = new Critere();
         $reponse = new JsonResponse;
-    
+        
         $critere->setIdUtilisateur($id);
         $annonce = $em->getRepository(Annonce::class)->findOneBy(array('generateurId'=>$id)); 
-        
+        $critere->setIdUtilisateur(null)
+                ->setCategorie($annonce->getCategorie()->getId())
+                ->setType($annonce->getType());
+        $annoncesSimilaires = $em->getRepository(Annonce::class)->findAnnonceByCritere($critere);    
         $signalement = new Signalement(); 
         $options['motif'] = $em->getRepository(Motif::class)->findAll();
 	$form = $this->createForm(FormSignalementType::class ,$signalement,$options);
@@ -262,7 +265,8 @@ class ZandooController extends Controller
         if($annonce){
             $this->creerCompteurVisiteAnnonce($annonce,$em);              
             $nbImg = count($annonce->getImages());
-            $retour = array('annonce'=>$annonce,'formContact'=>$formContact->createView(),'form'=>$form->createView(),'colorBody'=>"F7F7F7",'nbImg'=>$nbImg,'url_upload'=>$this->getParameter('url_upload'));
+            $retour = array('annonce'=>$annonce,'formContact'=>$formContact->createView(),'form'=>$form->createView(),'colorBody'=>"F7F7F7"
+                ,'nbImg'=>$nbImg,'url_upload'=>$this->getParameter('url_upload'),'annonSimilaires' => $annoncesSimilaires);
             return $this->render('@Zandoo/Annonce/annonce.html.twig',$retour);			
         }else{
             throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException( 'Cette page n\'existe pas!');

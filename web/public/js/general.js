@@ -20,10 +20,15 @@ $(document).ready(function()
 	});
 
 	$(".signal").click(function(){
-		$('#reportModal').modal('toggle');
+            $("input[id^='form_']").val('');
+            $("#form_signalement_message").val('');   
+            $("input:radio").attr("checked",false);
+            $('.alert-danger').remove();
+            $('.help-block').remove();
+	    $('#reportModal').modal('toggle');
 	});
 	$("#arrusr").click(function(){
-		$("#mreusr").toggle();
+	    $("#mreusr").toggle();
 	}); 
         
    $('.add-another-collection-widget').click(function (e) {
@@ -51,8 +56,8 @@ $(document).ready(function()
 	
 	$(".ann-price-num").click(function()
 	{
-		$("#phone1").toggle();
-		$("#phone2").toggle();
+            $("#phone1").toggle();
+            $("#phone2").toggle();
 	});
         
         $("#form_annonce_prix").on('blur',function(){

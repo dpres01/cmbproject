@@ -14,7 +14,12 @@
         {% endif%}
        
         <div id="msgposter" style="display:none;">
-            <div class="ann-msg-tit" id="id-fermer-contact">Votre message <a href="" style="color:#ccc;font-weight:normal;" onclick="$('#msgposter').hide(); $('#id-contact-msg').val('');return false;">[x]</a></div>
+            <div class="ann-msg-tit" id="id-fermer-contact">Votre message 
+                <a href="" style="color:#ccc;font-weight:normal;"   
+                   onclick="$('#msgposter').hide(); $('#id-contact-msg').val(''); $('.alert-danger').remove();$('.help-block').remove();return false;">
+                    [x]
+                </a>
+            </div>
             <div style="margin-top:15px;">
             {{form_widget(formContact.nom)}}
             {{form_errors(formContact.nom)}}
