@@ -18,12 +18,17 @@ class UtilisateurConvert
                 ->setIsProfessionnel($utilisateur->getIsProfessionnel());
         }
         if($utilisateur instanceof UtilisateurModification && !is_null($user)){
-            $user->setAdresse($utilisateur->getAdresse())
+           $ret = false;
+           if((string)$utilisateur !== (string)$user){
+               $user->setAdresse($utilisateur->getAdresse())
                 ->setUsername($utilisateur->getUsername())
                 ->setEmail($utilisateur->getEmail())
                 ->setVille($utilisateur->getVille())
                 ->setTelephone($utilisateur->getTelephone())
                 ->setIsProfessionnel($utilisateur->getIsProfessionnel());
+               $ret = true;
+           } 
+          $user = $ret; 
         }
         return $user; 
              

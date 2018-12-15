@@ -2,13 +2,12 @@
 
 namespace ZandooBundle\Entity;
 
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Annonce
+ * UtilisateurModification
  * 
  */
 
@@ -211,6 +210,10 @@ class UtilisateurModification
     public function getIsProfessionnel()
     {
         return $this->isProfessionnel;
+    }
+    
+    function __toString() {
+       return (string)$this->username.$this->email.$this->telephone.$this->adresse.$this->ville.(int)$this->isProfessionnel;
     }
 
 }

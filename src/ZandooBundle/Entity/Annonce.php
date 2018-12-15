@@ -137,8 +137,19 @@ class Annonce
      */
     private $generateurId;
     
+    /**
+     * @ORM\ManyToMany(targetEntity="Visite")
+     * @ORM\JoinTable(name="annonce_visite",
+     *      joinColumns={@ORM\JoinColumn(name="annonce_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="visite_id", referencedColumnName="id")}
+     *      )
+     * 
+     */
+    private $visite;
+    
     public function __construct(){
         $this->images = new ArrayCollection();
+        //$this->visite = new ArrayCollection();
         $this->dateModification = new \DateTime();
     }
 
@@ -470,6 +481,21 @@ class Annonce
                 $randstring .= $retour;
             }
             return $randstring;
-        }
+    }
+    /**
+     * 
+     * @return viste
+     */    
+    function getVisite() {
+        return $this->visite;
+    }
+    /**
+     * 
+     * @param type $visite
+     */    
+    function setVisite(Visite $visite) {
+        $this->visite[] = $visite;
+        return $this;
+    }
 
 }

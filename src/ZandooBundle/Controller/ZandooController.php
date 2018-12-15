@@ -22,10 +22,17 @@ use ZandooBundle\Form\FormSignalementType;
 use ZandooBundle\Form\FormUtilisateurType;
 use ZandooBundle\Entity\UtilisateurModification;
 use ZandooBundle\Service\DTO\UtilisateurConvert;
+use ZandooBundle\Form\FormPasswordModificationType;
+use ZandooBundle\Entity\Contact;
+use ZandooBundle\Form\FormContactType;
+use ZandooBundle\Entity\Visite;
 
 
 class ZandooController extends Controller
 {      
+     const NB_LIGNE_TOTAL = 20;
+     const TYPE_DEMANDE = 1;
+     const TYPE_OFFRE = 0;
     /**
      * @Route("/zando-index", name="home")
      */
@@ -48,24 +55,12 @@ class ZandooController extends Controller
             $offset  = empty($request->query->get('p')) ? 1 : $request->query->get('p') ;
                  
             $critere->setOffset($offset);
-            $critere->setType(1);
+            $critere->setType($this::TYPE_DEMANDE);
             $annonces = $repoAnnoce->findAnnonceByCritere($critere);                                
-            $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/20)); 
-            
-            return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',
-                    array(
-                            'form'       => "",
-                            'colorBody'  => "F7F7F7",
-                            'headsearch' => 1,
-                            'annonces'   => $annonces,
-			    'search'     => '',
-                            'cat'        => '',
-                            'titres'     => '',
-                            'urgentes'   => '',
-                            'numPage'    => $offset,
-			    'total'      => $nbr
-                    )
-            );
+            $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL)); 
+            $retour = array('form'=>"",'colorBody'=>"F7F7F7",'headsearch'=>1,'annonces'=>$annonces,'search'=>'','cat'=>'','titres'=>'',
+                            'urgentes'=>'','numPage'=>$offset,'priceFrom'=>'','priceTo'=>'','total'=> $nbr);
+            return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig', $retour);
     }	
     
     /**
@@ -82,24 +77,12 @@ class ZandooController extends Controller
     $offset  = empty($request->query->get('p')) ? 1 : $request->query->get('p') ;
     
     $critere->setOffset($offset);
-    $critere->setType(0);
+    $critere->setType($this::TYPE_OFFRE);
     $annonces = $repoAnnoce->findAnnonceByCritere($critere);   		
-    $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/20));
-
-    return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',
-            array(
-                    'form'       => "",
-                    'colorBody'  => "F7F7F7",
-                    'headsearch' => 1,
-                    'annonces'   => $annonces,
-                    'search'     => '',
-                    'cat'        => '',
-                    'titres'     => '',
-                    'urgentes'   => '',
-                    'numPage'    => $offset,  
-                    'total'      => $nbr
-            )
-        );
+    $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL));
+    $retour = array('form'=>'','colorBody'=> 'F7F7F7','headsearch' =>1,'annonces'=>$annonces,'search'=>'','cat' =>'',
+                    'titres'=> '','urgentes'=>'','numPage'=> $offset,'priceFrom'=>'','priceTo'=>'','total'=>$nbr);
+    return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',$retour);
     }	
     
     /**
@@ -112,8 +95,7 @@ class ZandooController extends Controller
         
         $em = $this->getDoctrine(); 	
         $repoAnnoce =  $em->getRepository(Annonce::class);
-        
-        $total = array();
+
         $search   = $request->query->get('q');
         $priceFrom= $request->query->get('price_start');
         $priceTo  = $request->query->get('price_to');
@@ -133,25 +115,12 @@ class ZandooController extends Controller
         $annonces = $repoAnnoce->findAnnonceByCritere($critere);
         
         //if(empty($session->get('nbr'))){
-        $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/20));
+        $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL));
        // $session->set('nbr',$nbr);
        //}
-        
-        return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',array(
-                                'form'       => "",
-                                'colorBody'  => "F7F7F7",
-                                'headsearch' => 1,
-                                'annonces'   => $annonces,
-                                'search'     => $search,
-                                'cat'        => $cat,
-                                'titres'     => $titre,
-                                'urgentes'   => $urgentes,
-                                'numPage'    =>$offset,
-                                'priceFrom'  =>$priceFrom,
-                                'priceTo'    =>$priceTo,
-                                'total'      => $nbr
-			)
-                );
+        $retour = array('form'=>'','colorBody'=>'F7F7F7','headsearch'=>1,'annonces'=>$annonces,'search'=>$search,'cat'=>$cat,'titres'=>$titre,
+                        'urgentes'=>$urgentes,'numPage'=>$offset,'priceFrom'=>$priceFrom,'priceTo'=>$priceTo,'total'=>$nbr);
+        return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',$retour );
     }    
 
     /**
@@ -224,18 +193,12 @@ class ZandooController extends Controller
                 }
                 return $this->redirectToRoute('afficher_annonce',array('id'=>$gen));
             }catch(Exception $e){
-               sprintf("Une erreur technique: %s est survenue veuillez contacter l'administrateur ",$e) ;
+                sprintf("Une erreur technique: %s est survenue veuillez contacter l'administrateur ",$e) ;
             }
         }  
-       
-        return $this->render('@Zandoo/Annonce/newAnnonce.html.twig',
-			array(
-				'form' => $form->createView(),
-				'colorBody' => "F7F7F7",
-                                'url_upload'=> $this->getParameter('url_upload'),
-                                'proprietaireAnnonce'=> $this->estPropritaireAnnonce($annonce->getUtilisateur(),$this->getUser())
-			)
-		);
+        $retour = array('form' => $form->createView(),'colorBody' => "F7F7F7",'url_upload'=> $this->getParameter('url_upload'),
+                        'proprietaireAnnonce'=> $this->estPropritaireAnnonce($annonce->getUtilisateur(),$this->getUser()));
+        return $this->render('@Zandoo/Annonce/newAnnonce.html.twig',$retour);
     }
 	
     /**
@@ -243,35 +206,70 @@ class ZandooController extends Controller
      *
      */
     public function afficherAnnonce(Request $request, $id){
+        
         $em = $this->getDoctrine()->getManager();
         $critere = new Critere();
+        $reponse = new JsonResponse;
+        
         $critere->setIdUtilisateur($id);
-        $annonce = $em->getRepository(Annonce::class)->findOneBy(array('generateurId'=>$id));
-	$nbImg = count($annonce->getImages());
+        $annonce = $em->getRepository(Annonce::class)->findOneBy(array('generateurId'=>$id)); 
+        $critere->setIdUtilisateur(null)
+                ->setCategorie($annonce->getCategorie()->getId())
+                ->setType($annonce->getType());
+        $annoncesSimilaires = $em->getRepository(Annonce::class)->findAnnonceByCritere($critere);    
         $signalement = new Signalement(); 
         $options['motif'] = $em->getRepository(Motif::class)->findAll();
 	$form = $this->createForm(FormSignalementType::class ,$signalement,$options);
         $form->handleRequest($request);
-        
-        if($form->isValid() && $form->isSubmitted()){
-            $motif = $em->getRepository(Motif::class)->find($signalement->getMotif());
-            $signalement->setMotif($motif);
-            $signalement->setAnnonce($annonce);            
-            $em->persist($signalement);
-            $em->flush();
-        } 
+       
+        $contatMessage = new Contact();       
+        $formContact = $this->createForm(FormContactType::class ,$contatMessage,array());
+        $formContact->handleRequest($request); 
+        // Message pop-in signaler annonce
+        if($request->isXmlHttpRequest() && $request->query->get('type') == 2){           
+            $retour = array('url'=>$annonce->getGenerateurId(),'form'=>$form->createView());
+            if($form->isValid() && $form->isSubmitted()){
+                $motif = $em->getRepository(Motif::class)->find($signalement->getMotif());
+                $signalement->setMotif($motif);
+                $signalement->setAnnonce($annonce);              
+                $this->get('zandoo.mail')->sendMailContactMessage($annonce,$signalement);
+                $content = array('template' => $this->renderView('@Zandoo/Commun/formSignalement.html.twig',$retour));
+                $em->persist($signalement);
+                $em->flush();
+                return $reponse->setData($content);
+            }else{
+                $reponse->setStatusCode(400);
+                $retour['msgSignError']= "votre formulaire contient des erreurs ou Actualiser votre page (F5)";
+                $content = array('template' => $this->renderView('@Zandoo/Commun/formSignalement.html.twig',$retour));            
+                return $reponse->setData($content);  
+            }     
+        }       
+        // Message contact proprietaire annonce      
+        if($request->isXmlHttpRequest() && $request->query->get('type') == 1){ 
+            $retour = array('url'=>$annonce->getGenerateurId(),'formContact'=>$formContact->createView());
+            if($formContact->isValid() && $formContact->isSubmitted()){
+                $contatMessage->setAnnonce($annonce);
+                $em->persist($contatMessage);
+                $em->flush(); 
+                $this->get('zandoo.mail')->sendMailContactMessage($annonce,$contatMessage);
+                $retour['msgSuccess']= "Votre message est envoyé avec success";
+                $content = array('template' => $this->renderView('@Zandoo/Commun/formContact.html.twig',$retour));
+                return $reponse->setData($content);
+            }else{            
+                $reponse->setStatusCode(400);
+                $retour['msgError']= "votre formulaire contient des erreurs ou Actualiser votre page (F5)";
+                $content = array('template' => $this->renderView('@Zandoo/Commun/formContact.html.twig',$retour));
+                return $reponse->setData($content);   
+            }
+        }         
         if($annonce){
-            return $this->render('@Zandoo/Annonce/annonce.html.twig',
-				array(
-					'annonce'    => $annonce,
-                                        'form'       =>$form->createView(),    
-					'headsearch' => 1,
-					'colorBody'  => "F7F7F7",
-					'nbImg'      => $nbImg,
-					'url_upload'=> $this->getParameter('url_upload'),
-				));
+            $this->creerCompteurVisiteAnnonce($annonce,$em);              
+            $nbImg = count($annonce->getImages());
+            $retour = array('annonce'=>$annonce,'formContact'=>$formContact->createView(),'form'=>$form->createView(),'colorBody'=>"F7F7F7"
+                ,'nbImg'=>$nbImg,'url_upload'=>$this->getParameter('url_upload'),'annonSimilaires' => $annoncesSimilaires);
+            return $this->render('@Zandoo/Annonce/annonce.html.twig',$retour);			
         }else{
-            throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException( 'Not found!');
+            throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException( 'Cette page n\'existe pas!');
         }
     } 
     
@@ -290,7 +288,7 @@ class ZandooController extends Controller
             return $retour = $annonce->getType() == 1 ?  $this->redirectToRoute('demandes'):$this->redirectToRoute('annonces');     
        } 
     }
-    
+        
     /**
      * 
      *  @Route("comptes/{id}", name="compte_utilisateurs")
@@ -300,31 +298,66 @@ class ZandooController extends Controller
     public function annonceByUtilisateurAction(Request $request,$utilisateur){
         $em = $this->getDoctrine()->getManager();
         $repoAnnoce = $em->getRepository(Annonce::class); 
+        $encoder = $this->get('security.password_encoder');
         $critere = new Critere();
         $convert = $this->get(UtilisateurConvert::class);
         $utilisateurModif = $convert->convert($utilisateur);
-        $form = $this->createForm(FormUtilisateurModificationType::class,$utilisateurModif,array()); 
+        $form = $this->createForm(FormUtilisateurModificationType::class,$utilisateurModif,array('em'=>$em,'user'=>$utilisateur)); 
         $critere->setIdUtilisateur($utilisateur->getId());	
 	$annonces = $repoAnnoce->findAnnonceByCritere($critere);        
         $form->handleRequest($request); 
-        if($form->isSubmitted() && $form->isValid()){
-            $convert->convert($utilisateurModif,$utilisateur);
-            $em->flush();     
-        }   
-        return $this->render('@Zandoo/Annonce/utilisateurAnnonce.html.twig',array(
-                                    'annonces'=>$annonces,
-                                    'utilisateur'=>$utilisateur,                                    
-                                    'form'=>$form->createView()
-         )); 
+        if($form->isSubmitted() && $form->isValid() && $convert->convert($utilisateurModif,$utilisateur)){          
+            $em->flush(); 
+            $this->addFlash('succesModif', "Vos modifications ont été éffectuées avec succès, Ces changements vous seront demandés lors de votre prochaine connexion");           
+        } 
+        $formPassword = $this->createForm(FormPasswordModificationType::class,null,array('em'=>$em,'user'=>$utilisateur,'encoder'=>$encoder));
+        $formPassword->handleRequest($request); 
+        
+        if($formPassword->isSubmitted() && $formPassword->isValid()){
+            $newPass = $request->request->get('form_password_modification')['password'];
+            $pwdEncod = $encoder->encodePassword($utilisateur,$newPass);
+            $utilisateur->setPassword($pwdEncod);
+            $em->flush();
+            $this->get('zandoo.mail')->sendMail($utilisateur,$newPass);
+            $this->addFlash('succesModif', "Votre mot de passe est modifié avec succès. un mail vient de vous être envoyé ,"
+                            . "votre nouveau mot de passe vous sera demandé lors de la prochaine connexion");
+        }
+        $retour = array('annonces'=>$annonces,'utilisateur'=>$utilisateur,'form'=>$form->createView(),'formPassword'=>$formPassword->createView());
+        return $this->render('@Zandoo/Annonce/utilisateurAnnonce.html.twig',$retour); 
     }
      
-     private function estPropritaireAnnonce ($utilisateAnnonce,$utilusateuConnecte){       
-         if($utilisateAnnonce == null){
-             return true;
-         }
-         if($utilusateuConnecte != null && $utilisateAnnonce!= null){
-             return $utilusateuConnecte->getId() == $utilisateAnnonce->getId();
-         }
-     }
+    private function estPropritaireAnnonce ($utilisateAnnonce,$utilusateuConnecte){       
+         if($utilisateAnnonce == null){return true;}
+         if($utilusateuConnecte != null && $utilisateAnnonce!= null){return $utilusateuConnecte->getId() == $utilisateAnnonce->getId();}
+    }
+    // creer une nouvelle ligne dans nbre de visite par annonce
+    private function creerCompteurVisiteAnnonce($annonce,$em){
+        $now = new \DateTime(); 
+        $found = $annonce->getVisite()->map(function($a){ 
+            if($a->getIp() == $_SERVER['REMOTE_ADDR']) return $a;                
+        })->last();
+      
+        if((is_object($found) && $found instanceof Visite) || $found == false){                 
+            $interval = ($found == false) ? false : $this->dateIntervalToMinutes($now->diff($found->getDateVisite()));
+            if($interval > 60 || $found == false ){
+                $visite = new Visite();
+                $visite->setDateVisite($now)
+                       ->setIp($_SERVER['REMOTE_ADDR']);            
+                $em->persist($visite); 
+                $em->flush();          
+                $annonce->setVisite($visite);
+                $em->flush();  
+            }
+        }       
+    }
     
+    private function dateIntervalToMinutes(\DateInterval $dateInterval) 
+      { 
+        return (((int)$dateInterval->format('%y') * 365 * 24 * 60 * 60) + 
+               ((int)$dateInterval->format('%m') * 30 * 24 * 60 * 60) + 
+               ((int)$dateInterval->format('%d') * 24 * 60 * 60) + 
+               ((int)$dateInterval->format('%h') * 60 * 60) + 
+               ((int)$dateInterval->format('%i') * 60) + 
+               (int)$dateInterval->format('%s'))/60; 
+      } 
 }

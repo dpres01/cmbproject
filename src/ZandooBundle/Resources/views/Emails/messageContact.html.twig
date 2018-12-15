@@ -1,0 +1,14 @@
+<h3>Bonjour {{ annonce.utilisateur.username }},</h3>
+
+<p>Nom Contact        : <strong>{{ messageContact.nom }}</strong></p>
+<p>Email Contact      : <strong>{{ messageContact.email }}</strong></p>
+{% if messageContact.telephone is defined%}
+<p>Téléphone Contact  : <strong>{{ messageContact.telephone }}</strong></p>
+{% endif %}
+<p>Message Contact: {{ messageContact.message }} </p>
+
+<p>Pour se connecter <a href="{{ url('login')}}"> aller sur Zandoo </a></p>
+
+<i> Merci pour la confiance faite à @zandoo! <br/> </i>
+
+<!--img src="{#{ absolute_url(asset('images/logo.png')) }#}"-->

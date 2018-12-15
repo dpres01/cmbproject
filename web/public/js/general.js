@@ -19,13 +19,18 @@ $(document).ready(function()
 		$("#resp-user").toggleClass("clse-resp-menu");
 	});
 
-	$("#signal").click(function(){
-		$('#reportModal').modal('toggle');
+	$(".signal").click(function(){
+            $("input[id^='form_']").val('');
+            $("#form_signalement_message").val('');   
+            $("input:radio").attr("checked",false);
+            $('.alert-danger').remove();
+            $('.help-block').remove();
+	    $('#reportModal').modal('toggle');
 	});
 	$("#arrusr").click(function(){
-		$("#mreusr").toggle();
+	    $("#mreusr").toggle();
 	}); 
-   
+        
    $('.add-another-collection-widget').click(function (e) {
     var list = jQuery(jQuery(this).attr('data-list'));
         // Try to find the counter of the list
@@ -51,13 +56,42 @@ $(document).ready(function()
 	
 	$(".ann-price-num").click(function()
 	{
-		$("#phone1").toggle();
-		$("#phone2").toggle();
+            $("#phone1").toggle();
+            $("#phone2").toggle();
 	});
+        
+        $("#form_annonce_prix").on('blur',function(){
+            var $tab = [];
+            var $retour = [];
+            var input = $(this).val();
+            if( $.isNumeric(input)){
+                for(var i = 0;i < input.length ; i++){ 
+                 $tab.push(input.substr(i,1));            
+                }
+                var t = $tab.length -1
+                var cpt = 1;
+                var ntour = ($tab.length)/3;
+                for(t = $tab.length -1 ;t >= 0 ; t--){ 
+                    if(cpt == 3 && ntour > 1){          
+                       $retour[t] = ',' + $tab[t];
+                       cpt++;
+                       ntour--
+                       cpt = 1;
+                    }else{
+                       $retour[t] = $tab[t];
+                       cpt++;
+                    }
+                }
+                $("#form_annonce_prix").val($retour.join('')); 
+                $("#form_annonce_prix").removeAttr('style');
+            }else{
+                $("#form_annonce_prix").css('border-color','red');
+            }   
+         })
    
     //fly menu
     //$(window).scroll(function(){ positionMenu(); });
-    //positionMenu();
+    //positionMenu();   
 });
 
 var fix = 0;
@@ -109,7 +143,7 @@ function filter(str)
 		/*
 		postAjx(obj, function()
 		{
-			//console.log("okok");
+			
 		});
 		*/
 	}
@@ -136,18 +170,18 @@ function generateUrl(url, params)
     var i = 0, key;
     for (key in params) 
 	{
-		if(params[key])
-		{
-			if (i === 0) {
-				url += "?";
-			} else {
-				url += "&";
-			}
-			url += key;
-			url += '=';
-			url += params[key];
-			i++;
-		}
+            if(params[key])
+            {
+                if (i === 0) {
+                        url += "?";
+                } else {
+                        url += "&";
+                }
+                url += key;
+                url += '=';
+                url += params[key];
+                i++;
+            }
     }
     return url;
 }
@@ -159,6 +193,60 @@ function shfilter()
 		$("#filter-annonce").toggleClass("shfilter");
 		//$(".filter-annonce").removeClass("filter-annonce");
 	}
+}
+
+function initMessageContact(url,type){
+   
+   if(type == 1 ){
+       if($('#id-contact-msg').val()!='' && $('#id-contact-msg').val()!='undefined'){
+        var form = $("form[name='form_contact']");
+        $.ajax({
+            url : url+'?type='+type,
+            type: 'POST',
+            data: form.serialize(),
+            success : function(requete){
+                        $('#id-add-form').html(requete.template);
+                        $("input[id^='form_contact']").val('');
+                        $('#form_contact_message').val('');
+                        $('#id-contact-msg').val('');
+                        $('#msgposter').hide();
+            },
+            statusCode:{ 
+                       400: function(requete) {                         
+                            //$(requete.responseJSON.template).appendTo($("form[name='form_contact']").empty());
+                            $('#id-add-form').html(requete.responseJSON.template);
+                            $('#msgposter').show();                         
+                        }
+                     }            
+                });
+        }else{
+          $('#msgposter').show();
+          $('#id-contact-msg').val('open');
+        }   
+       
+   }else {
+       var form = $("form[name='form_signalement']");     
+        $.ajax({
+            url : url+'?type='+type,
+            type: 'POST',
+            data: form.serialize(),
+            success : function(requete){                       
+                       $('#reportModal').modal('toggle');
+                       $("input[id^='form_']").val('');
+                       $("#form_signalement_message").val('');   
+                       $("input:radio").attr("checked",false);
+                       $('<div id="id-msg-envoi-modal" class="alert alert-success" role="alert"> Votre message est envoyé avec success </div>').insertBefore( $('#id-contact-msg'));                         
+            },
+            statusCode:{ 
+                       400: function(requete) {  
+                           $(".modal-body").html(requete.responseJSON.template);
+                           
+                           //$(".modal-body").hmtl(requete.responseJSON.template);                      
+                        }
+                     }            
+                });
+   }
+    
 }
 
 //compte

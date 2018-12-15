@@ -22,7 +22,7 @@ nbproject/*
 var/logs/dev.log0.1
 var/logs/prod.log
 /public/img
-/public/uploads
+/web/public/uploads
 /web/images/
 
  
