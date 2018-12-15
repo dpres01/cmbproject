@@ -1,243 +1,244 @@
- {% extends 'base.html.twig' %}
- {% block body %}
-	<link rel="stylesheet" href="{{ asset('public/css/annonce.css') }}" type="text/css"/>
-	<link rel="stylesheet" href="{{ asset('public/css/prettyPhoto.css') }}" type="text/css"/>
-	<div class="ann-cont">
-	<div id="id-msg-send" > </div>        
-        <input id = 'id-contact-msg' type='hidden' value="">
-	<div class="ann-lf">
-			<div style="">
-				<h3 style="padding:0;margin:0;">
+ {% extends 'base.html.twig' %} {% block body %}
+<link rel="stylesheet" href="{{ asset('public/css/annonce.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('public/css/prettyPhoto.css') }}" type="text/css" />
+<div class="ann-cont">
+    <div id="id-msg-send"> </div>
+    <input id='id-contact-msg' type='hidden' value="">
+    <div class="ann-lf">
+        <div style="">
+            <h3 style="padding:0;margin:0;">
 					{{ zandoo_service_commun.titreFormatAnnonce(annonce.titre) }}
 				</h3>
-			</div>
-			<!--IMAGES EXISTS-->
-			{%if  zandoo_service_commun.testExistanceImg(annonce.images) %}
-			{%if nbImg > 1 %}
-			<div class="ann-img-all" style="margin-top:15px;">
-				<div class="ann-img-lf">
-					<div class="ann-img-mn">
-						<img src="{{asset('public/uploads/documents/')}}{{ annonce.images[0].id}}.{{annonce.images[0].url}}" class="mmax zoomer">
-					</div>
-				</div>
-				<div class="ann-img-rt">
-					{%if annonce.images[1] is defined%}
-					<div class="ann-img-ot" style="margin-top:0;">
-						<img src="{{asset('public/uploads/documents/')}}{{ annonce.images[1].id}}.{{annonce.images[1].url}}" class="mmax zoomer">
-					</div>
-						{%if annonce.images[2] is defined%}
-					<div class="ann-img-ot">
-						<img src="{{asset('public/uploads/documents/')}}{{ annonce.images[2].id}}.{{annonce.images[2].url}}" class="mmax zoomer">
-					</div>
-							{%if annonce.images[3] is defined%}
-					<div class="ann-img-ot ann-img-ot-lst" style="">
-						<img src="{{asset('public/uploads/documents/')}}{{ annonce.images[3].id}}.{{annonce.images[3].url}}" class="mmax zoomer">
-					</div>
-							{%endif%}
-						{%endif%}
-					{%endif%}
-					<div style="clear:both;"></div>
-				</div>
-				<div style="clear:both;"></div>
-			</div>
-			{%elseif nbImg == 1 %}
-			<div class="ann-img-all" style="margin-top:15px;">
-				<div class="ann-img-one">
-					<div class="ann-img-mn">
-						<img src="{{asset('public/uploads/documents/')}}{{ annonce.images[0].id}}.{{annonce.images[0].url}}" class="mmax zoomer">
-					</div>
-				</div>
-			</div>
-			{%endif%}
-			<div class="ann-stat-bx">
-				<div class="ann-stat-elem">
-					<div class="ann-stat-icon"><i class="fa fa-hourglass-o" style="font-size:14px;"></i></div>
-					<div style="float:left;">
-						Publiée {{ zandoo_service_commun.dateConvertText(annonce.dateCreation) }}
-					</div>
-					<div style="clear:both;"></div>
-				</div>
-				<div class="ann-stat-elem">
-					<div class="ann-stat-icon"><i class="fa fa-eye" style="font-size:14px;"></i></div>
-					<div style="float:left;">
-                                            {{annonce.visite|length}} visites
-					</div>
-					<div style="clear:both;"></div>
-				</div>
-				<div class="signal" style="float:left;cursor:pointer;">
-					<div class="ann-stat-icon"><i class="fa fa-flag-o" style="font-size:14px;"></i></div>
-					<div style="float:left;">
-						Signaler cette annonce
-					</div>
-					<div style="clear:both;"></div>
-				</div>
-				<div style="clear:both;"></div>
-			</div>
-			<div class="ann-desc">
-				<div><h3 style="padding:0;margin:0;">Description</h3></div>
-			</div>
-			<div class="ann-desc-bx">
-				<div style="">
-				{{annonce.description|nl2br}}
-				</div>
-			</div>
-			<!--END IMAGES EXISTS-->
-			{%else%}
-			<div class="ann-desc-bx" style="margin-top:15px;">
-				<div><h4 style="padding:0;margin:0;">Description</h4></div>
-				<div style="margin-top:10px;">
-				{{annonce.description|nl2br}}
-				</div>
-			</div>
-			<div class="ann-stat-bx">
-				<div class="ann-stat-elem">
-					<div class="ann-stat-icon"><i class="fa fa-hourglass-o" style="font-size:14px;"></i></div>
-					<div style="float:left;">
-						Publiée {{ zandoo_service_commun.dateConvertText(annonce.dateCreation) }}
-					</div>
-					<div style="clear:both;"></div>
-				</div>
-				<div class="ann-stat-elem">
-					<div class="ann-stat-icon"><i class="fa fa-eye" style="font-size:14px;"></i></div>
-					<div style="float:left;">
-						{{annonce.visite|length}} visites
-					</div>
-					<div style="clear:both;"></div>
-				</div>
-				<div  class ='signal' style="float:left;">
-					<div class="ann-stat-icon"><i class="fa fa-flag-o" style="font-size:14px;"></i></div>
-					<div style="float:left;">
-						Signaler cette annonce
-					</div>
-					<div style="clear:both;"></div>
-				</div>
-				<div style="clear:both;"></div>
-			</div>
-			{%endif%}
-		</div>
-		<div class="ann-rt">
-			<div class="ann-map-bx">
-				<div class="ann-map-icon">
-					<i class="fa fa-map-marker" style="font-size:22px;"></i>
-				</div>
-				<div class="ann-map-street">
-					<div class="ann-map-str">
-						{%if annonce.villeAnnonce%}{{annonce.villeAnnonce.libelle}}, {%endif%}{%if annonce.villeAnnonce%}{{annonce.villeAnnonce.libelle}}, {%endif%}Congo
-					</div>
-					<div style="clear:both;"></div>
-				</div>
-				<div style="clear:both;"></div>
-			</div>
-			<div class="ann-price-bx">
-				<div class="ann-price"><h2 style="margin:0;padding:0;">{{ annonce.prix }} {{ zandoo_service_commun.typeMonnaie(annonce.monnaie) }}</h2></div>
-				<div class="ann-price-ques">
-					Cette annonce vous intéresse ?
-					<div style="margin:5px 0 10px 0px;">
-						{%if annonce.cacherTel == false%}
-						<div class="ann-price-num">
-							<div id="phone1">Voir numéro de téléphone</div>
-							<div id="phone2" style="display:none;">{{annonce.utilisateur.telephone}}</div>
-						</div>
-						{%endif%}
-					</div>
-				</div>
-			</div>
-			<div class="ann-poster-bx">
-				<div class="ann-poster">{{annonce.utilisateur.username}}</div>
-				<div style="float:right;"><span class="label label-primary">junior</span></div>
-				<div style="clear:both;"></div>
-				<div id="mreusr" class="ann-poster-info">
-					Connectez-vous ou inscrivez-vous pour voir les détails de cette annonce, y compris:
-					<div style="margin:10px 0 10px 15px;">
-						<div>
-							<div class="ann-poster-info-elem">
-								<i class="fa fa-long-arrow-right" style="font-size:16px;"></i>
-							</div>
-							<div style="float:left;">
-								Quand ils ont rejoint Zandoo
-							</div>
-							<div style="clear:both;"></div>
-						</div>
-						<div style="margin-top:0px;">
-							<div class="ann-poster-info-elem">
-								<i class="fa fa-long-arrow-right" style="font-size:16px;"></i>
-							</div>
-							<div style="float:left;">
-								À quelle vitesse ils répondent
-							</div>
-							<div style="clear:both;"></div>
-						</div>
-						<div style="margin-top:0px;">
-							<div class="ann-poster-info-elem">
-								<i class="fa fa-long-arrow-right" style="font-size:16px;"></i>
-							</div>
-							<div style="float:left;">
-								D'autres annonces qu'ils ont postées
-							</div>
-							<div style="clear:both;"></div>
-						</div>
-					</div>
-				</div>
-				<div class="ann-poster-info-arr">
-					<i id="arrusr" class="fa fa-caret-down" style="font-size:14px;cursor:pointer;"></i>
-				</div>
-			</div>
-			<div class="ann-msg-bx" id='id-add-form'>  
-                            {% set url = path('afficher_annonce',{'id':annonce.generateurId}) %}                         
-                            {%include 'ZandooBundle:Commun:formContact.html.twig' with {'url':url} %}	
-			</div>
-		</div>
-		<div style="clear:both;"></div>
-	</div>                        
-	<div class="ann-sim-off" style="">
-		<div style="text-decoration:underline;">
-			<h3 style="padding:0;margin:0;">Offres similaires</h3>
-		</div>
-		<div style="margin-top:10px;">
-		   {% for anonSim in annonSimilaires %}             
-			<div class="ann-sim-bx" style="margin-left:0px;">
-				<div style="padding:2%;">
-					<div class="ann-sim-img">
-                                            {%if  zandoo_service_commun.testExistanceImg(anonSim.images) %}
-                                            <img src="{{asset('public/uploads/documents/')}}{{ anonSim.images[0].id}}.{{anonSim.images[0].url}}" >
-				            <!--img src="{#{asset('public/img/sim1.JPG')}#}"-->
-                                            {%endif%}
-					</div>
-				</div>
-                                        
-				<div class="ann-sim-txt-bx">
-                                       <a href = {{path('afficher_annonce',{'id':anonSim.generateurId})}} >
-                                            <div class="ann-sim-txt">
-                                                {{anonSim.titre}}
-                                                <div class="ann-sim-price"> {{anonSim.prix}} {{ zandoo_service_commun.typeMonnaie(annonce.monnaie) }}</div>
-                                            </div>
-                                        </a>
-				</div>
-		        </div>		
-		</div>
-            {%endfor%}
-			<div style="clear:both;"></div>
-		</div>
-	</div>  
-        <div class="modal fade bs-example-modal-sm" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
-		<div class="modal-dialog modal-sm" role="document" style="width:440px;margin-top:10%;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                                <h4 class="modal-title" id="myModalLabel">Signaler une annonce</h4>
-                        </div> 
-                        <div class="modal-body">
-                           {%include 'ZandooBundle:Commun:formSignalement.html.twig' with {'url':url}%}
-                        </div>
-                    </div>
+        </div>
+        <!--IMAGES EXISTS-->
+        {%if zandoo_service_commun.testExistanceImg(annonce.images) %} {%if nbImg > 1 %}
+        <div class="ann-img-all" style="margin-top:15px;">
+            <div class="ann-img-lf">
+                <div class="ann-img-mn">
+                    <img src="{{asset('public/uploads/documents/')}}{{ annonce.images[0].id}}.{{annonce.images[0].url}}" class="mmax zoomer">
+                </div>
             </div>
-        </div>                        
-       
-	<!-- The Modal -->
-	<div id="myModal" class="mmodal">
-	<span class="close">&times;</span>
-	<img class="mmodal-content" id="img01">
-	<div id="caption"></div>
-	</div>
-	<script src="{{ asset('public/js/jquery.prettyPhoto.js') }}"></script>
- {% endblock %}
+            <div class="ann-img-rt">
+                {%if annonce.images[1] is defined%}
+                <div class="ann-img-ot" style="margin-top:0;">
+                    <img src="{{asset('public/uploads/documents/')}}{{ annonce.images[1].id}}.{{annonce.images[1].url}}" class="mmax zoomer">
+                </div>
+                {%if annonce.images[2] is defined%}
+                <div class="ann-img-ot">
+                    <img src="{{asset('public/uploads/documents/')}}{{ annonce.images[2].id}}.{{annonce.images[2].url}}" class="mmax zoomer">
+                </div>
+                {%if annonce.images[3] is defined%}
+                <div class="ann-img-ot ann-img-ot-lst" style="">
+                    <img src="{{asset('public/uploads/documents/')}}{{ annonce.images[3].id}}.{{annonce.images[3].url}}" class="mmax zoomer">
+                </div>
+                {%endif%} {%endif%} {%endif%}
+                <div style="clear:both;"></div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        {%elseif nbImg == 1 %}
+        <div class="ann-img-all" style="margin-top:15px;">
+            <div class="ann-img-one">
+                <div class="ann-img-mn">
+                    <img src="{{asset('public/uploads/documents/')}}{{ annonce.images[0].id}}.{{annonce.images[0].url}}" class="mmax zoomer">
+                </div>
+            </div>
+        </div>
+        {%endif%}
+        <div class="ann-stat-bx">
+            <div class="ann-stat-elem">
+                <div class="ann-stat-icon"><i class="fa fa-hourglass-o" style="font-size:14px;"></i></div>
+                <div style="float:left;">
+                    Publiée {{ zandoo_service_commun.dateConvertText(annonce.dateCreation) }}
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            <div class="ann-stat-elem">
+                <div class="ann-stat-icon"><i class="fa fa-eye" style="font-size:14px;"></i></div>
+                <div style="float:left;">
+                    {{annonce.visite|length}} visites
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            <div class="signal" style="float:left;cursor:pointer;">
+                <div class="ann-stat-icon"><i class="fa fa-flag-o" style="font-size:14px;"></i></div>
+                <div style="float:left;">
+                    Signaler cette annonce
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        <div class="ann-desc">
+            <div>
+                <h3 style="padding:0;margin:0;">Description</h3></div>
+        </div>
+        <div class="ann-desc-bx">
+            <div style="">
+                {{annonce.description|nl2br}}
+            </div>
+        </div>
+        <!--END IMAGES EXISTS-->
+        {%else%}
+        <div class="ann-desc-bx" style="margin-top:15px;">
+            <div>
+                <h4 style="padding:0;margin:0;">Description</h4></div>
+            <div style="margin-top:10px;">
+                {{annonce.description|nl2br}}
+            </div>
+        </div>
+        <div class="ann-stat-bx">
+            <div class="ann-stat-elem">
+                <div class="ann-stat-icon"><i class="fa fa-hourglass-o" style="font-size:14px;"></i></div>
+                <div style="float:left;">
+                    Publiée {{ zandoo_service_commun.dateConvertText(annonce.dateCreation) }}
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            <div class="ann-stat-elem">
+                <div class="ann-stat-icon"><i class="fa fa-eye" style="font-size:14px;"></i></div>
+                <div style="float:left;">
+                    {{annonce.visite|length}} visites
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            <div class='signal' style="float:left;">
+                <div class="ann-stat-icon"><i class="fa fa-flag-o" style="font-size:14px;"></i></div>
+                <div style="float:left;">
+                    Signaler cette annonce
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        {%endif%}
+    </div>
+    <div class="ann-rt">
+        <div class="ann-map-bx">
+            <div class="ann-map-icon">
+                <i class="fa fa-map-marker" style="font-size:22px;"></i>
+            </div>
+            <div class="ann-map-street">
+                <div class="ann-map-str">
+                    {%if annonce.villeAnnonce%}{{annonce.villeAnnonce.libelle}}, {%endif%}{%if annonce.villeAnnonce%}{{annonce.villeAnnonce.libelle}}, {%endif%}Congo
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        <div class="ann-price-bx">
+            <div class="ann-price">
+                <h2 style="margin:0;padding:0;">{{ annonce.prix }} {{ zandoo_service_commun.typeMonnaie(annonce.monnaie) }}</h2></div>
+            <div class="ann-price-ques">
+                Cette annonce vous intéresse ?
+                <div style="margin:5px 0 10px 0px;">
+                    {%if annonce.cacherTel == false%}
+                    <div class="ann-price-num">
+                        <div id="phone1">Voir numéro de téléphone</div>
+                        <div id="phone2" style="display:none;">{{annonce.utilisateur.telephone}}</div>
+                    </div>
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+        <div class="ann-poster-bx">
+            <div class="ann-poster">{{annonce.utilisateur.username}}</div>
+            <div style="float:right;"><span class="label label-primary">junior</span></div>
+            <div style="clear:both;"></div>
+            <div id="mreusr" class="ann-poster-info">
+                Connectez-vous ou inscrivez-vous pour voir les détails de cette annonce, y compris:
+                <div style="margin:10px 0 10px 15px;">
+                    <div>
+                        <div class="ann-poster-info-elem">
+                            <i class="fa fa-long-arrow-right" style="font-size:16px;"></i>
+                        </div>
+                        <div style="float:left;">
+                            Quand ils ont rejoint Zandoo
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                    <div style="margin-top:0px;">
+                        <div class="ann-poster-info-elem">
+                            <i class="fa fa-long-arrow-right" style="font-size:16px;"></i>
+                        </div>
+                        <div style="float:left;">
+                            À quelle vitesse ils répondent
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                    <div style="margin-top:0px;">
+                        <div class="ann-poster-info-elem">
+                            <i class="fa fa-long-arrow-right" style="font-size:16px;"></i>
+                        </div>
+                        <div style="float:left;">
+                            D'autres annonces qu'ils ont postées
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="ann-poster-info-arr">
+                <i id="arrusr" class="fa fa-caret-down" style="font-size:14px;cursor:pointer;"></i>
+            </div>
+        </div>
+        <div class="ann-msg-bx" id='id-add-form'>
+            {% set url = path('afficher_annonce',{'id':annonce.generateurId}) %} {%include 'ZandooBundle:Commun:formContact.html.twig' with {'url':url} %}
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+<div class="ann-sim-off" style="">
+    <div style="text-decoration:underline;">
+        <h3 style="padding:0;margin:0;">Offres similaires</h3>
+    </div>
+    <div style="margin-top:10px;">
+        {% for anonSim in annonSimilaires %}
+			{% if loop.index == 1 %}
+				<div class="ann-sim-bx" style="margin-left:0px;">
+			{% else %}
+				<div class="ann-sim-bx">
+			{% endif %}
+            <div style="padding:2%;">
+                <div class="ann-sim-img">
+                    {%if zandoo_service_commun.testExistanceImg(anonSim.images) %}
+                    <img src="{{asset('public/uploads/documents/')}}{{ anonSim.images[0].id}}.{{anonSim.images[0].url}}">
+                    <!--img src="{#{asset('public/img/sim1.JPG')}#}"-->
+                    {%endif%}
+                </div>
+            </div>
 
+            <div class="ann-sim-txt-bx">
+                <a href={ {path( 'afficher_annonce',{ 'id':anonSim.generateurId})}}>
+                    <div class="ann-sim-txt">
+                        {{anonSim.titre}}
+                        <div class="ann-sim-price"> {{anonSim.prix}} {{ zandoo_service_commun.typeMonnaie(annonce.monnaie) }}</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    {%endfor%}
+    <div style="clear:both;"></div>
+</div>
+</div>
+<div class="modal fade bs-example-modal-sm" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+    <div class="modal-dialog modal-sm" role="document" style="width:100%;max-width:400px;margin:8% auto 0 auto;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Signaler une annonce</h4>
+            </div>
+            <div class="modal-body">
+                {%include 'ZandooBundle:Commun:formSignalement.html.twig' with {'url':url}%}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div id="myModal" class="mmodal">
+    <span class="close">&times;</span>
+    <img class="mmodal-content" id="img01">
+    <div id="caption"></div>
+</div>
+<script src="{{ asset('public/js/jquery.prettyPhoto.js') }}"></script>
+{% endblock %}
