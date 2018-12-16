@@ -84,17 +84,16 @@
 			<div class="hd-resp-menu-elm">Boutiques</div>
 			<div class="hd-resp-menu-elm">Messages</div>
 		</div>
-		<div id="resp-user" class="hd-resp-user" style="">
-
+		<div id="resp-user" class="hd-resp-user" {%if  app.user is empty %}style="height:82px;"{%endif%}>
             {%if  app.user is empty %}
 			<div class="hd-resp-menu-elm">
 				<a class="lk-w" href="{{path('login')}}">Se connecter </a>
 			</div>
-                        <div class="hd-resp-menu-elm">
-		             <a class="lk-w" href="{{path('enregistrer_utilisateur')}}">S'inscrire</a>
+			<div class="hd-resp-menu-elm">
+		        <a class="lk-w" href="{{path('enregistrer_utilisateur')}}">S'inscrire</a>
 			</div>			
             {%else%}
-                        <div class="hd-resp-menu-elm">
+			<div class="hd-resp-menu-elm">
 			    <a class="lk-w" href="{{path('compte_utilisateurs',{'id':app.user.id})}}">Mon compte</a>
 			</div>                                  
 			<div class="hd-resp-menu-elm">
@@ -103,7 +102,7 @@
 			<div class="hd-resp-menu-elm">
 				<a class="lk-w" href="{#{path('login')}#}">Mes messages</a>
 			</div>
-                         <div class="hd-resp-menu-elm">
+            <div class="hd-resp-menu-elm">
 			    <a class="lk-w" href="{{path('logout')}}">Se déconnecter</a>
 			</div>
             {%endif%}            
