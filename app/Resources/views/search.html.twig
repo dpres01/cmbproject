@@ -4,11 +4,18 @@
 			<div class="srchinputs">
 				<div class="srch1">
 					<input type="text" placeholder="Que recherchez-vous ?" class="srchinp" name="q" id="recherche" value="{%if search is defined %}{{search}}{%endif%}"/>
-				</div>
+				</div>                              
 				<div class="srch2">
 					<select id="form_search_categorie" name="cat" class="form-control srchsel">
 					<option value="0" selected="selected">Toutes les catégories</option>
-					{% set loopKey = 0 %}
+                                        {% for key,categories in familleByCategorie() %}
+                                            <optgroup label="{{ key }}">
+                                                {% for k,categorie in categories %}
+                                                   <option value="{{ categorie }}" {%if category is defined and category == categorie%}{{' selected'}}{%endif%}>{{ k }}</option>			 
+                                                {%endfor%}    
+                                            </optgroup>   
+                                        {%endfor%}    
+					{#% set loopKey = 0 %}
 					{% set selectGroup = zandoo_service_commun.getCategorieGroup() %}
 					{% set selectOption = zandoo_service_commun.getCategorieOption() %}
 					{% for relation in zandoo_service_commun.getCategorieGroupOption() %}
@@ -21,7 +28,7 @@
 							<optgroup label="{{ selectGroup[relation] }}">
 						{% endif %}
 						<option value="{{ idCategorie }}" {%if category is defined and category == idCategorie%}{{' selected'}}{%endif%}>{{ selectOption[idCategorie] }}</option>
-					{% endfor %}
+					{% endfor %#}
 					</select>
 				</div>
 				<div class="srch3">		
