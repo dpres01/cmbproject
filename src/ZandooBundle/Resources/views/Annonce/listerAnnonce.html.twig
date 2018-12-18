@@ -16,7 +16,7 @@
 					<div id="filter-annonce" class="shfilter">
 						<div style="font-weight:bold;">
 							<div style="float:left;">Prix</div>
-							<div style="float:left;margin:1px 0 0 6px;color:#337ab7;cursor:pointer;" onclick="filter('pr');">
+							<div style="float:left;margin:1px 0 0 6px;color:#337ab7;cursor:pointer;" onclick="filterPrice();">
 								<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
 							</div>
 							<div style="clear:both;"></div>
@@ -31,17 +31,48 @@
 							</div>
 							<div style="clear:both;"></div>
 						</div>
-						<div class="filter-title" style="display:none;">Catégories</div>
-						<div style="font-size:13px;display:none;">
+						<div class="filter-title">Catégories</div>
+						<div style="font-size:13px;">
 							<div style="margin-top:5px;">
 								<div class="filter-marg">
-									<a href="#">Appartement</a>
+									{% if app.request.get('cat') == 10 %}
+										<span style="color:#000;">Appartement</span>&nbsp;<span class="filter-nb">(101)</span>
+									{% else %}
+										<a href="" onclick="filterAdd('cat', 10);return false;">Appartement</a>&nbsp;<span class="filter-nb">(101)</span>
+									{% endif %}
 								</div>
 								<div style="clear:both;"></div>
 							</div>
 							<div style="margin-top:5px;">
 								<div class="filter-marg">
-									<a href="#">Maison</a>
+									{% if app.request.get('cat') == 5 %}
+										<span style="color:#000;">Maison</span>&nbsp;<span class="filter-nb">(51)</span>
+									{% else %}
+										<a href="" onclick="filterAdd('cat', 5);return false;">Maison</a>&nbsp;<span class="filter-nb">(51)</span>
+									{% endif %}
+								</div>
+								<div style="clear:both;"></div>
+							</div>
+						</div>
+						<div class="filter-title">Villes</div>
+						<div style="font-size:13px;">
+							<div style="margin-top:5px;">
+								<div class="filter-marg">
+									{% if app.request.get('vi') == 10 %}
+										<span style="color:#000;">Lula</span>&nbsp;<span class="filter-nb">(251)</span>
+									{% else %}
+										<a href="" onclick="filterAdd('vi', 10);return false;">Lula</a>&nbsp;<span class="filter-nb">(251)</span>
+									{% endif %}
+								</div>
+								<div style="clear:both;"></div>
+							</div>
+							<div style="margin-top:5px;">
+								<div class="filter-marg">
+									{% if app.request.get('vi') == 5 %}
+										<span style="color:#000;">Vondelle</span>&nbsp;<span class="filter-nb">(781)</span>
+									{% else %}
+										<a href="" onclick="filterAdd('vi', 5);return false;">Vondelle</a>&nbsp;<span class="filter-nb">(781)</span>
+									{% endif %}
 								</div>
 								<div style="clear:both;"></div>
 							</div>
@@ -61,8 +92,8 @@
 								<div style="clear:both;"></div>
 							</div>
 						</div>
-						<div style="margin:20px auto 0 auto;width:100%;max-width:136px;display:none;">
-							<a href="#" class="myButton">Réinitialiser</a>
+						<div style="margin:20px auto 0 auto;width:100%;max-width:136px;">
+							<a href="/" class="myButton">Réinitialiser</a>
 						</div>
 					</div>
 				</div>
