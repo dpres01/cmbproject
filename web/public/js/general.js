@@ -19,13 +19,13 @@ $(document).ready(function()
 		$("#resp-user").toggleClass("clse-resp-menu");
 	});
 
-	$(".signal").click(function(){
+	$(".signal").click(function(){          
+	    $('#reportModal').modal('toggle');
             $("input[id^='form_']").val('');
             $("#form_signalement_message").val('');   
             $("input:radio").attr("checked",false);
             $('.alert-danger').remove();
             $('.help-block').remove();
-	    $('#reportModal').modal('toggle');
 	});
 	$("#arrusr").click(function(){
 	    $("#mreusr").toggle();
@@ -64,7 +64,7 @@ $(document).ready(function()
             var $tab = [];
             var $retour = [];
             var input = $(this).val();
-            if( $.isNumeric(input)){
+            if( $.isNumeric(input) || input == ''){
                 for(var i = 0;i < input.length ; i++){ 
                  $tab.push(input.substr(i,1));            
                 }
@@ -239,9 +239,7 @@ function initMessageContact(url,type){
             },
             statusCode:{ 
                        400: function(requete) {  
-                           $(".modal-body").html(requete.responseJSON.template);
-                           
-                           //$(".modal-body").hmtl(requete.responseJSON.template);                      
+                           $(".modal-body").html(requete.responseJSON.template);                                                                     
                         }
                      }            
                 });

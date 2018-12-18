@@ -2,7 +2,13 @@
  {% block body %}
 	<link rel="stylesheet" href="{{ asset('public/css/annonce.css') }}" type="text/css"/>
 	<link rel="stylesheet" href="{{ asset('public/css/prettyPhoto.css') }}" type="text/css"/>
-	<div class="ann-cont">
+	<div class="ann-cont"> 
+        {% set url = path('afficher_annonce',{'generateurId':annonce.generateurId}) %} 
+        {% for message in  app.flashes('succesAnnonce') %}  
+            <div class="alert alert-success" role="alert">
+                    {{ message}}
+            </div> 
+        {% endfor%}
 	<div id="id-msg-send" > </div>        
         <input id = 'id-contact-msg' type='hidden' value="">
 	<div class="ann-lf">
@@ -182,42 +188,45 @@
 					<i id="arrusr" class="fa fa-caret-down" style="font-size:14px;cursor:pointer;"></i>
 				</div>
 			</div>
-			<div class="ann-msg-bx" id='id-add-form'>  
-                            {% set url = path('afficher_annonce',{'id':annonce.generateurId}) %}                         
+			<div class="ann-msg-bx" id='id-add-form'>                                                      
                             {%include 'ZandooBundle:Commun:formContact.html.twig' with {'url':url} %}	
 			</div>
 		</div>
 		<div style="clear:both;"></div>
-	</div>                        
+	</div> 
+        {% if annonSimilaires|length > 2 %}               
 	<div class="ann-sim-off" style="">
 		<div style="text-decoration:underline;">
 			<h3 style="padding:0;margin:0;">Offres similaires</h3>
 		</div>
-		<div style="margin-top:10px;">
-		   {% for anonSim in annonSimilaires %}             
-			<div class="ann-sim-bx" style="margin-left:0px;">
-				<div style="padding:2%;">
-					<div class="ann-sim-img">
-                                            {%if  zandoo_service_commun.testExistanceImg(anonSim.images) %}
-                                            <img src="{{asset('public/uploads/documents/')}}{{ anonSim.images[0].id}}.{{anonSim.images[0].url}}" >
-				            <!--img src="{#{asset('public/img/sim1.JPG')}#}"-->
-                                            {%endif%}
-					</div>
-				</div>
-                                        
-				<div class="ann-sim-txt-bx">
-                                       <a href = {{path('afficher_annonce',{'id':anonSim.generateurId})}} >
-                                            <div class="ann-sim-txt">
-                                                {{anonSim.titre}}
-                                                <div class="ann-sim-price"> {{anonSim.prix}} {{ zandoo_service_commun.typeMonnaie(annonce.monnaie) }}</div>
+		{% for anonSim in annonSimilaires %}
+                    <div style="margin-top:10px;">
+                    {% if anonSim.id != annonce.id %}
+                            <div class="ann-sim-bx" style="margin-left:0px;">
+                                    <div style="padding:2%;">
+                                            <div class="ann-sim-img">
+                                                {%if  zandoo_service_commun.testExistanceImg(anonSim.images) %}
+                                                <img src="{{asset('public/uploads/documents/')}}{{ anonSim.images[0].id}}.{{anonSim.images[0].url}}" >
+                                                <!--img src="{#{asset('public/img/sim1.JPG')}#}"-->
+                                                {%endif%}
                                             </div>
-                                        </a>
-				</div>
-		        </div>		
-		</div>
-            {%endfor%}
+                                    </div>
+
+                                    <div class="ann-sim-txt-bx">
+                                           <a href = {{path('afficher_annonce',{'generateurId':anonSim.generateurId})}} >
+                                                <div class="ann-sim-txt">
+                                                    {{anonSim.titre}}
+                                                    <div class="ann-sim-price"> {{anonSim.prix}} {{ zandoo_service_commun.typeMonnaie(annonce.monnaie) }}</div>
+                                                </div>
+                                            </a>
+                                    </div>
+                            </div>		
+                    </div>
+                    {%endif%}                                
+                {%endfor%}
 			<div style="clear:both;"></div>
-		</div>
+	</div>
+        {% endif %}
 	</div>  
         <div class="modal fade bs-example-modal-sm" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
 		<div class="modal-dialog modal-sm" role="document" style="width:440px;margin-top:10%;">

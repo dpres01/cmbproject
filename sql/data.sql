@@ -1,6 +1,6 @@
 INSERT INTO famille(id,actif,libelle,num_ordre) VALUES ('1','1','EMPLOI ','1');
 INSERT INTO categorie(id,actif,libelle,famille_id,num_ordre) VALUES('1','1',"Offres d'emploi ",'1','1');
-INSERT INTO categorie(id,actif,libelle,famille_id,num_ordre) VALUES('2','1',"Offres d'emploi Cadresnouveau ",'1','2');
+INSERT INTO categorie(id,actif,libelle,famille_id,num_ordre) VALUES('2','1',"Offres d'emploi Cadres nouveau ",'1','2');
 INSERT INTO famille(id,actif,libelle,num_ordre) VALUES ('2','1','VEHICULES ','2');
 INSERT INTO categorie(id,actif,libelle,famille_id,num_ordre) VALUES('3','1','Voitures ','2','3');
 INSERT INTO categorie(id,actif,libelle,famille_id,num_ordre) VALUES('4','1','Motos ','2','4');
@@ -13,7 +13,7 @@ INSERT INTO categorie(id,actif,libelle,famille_id,num_ordre) VALUES('10','1','Na
 INSERT INTO categorie(id,actif,libelle,famille_id,num_ordre) VALUES('11','1','Equipement Nautisme ','2','11');
 INSERT INTO famille(id,actif,libelle,num_ordre) VALUES ('3','1','IMMOBILIER ','3');
 INSERT INTO categorie(id,actif,libelle,famille_id,num_ordre) VALUES('12','1','Ventes immobilières ','3','12');
-INSERT INTO categorie(id,actif,libelle,famille_id,num_ordre) VALUES('13','1','Immobilier Neufnouveau ','3','13');
+INSERT INTO categorie(id,actif,libelle,famille_id,num_ordre) VALUES('13','1','Immobilier Neuf ','3','13');
 INSERT INTO categorie(id,actif,libelle,famille_id,num_ordre) VALUES('14','1','Locations ','3','14');
 INSERT INTO categorie(id,actif,libelle,famille_id,num_ordre) VALUES('15','1','Colocations ','3','15');
 INSERT INTO categorie(id,actif,libelle,famille_id,num_ordre) VALUES('16','1','Bureaux & Commerces ','3','16');

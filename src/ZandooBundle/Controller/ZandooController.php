@@ -178,20 +178,17 @@ class ZandooController extends Controller
                 if(is_null($annonce)){
                     $annonce->setDateModification(new \DateTime());                    
                 }
+                if(is_null($annonce->getGenerateurId()) or empty($annonce->getGenerateurId())){
+                    $gen = $this->get('zandoo_service_commun')->randomString().$annonce->getId();
+                    $annonce->setGenerateurId($gen);                       
+                }               
                 $em->persist($annonce);               
-                $em->flush();
-                if(!is_null($annonce->getGenerateurId()) or !empty($annonce->getGenerateurId())){
-                     $gen = $annonce->getGenerateurId();                    
-                }else{
-                     $gen = $annonce->getId();
-                     $annonce->setGenerateurId($annonce->getId());    
-                }
                 $em->flush();
                 $this->addFlash('succesAnnonce', 'votre annonce a été enregistré avec succes!');
                 if(!$this->getUser()){                          
                     return $this->redirectToRoute('login',array());
                 }
-                return $this->redirectToRoute('afficher_annonce',array('id'=>$gen));
+                return $this->redirectToRoute('afficher_annonce',array('generateurId'=>$annonce->getGenerateurId()));
             }catch(Exception $e){
                 sprintf("Une erreur technique: %s est survenue veuillez contacter l'administrateur ",$e) ;
             }
@@ -202,19 +199,16 @@ class ZandooController extends Controller
     }
 	
     /**
-     * @Route("afficher/annonce/{id}",  name="afficher_annonce")     
+     * @Route("afficher/annonce/{generateurId}",  name="afficher_annonce")
+     * @ParamConverter("annonce", class="ZandooBundle:Annonce", isOptional=true)     
      *
      */
-    public function afficherAnnonce(Request $request, $id){
-        
+    public function afficherAnnonce(Request $request, $annonce){ 
         $em = $this->getDoctrine()->getManager();
         $critere = new Critere();
-        $reponse = new JsonResponse;
-        
-        $critere->setIdUtilisateur($id);
-        $annonce = $em->getRepository(Annonce::class)->findOneBy(array('generateurId'=>$id)); 
-        $critere->setIdUtilisateur(null)
-                ->setCategorie($annonce->getCategorie()->getId())
+        $reponse = new JsonResponse;      
+       
+        $critere->setCategorie($annonce->getCategorie()->getId())
                 ->setType($annonce->getType());
         $annoncesSimilaires = $em->getRepository(Annonce::class)->findAnnonceByCritere($critere);    
         $signalement = new Signalement(); 
@@ -224,18 +218,18 @@ class ZandooController extends Controller
        
         $contatMessage = new Contact();       
         $formContact = $this->createForm(FormContactType::class ,$contatMessage,array());
-        $formContact->handleRequest($request); 
+        $formContact->handleRequest($request);         
         // Message pop-in signaler annonce
-        if($request->isXmlHttpRequest() && $request->query->get('type') == 2){           
-            $retour = array('url'=>$annonce->getGenerateurId(),'form'=>$form->createView());
+        if($request->isXmlHttpRequest() && $request->query->get('type') == 2){ 
+            $retour = array('url'=>$this->generateUrl('afficher_annonce',array('generateurId'=>$annonce->getGenerateurId())),'form'=>$form->createView());
             if($form->isValid() && $form->isSubmitted()){
                 $motif = $em->getRepository(Motif::class)->find($signalement->getMotif());
                 $signalement->setMotif($motif);
-                $signalement->setAnnonce($annonce);              
-                $this->get('zandoo.mail')->sendMailContactMessage($annonce,$signalement);
+                $signalement->setAnnonce($annonce);  
                 $content = array('template' => $this->renderView('@Zandoo/Commun/formSignalement.html.twig',$retour));
                 $em->persist($signalement);
                 $em->flush();
+                $this->get('zandoo.mail')->sendMailSignalementMessage($annonce,$signalement);
                 return $reponse->setData($content);
             }else{
                 $reponse->setStatusCode(400);
@@ -243,10 +237,11 @@ class ZandooController extends Controller
                 $content = array('template' => $this->renderView('@Zandoo/Commun/formSignalement.html.twig',$retour));            
                 return $reponse->setData($content);  
             }     
-        }       
+        }  
+         
         // Message contact proprietaire annonce      
         if($request->isXmlHttpRequest() && $request->query->get('type') == 1){ 
-            $retour = array('url'=>$annonce->getGenerateurId(),'formContact'=>$formContact->createView());
+            $retour = array('url'=>$this->generateUrl('afficher_annonce',array('generateurId'=>$annonce->getGenerateurId())),'formContact'=>$formContact->createView());
             if($formContact->isValid() && $formContact->isSubmitted()){
                 $contatMessage->setAnnonce($annonce);
                 $em->persist($contatMessage);
@@ -274,7 +269,8 @@ class ZandooController extends Controller
     } 
     
     /**
-     * @Route("desactiver/annonce/{id}", requirements={"id": "\d+"}, name="desactiver_annonce")     
+     * @Route("desactiver/annonce/{id}", requirements={"id": "\d+"}, name="desactiver_annonce")
+     *      
      *
      */
     public function desactiverAnnonceAction(Request $request,$id){

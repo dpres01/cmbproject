@@ -51,7 +51,8 @@
     
     public function sendMailContactMessage($annonce,$contatMessage){
          try{  
-         $destinateur =  ($contatMessage instanceof \ZandooBundle\Entity\Signalement) ? 'chirac.mbala@gmail.com': $annonce->getUtilisateur()->getEmail();   
+         $destinateur = $annonce->getUtilisateur()->getEmail(); 
+       
          $message = (new \Swift_Message('Message de contact pour l\'annonce '.$annonce->getTitre() ))              
                  ->setFrom($_SERVER["SERVER_ADMIN"])
                  ->setTo($destinateur)
@@ -63,13 +64,36 @@
                                 'messageContact'=>$contatMessage)
                      ),
                      'text/html'
-                 );
+                 );           
                 $this->mailer->send($message); 
                 return 1;
             }catch(\ Exception $e){
                 return 0;
         }        
-     }
+    }
+    
+    public function sendMailSignalementMessage($annonce,$messageSignalement){
+        try{ 
+           
+            $message = (new \Swift_Message('Message de Signalement pour l\'annonce '.$annonce->getTitre() ))              
+                 ->setFrom($_SERVER["SERVER_ADMIN"])
+                 ->setTo('chirac.mbala@gmail.com')
+                 ->setBody(
+                     $this->templating->render(
+                        '@Zandoo/Emails/messageSignalement.html.twig',
+                        array(
+                                'annonce' => $annonce,
+                                'messageSignalement'=>$messageSignalement)
+                     ),
+                     'text/html'
+                 );               
+                $this->mailer->send($message); 
+                return 1;
+              }catch(\ Exception $e){               
+            return 0;
+        }        
+    }
+    
  }
 
 

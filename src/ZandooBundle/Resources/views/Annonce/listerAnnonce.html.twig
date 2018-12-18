@@ -79,7 +79,7 @@
 
 					<div class="bxanon" style="margin-top:{{ marg }}px;height:100%;">
 						<div class="bxanon-img">
-							<a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">
+							<a href="{{ path('afficher_annonce', {'generateurId': val.generateurId}) }}" class="lk-b">
 							{%if zandoo_service_commun.testExistanceImg(val.images) %}
 								  <img src="{{asset('public/uploads/documents/'~val.images[0].id~'.'~val.images[0].url)}}" class="mmax">
 							{%else%}
@@ -89,7 +89,7 @@
 						</div>
 						<div class="bx-txt">
 							<div class="bx-title truncate">
-								<a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">
+								<a href="{{ path('afficher_annonce', {'generateurId': val.generateurId}) }}" class="lk-b">
 									{{ zandoo_service_commun.titreFormatAnnonce(val.titre) }}
 								</a>
 							</div>
@@ -98,7 +98,7 @@
 									<div class="bx-txt-nor-price">{{ val.prix }} {{ zandoo_service_commun.typeMonnaie(val.monnaie) }}</div>
 									<div style="margin-top:15px;">
 										<div class="bx-txt-nor-price-offer">
-										    <a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">{%if val.type%}Voir demande{%else%}Voir offre{%endif%}</a>
+										    <a href="{{ path('afficher_annonce', {'generateurId': val.generateurId}) }}" class="lk-b">{%if val.type%}Voir demande{%else%}Voir offre{%endif%}</a>
 										</div>
 									</div>
 									<div style="margin-top:15px;text-align:center;">
@@ -118,7 +118,7 @@
 									<div class="bx-price">{{ val.prix }} {{ zandoo_service_commun.typeMonnaie(val.monnaie) }}</div>
 									<div style="float:left;">
 										<div class="bx-offer">
-											<a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">
+											<a href="{{ path('afficher_annonce', {'generateurId': val.generateurId}) }}" class="lk-b">
 											{% if val.type %} Voir demande {%else%} Voir offre {%endif%}
 											</a>
 										</div>

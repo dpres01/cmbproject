@@ -77,7 +77,18 @@
                 }
             }
             return $url .= (empty($url))? "?".$key."=".$val : "&".$key."=".$val;
-        }                  
+        } 
+        
+        public function randomString(){
+            $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';        
+            $randstring = '';
+            $retour = '';
+            for ($i = 0; $i < 8; $i++) {
+                $retour = $characters[rand(0, strlen($characters)-1)]; 
+                $randstring .= $retour;
+            }
+            return $randstring;
+    }
 }
 
 
