@@ -33,26 +33,19 @@
 						</div>
 						<div class="filter-title">Catégories</div>
 						<div style="font-size:13px;">
+                                                      {% for cle,catAnno in nbAnnoCat %}
 							<div style="margin-top:5px;">
 								<div class="filter-marg">
-									{% if app.request.get('cat') == 10 %}
-										<span style="color:#000;">Appartement</span>&nbsp;<span class="filter-nb">(101)</span>
+									{% if app.request.get('cat') == cle %}
+										<span style="color:#000;">{{catAnno[0]}}</span>&nbsp;<span class="filter-nb badge">{{catAnno[1]}}</span>
 									{% else %}
-										<a href="" onclick="filterAdd('cat', 10);return false;">Appartement</a>&nbsp;<span class="filter-nb">(101)</span>
+										<a href="" onclick="filterAdd('cat', {{cle}});return false;">{{catAnno[0]}}</a>&nbsp;<span class="filter-nb badge">{{catAnno[1]}}</span>
 									{% endif %}
 								</div>
 								<div style="clear:both;"></div>
 							</div>
-							<div style="margin-top:5px;">
-								<div class="filter-marg">
-									{% if app.request.get('cat') == 5 %}
-										<span style="color:#000;">Maison</span>&nbsp;<span class="filter-nb">(51)</span>
-									{% else %}
-										<a href="" onclick="filterAdd('cat', 5);return false;">Maison</a>&nbsp;<span class="filter-nb">(51)</span>
-									{% endif %}
-								</div>
-								<div style="clear:both;"></div>
-							</div>
+                                                        {%endfor%}        
+							
 						</div>
 						<div class="filter-title">Villes</div>
 						<div style="font-size:13px;">

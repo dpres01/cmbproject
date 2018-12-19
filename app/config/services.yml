@@ -48,6 +48,11 @@ services:
         
     zandoo.categorie_extension:
         class: ZandooBundle\Service\CategorieExtension 
+        arguments: ["@doctrine.orm.entity_manager"] 
+        
+    zandoo.utils:
+        class: ZandooBundle\Service\Utils 
         arguments: ["@doctrine.orm.entity_manager"]
+        public: true
     
    

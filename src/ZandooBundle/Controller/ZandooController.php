@@ -46,7 +46,7 @@ class ZandooController extends Controller
      *     
      */	
     public function listerDemandeAction(Request $request)
-	{
+    {
             $critere = new Critere();
             $session = new Session(); 
 
@@ -80,8 +80,10 @@ class ZandooController extends Controller
     $critere->setType($this::TYPE_OFFRE);
     $annonces = $repoAnnoce->findAnnonceByCritere($critere);   		
     $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL));
+    $nbAnnoByCat = $this->get('zandoo.utils')->CountCategorieByFamille();
     $retour = array('form'=>'','colorBody'=> 'F7F7F7','headsearch' =>1,'annonces'=>$annonces,'search'=>'','cat' =>'',
-                    'titres'=> '','urgentes'=>'','numPage'=> $offset,'priceFrom'=>'','priceTo'=>'','total'=>$nbr);
+                    'titres'=> '','urgentes'=>'','numPage'=> $offset,'priceFrom'=>'','priceTo'=>'','total'=>$nbr,
+                    'nbAnnoCat'=>$nbAnnoByCat);
     return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',$retour);
     }	
     
@@ -209,7 +211,7 @@ class ZandooController extends Controller
         $reponse = new JsonResponse;      
        
         $critere->setCategorie($annonce->getCategorie()->getId())
-                ->setType($annonce->getType());
+                ->setType($annonce->getType());       
         $annoncesSimilaires = $em->getRepository(Annonce::class)->findAnnonceByCritere($critere);    
         $signalement = new Signalement(); 
         $options['motif'] = $em->getRepository(Motif::class)->findAll();

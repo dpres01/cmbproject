@@ -35,6 +35,15 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
         return $qb->select('COUNT(a)')->getQuery() ->getSingleScalarResult();
     }
     
+    public function nbAnnoncesByCategorie(){
+        $qb = $this->createQueryBuilder('a')
+                ->addSelect('cat','fam','COUNT(a)')
+                ->leftJoin('a.categorie', 'cat')
+                ->leftJoin('cat.famille', 'fam') ;
+        $qb->groupBy('a.categorie');
+        return  $qb->getQuery()->getResult();
+    }
+    
     private function filtrerByCritere ($critere,$qb){
         
         if(!is_null($critere->getPrixInf()) && !is_null($critere->getPrixSup()) ){
