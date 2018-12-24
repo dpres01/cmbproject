@@ -60,6 +60,8 @@ class Critere
      */
     private $titreUniquement;
     
+    private $ville;
+    
     public function getTitre() {
         return $this->titre;
     }
@@ -155,6 +157,14 @@ class Critere
 
     public function setTitreUniquement($titreUniquement) {
         $this->titreUniquement = $titreUniquement;
+        return $this;
+    }
+    
+    function getVille() {
+        return $this->ville;
+    }
+    function setVille($ville) {
+        $this->ville = $ville;
         return $this;
     }
 

@@ -124,7 +124,7 @@ function positionMenu()
     }
 }
 function filterAdd(cat, val)
-{
+{      alert('ici');
 	var getter = location.search;
 	getter = getter.split("?")[1];
 	var vars = getter.split("&");
@@ -132,38 +132,38 @@ function filterAdd(cat, val)
 	var url = "";
 	for (var i = 0; i < vars.length; i++) 
 	{
-		var pair = vars[i].split("=");
-		var key = decodeURIComponent(pair[0]);
-		var value = decodeURIComponent(pair[1]);
-		
-		if(key != cat && val)
-		{
-			if (i === 0) 
-			{
-				url += "?";
-			} 
-			else 
-			{
-				url += "&";
-			}
-			url += key;
-			url += '=';
-			url += decodeURIComponent(value);
-		}
-		
-		if (typeof query_string[key] === "undefined") // If first entry with this name
-		{
-			query_string[key] = decodeURIComponent(value);
-		}
-		else if (typeof query_string[key] === "string")  // If second entry with this name
-		{
-			var arr = [query_string[key], decodeURIComponent(value)];
-			query_string[key] = arr;
-		}
-		else  // If third or later entry with this name
-		{
-			query_string[key].push(decodeURIComponent(value));
-		}
+            var pair = vars[i].split("=");
+            var key = decodeURIComponent(pair[0]);
+            var value = decodeURIComponent(pair[1]);
+
+            if(key != cat && val)
+            {
+                    if (i === 0) 
+                    {
+                            url += "?";
+                    } 
+                    else 
+                    {
+                            url += "&";
+                    }
+                    url += key;
+                    url += '=';
+                    url += decodeURIComponent(value);
+            }
+
+            if (typeof query_string[key] === "undefined") // If first entry with this name
+            {
+                    query_string[key] = decodeURIComponent(value);
+            }
+            else if (typeof query_string[key] === "string")  // If second entry with this name
+            {
+                    var arr = [query_string[key], decodeURIComponent(value)];
+                    query_string[key] = arr;
+            }
+            else  // If third or later entry with this name
+            {
+                    query_string[key].push(decodeURIComponent(value));
+            }
 	}
 	if(val)
 	{

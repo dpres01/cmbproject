@@ -43,13 +43,11 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
         $qb->groupBy('a.categorie');
         return  $qb->getQuery()->getResult();
     }
-    
     private function filtrerByCritere ($critere,$qb){
         
         if(!is_null($critere->getPrixInf()) && !is_null($critere->getPrixSup()) ){
             $qb->andWhere($qb->expr()->between('a.prix', ':prixInf',':prixSup'));
-            $qb->setParameters(array('prixInf'=> $critere->getPrixInf(),'prixSup'=>$critere->getPrixSup()));
-           
+            $qb->setParameters(array('prixInf'=> $critere->getPrixInf(),'prixSup'=>$critere->getPrixSup()));   
         }
         if(!is_null($critere->getPrixInf()) && is_null($critere->getPrixSup()) ){
             $qb->andWhere($qb->expr()->gte('a.prix', ':prix'));
@@ -63,7 +61,10 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
             $qb->andWhere($qb->expr()->eq('a.type', ':type'));
             $qb->setParameter(':type', $critere->getType()); 
         }
-        
+        if(!is_null($critere->getVille())){
+            $qb->andWhere($qb->expr()->eq('a.villeAnnonce', ':ville'));
+            $qb->setParameter(':ville', $critere->getVille()); 
+        }
         if(!is_null($critere->getIdUtilisateur())){
             $qb->andWhere($qb->expr()->eq('a.utilisateur', ':id'));
             $qb->setParameter(':id', $critere->getIdUtilisateur()); 

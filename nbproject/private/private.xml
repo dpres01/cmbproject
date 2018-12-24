@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/cmbproject/src/ZandooBundle/Repository/AnnonceRepository.php</file>
-            <file>file:/C:/xampp/htdocs/cmbproject/src/ZandooBundle/Controller/ZandooController.php</file>
+            <file>file:/C:/xampp/htdocs/cmbproject/web/public/js/general.js</file>
             <file>file:/C:/xampp/htdocs/cmbproject/src/ZandooBundle/Service/Mail.php</file>
-            <file>file:/C:/xampp/htdocs/cmbproject/src/ZandooBundle/Service/DTO/Utils.php</file>
+            <file>file:/C:/xampp/htdocs/cmbproject/app/config/services.yml</file>
+            <file>file:/C:/xampp/htdocs/cmbproject/src/ZandooBundle/Controller/ZandooController.php</file>
+            <file>file:/C:/xampp/htdocs/cmbproject/src/ZandooBundle/Entity/Annonce.php</file>
+            <file>file:/C:/xampp/htdocs/cmbproject/src/ZandooBundle/Service/Utils.php</file>
+            <file>file:/C:/xampp/htdocs/cmbproject/src/ZandooBundle/Resources/views/Annonce/listerAnnonce.html.twig</file>
         </group>
     </open-files>
 </project-private>

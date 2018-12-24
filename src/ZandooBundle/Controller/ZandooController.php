@@ -45,46 +45,47 @@ class ZandooController extends Controller
      * @Route("/demandes", name="demandes") 
      *     
      */	
-    public function listerDemandeAction(Request $request)
-    {
-            $critere = new Critere();
-            $session = new Session(); 
+    public function listerDemandeAction(Request $request){
+        $critere = new Critere();
+        $session = new Session(); 
 
-            $em = $this->getDoctrine(); 
-            $repoAnnoce =  $em->getRepository(Annonce::class);          
-            $offset  = empty($request->query->get('p')) ? 1 : $request->query->get('p') ;
-                 
-            $critere->setOffset($offset);
-            $critere->setType($this::TYPE_DEMANDE);
-            $annonces = $repoAnnoce->findAnnonceByCritere($critere);                                
-            $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL)); 
-            $retour = array('form'=>"",'colorBody'=>"F7F7F7",'headsearch'=>1,'annonces'=>$annonces,'search'=>'','cat'=>'','titres'=>'',
-                            'urgentes'=>'','numPage'=>$offset,'priceFrom'=>'','priceTo'=>'','total'=> $nbr);
-            return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig', $retour);
+        $em = $this->getDoctrine(); 
+        $repoAnnoce =  $em->getRepository(Annonce::class);          
+        $offset  = empty($request->query->get('p')) ? 1 : $request->query->get('p') ;
+
+        $critere->setOffset($offset);
+        $critere->setType($this::TYPE_DEMANDE);
+        $annonces = $repoAnnoce->findAnnonceByCritere($critere);                                
+        $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL));
+        $nbAnnoByCat = $this->get('zandoo.utils')->countCategorieByFamille();
+        $nbAnnoByVille = $this->get('zandoo.utils')->countAnnonceByVille();
+        $retour = array('form'=>"",'colorBody'=>"F7F7F7",'headsearch'=>1,'annonces'=>$annonces,'search'=>'','cat'=>'','titres'=>'',
+                        'urgentes'=>'','numPage'=>$offset,'priceFrom'=>'','priceTo'=>'','total'=> $nbr,'nbAnnoCat'=>$nbAnnoByCat,'nbAnnoByVille'=>$nbAnnoByVille);
+        return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig', $retour);
     }	
     
     /**
      * @Route("/offres", name="offres") 
      *     
      */	
-    public function listerAnnoncesAction(Request $request)
-{
-    $critere = new Critere();
-    $session = new Session(); 
-    
-    $em = $this->getDoctrine(); 
-    $repoAnnoce =  $em->getRepository(Annonce::class);          
-    $offset  = empty($request->query->get('p')) ? 1 : $request->query->get('p') ;
-    
-    $critere->setOffset($offset);
-    $critere->setType($this::TYPE_OFFRE);
-    $annonces = $repoAnnoce->findAnnonceByCritere($critere);   		
-    $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL));
-    $nbAnnoByCat = $this->get('zandoo.utils')->CountCategorieByFamille();
-    $retour = array('form'=>'','colorBody'=> 'F7F7F7','headsearch' =>1,'annonces'=>$annonces,'search'=>'','cat' =>'',
-                    'titres'=> '','urgentes'=>'','numPage'=> $offset,'priceFrom'=>'','priceTo'=>'','total'=>$nbr,
-                    'nbAnnoCat'=>$nbAnnoByCat);
-    return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',$retour);
+    public function listerAnnoncesAction(Request $request){
+        $critere = new Critere();
+        $session = new Session(); 
+
+        $em = $this->getDoctrine(); 
+        $repoAnnoce =  $em->getRepository(Annonce::class);          
+        $offset  = empty($request->query->get('p')) ? 1 : $request->query->get('p') ;
+
+        $critere->setOffset($offset);
+        $critere->setType($this::TYPE_OFFRE);
+        $annonces = $repoAnnoce->findAnnonceByCritere($critere);   		
+        $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL));
+        $nbAnnoByCat = $this->get('zandoo.utils')->countCategorieByFamille();
+        $nbAnnoByVille = $this->get('zandoo.utils')->countAnnonceByVille();
+        $retour = array('form'=>'','colorBody'=> 'F7F7F7','headsearch' =>1,'annonces'=>$annonces,'search'=>'','cat' =>'',
+                        'titres'=> '','urgentes'=>'','numPage'=> $offset,'priceFrom'=>'','priceTo'=>'','total'=>$nbr,
+                        'nbAnnoCat'=>$nbAnnoByCat,'nbAnnoByVille'=>$nbAnnoByVille);
+        return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',$retour);
     }	
     
     /**
@@ -102,14 +103,15 @@ class ZandooController extends Controller
         $priceFrom= $request->query->get('price_start');
         $priceTo  = $request->query->get('price_to');
         $cat 	  = $request->query->get('cat');
-        $cat 	  = $request->query->get('cat');
+        $ville 	  = $request->query->get('vi');
         $titre 	  = $request->query->get('tre');
         $urgentes = $request->query->get('urg');
         $offset  = empty($request->query->get('p')) ? 1 : $request->query->get('p') ;                 
         $cat     = intval($cat) > 0 ? $cat : null; 
         
-        $critere->setOffset($offset);
+        $critere->setOffset($offset); 
         $critere->setCategorie($cat);
+        $critere->setVille($ville);
         $critere->setTitre($search);
         $critere->setUrgent($urgentes);
         $critere->setTitreUniquement($titre);
@@ -120,8 +122,10 @@ class ZandooController extends Controller
         $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL));
        // $session->set('nbr',$nbr);
        //}
+        $nbAnnoByCat = $this->get('zandoo.utils')->countCategorieByFamille();
+        $nbAnnoByVille = $this->get('zandoo.utils')->countAnnonceByVille();
         $retour = array('form'=>'','colorBody'=>'F7F7F7','headsearch'=>1,'annonces'=>$annonces,'search'=>$search,'cat'=>$cat,'titres'=>$titre,
-                        'urgentes'=>$urgentes,'numPage'=>$offset,'priceFrom'=>$priceFrom,'priceTo'=>$priceTo,'total'=>$nbr);
+                        'urgentes'=>$urgentes,'numPage'=>$offset,'priceFrom'=>$priceFrom,'priceTo'=>$priceTo,'total'=>$nbr,'nbAnnoCat'=>$nbAnnoByCat,'nbAnnoByVille'=>$nbAnnoByVille);
         return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',$retour );
     }    
 
