@@ -16,8 +16,8 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
     public function findAnnonceByCritere($critere)
     {   
         $qb = $this->createQueryBuilder('a')
-                ->addSelect('img','user')
-                ->leftJoin('a.images', 'img')
+                ->addSelect('user')
+                //->leftJoin('a.images', 'img')
                 ->leftJoin('a.categorie', 'cat')
                 ->leftJoin('a.utilisateur', 'user')
                 ->andWhere('a.actif = 1');
@@ -30,7 +30,7 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
     // nb annonce dans la bdd 
     public function countAllAnnonce($critere) {
         $critere->setOffset('');
-        $qb = $this->createQueryBuilder('a');
+        $qb = $this->createQueryBuilder('a')->andWhere('a.actif = 1');
         $this->filtrerByCritere($critere,$qb);
         return $qb->select('COUNT(a)')->getQuery() ->getSingleScalarResult();
     }

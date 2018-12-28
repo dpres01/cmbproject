@@ -82,6 +82,7 @@ class ZandooController extends Controller
         $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL));
         $nbAnnoByCat = $this->get('zandoo.utils')->countCategorieByFamille();
         $nbAnnoByVille = $this->get('zandoo.utils')->countAnnonceByVille();
+        //dump($annonces);die;
         $retour = array('form'=>'','colorBody'=> 'F7F7F7','headsearch' =>1,'annonces'=>$annonces,'search'=>'','cat' =>'',
                         'titres'=> '','urgentes'=>'','numPage'=> $offset,'priceFrom'=>'','priceTo'=>'','total'=>$nbr,
                         'nbAnnoCat'=>$nbAnnoByCat,'nbAnnoByVille'=>$nbAnnoByVille);

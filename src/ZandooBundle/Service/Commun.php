@@ -11,10 +11,12 @@
     public function typeMonnaie($type = true){ return ($type == true) ? "$" : "Fc"; }
     public function dateConvertText($datetime, $full = false)
 	{ 
+        
+                
 		$now = new \DateTime;
 		$ago = $datetime;
 		$diff = $now->diff($ago);
-
+                //dump($diff);die;
 		$diff->w = floor($diff->d / 7);
 		$diff->d -= $diff->w * 7;
 

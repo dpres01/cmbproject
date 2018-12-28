@@ -75,7 +75,7 @@ class Annonce
     /**
      * @var string
      *
-     * @ORM\Column(name="date_creation", type="date",nullable=false)
+     * @ORM\Column(name="date_creation", type="datetime",nullable=false)
      */
     private $dateCreation;
     
