@@ -38,8 +38,11 @@
 								<div class="filter-marg">
 									{% if app.request.get('cat') == cle %}
 										<span style="color:#000;">{{catAnno[0]}}</span>&nbsp;<span class="filter-nb badge">{{catAnno[1]}}</span>
-									{% else %}
-										<a href="{{path('annonces')}}?cat={{cle}}" onclick="/*filterAdd('cat', {#{cle}#});return false;*/">{{catAnno[0]}}</a>&nbsp;<span class="filter-nb badge">{{catAnno[1]}}</span>
+                                                                        {% else %}
+										<a href="" onclick="filterAdd('cat', {{cle}});return false;">{{catAnno[0]}}</a>&nbsp;<span class="filter-nb badge">{{catAnno[1]}}</span>
+										<!--
+                                                                                <a href="{{path('annonces')}}?cat={{cle}}" onclick="/*filterAdd('cat', {#{cle}#});return false;*/">{{catAnno[0]}}</a>&nbsp;<span class="filter-nb badge">{{catAnno[1]}}</span>
+                                                                                -->
 									{% endif %}
 								</div>
 								<div style="clear:both;"></div>
