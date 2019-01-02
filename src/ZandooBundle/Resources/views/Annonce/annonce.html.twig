@@ -200,8 +200,9 @@
     </div>
     <div style="margin-top:10px;">
         {% for anonSim in annonSimilaires %}
+			{% set firstBlock = 0 %}
             {% if anonSim.id != annonce.id %}
-                {% if loop.index == 1 %}
+                {% if firstBlock == 0 %}
                  <div class="ann-sim-bx" style="margin-left:0px;">
                 {% else %}
                 <div class="ann-sim-bx">
@@ -223,6 +224,7 @@
                     </a>
                 </div>           
               </div>
+			{% set firstBlock = 1 %}
             {%endif%}
     </div>
     {%endfor%}

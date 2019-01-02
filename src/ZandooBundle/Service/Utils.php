@@ -41,7 +41,7 @@ class Utils
             $t = 1; 
             $liste[$ville->getId()][$ville->getLibelle()] = $init; 
             foreach ($listeAnnonce as $annonce){
-                if($ville->getId() == $annonce->getVilleAnnonce()->getId() ){
+                if(!is_null($annonce->getVilleAnnonce()) && $ville->getId() == $annonce->getVilleAnnonce()->getId()){
                     $liste[$ville->getId()][$ville->getLibelle()] = $t++;  //$ville->getId();
                 }
                 if(is_null($annonce->getVilleAnnonce()) &&  $ville->getId() == $annonce->getUtilisateur()->getVille()->getId()){
