@@ -335,23 +335,47 @@ class ZandooController extends Controller
     }
     // creer une nouvelle ligne dans nbre de visite par annonce
     private function creerCompteurVisiteAnnonce($annonce,$em){
-        $now = new \DateTime(); 
-        $found = $annonce->getVisite()->map(function($a){ 
-            if($a->getIp() == $_SERVER['REMOTE_ADDR']) return $a;                
-        })->last();
-      
-        if((is_object($found) && $found instanceof Visite) || $found == false){                 
-            $interval = ($found == false) ? false : $this->dateIntervalToMinutes($now->diff($found->getDateVisite()));
-            if($interval > 60 || $found == false ){
+        //$now = new \DateTime(); 
+        $tabId = array(); 
+        $found = false;
+        $visite = $em->getRepository(Visite::class)->findBy(array('ip'=>$_SERVER['REMOTE_ADDR']));
+        if(is_array($visite) && !empty($visite)){
+            foreach($visite as $v){
+                $tabId[] = $v->getId();
+            } 
+            //verifie si @dresse est attaché à l'annonce
+            foreach ($annonce->getVisite() as $v){
+               if(in_array($v->getId(), $tabId)){
+                   $found = true;  
+               } 
+            }
+            if(!$found){ 
+                $annonce->setVisite($visite[0]);
+                $em->flush(); 
+            }
+        }else{
                 $visite = new Visite();
                 $visite->setDateVisite($now)
                        ->setIp($_SERVER['REMOTE_ADDR']);            
                 $em->persist($visite); 
                 $em->flush();          
                 $annonce->setVisite($visite);
-                $em->flush();  
-            }
-        }       
+                $em->flush(); 
+        }     
+        
+//        $found = $annonce->getVisite()->map(function($a){ 
+//            if($a->getIp() == $_SERVER['REMOTE_ADDR']) return $a;                
+//        })->last();
+//        if((is_object($visite) && $visite instanceof Visite)){ //|| $found == false){                 
+//         $interval = ($found == false) ? false : $this->dateIntervalToMinutes($now->diff($found->getDateVisite()));
+//             if($found == false ){
+//                $visite = new Visite();
+//                $visite->setDateVisite($now)
+//                       ->setIp($_SERVER['REMOTE_ADDR']);            
+//                $em->persist($visite); 
+//                $em->flush(); 
+//        $found = false;                                
+//        }  
     }
     
     private function dateIntervalToMinutes(\DateInterval $dateInterval) 
