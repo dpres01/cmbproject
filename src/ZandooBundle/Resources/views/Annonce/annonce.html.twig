@@ -203,7 +203,7 @@
 			{% set firstBlock = 0 %}
             {% if anonSim.id != annonce.id %}
                 {% if firstBlock == 0 %}
-                 <div class="ann-sim-bx" style="margin-left:0px;">
+                <div class="ann-sim-bx" style="margin-left:0px;">
                 {% else %}
                 <div class="ann-sim-bx">
                 {% endif %}
@@ -223,12 +223,12 @@
                         </div>
                     </a>
                 </div>           
-              </div>
-			{% set firstBlock = 1 %}
+				</div>
+				{% set firstBlock = 1 %}
             {%endif%}
+		{%endfor%}
+		<div style="clear:both;"></div>
     </div>
-    {%endfor%}
-    <div style="clear:both;"></div>
 </div>
 </div>
 <div class="modal fade bs-example-modal-sm" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
