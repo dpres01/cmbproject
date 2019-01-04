@@ -35,11 +35,11 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
         return $qb->select('COUNT(a)')->getQuery() ->getSingleScalarResult();
     }
     
-    public function nbAnnoncesByCategorie(){
+    public function nbAnnoncesByCategorie($critere){
         $qb = $this->createQueryBuilder('a')
                 ->addSelect('cat','fam','COUNT(a)')
                 ->leftJoin('a.categorie', 'cat')
-                ->leftJoin('cat.famille', 'fam') ;
+                ->leftJoin('cat.famille', 'fam')->andWhere('a.actif = 1');
         $qb->groupBy('a.categorie');
         return  $qb->getQuery()->getResult();
     }

@@ -124,7 +124,7 @@ function positionMenu()
     }
 }
 function filterAdd(cat, val)
-{      alert('ici');
+{      
 	var getter = location.search;
 	getter = getter.split("?")[1];
 	var vars = getter.split("&");
@@ -185,7 +185,7 @@ function filterAdd(cat, val)
 }
 function filterPrice()
 {
-	if($("#pr1").val() && $("#pr2").val()){ filterAdd("pr", $("#pr1").val()+"_"+$("#pr2").val()); }
+	if($("#pr1").val() || $("#pr2").val()){ filterAdd("pr", $("#pr1").val()+"_"+$("#pr2").val()); }
 }
 function postAjx(_obj, _callback)
 {

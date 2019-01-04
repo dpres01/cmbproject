@@ -7,31 +7,36 @@
 			</div>
 			<div class="hd-top-menu" style="">
 				<div class="hd-top-menu-elm">
-					<a class="lk-w" href="{{path('enregistrer_annonce')}}">Déposer une annonce</a>
+					<a class="lk-w" href="{{path('enregistrer_annonce')}}">Publier une annonce</a>
 				</div>
 				<div class="hd-top-menu-elm">
-					<a class="lk-w" href="{{path('offres')}}">Offres</a>
+					<a class="lk-w" href="{{path('offres')}}">Listes Offres</a>
 				</div>
 				<div class="hd-top-menu-elm">
-					<a class="lk-w" href="{{path('demandes')}}">Demandes</a>
+					<a class="lk-w" href="{{path('demandes')}}">Listes Demandes</a>
 				</div>
-				<div class="hd-top-menu-elm">
+				<!--div class="hd-top-menu-elm">
 					<a class="lk-w" href="#">Mes favoris</a>
-				</div>
+				</div-->
 				<div class="hd-top-menu-elm">Boutiques</div>
-                                {%if app.user %} 
-                                <div class="hd-top-menu-elm">
+                                {#%if app.user %} 
+                                <!--div class="hd-top-menu-elm">
 					<a class="lk-w" href="{{path('messages_utilisateur',{'id':app.user.id})}}">Messages</a>
-				</div>    				
-                                {%endif%}
+				</div-->    				
+                                {%endif%#}
 				<div style="clear:both;"></div>
 			</div>
 			<div class="hd-top-menu-right" style="">
 
-                        {%if app.user %}    
-				<div class="hd-top-menu-right-elm">
+                        {%if app.user %}  
+                                <div class="hd-top-menu-right-elm">
 					<a class="lk-w" href="{{path('compte_utilisateurs',{'id':app.user.id})}}">
 						<i class="fa fa-folder-o"></i>
+					</a>
+				</div>
+				<div class="hd-top-menu-right-elm">
+					<a class="lk-w" >
+						<i class="fa fa-heart-o"></i>
 					</a>
 				</div>
 				<div class="hd-top-menu-right-elm">
@@ -73,20 +78,18 @@
 		</div>
 		<div id="resp-menu" class="hd-resp-menu" style="">
 			<div class="hd-resp-menu-elm">
-				<a class="lk-w" href="{{path('enregistrer_annonce')}}">Déposer une annonce</a>
+				<a class="lk-w" href="{{path('enregistrer_annonce')}}">Publier une annonce</a>
 			</div>
 			<div class="hd-resp-menu-elm">
-				<a class="lk-w" href="{{path('offres')}}">Offres</a>
+				<a class="lk-w" href="{{path('offres')}}">Listes Offres</a>
 			</div>
 			<div class="hd-resp-menu-elm">
-				<a class="lk-w" href="{{path('demandes')}}">Demandes</a>
+				<a class="lk-w" href="{{path('demandes')}}">Listes Demandes</a>
 			</div>
-			<div class="hd-resp-menu-elm">
-				<a class="lk-w" href="{{path('login')}}">Mes favoris</a>
-			</div>
-			<div class="hd-resp-menu-elm">Boutiques</div>
-                        
-			<div class="hd-resp-menu-elm">Messages</div>
+			<!--div class="hd-resp-menu-elm">
+				<a class="lk-w" href="{#{path('login')}#}">Mes favoris</a>
+			</div-->                   
+                        <div class="hd-resp-menu-elm">Boutiques</div>                                                                  
 		</div>
 
 		<div id="resp-user" class="hd-resp-user" {%if  app.user is empty %}style="height:82px;"{%endif%}>
@@ -100,10 +103,11 @@
                 {%else%}
 			<div class="hd-resp-menu-elm">
 			    <a class="lk-w" href="{{path('compte_utilisateurs',{'id':app.user.id})}}">Mon compte</a>
-			</div>                                  
-			<div class="hd-resp-menu-elm">
+			</div> 
+                         <div class="hd-resp-menu-elm">Mes favoris</div>  
+			<!--div class="hd-resp-menu-elm">
 				<a class="lk-w" href="{#{path('login')}#}">Mes favoris</a>
-			</div>
+			</div-->
 			<div class="hd-resp-menu-elm">
 				<a class="lk-w" href="{{path('messages_utilisateur',{'id':app.user.id})}}">Mes messages</a>
 			</div>

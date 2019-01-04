@@ -16,10 +16,12 @@ class Utils
         $this->em = $manager;
     }
 
-    public function countCategorieByFamille()
+    public function countCategorieByFamille($categorie)
     {	
         $listeCategorie = $this->em->getRepository(Categorie::class)->findAll();
-        $nbannonces = $this->em->getRepository(Annonce::class)->nbAnnoncesByCategorie();
+        $critere  = new \ZandooBundle\Entity\Critere();
+        $critere->setCategorie($categorie);
+        $nbannonces = $this->em->getRepository(Annonce::class)->nbAnnoncesByCategorie($critere);
         $liste = array();
         foreach($listeCategorie as $categorie){
                 $liste[$categorie->getId()] = array($categorie->getLibelle(),0);
@@ -41,10 +43,10 @@ class Utils
             $t = 1; 
             $liste[$ville->getId()][$ville->getLibelle()] = $init; 
             foreach ($listeAnnonce as $annonce){
-                if(!is_null($annonce->getVilleAnnonce()) && $ville->getId() == $annonce->getVilleAnnonce()->getId()){
+                if(!is_null($annonce->getVilleAnnonce()) && $ville->getId() == $annonce->getVilleAnnonce()->getId() && $annonce->getActif()){
                     $liste[$ville->getId()][$ville->getLibelle()] = $t++;  //$ville->getId();
                 }
-                if(is_null($annonce->getVilleAnnonce()) &&  $ville->getId() == $annonce->getUtilisateur()->getVille()->getId()){
+                if(is_null($annonce->getVilleAnnonce()) &&  $ville->getId() == $annonce->getUtilisateur()->getVille()->getId() && $annonce->getActif()){
                     $liste[$ville->getId()][$ville->getLibelle()] = $t++; 
                 }   
             } 

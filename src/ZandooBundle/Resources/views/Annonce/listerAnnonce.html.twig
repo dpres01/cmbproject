@@ -31,42 +31,41 @@
 							</div>
 							<div style="clear:both;"></div>
 						</div>
-						<div class="filter-title">Catégories</div>
+						<!--div class="filter-title">Catégories</div>
 						<div style="font-size:13px;">
-                                                      {% for cle,catAnno in nbAnnoCat %}
+                                                      {#% for cle,catAnno in nbAnnoCat %}
 							<div style="margin-top:5px;">
 								<div class="filter-marg">
 									{% if app.request.get('cat') == cle %}
-										<span style="color:#000;">{{catAnno[0]}}</span>&nbsp;<span class="filter-nb badge">{{catAnno[1]}}</span>
+										<span style="color:#000;">{{catAnno[0]}}</span>&nbsp;<span class="filter-nb ">({{catAnno[1]}})</span>
                                                                         {% else %}
-										<a href="" onclick="filterAdd('cat', {{cle}});return false;">{{catAnno[0]}}</a>&nbsp;<span class="filter-nb badge">{{catAnno[1]}}</span>
+										<a href="" onclick="filterAdd('cat', {{cle}});return false;">{{catAnno[0]}}</a>&nbsp;<span class="filter-nb ">({{catAnno[1]}})</span>
 										<!--
-                                                                                <a href="{{path('annonces')}}?cat={{cle}}" onclick="/*filterAdd('cat', {#{cle}#});return false;*/">{{catAnno[0]}}</a>&nbsp;<span class="filter-nb badge">{{catAnno[1]}}</span>
-                                                                                -->
-									{% endif %}
+                                                                                <a href="{#{path('annonces')}}?cat={{cle}}" onclick="/*filterAdd('cat', {#{cle}#});return false;*/">{#{catAnno[0]}}</a>&nbsp;<span class="filter-nb badge">{{catAnno[1]}#}</span>
+                                                                                >
+									{#% endif %}
 								</div>
 								<div style="clear:both;"></div>
 							</div>
-                                                        {%endfor%}        
-							
-						</div>
-						<div class="filter-title">Villes</div>
+                                                        {%endfor%#}        
+						</div-->
+						<!--div class="filter-title">Villes</div>
 						<div style="font-size:13px;">                                                 
-                                                       {% for cle,villeArray in nbAnnoByVille %}
+                                                       {#% for cle,villeArray in nbAnnoByVille %}
                                                             <div style="margin-top:5px;">
                                                                     <div class="filter-marg">
                                                                         {% for k,nb in villeArray %}
                                                                             {% if app.request.get('vi') == cle %}
-                                                                                    <span style="color:#000;">{{k}}</span>&nbsp;<span class="filter-nb badge">{{nb}}</span>
+                                                                                    <span style="color:#000;">{{k}}</span>&nbsp;<span class="filter-nb ">({{nb}})</span>
                                                                             {% else %}
-                                                                                    <a href="{{path('annonces')}}?vi={{cle}}" onclick="/*filterAdd('vi', {#{cle}#});return false;*/">{{k}}</a>&nbsp;<span class="filter-nb badge">{{nb}}</span>
-                                                                            {% endif %}
+                                                                                    <a href="{{path('annonces')}}?vi={{cle}}" onclick="/*filterAdd('vi', {#{cle}#});return false;*/">{#{k}}</a>&nbsp;<span class="filter-nb ">({{nb}#})</span>
+                                                                            {#% endif %}
                                                                         {% endfor %} 
                                                                     </div>
                                                                     <div style="clear:both;"></div>
                                                             </div>                
-                                                       {% endfor %}        							
-						</div>
+                                                       {% endfor %#}        							
+						</div-->
 						<div class="filter-title" style="display:none;">Types d'offres</div>
 						<div style="font-size:13px;display:none;">
 							<div style="margin-top:5px;">
