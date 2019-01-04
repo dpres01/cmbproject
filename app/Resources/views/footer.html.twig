@@ -22,6 +22,32 @@
 			<div style="clear:both;"></div>
 		</div>
 		<div class="foot-ft" style="">
-			© 2018 zandoo.com - Tous droits réservés. | <a href="/contact">Nous contacter</a>
+			© 2018 zandoo.com - Tous droits réservés. | <a id="idcontactMess" >Nous contacter</a>
 		</div>
+                <div class="modal fade bs-example-modal-sm" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+                <div class="modal-dialog modal-sm" role="document" style="width:100%;max-width:600px;margin:8% auto 0 auto;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Nous Contactez</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div style="margin-top:10px;">
+                                <input id='nomMessage' type="text" value="" class="ann-msg-inp" placeholder="Votre nom">
+                            </div>
+                            <div style="margin-top:10px;">
+                                <input id='emailMessage' type="text" value="" class="ann-msg-inp" placeholder="Votre e-mail">
+                            </div>
+                            <div style="margin-top:10px;">
+                               <input id='telMessage' type="text" value="" class="ann-msg-inp" placeholder="Votre numéro de tél. (optionnel)">
+                            </div>
+                            <div style="margin-top:10px;">
+                               <textarea class="textare form ann-msg-txtarea" id="textAmessage" rows="3" placeholder="Votre Message" maxlength="1024" name="message"></textarea>
+                            </div>
+                            <div style="margin:10px 0;">
+                               <button class="btn-primary" onclick="sendMessage('{{path('contact')}}')"> Envoyer message </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
 	</div>

@@ -29,7 +29,11 @@ $(document).ready(function()
 	});
 	$("#arrusr").click(function(){
 	    $("#mreusr").toggle();
-	}); 
+	});
+        
+        $("#idcontactMess").click(function(){          
+	    $('#reportModal').modal('toggle');
+        });    
         
    $('.add-another-collection-widget').click(function (e) {
     var list = jQuery(jQuery(this).attr('data-list'));
@@ -212,6 +216,26 @@ function shfilter()
 		$("#filter-annonce").toggleClass("shfilter");
 		//$(".filter-annonce").removeClass("filter-annonce");
 	}
+}
+
+function sendMessage(url){
+    var message = $("#textAmessage").val();
+    var nom = $("#nomMessage").val();
+    var tel = $("#telMessage").val();
+    var email = $("#emailMessage").val(); 
+    $.ajax({
+            url : url,
+            type: 'POST',
+            data: { nom:nom,tel:tel,email:email,message:message},
+            success : function(requete){
+                       
+            },
+            statusCode:{ 
+                       400: function(requete) {                         
+                                                  
+                        }
+                     }            
+                }); 
 }
 
 function initMessageContact(url,type){

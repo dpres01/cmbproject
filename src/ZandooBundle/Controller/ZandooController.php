@@ -26,6 +26,7 @@ use ZandooBundle\Form\FormPasswordModificationType;
 use ZandooBundle\Entity\Contact;
 use ZandooBundle\Form\FormContactType;
 use ZandooBundle\Entity\Visite;
+use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
 
 
 class ZandooController extends Controller
@@ -87,7 +88,7 @@ class ZandooController extends Controller
         
         $nbAnnoByCat = $this->get('zandoo.utils')->countCategorieByFamille($cat);
         $nbAnnoByVille = $this->get('zandoo.utils')->countAnnonceByVille();
-        
+               
         $retour = array('form'=>'','colorBody'=> 'F7F7F7','headsearch' =>1,'annonces'=>$annonces,'search'=>'','cat' =>'',
                         'titres'=> '','urgentes'=>'','numPage'=> $offset,'priceFrom'=>'','priceTo'=>'','total'=>$nbr,
                         'nbAnnoCat'=>$nbAnnoByCat,'nbAnnoByVille'=>$nbAnnoByVille);
@@ -334,7 +335,28 @@ class ZandooController extends Controller
         $retour = array('annonces'=>$annonces,'utilisateur'=>$utilisateur,'form'=>$form->createView(),'formPassword'=>$formPassword->createView());
         return $this->render('@Zandoo/Annonce/utilisateurAnnonce.html.twig',$retour); 
     }
-     
+    
+    /**
+     *  @Route("contact", name="contact")
+     */ 
+    public function contact(Request $request ){
+        $nom = $request->request->get('nom');  
+        $telephone = $request->request->get('tel');
+        $email = $request->request->get('email');
+        $message = $request->request->get('message');
+        $email = 'someinvalidmail@invalid.asdf';
+        // ... in the action then call
+        $emailConstraint = new EmailConstraint();
+
+        $errors = $this->get('validator')->validate(
+            $email,
+            $emailConstraint
+        );
+
+        $mailInvalid = count($errors) > 0;
+        dump($mailInvalid);die;
+    }
+    
     private function estPropritaireAnnonce ($utilisateAnnonce,$utilusateuConnecte){       
          if($utilisateAnnonce == null){return true;}
          if($utilusateuConnecte != null && $utilisateAnnonce!= null){return $utilusateuConnecte->getId() == $utilisateAnnonce->getId();}

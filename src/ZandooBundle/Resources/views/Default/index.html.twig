@@ -31,7 +31,7 @@
                                     <option value="0">Choisissez une région</option>
                                     {%for cle,villeArray in nbAnnoByVille %}
                                         {% for key,nb in villeArray %}
-                                           <option value="{{cle}}">Bas-key</option>
+                                           <option value="{{cle}}">{{key}}</option>
                                         {%endfor%}  
                                     {%endfor%}     
 				</select>
