@@ -344,17 +344,29 @@ class ZandooController extends Controller
         $telephone = $request->request->get('tel');
         $email = $request->request->get('email');
         $message = $request->request->get('message');
-        $email = 'someinvalidmail@invalid.asdf';
-        // ... in the action then call
         $emailConstraint = new EmailConstraint();
+        $reponse = new JsonResponse();
 
-        $errors = $this->get('validator')->validate(
-            $email,
-            $emailConstraint
-        );
+        $errors = $this->get('validator')->validate($email,$emailConstraint);
 
         $mailInvalid = count($errors) > 0;
-        dump($mailInvalid);die;
+        if(!empty($email) && !empty($message) && !$mailInvalid && ( is_numeric($telephone)|| empty($telephone)) ){
+            $em = $this->getDoctrine()->getManager();
+            $contatMessage = new Contact();  
+            $contatMessage->setEmail($email)
+                       ->setDateEnvoi(new \DateTime())
+                       ->setNom($nom)->setTelephone($telephone)
+                       ->setMessage($message);
+            $em->persist($contatMessage);
+            $em->flush();
+            $this->get('zandoo.mail')->sendMailUserContactMessage(null,$contatMessage);
+            $reponse->setData(array('OK'));
+        }else{
+            $reponse->setStatusCode(400);
+            $reponse->setData(array('NOK'));
+        }
+        return $reponse;  
+        
     }
     
     private function estPropritaireAnnonce ($utilisateAnnonce,$utilusateuConnecte){       

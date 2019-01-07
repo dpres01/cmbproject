@@ -72,6 +72,31 @@
         }        
     }
     
+      public function sendMailUserContactMessage($annonce,$contatMessage){
+         try{  
+         $destinateur = 'chirac.mbala@gmail.com'; 
+       
+         $message = (new \Swift_Message('Message de contact'))              
+                 ->setFrom($_SERVER["SERVER_ADMIN"])
+                 ->setTo($destinateur)
+                 ->setBody(
+                     $this->templating->render(
+                        '@Zandoo/Emails/messageContact.html.twig',
+                        array(
+                                'annonce' => $annonce,
+                                'messageContact'=>$contatMessage)
+                     ),
+                     'text/html'
+                 );           
+                $this->mailer->send($message); 
+                return 1;
+            }catch(\ Exception $e){
+                return 0;
+        }        
+    }
+    
+    
+    
     public function sendMailSignalementMessage($annonce,$messageSignalement){
         try{ 
            

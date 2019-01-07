@@ -74,7 +74,7 @@ class Contact
     /**
      *
      * @ORM\ManyToOne(targetEntity="Annonce")
-     * @ORM\JoinColumn(name="annonce_id", referencedColumnName="id",nullable=false)
+     * @ORM\JoinColumn(name="annonce_id", referencedColumnName="id",nullable=true)
      * 
      * @var type 
      */

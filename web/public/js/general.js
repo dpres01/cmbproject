@@ -32,7 +32,7 @@ $(document).ready(function()
 	});
         
         $("#idcontactMess").click(function(){          
-	    $('#reportModal').modal('toggle');
+	    $('#reportModalMess').modal('toggle');
         });    
         
    $('.add-another-collection-widget').click(function (e) {
@@ -228,11 +228,20 @@ function sendMessage(url){
             type: 'POST',
             data: { nom:nom,tel:tel,email:email,message:message},
             success : function(requete){
-                       
+             $('#id-mess-cntact-error').html('<div id="id-msg-envoi-modal" class="alert alert-success" role="alert"> Votre message est envoyé avec success </div>')
+             setTimeout(
+                    function() 
+                    {
+                     $('#reportModalMess').modal('toggle');
+                    }, 3000);
+              
             },
             statusCode:{ 
                        400: function(requete) {                         
-                                                  
+                        $('#id-mess-cntact-error').html('<div id="id-msg-envoi-modal" class="alert alert-danger" role="alert"> \n\
+                                                                                      Les champs ne doivent pas être vide, \n\
+                                                                                      vérifier votre Email soit correct et \n\
+                                                                                      téléphone doit être type numérique </div>')                          
                         }
                      }            
                 }); 

@@ -411,3 +411,6 @@ ALTER TABLE annonce_visite
 ALTER TABLE annonce_visite 
   ADD CONSTRAINT fk_d03b8fa5c1c5dc59 FOREIGN KEY (visite_id) REFERENCES visite ( 
   id); 
+
+
+ALTER TABLE `contact_message` CHANGE `annonce_id` `annonce_id` INT(11) NULL;

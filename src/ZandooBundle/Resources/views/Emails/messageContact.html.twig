@@ -1,5 +1,6 @@
-<h3>Bonjour {{ annonce.utilisateur.username }},</h3>
+<h3>Bonjour {%if annonce %} {{ annonce.utilisateur.username }}{%endif%},</h3>
 
+{%if annonce %} <p> N° Annonce : <strong>{{ annonce.generateurId }}</strong></p>{%endif%}
 <p>Nom Contact        : <strong>{{ messageContact.nom }}</strong></p>
 <p>Email Contact      : <strong>{{ messageContact.email }}</strong></p>
 {% if messageContact.telephone is defined%}
@@ -7,7 +8,7 @@
 {% endif %}
 <p>Message Contact: {{ messageContact.message }} </p>
 
-<p>Pour se connecter <a href="{{ url('login')}}"> aller sur Zandoo </a></p>
+<p>Pour se connecter <a href="{{ url('offres')}}"> aller sur Zandoo </a></p>
 
 <i> Merci pour la confiance faite à @zandoo! <br/> </i>
 
