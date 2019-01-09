@@ -114,7 +114,8 @@ class ZandooController extends Controller
         $titre 	  = $request->query->get('tre');
         $urgentes = $request->query->get('urg');
         $offset  = empty($request->query->get('p')) ? 1 : $request->query->get('p') ;                 
-        $cat     = intval($cat) > 0 ? $cat : null; 
+        $cat     = intval($cat) > 0 ? $cat : null;
+		$tri     = $request->query->get('tr');		
         
         $critere->setOffset($offset); 
         $critere->setCategorie($cat);
@@ -132,7 +133,9 @@ class ZandooController extends Controller
         $nbAnnoByCat = $this->get('zandoo.utils')->countCategorieByFamille($cat);
         $nbAnnoByVille = $this->get('zandoo.utils')->countAnnonceByVille();
         $retour = array('form'=>'','colorBody'=>'F7F7F7','headsearch'=>1,'annonces'=>$annonces,'search'=>$search,'cat'=>$cat,'titres'=>$titre,
-                        'urgentes'=>$urgentes,'numPage'=>$offset,'priceFrom'=>$priceFrom,'priceTo'=>$priceTo,'total'=>$nbr,'nbAnnoCat'=>$nbAnnoByCat,'nbAnnoByVille'=>$nbAnnoByVille);
+                        'urgentes'=>$urgentes,'numPage'=>$offset,'priceFrom'=>$priceFrom,'priceTo'=>$priceTo,
+						'total'=>$nbr,'nbAnnoCat'=>$nbAnnoByCat,'nbAnnoByVille'=>$nbAnnoByVille,
+						'tri'=>$tri);
         return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',$retour );
     }    
 

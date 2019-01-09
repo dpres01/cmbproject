@@ -130,7 +130,7 @@ function positionMenu()
 function filterAdd(cat, val)
 {      
 	var getter = location.search;
-	getter = getter.split("?")[1];
+	getter = (getter) ? getter.split("?")[1] : '';
 	var vars = getter.split("&");
 	var query_string = {};
 	var url = "";
@@ -140,7 +140,7 @@ function filterAdd(cat, val)
             var key = decodeURIComponent(pair[0]);
             var value = decodeURIComponent(pair[1]);
 
-            if(key != cat && val)
+            if(key != cat && val && key)
             {
                     if (i === 0) 
                     {
@@ -299,21 +299,19 @@ function initMessageContact(url,type){
     
 }
 
-function filterSel(nb)
-{
-	if(nb > 0)
-	{
-		$("#filtreform").show();
-		$("#filtreform-"+nb).show();
-	}
+function filterSel()
+{	
+	if($("#cfilter").is( ":checked" ))
+	{$("#filtreform").show();}
 	else
-	{
-		$("#filtreform").hide();
-		$("#filtreform-1").hide();
-		$("#filtreform-2").hide();
-		$("#filtreform-3").hide();
-	}
+	{$("#filtreform").hide();}
 }
+
+function triSel(nb)
+{	
+	filterAdd("tr", nb);
+}
+
 
 //compte
 $('#myTabs a').click(function (e) {
