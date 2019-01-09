@@ -151,6 +151,7 @@
 }
 .srch4
 {
+	display:none;
 	width:100%;
 	margin-right:0%;
 	margin-bottom:4px;
@@ -382,6 +383,7 @@
 	}	
 	.srch4
 	{	
+		display:block;
 		float:left;width:14%;margin-right:0.4%;
 		margin-bottom:0;
 	}
