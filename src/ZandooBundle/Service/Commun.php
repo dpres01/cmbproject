@@ -10,57 +10,56 @@
  {
     public function typeMonnaie($type = true){ return ($type == true) ? "$" : "Fc"; }
     public function dateConvertText($datetime, $full = false)
-	{ 
-		$now = new \DateTime;
-		$ago = $datetime;
-		$diff = $now->diff($ago);
+	{   
+            $now = new \DateTime;
+            $ago = $datetime;
+            $diff = $now->diff($ago);              
+            $diff->w = floor($diff->d / 7);
+            $diff->d -= $diff->w * 7;
 
-		$diff->w = floor($diff->d / 7);
-		$diff->d -= $diff->w * 7;
+            $string = array(
+                    'y' => 'an',
+                    'm' => 'mois',
+                    'w' => 'semaine',
+                    'd' => 'jour',
+                    'h' => 'heure',
+                    'i' => 'minute',
+                    's' => 'seconde',
+            );
+            foreach ($string as $k => &$v) {
+                    if ($diff->$k) {
+                            $v = $diff->$k . ' ' . $v . ($k != 'm' && $diff->$k > 1 ? 's' : '');
+                    } else {
+                            unset($string[$k]);
+                    }
+            }
 
-		$string = array(
-			'y' => 'an',
-			'm' => 'mois',
-			'w' => 'semaine',
-			'd' => 'jour',
-			'h' => 'heure',
-			'i' => 'minute',
-			's' => 'seconde',
-		);
-		foreach ($string as $k => &$v) {
-			if ($diff->$k) {
-				$v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
-			} else {
-				unset($string[$k]);
-			}
-		}
-
-		if (!$full) $string = array_slice($string, 0, 1);
-		return $string ? 'Il y à '.implode(', ', $string).'' : 'maintenant';
+            if (!$full) $string = array_slice($string, 0, 1);
+            return $string ? 'Il y à '.implode(', ', $string).'' : 'maintenant';
 	}
         
 	function testExistanceImg($img){
-		return !$img->isEmpty();
+	    return !$img->isEmpty();
 	}
 	
 	function titreFormatAnnonce($_text){ return ucfirst($_text); }
 	
 	function getCategorieGroup()
 	{
-		$tmp = new SearchCategorie();
-		return $tmp->getSelectGroup();
-	}
+            $tmp = new SearchCategorie();
+            return $tmp->getSelectGroup();
+    }
 	
 	function getCategorieGroupOption()
 	{
-		$tmp = new SearchCategorie();
-		return $tmp->getSelectGroupOption();
+            $tmp = new SearchCategorie();
+            return $tmp->getSelectGroupOption();
 	}
 	
 	function getCategorieOption()
 	{
-		$tmp = new SearchCategorie();
-		return $tmp->getSelectOption();
+            $tmp = new SearchCategorie();
+            return $tmp->getSelectOption();
 	}
         
         function generateUrl($key, $val)
@@ -77,8 +76,18 @@
                 }
             }
             return $url .= (empty($url))? "?".$key."=".$val : "&".$key."=".$val;
-        }
-                   
+        } 
+        
+        public function randomString(){
+            $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';        
+            $randstring = '';
+            $retour = '';
+            for ($i = 0; $i < 8; $i++) {
+                $retour = $characters[rand(0, strlen($characters)-1)]; 
+                $randstring .= $retour;
+            }
+            return $randstring;
+    }
 }
 
 

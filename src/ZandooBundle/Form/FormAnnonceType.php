@@ -52,7 +52,8 @@ class FormAnnonceType extends AbstractType
                 'required' =>false 
             ))    
             ->add('description', TextareaType::class,array(
-                 'label' =>'Decrivez votre annonce (600 caractères max)',
+                 'label' =>'Decrivez votre annonce (900 caractères max)',
+                 'attr'=>array('maxlength'=>1000),
                  'required'=> true                 
             ))
             ->add('villeAnnonce',ChoiceType::class,array(

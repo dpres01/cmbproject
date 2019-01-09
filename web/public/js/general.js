@@ -19,13 +19,22 @@ $(document).ready(function()
 		$("#resp-user").toggleClass("clse-resp-menu");
 	});
 
-	$("#signal").click(function(){
-		$('#reportModal').modal('toggle');
+	$(".signal").click(function(){          
+	    $('#reportModal').modal('toggle');
+            $("input[id^='form_']").val('');
+            $("#form_signalement_message").val('');   
+            $("input:radio").attr("checked",false);
+            $('.alert-danger').remove();
+            $('.help-block').remove();
 	});
 	$("#arrusr").click(function(){
-		$("#mreusr").toggle();
-	}); 
-   
+	    $("#mreusr").toggle();
+	});
+        
+        $("#idcontactMess").click(function(){          
+	    $('#reportModalMess').modal('toggle');
+        });    
+        
    $('.add-another-collection-widget').click(function (e) {
     var list = jQuery(jQuery(this).attr('data-list'));
         // Try to find the counter of the list
@@ -51,13 +60,42 @@ $(document).ready(function()
 	
 	$(".ann-price-num").click(function()
 	{
-		$("#phone1").toggle();
-		$("#phone2").toggle();
+            $("#phone1").toggle();
+            $("#phone2").toggle();
 	});
+        
+        $("#form_annonce_prix").on('blur',function(){
+            var $tab = [];
+            var $retour = [];
+            var input = $(this).val();
+            if( $.isNumeric(input) || input == ''){
+                for(var i = 0;i < input.length ; i++){ 
+                 $tab.push(input.substr(i,1));            
+                }
+                var t = $tab.length -1
+                var cpt = 1;
+                var ntour = ($tab.length)/3;
+                for(t = $tab.length -1 ;t >= 0 ; t--){ 
+                    if(cpt == 3 && ntour > 1){          
+                       $retour[t] = ',' + $tab[t];
+                       cpt++;
+                       ntour--
+                       cpt = 1;
+                    }else{
+                       $retour[t] = $tab[t];
+                       cpt++;
+                    }
+                }
+                $("#form_annonce_prix").val($retour.join('')); 
+                $("#form_annonce_prix").removeAttr('style');
+            }else{
+                $("#form_annonce_prix").css('border-color','red');
+            }   
+         })
    
     //fly menu
     //$(window).scroll(function(){ positionMenu(); });
-    //positionMenu();
+    //positionMenu();   
 });
 
 var fix = 0;
@@ -89,23 +127,69 @@ function positionMenu()
         $(".hd-top").removeClass("ht-top-mr-resp");
     }
 }
-function filter(str)
-{
-	var obj = {};
-	if(str == 'pr')
+function filterAdd(cat, val)
+{      
+	var getter = location.search;
+	getter = getter.split("?")[1];
+	var vars = getter.split("&");
+	var query_string = {};
+	var url = "";
+	for (var i = 0; i < vars.length; i++) 
 	{
-		obj = {
-			price_start: $("#pr1").val(),
-			price_to:    $("#pr2").val(),
-		};
+            var pair = vars[i].split("=");
+            var key = decodeURIComponent(pair[0]);
+            var value = decodeURIComponent(pair[1]);
+
+            if(key != cat && val)
+            {
+                    if (i === 0) 
+                    {
+                            url += "?";
+                    } 
+                    else 
+                    {
+                            url += "&";
+                    }
+                    url += key;
+                    url += '=';
+                    url += decodeURIComponent(value);
+            }
+
+            if (typeof query_string[key] === "undefined") // If first entry with this name
+            {
+                    query_string[key] = decodeURIComponent(value);
+            }
+            else if (typeof query_string[key] === "string")  // If second entry with this name
+            {
+                    var arr = [query_string[key], decodeURIComponent(value)];
+                    query_string[key] = arr;
+            }
+            else  // If third or later entry with this name
+            {
+                    query_string[key].push(decodeURIComponent(value));
+            }
 	}
-	if(obj)
+	if(val)
 	{
-		postAjx(obj, function()
+		if(url) 
 		{
-			console.log("okok");
-		});
+			url += "&"+cat+"="+val;
+		} 
+		else 
+		{
+			url += "?"+cat+"="+val;
+		}	
+		//console.log(url);
+		//console.log(query_string);
+		if(url)
+		{
+			window.location = url;
+		}
 	}
+}
+function filterPrice()
+{
+	if($("#pr1").val() || $("#pr2").val()){ filterAdd("pr", $("#pr1").val()+"_"+$("#pr2").val()); }
 }
 function postAjx(_obj, _callback)
 {
@@ -133,3 +217,106 @@ function shfilter()
 		//$(".filter-annonce").removeClass("filter-annonce");
 	}
 }
+
+function sendMessage(url){
+    var message = $("#textAmessage").val();
+    var nom = $("#nomMessage").val();
+    var tel = $("#telMessage").val();
+    var email = $("#emailMessage").val(); 
+    $.ajax({
+            url : url,
+            type: 'POST',
+            data: { nom:nom,tel:tel,email:email,message:message},
+            success : function(requete){
+             $('#id-mess-cntact-error').html('<div id="id-msg-envoi-modal" class="alert alert-success" role="alert"> Votre message est envoyé avec success </div>')
+             setTimeout(
+                    function() 
+                    {
+                     $('#reportModalMess').modal('toggle');
+                    }, 3000);
+              
+            },
+            statusCode:{ 
+                       400: function(requete) {                         
+                        $('#id-mess-cntact-error').html('<div id="id-msg-envoi-modal" class="alert alert-danger" role="alert"> \n\
+                                                                                      Les champs ne doivent pas être vide, \n\
+                                                                                      vérifier votre Email soit correct et \n\
+                                                                                      téléphone doit être type numérique </div>')                          
+                        }
+                     }            
+                }); 
+}
+
+function initMessageContact(url,type){
+   
+   if(type == 1 ){
+       if($('#id-contact-msg').val()!='' && $('#id-contact-msg').val()!='undefined'){
+        var form = $("form[name='form_contact']");
+        $.ajax({
+            url : url+'?type='+type,
+            type: 'POST',
+            data: form.serialize(),
+            success : function(requete){
+                        $('#id-add-form').html(requete.template);
+                        $("input[id^='form_contact']").val('');
+                        $('#form_contact_message').val('');
+                        $('#id-contact-msg').val('');
+                        $('#msgposter').hide();
+            },
+            statusCode:{ 
+                       400: function(requete) {                         
+                            //$(requete.responseJSON.template).appendTo($("form[name='form_contact']").empty());
+                            $('#id-add-form').html(requete.responseJSON.template);
+                            $('#msgposter').show();                         
+                        }
+                     }            
+                });
+        }else{
+          $('#msgposter').show();
+          $('#id-contact-msg').val('open');
+        }   
+       
+   }else {
+       var form = $("form[name='form_signalement']");     
+        $.ajax({
+            url : url+'?type='+type,
+            type: 'POST',
+            data: form.serialize(),
+            success : function(requete){                       
+                       $('#reportModal').modal('toggle');
+                       $("input[id^='form_']").val('');
+                       $("#form_signalement_message").val('');   
+                       $("input:radio").attr("checked",false);
+                       $('<div id="id-msg-envoi-modal" class="alert alert-success" role="alert"> Votre message est envoyé avec success </div>').insertBefore( $('#id-contact-msg'));                         
+            },
+            statusCode:{ 
+                       400: function(requete) {  
+                           $(".modal-body").html(requete.responseJSON.template);                                                                     
+                        }
+                     }            
+                });
+   }
+    
+}
+
+function filterSel(nb)
+{
+	if(nb > 0)
+	{
+		$("#filtreform").show();
+		$("#filtreform-"+nb).show();
+	}
+	else
+	{
+		$("#filtreform").hide();
+		$("#filtreform-1").hide();
+		$("#filtreform-2").hide();
+		$("#filtreform-3").hide();
+	}
+}
+
+//compte
+$('#myTabs a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})

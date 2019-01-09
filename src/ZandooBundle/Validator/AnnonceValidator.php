@@ -18,7 +18,7 @@ class AnnonceValidator extends ConstraintValidator
         $this->token = $token;
     }
     public function validate($annonce,Constraint $constraint ){
-        $typeImage = array('image/jpeg','image/jpg', 'image/gif', 'image/png','image/bmp','image/tiff','image/psd');
+        $typeImage = array('image/jpeg','image/jpg', 'image/gif', 'image/png','image/bmp','image/tiff','image/psd','image/jfif');
         $formatnonreconnu = false;
         //controle utilisateur connecté ou non
         if($annonce){

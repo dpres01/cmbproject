@@ -33,7 +33,8 @@ class FormSignalementType extends AbstractType
                 'label' =>"Adresse e-mail *"                
             ))                  
             ->add('message',TextareaType::class,array(
-                'label' =>"Message *"
+                'label' =>"Message *",
+                'attr'=>array('maxlength'=>600),
             ));
     }
     

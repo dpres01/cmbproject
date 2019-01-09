@@ -114,6 +114,7 @@ class Ville
         $this->codePostal = $codePostal;
         return $this;
     }
-
-
+    function __toString() {
+        return (string)$this->getId();
+    }
 }

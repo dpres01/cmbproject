@@ -180,7 +180,7 @@ input[type="radio"], input[type="checkbox"] {margin-top:0px;}
 	float:left;
 	background:#fff;
 	width:49%;
-	height:250px;
+	height:270px;
 	margin-left:2%;
 }
 .ann-sim-bxlst
@@ -208,11 +208,11 @@ input[type="radio"], input[type="checkbox"] {margin-top:0px;}
 }
 .ann-sim-txt
 {
-	color:#3E414F;font-size:15px;font-weight:bold;position:relative;
+	color:#3E414F;font-size:15px;font-weight:bold;position:relative;min-height:39px;
 }
 .ann-sim-price
 {
-	position:absolute;right:0;bottom:0;color:#A82828;
+	position:absolute;left:0;bottom:-27px;color:#A82828;font-size:17px;
 }
 .ann-sim-off
 {

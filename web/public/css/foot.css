@@ -181,26 +181,3 @@
 		display:inline;
 	}
 }
-@media(min-width: 1120px)
-{
-	.srchbox
-	{
-		padding:45px 0;
-	}
-	.srch
-	{
-		float:left;margin:0 4px 0 0;
-	}
-	.srch1
-	{
-		float:left;width:54.6%;margin-right:0.4%;
-	}
-	.srch2
-	{
-		float:left;width:24.6%;margin-right:0.4%;
-	}
-	.srch3
-	{	
-		float:left;width:20%;
-	}	
-}

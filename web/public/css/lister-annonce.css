@@ -16,6 +16,7 @@
 }
 .annonce-l
 {
+	display:none;
 	margin:0 auto;
 	width:100%;
 	max-width:600px;
@@ -260,7 +261,7 @@
 		display:block;
 	}
 	.annonce-l
-	{
+	{		
 		max-width:800px;
 	}
 	.annonce-r
@@ -272,6 +273,7 @@
 {
 	.annonce-l
 	{
+		display:block;
 		float:left;
 		margin:0 5px 0 0;
 		width:280px;

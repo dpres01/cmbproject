@@ -16,8 +16,8 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
     public function findAnnonceByCritere($critere)
     {   
         $qb = $this->createQueryBuilder('a')
-                ->addSelect('img','user')
-                ->leftJoin('a.images', 'img')
+                ->addSelect('user')
+                //->leftJoin('a.images', 'img')
                 ->leftJoin('a.categorie', 'cat')
                 ->leftJoin('a.utilisateur', 'user')
                 ->andWhere('a.actif = 1');
@@ -30,17 +30,24 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
     // nb annonce dans la bdd 
     public function countAllAnnonce($critere) {
         $critere->setOffset('');
-        $qb = $this->createQueryBuilder('a');
+        $qb = $this->createQueryBuilder('a')->andWhere('a.actif = 1');
         $this->filtrerByCritere($critere,$qb);
         return $qb->select('COUNT(a)')->getQuery() ->getSingleScalarResult();
     }
     
+    public function nbAnnoncesByCategorie($critere){
+        $qb = $this->createQueryBuilder('a')
+                ->addSelect('cat','fam','COUNT(a)')
+                ->leftJoin('a.categorie', 'cat')
+                ->leftJoin('cat.famille', 'fam')->andWhere('a.actif = 1');
+        $qb->groupBy('a.categorie');
+        return  $qb->getQuery()->getResult();
+    }
     private function filtrerByCritere ($critere,$qb){
         
         if(!is_null($critere->getPrixInf()) && !is_null($critere->getPrixSup()) ){
             $qb->andWhere($qb->expr()->between('a.prix', ':prixInf',':prixSup'));
-            $qb->setParameters(array('prixInf'=> $critere->getPrixInf(),'prixSup'=>$critere->getPrixSup()));
-           
+            $qb->setParameters(array('prixInf'=> $critere->getPrixInf(),'prixSup'=>$critere->getPrixSup()));   
         }
         if(!is_null($critere->getPrixInf()) && is_null($critere->getPrixSup()) ){
             $qb->andWhere($qb->expr()->gte('a.prix', ':prix'));
@@ -54,7 +61,10 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
             $qb->andWhere($qb->expr()->eq('a.type', ':type'));
             $qb->setParameter(':type', $critere->getType()); 
         }
-        
+        if(!is_null($critere->getVille())){
+            $qb->andWhere($qb->expr()->eq('a.villeAnnonce', ':ville'));
+            $qb->setParameter(':ville', $critere->getVille()); 
+        }
         if(!is_null($critere->getIdUtilisateur())){
             $qb->andWhere($qb->expr()->eq('a.utilisateur', ':id'));
             $qb->setParameter(':id', $critere->getIdUtilisateur()); 

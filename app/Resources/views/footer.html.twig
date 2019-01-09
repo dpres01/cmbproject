@@ -13,76 +13,43 @@
 				<div style="clear:both;"></div>
 			</div>
 		</div>
-		<div class="foot-bd-box">
-			<div class="foot-bd-lft">
-				<div class="foot-bd-elm" style="">
-					<div class="foot-bd-mn-title" style="">QUI SOMMES-NOUS ?</div>
-					<div class="foot-bd-mn-title-sub">
-						<a href="/info/engagements" style="text-decoration: none;">Nos engagements</a>
-					</div>
-					<div class="foot-bd-mn-title-sub">
-						<a href="/info/engagements" style="text-decoration: none;">Conditions de vente</a>
-					</div>
-					<div class="foot-bd-mn-title-sub">
-						<a href="/info/engagements" style="text-decoration: none;">Conditions d'utilisation</a>
-					</div>
-					<div class="foot-bd-mn-title-sub">
-						<a href="/info/engagements" style="text-decoration: none;">Affiliation</a>
-					</div>
-				</div>
-				<div class="foot-bd-elm foot-bd-elm-2" style="">
-					<div class="foot-bd-mn-title" style="">NOS SERVICES</div>
-					<div class="foot-bd-mn-title-sub">
-						<a href="/info/engagements" style="text-decoration: none;">Marchands Partenaires</a>
-					</div>
-					<div class="foot-bd-mn-title-sub">
-						<a href="/info/engagements" style="text-decoration: none;">Modes de livraison</a>
-					</div>
-					<div class="foot-bd-mn-title-sub">
-						<a href="/info/engagements" style="text-decoration: none;">Moyens de paiement</a>
-					</div>
-					<div class="foot-bd-mn-title-sub">
-						<a href="/info/engagements" style="text-decoration: none;">Mes retours produits</a>
-					</div>
-				</div>
-				<div style="clear:both;"></div>
-			</div>
-			<div class="foot-bd-rgt">
-				<div class="foot-bd-elm" style="">
-					<div class="foot-bd-mn-title" style="">AIDE</div>
-					<div class="foot-bd-mn-title-sub">
-						<a href="/info/engagements" style="text-decoration: none;">Plan du site</a>
-					</div>
-					<div class="foot-bd-mn-title-sub">
-						<a href="/info/engagements" style="text-decoration: none;">Annuler ma commande</a>
-					</div>
-					<div class="foot-bd-mn-title-sub">
-						<a href="/info/engagements" style="text-decoration: none;">Mon historique de commande</a>
-					</div>
-					<div class="foot-bd-mn-title-sub">
-						<a href="/info/engagements" style="text-decoration: none;">Nous contacter</a>
-					</div>
-				</div>
-				<div class="foot-bd-elm foot-bd-elm-4" style="margin-right:0;">
-					<div class="foot-bd-mn-title" style="">LIENS UTILES</div>
-					<div class="foot-bd-mn-title-sub">
-						<a href="/info/engagements" style="text-decoration: none;">Cookie</a>
-					</div>
-					<div class="foot-bd-mn-title-sub">
-						<a href="/info/engagements" style="text-decoration: none;">S'inscrire</a>
-					</div>
-					<div class="foot-bd-mn-title-sub">
-						<a href="/info/engagements" style="text-decoration: none;">Reprise de matériel</a>
-					</div>
-					<div class="foot-bd-mn-title-sub">
-						<a href="/info/engagements" style="text-decoration: none;">Garantie</a>
-					</div>
-				</div>
-				<div style="clear:both;"></div>
+		<div class="foot-bd-box" style="padding:10px 0;text-align:center;font-size:13px;">
+			Zandoo est le site référent de petites annonces de particulier à particulier et professionnels. 
+			Découvrez nos annonces voitures d'occasion, motos, immobilier, emploi, location de vacances, vêtements, électroménager, jouets, 
+			déco, meubles, etc... Déposez une annonce gratuite en toute simplicité pour vendre, donner vos biens ou promouvoir vos services. 
+			Avec des milliers de nouvelles annonces mises en ligne chaque jour vous trouverez l'objet d'occasion ou neuf que vous désirez.
 			</div>
 			<div style="clear:both;"></div>
 		</div>
-		<div class="foot-ft">
-			© 2018 zandoo.com - Tous droits réservés.
+		<div class="foot-ft" style="">
+			© 2018 zandoo.com - Tous droits réservés. | <a id="idcontactMess" >Nous contacter</a>
 		</div>
+                <div class="modal fade bs-example-modal-sm" id="reportModalMess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+                <div class="modal-dialog modal-sm" role="document" style="width:100%;max-width:600px;margin:8% auto 0 auto;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button style="color:black" type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Nous Contactez</h4>              
+                        </div>
+                        <div class="modal-body">
+                            <p id="id-mess-cntact-error"> </p>
+                            <div style="margin-top:10px;">
+                                <input id='nomMessage' type="text" value="" class="ann-msg-inp form-control" placeholder="Votre nom">
+                            </div>
+                            <div style="margin-top:10px;">
+                                <input id='emailMessage' type="text" value="" class="ann-msg-inp form-control" placeholder="Votre e-mail">
+                            </div>
+                            <div style="margin-top:10px;">
+                               <input id='telMessage' type="text" value="" class="ann-msg-inp form-control" placeholder="Votre numéro de tél. (optionnel)">
+                            </div>
+                            <div style="margin-top:10px;">
+                               <textarea class="textare form ann-msg-txtarea form-control" id="textAmessage" rows="3" placeholder="Votre Message" maxlength="1024" name="message"></textarea>
+                            </div>
+                            <div style="margin:10px 0;">
+                               <button class="btn-primary" onclick="sendMessage('{{path('contact')}}')"> Envoyer message </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
 	</div>

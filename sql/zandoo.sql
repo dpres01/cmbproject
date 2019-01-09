@@ -380,3 +380,37 @@ ALTER TABLE `signalement`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+CREATE TABLE annonce_visite 
+  ( 
+     annonce_id INT NOT NULL, 
+     visite_id  INT NOT NULL, 
+     INDEX idx_d03b8fa58805ab2f (annonce_id), 
+     INDEX idx_d03b8fa5c1c5dc59 (visite_id), 
+     PRIMARY KEY(annonce_id, visite_id) 
+  ) 
+DEFAULT CHARACTER SET utf8 
+COLLATE utf8_unicode_ci 
+engine = innodb; 
+
+CREATE TABLE visite 
+  ( 
+     id          INT auto_increment NOT NULL, 
+     date_visite DATETIME NOT NULL, 
+     ip    VARCHAR(55) NOT NULL, 
+     PRIMARY KEY(id) 
+  ) 
+DEFAULT CHARACTER SET utf8 
+COLLATE utf8_unicode_ci 
+engine = innodb; 
+
+ALTER TABLE annonce_visite 
+  ADD CONSTRAINT fk_d03b8fa58805ab2f FOREIGN KEY (annonce_id) REFERENCES annonce 
+  (id); 
+
+ALTER TABLE annonce_visite 
+  ADD CONSTRAINT fk_d03b8fa5c1c5dc59 FOREIGN KEY (visite_id) REFERENCES visite ( 
+  id); 
+
+
+ALTER TABLE `contact_message` CHANGE `annonce_id` `annonce_id` INT(11) NULL;

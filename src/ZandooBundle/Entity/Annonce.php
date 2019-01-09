@@ -75,7 +75,7 @@ class Annonce
     /**
      * @var string
      *
-     * @ORM\Column(name="date_creation", type="date",nullable=false)
+     * @ORM\Column(name="date_creation", type="datetime",nullable=false)
      */
     private $dateCreation;
     
@@ -137,11 +137,22 @@ class Annonce
      */
     private $generateurId;
     
+    /**
+     * @ORM\ManyToMany(targetEntity="Visite")
+     * @ORM\JoinTable(name="annonce_visite",
+     *      joinColumns={@ORM\JoinColumn(name="annonce_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="visite_id", referencedColumnName="id")}
+     *      )
+     * 
+     */
+    private $visite;
+    
     public function __construct(){
         $this->images = new ArrayCollection();
-        $this->dateModification = new \DateTime();
+        $this->visite = new ArrayCollection();
+        $this->dateModification = new \DateTime();        
     }
-
+    
     /**
      * Get id
      *
@@ -151,7 +162,7 @@ class Annonce
     {
         return $this->id;
     }
-
+       
     /**
      * Set titre
      *
@@ -453,23 +464,26 @@ class Annonce
      public function setGenerateurId($generateurId) {
         $this->generateurId = $generateurId;
     }
-    /**
-     * @ORM\PostPersist()
-     * @ORM\PostUpdate()
-     */
-    public function generateurIdRand(){
-      $this->generateurId  = $this->randomString().$this->id;
-    }
     
-    private function randomString(){
-            $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';        
-            $randstring = '';
-            $retour = '';
-            for ($i = 0; $i < 8; $i++) {
-                $retour = $characters[rand(0, strlen($characters)-1)]; 
-                $randstring .= $retour;
-            }
-            return $randstring;
-        }
+    public function getOldGenenerateurId($gen){
+        return $this->generateurId = $gen ;
+    }
+   
+   
+    /**
+     * 
+     * @return viste
+     */    
+    function getVisite() {
+        return $this->visite;
+    }
+    /**
+     * 
+     * @param type $visite
+     */    
+    function setVisite(Visite $visite) {
+        $this->visite[] = $visite;
+        return $this;
+    }
 
 }

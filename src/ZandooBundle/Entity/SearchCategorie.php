@@ -2,8 +2,8 @@
 namespace ZandooBundle\Entity;
 
 class SearchCategorie
-{
-	public static $SELECT_GROUP = array(
+{    
+    public static $SELECT_GROUP = array(
 		1 => 'EMPLOI',
 		2 => 'VEHICULES',
 		3 => 'IMMOBILIER',
@@ -14,7 +14,7 @@ class SearchCategorie
 		8 => 'MAISON',
 		9 => 'AUTRES',
 		10 => '',
-    );
+            );
 	
 	 public static $SELECT_GROUP_OPTION = array(
 		1  => 1,
@@ -160,18 +160,18 @@ class SearchCategorie
 	**/
 	
 	public function getSelectGroup()
-	{
-		return self::$SELECT_GROUP;
+	{  
+	    return self::$SELECT_GROUP;
 	}
 	
 	public function getSelectGroupOption()
 	{
-		return self::$SELECT_GROUP_OPTION;
+	    return self::$SELECT_GROUP_OPTION;
 	}
 	
 	public function getSelectOption()
 	{
-		return self::$SELECT_OPTION;
+	    return self::$SELECT_OPTION;
 	}
 }
 

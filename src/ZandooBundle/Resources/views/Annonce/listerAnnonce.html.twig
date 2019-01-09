@@ -7,68 +7,54 @@
 	<link rel="stylesheet" href="{{ asset('public/css/lister-annonce.css') }}" type="text/css"/>
 	<link rel="stylesheet" href="{{ asset('public/css/button.css') }}" type="text/css"/>
 	<div class="bg-cont-annonce">
-		<div class="cont-annonce">
-			<div class="annonce-l" style="">
-				<div class="bx-filter" style="">
-					<div class="btn-filter" style="text-align:right;">
-						<i class="fa fa-sliders" aria-hidden="true" style="cursor:pointer;" onclick="shfilter();"></i>
-					</div>
-					<div id="filter-annonce" class="shfilter">
-						<div style="font-weight:bold;">
-							<div style="float:left;">Prix</div>
-							<div style="float:left;margin:1px 0 0 6px;color:#337ab7;cursor:pointer;" onclick="filter('pr');">
-								<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
-							</div>
-							<div style="clear:both;"></div>
-						</div>
-						<div class="filter-prix">
-							<div style="float:left;">
-								<input type="text"s value="" id="pr1" class="filter-prix-inp">
-							</div>
-							<div style="float:left;">&nbsp;-&nbsp;</div>
-							<div style="float:left;">
-								<input type="text" value="" id="pr2" class="filter-prix-inp">
-							</div>
-							<div style="clear:both;"></div>
-						</div>
-						<div class="filter-title" style="display:none;">Catégories</div>
-						<div style="font-size:13px;display:none;">
-							<div style="margin-top:5px;">
-								<div class="filter-marg">
-									<a href="#">Appartement</a>
-								</div>
-								<div style="clear:both;"></div>
-							</div>
-							<div style="margin-top:5px;">
-								<div class="filter-marg">
-									<a href="#">Maison</a>
-								</div>
-								<div style="clear:both;"></div>
-							</div>
-						</div>
-						<div class="filter-title" style="display:none;">Types d'offres</div>
-						<div style="font-size:13px;display:none;">
-							<div style="margin-top:5px;">
-								<div class="filter-marg">
-									<a href="#">Offres <span class="filter-nb">(1 251)</span></a>
-								</div>
-								<div style="clear:both;"></div>
-							</div>
-							<div style="margin-top:5px;">
-								<div class="filter-marg">
-									<a href="#">Demandes <span class="filter-nb">(840)</span></a>
-								</div>
-								<div style="clear:both;"></div>
-							</div>
-						</div>
-						<div style="margin:20px auto 0 auto;width:100%;max-width:136px;display:none;">
-							<a href="#" class="myButton">Réinitialiser</a>
-						</div>
-					</div>
-				</div>
-			</div>
-
+		
+		<div class="cont-annonce">		
+			<div class="annonce-l" style="text-align:center;padding:15px 0 0 0;">
+				<img src="{{ asset('public/img/pub.png')}}">
+			</div>			
 			<div class="annonce-r" style="">
+				<div style="margin-bottom:10px;">
+					<div style="float:left;font-size:14px;padding-top:5px;font-weight:bold;">
+						4 611 395 Annonces
+					</div>
+					<div style="float:right;">
+						<div style="float:left;margin:0 10px 0 0;">
+							<select name="f" style="padding:5px;" onchange="filterSel(this.value);">
+								<option value="0">Filtre</option>
+								<option value="1">Prix</option>
+								<option value="2">Cat&eacute;gories</option>
+								<option value="3">Villes</option>
+							</select>
+						</div>
+						<div style="float:left;margin:0 0px 0 0;">
+							<select name="t" style="padding:5px;">
+								<option value="0">Tri : Plus r&eacute;centes</option>
+								<option value="1">Tri : Plus anciennes</option>
+								<option value="2">Tri : Prix croissants</option>
+								<option value="3">Tri : Prix d&eacute;croissants</option>
+							</select>
+						</div>
+						<div style="clear:both;"></div>						
+						<div id="filtreform" style="float:right;margin:5px 0px 0 0;display:none;">
+							<div id="filtreform-1" style="float:left;display:none;">
+								<div style="float:left;">
+									<input type="text" value="{{priceFrom}}" id="pr1" class="filter-prix-inp">
+								</div>
+								<div style="float:left;padding-top:3px;">&nbsp;-&nbsp;</div>
+								<div style="float:left;">
+									<input type="text" value="{{priceTo}}" id="pr2" class="filter-prix-inp">
+								</div>						
+								<div style="clear:both;"></div>
+							</div>
+							<div style="float:left;margin:0px 0 0 6px;color:#337ab7;cursor:pointer;" onclick="filterGo();">						
+								<a href="" class="myButton" style="color:#fff;" onclick="return false;">Filtrer</a>
+							</div>
+							<div style="clear:both;"></div>
+						</div>
+						<div style="clear:both;"></div>	
+					</div>
+					<div style="clear:both;"></div>
+				</div>
 				{% for val in annonces %}
 
 					{% if loop.index == 1 %}
@@ -79,7 +65,7 @@
 
 					<div class="bxanon" style="margin-top:{{ marg }}px;height:100%;">
 						<div class="bxanon-img">
-							<a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">
+							<a href="{{ path('afficher_annonce', {'generateurId': val.generateurId}) }}" class="lk-b">
 							{%if zandoo_service_commun.testExistanceImg(val.images) %}
 								  <img src="{{asset('public/uploads/documents/'~val.images[0].id~'.'~val.images[0].url)}}" class="mmax">
 							{%else%}
@@ -89,7 +75,7 @@
 						</div>
 						<div class="bx-txt">
 							<div class="bx-title truncate">
-								<a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">
+								<a href="{{ path('afficher_annonce', {'generateurId': val.generateurId}) }}" class="lk-b">
 									{{ zandoo_service_commun.titreFormatAnnonce(val.titre) }}
 								</a>
 							</div>
@@ -98,7 +84,7 @@
 									<div class="bx-txt-nor-price">{{ val.prix }} {{ zandoo_service_commun.typeMonnaie(val.monnaie) }}</div>
 									<div style="margin-top:15px;">
 										<div class="bx-txt-nor-price-offer">
-										    <a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">{%if val.type%}Voir demande{%else%}Voir offre{%endif%}</a>
+										    <a href="{{ path('afficher_annonce', {'generateurId': val.generateurId}) }}" class="lk-b">{%if val.type%}Voir demande{%else%}Voir offre{%endif%}</a>
 										</div>
 									</div>
 									<div style="margin-top:15px;text-align:center;">
@@ -118,7 +104,7 @@
 									<div class="bx-price">{{ val.prix }} {{ zandoo_service_commun.typeMonnaie(val.monnaie) }}</div>
 									<div style="float:left;">
 										<div class="bx-offer">
-											<a href="{{ path('afficher_annonce', {'id': val.generateurId}) }}" class="lk-b">
+											<a href="{{ path('afficher_annonce', {'generateurId': val.generateurId}) }}" class="lk-b">
 											{% if val.type %} Voir demande {%else%} Voir offre {%endif%}
 											</a>
 										</div>
