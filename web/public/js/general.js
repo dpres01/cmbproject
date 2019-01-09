@@ -299,6 +299,22 @@ function initMessageContact(url,type){
     
 }
 
+function filterSel(nb)
+{
+	if(nb > 0)
+	{
+		$("#filtreform").show();
+		$("#filtreform-"+nb).show();
+	}
+	else
+	{
+		$("#filtreform").hide();
+		$("#filtreform-1").hide();
+		$("#filtreform-2").hide();
+		$("#filtreform-3").hide();
+	}
+}
+
 //compte
 $('#myTabs a').click(function (e) {
   e.preventDefault()
