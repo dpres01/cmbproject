@@ -61,7 +61,7 @@ class Annonce
     /**
      * @var string
      *
-     * @ORM\Column(name="prix", type="string", length=60,nullable=true)
+     * @ORM\Column(name="prix", type="integer",nullable=true)
      */
     private $prix;
     

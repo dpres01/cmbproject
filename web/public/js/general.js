@@ -64,34 +64,34 @@ $(document).ready(function()
             $("#phone2").toggle();
 	});
         
-        $("#form_annonce_prix").on('blur',function(){
-            var $tab = [];
-            var $retour = [];
-            var input = $(this).val();
-            if( $.isNumeric(input) || input == ''){
-                for(var i = 0;i < input.length ; i++){ 
-                 $tab.push(input.substr(i,1));            
-                }
-                var t = $tab.length -1
-                var cpt = 1;
-                var ntour = ($tab.length)/3;
-                for(t = $tab.length -1 ;t >= 0 ; t--){ 
-                    if(cpt == 3 && ntour > 1){          
-                       $retour[t] = ',' + $tab[t];
-                       cpt++;
-                       ntour--
-                       cpt = 1;
-                    }else{
-                       $retour[t] = $tab[t];
-                       cpt++;
-                    }
-                }
-                $("#form_annonce_prix").val($retour.join('')); 
-                $("#form_annonce_prix").removeAttr('style');
-            }else{
-                $("#form_annonce_prix").css('border-color','red');
-            }   
-         })
+//        $("#form_annonce_prix").on('blur',function(){
+//            var $tab = [];
+//            var $retour = [];
+//            var input = $(this).val();
+//            if( $.isNumeric(input) || input == ''){
+//                for(var i = 0;i < input.length ; i++){ 
+//                 $tab.push(input.substr(i,1));            
+//                }
+//                var t = $tab.length -1
+//                var cpt = 1;
+//                var ntour = ($tab.length)/3;
+//                for(t = $tab.length -1 ;t >= 0 ; t--){ 
+//                    if(cpt == 3 && ntour > 1){          
+//                       $retour[t] = ',' + $tab[t];
+//                       cpt++;
+//                       ntour--
+//                       cpt = 1;
+//                    }else{
+//                       $retour[t] = $tab[t];
+//                       cpt++;
+//                    }
+//                }
+//                $("#form_annonce_prix").val($retour.join('')); 
+//                $("#form_annonce_prix").removeAttr('style');
+//            }else{
+//                $("#form_annonce_prix").css('border-color','red');
+//            }   
+//         })
    
     //fly menu
     //$(window).scroll(function(){ positionMenu(); });
@@ -241,7 +241,7 @@ function sendMessage(url){
                         $('#id-mess-cntact-error').html('<div id="id-msg-envoi-modal" class="alert alert-danger" role="alert"> \n\
                                                                                       Les champs ne doivent pas être vide, \n\
                                                                                       vérifier votre Email soit correct et \n\
-                                                                                      téléphone doit être type numérique </div>')                          
+                                                                                      téléphone doit être de type numérique </div>')                          
                         }
                      }            
                 }); 

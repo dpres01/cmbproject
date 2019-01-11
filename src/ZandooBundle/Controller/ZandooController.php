@@ -55,15 +55,17 @@ class ZandooController extends Controller
         $repoAnnoce =  $em->getRepository(Annonce::class);          
         $offset  = empty($request->query->get('p')) ? 1 : $request->query->get('p') ;
         $cat 	 = $request->query->get('cat');
+        $tri     = $request->query->get('tr');
 
         $critere->setOffset($offset);
         $critere->setType($this::TYPE_DEMANDE);
+        $this->convertfiltreTocritere($tri,$critere);
         $annonces = $repoAnnoce->findAnnonceByCritere($critere);                                
         $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL));
         $nbAnnoByCat = $this->get('zandoo.utils')->countCategorieByFamille($cat);
         $nbAnnoByVille = $this->get('zandoo.utils')->countAnnonceByVille();
         $retour = array('form'=>"",'colorBody'=>"F7F7F7",'headsearch'=>1,'annonces'=>$annonces,'search'=>'','cat'=>'','titres'=>'',
-                        'urgentes'=>'','numPage'=>$offset,'priceFrom'=>'','priceTo'=>'','total'=> $nbr,'nbAnnoCat'=>$nbAnnoByCat,'nbAnnoByVille'=>$nbAnnoByVille);
+                        'urgentes'=>'','numPage'=>$offset,'priceFrom'=>'','priceTo'=>'','total'=> $nbr,'nbAnnoCat'=>$nbAnnoByCat,'nbAnnoByVille'=>$nbAnnoByVille,'tri'=>$tri);
         return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig', $retour);
     }	
     
@@ -79,10 +81,12 @@ class ZandooController extends Controller
         $repoAnnoce =  $em->getRepository(Annonce::class);          
         $offset  = empty($request->query->get('p')) ? 1 : $request->query->get('p');
         $cat 	 = $request->query->get('cat');
+        $tri     = $request->query->get('tr');       
 
         $critere->setOffset($offset);
         $critere->setCategorie($cat);
         $critere->setType($this::TYPE_OFFRE);
+         $this->convertfiltreTocritere($tri,$critere);
         $annonces = $repoAnnoce->findAnnonceByCritere($critere);   		
         $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL));
         
@@ -91,7 +95,7 @@ class ZandooController extends Controller
                
         $retour = array('form'=>'','colorBody'=> 'F7F7F7','headsearch' =>1,'annonces'=>$annonces,'search'=>'','cat' =>'',
                         'titres'=> '','urgentes'=>'','numPage'=> $offset,'priceFrom'=>'','priceTo'=>'','total'=>$nbr,
-                        'nbAnnoCat'=>$nbAnnoByCat,'nbAnnoByVille'=>$nbAnnoByVille);
+                        'nbAnnoCat'=>$nbAnnoByCat,'nbAnnoByVille'=>$nbAnnoByVille,'tri'=>$tri);
         return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',$retour);
     }	
     
@@ -102,10 +106,10 @@ class ZandooController extends Controller
     public function rechercheAnnonce(Request $request){ 
         $critere = new Critere();
         $session = new Session(); 
-        
+       
         $em = $this->getDoctrine(); 	
         $repoAnnoce =  $em->getRepository(Annonce::class);
-
+       
         $search   = $request->query->get('q');
         $priceFrom= $request->query->get('price_start');
         $priceTo  = $request->query->get('price_to');
@@ -115,15 +119,15 @@ class ZandooController extends Controller
         $urgentes = $request->query->get('urg');
         $offset  = empty($request->query->get('p')) ? 1 : $request->query->get('p') ;                 
         $cat     = intval($cat) > 0 ? $cat : null;
-		$tri     = $request->query->get('tr');		
-        
+	$tri     = $request->query->get('tr');
+        $this->convertfiltreTocritere($tri,$critere);
         $critere->setOffset($offset); 
         $critere->setCategorie($cat);
-        $critere->setVille($ville);
+        $critere->setVille($ville == 0 ? null:$ville );
         $critere->setTitre(trim($search));
         $critere->setUrgent($urgentes);
         $critere->setTitreUniquement($titre);
-        
+       // dump($critere);die;
         $annonces = $repoAnnoce->findAnnonceByCritere($critere);
         
         //if(empty($session->get('nbr'))){
@@ -193,7 +197,7 @@ class ZandooController extends Controller
                 }
                 if(is_null($annonce)){
                     $annonce->setDateModification(new \DateTime());                    
-                }
+                }               
                 $em->persist($annonce);               
                 $em->flush();
                 if(is_null($annonce->getGenerateurId()) or empty($annonce->getGenerateurId())){
@@ -277,6 +281,7 @@ class ZandooController extends Controller
         if($annonce){
             $this->creerCompteurVisiteAnnonce($annonce,$em);              
             $nbImg = count($annonce->getImages());
+            $this->get('zandoo.utils')->formattePrixAnnonce($annonce);
             $retour = array('annonce'=>$annonce,'formContact'=>$formContact->createView(),'form'=>$form->createView(),'colorBody'=>"F7F7F7"
                 ,'nbImg'=>$nbImg,'url_upload'=>$this->getParameter('url_upload'),'annonSimilaires' => $annoncesSimilaires);
             return $this->render('@Zandoo/Annonce/annonce.html.twig',$retour);			
@@ -421,13 +426,27 @@ class ZandooController extends Controller
 //        }  
     }
     
-    private function dateIntervalToMinutes(\DateInterval $dateInterval) 
-      { 
+    private function dateIntervalToMinutes(\DateInterval $dateInterval) { 
         return (((int)$dateInterval->format('%y') * 365 * 24 * 60 * 60) + 
                ((int)$dateInterval->format('%m') * 30 * 24 * 60 * 60) + 
                ((int)$dateInterval->format('%d') * 24 * 60 * 60) + 
                ((int)$dateInterval->format('%h') * 60 * 60) + 
                ((int)$dateInterval->format('%i') * 60) + 
                (int)$dateInterval->format('%s'))/60; 
-      } 
+    }
+    
+    private function convertfiltreTocritere($tri,$critere){  
+        if($tri == 0){
+           $critere->setPlusNouveau($tri); 
+        }
+        if($tri == 1){
+            $critere->setPlusAncien($tri);
+        }
+        if($tri == 2){
+            $critere->setPrixCroisant($tri);
+        }
+        if($tri == 3){
+            $critere->setPrixDecroissant($tri);
+        }
+    }
 }

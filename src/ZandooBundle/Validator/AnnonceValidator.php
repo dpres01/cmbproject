@@ -37,6 +37,9 @@ class AnnonceValidator extends ConstraintValidator
                }
               if($formatnonreconnu)$this->context->addViolation('format des images acceptés : jpeg,jpg,gif,png,bmp,tiff,psd'); 
            }
+           if($annonce->getPrix() > 1999999999){
+                $this->context->addViolation('champs prix valeur non supportée');
+           }
         }
         //utilisateur non connecté
         if($annonce->getUtilisateur() != null && !is_object($this->token->getToken()->getUser())){

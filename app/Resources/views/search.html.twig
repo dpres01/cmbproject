@@ -6,16 +6,12 @@
 					<input type="text" placeholder="Que recherchez-vous ?" class="srchinp" name="q" id="recherche" value="{%if search is defined %}{{search}}{%endif%}"/>
 				</div>                              
 				<div class="srch4">
+                                                                 
 					<select id="form_search_ville" name="vi" class="form-control srchsel">
 						<option value="0" selected="selected">Toutes les villes</option>
-						<optgroup label="Ile de france">
-							<option value="1">Rueil</option>			  
-							<option value="2">Nanterre</option>			  
-						</optgroup>  
-						<optgroup label="Marseille">
-							<option value="3">Luxo</option>			  
-							<option value="4">Butexe</option>			  
-						</optgroup>   					
+                                                {% for key,ville in listeVilles() %}                                                  
+                                                   <option value="{{ville}}">{{key}}</option>			                                          		  						
+                                                {%endfor%}    					
 					</select>
 				</div>                              
 				<div class="srch2">

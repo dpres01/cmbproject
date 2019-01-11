@@ -9,13 +9,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use ZandooBundle\Form\FormUtilisateurType;
 use ZandooBundle\Form\FormImageType;
-use Doctrine\ORM\EntityRepository;
-use ZandooBundle\Entity\Annonce;
-use Symfony\Component\Validator\Constraints\Choice;
+use Symfony\Component\Form\CallbackTransformer;
 
 /**
  * Description of FormAnnonceType
@@ -91,6 +88,36 @@ class FormAnnonceType extends AbstractType
                 'required'=> false
           ))                  
         ;
+         $builder->get('prix')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($prixAsNumber) {
+                    $prixAsNumber = (string)$prixAsNumber;
+                    $strArray = array();
+                    if( strlen($split = $prixAsNumber ) > 3){ 
+                        $tab = array_reverse(str_split($split));
+                        $nbTour = count($tab)/3;
+                        $cpt = 1;
+                        foreach($tab as $value){
+                            $strArray[] = $value;                    
+                            if($cpt%3 == 0 && $nbTour > 1){
+                                $strArray[] = '.'; 
+                            }                               
+                            $cpt++;
+                        }
+                    $prixAsNumber = implode('',array_reverse($strArray));           
+                }
+                return $prixAsNumber;
+                },
+                function ($prixAsString) {                   
+                    if(strpos($prixAsString,',')){
+                        return implode('',explode(',', $prixAsString));
+                    }
+                    if(strpos($prixAsString,'.')){
+                        return implode('',explode('.', $prixAsString));
+                    }
+                    return (int)$prixAsString;
+                }
+            ));
     }
     public function configureOptions(OptionsResolver $resolver)
     {

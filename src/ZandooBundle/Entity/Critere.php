@@ -59,8 +59,31 @@ class Critere
      * @var boolean
      */
     private $titreUniquement;
-    
+    /**
+     *
+     * @var int
+     */
     private $ville;
+    /**
+     *
+     * @var int
+     */
+    private $plusAncien;
+    /**
+     *
+     * @var int
+     */
+    private $plusNouveau;
+    /**
+     *
+     * @var int
+     */
+    private $prixCroisant;
+    /**
+     *
+     * @var int
+     */
+    private $prixDecroissant;
     
     public function getTitre() {
         return $this->titre;
@@ -163,10 +186,42 @@ class Critere
     function getVille() {
         return $this->ville;
     }
+    
     function setVille($ville) {
         $this->ville = $ville;
         return $this;
     }
+    
+    function getPlusAncien() {
+        return $this->plusAncien;
+    }
+    
+    function setPrixCroisant($prixCroisant) {
+        $this->prixCroisant = $prixCroisant;
+    }
+    
+    function getPlusNouveau() {
+        return $this->plusNouveau;
+    }
+    
+    function setPlusNouveau($plusNouveau) {
+        $this->plusNouveau = $plusNouveau;
+    }
+   
+    function getPrixCroisant() {
+        return $this->prixCroisant;
+    }
+    
+    function setPlusAncien($plusAncien) {
+        $this->plusAncien = $plusAncien;
+    }
 
+    function getPrixDecroissant() {
+        return $this->prixDecroissant;
+    }
+
+    function setPrixDecroissant($prixDecroissant) {
+        $this->prixDecroissant = $prixDecroissant;
+    }
 }
 

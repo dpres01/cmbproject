@@ -414,3 +414,4 @@ ALTER TABLE annonce_visite
 
 
 ALTER TABLE `contact_message` CHANGE `annonce_id` `annonce_id` INT(11) NULL;
+ALTER TABLE `annonce` CHANGE `prix` `prix` INT(11) NULL DEFAULT NULL;

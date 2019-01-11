@@ -53,7 +53,27 @@ class Utils
             
         }        
         return $liste;
-    }  
+    }
+    
+    public function formattePrixAnnonce($annonce){
+        $prixAsNumber = (string)$annonce->getPrix();
+        if( strlen($split = $prixAsNumber ) > 3){ 
+    
+                        $tab = array_reverse(str_split($split));
+                        $nbTour = count($tab)/3;
+                        $cpt = 1;
+                        foreach($tab as $value){
+                            $strArray[] = $value;                    
+                            if($cpt%3 == 0 && $nbTour > 1){
+                                $strArray[] = '.'; 
+                            }                               
+                            $cpt++;
+                        }
+                    $prixAsNumber = implode('',array_reverse($strArray));
+                    $annonce->setPrix($prixAsNumber);
+        }
+        return $annonce;
+    }
 }
 
 

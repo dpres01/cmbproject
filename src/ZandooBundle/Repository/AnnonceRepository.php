@@ -23,8 +23,8 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
                 ->andWhere('a.actif = 1');
          !is_null($critere->getOffset()) ?  $critere->setOffset((intval($critere->getOffset()) - 1) * $this::MAX_RESULT) : null ;
          $this->filtrerByCritere($critere, $qb);
-         $qb->orderBy('a.id','DESC');
-         //dump($critere,$qb->getQuery()->getResult(),$qb->getQuery()->getSQL(),$qb->getQuery()->getParameters());die;
+         //$qb->orderBy('a.id','DESC');
+         // dump($critere,$qb->getQuery()->getResult(),$qb->getQuery()->getSQL(),$qb->getQuery()->getParameters());die;
         return  $qb->getQuery()->getResult();
     }
     // nb annonce dans la bdd 
@@ -43,7 +43,7 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
         $qb->groupBy('a.categorie');
         return  $qb->getQuery()->getResult();
     }
-    private function filtrerByCritere ($critere,$qb){
+    private function filtrerByCritere (Critere $critere,$qb){
         
         if(!is_null($critere->getPrixInf()) && !is_null($critere->getPrixSup()) ){
             $qb->andWhere($qb->expr()->between('a.prix', ':prixInf',':prixSup'));
@@ -79,9 +79,26 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
                 $qb->orWhere($qb->expr()->like('lower(a.description)', ':titre'));
             }           
             $qb->setParameter(':titre', '%'.strtolower($critere->getTitre()).'%'); 
-        }
+        }        
         if(!is_null($critere->getOffset())){
             $qb->setFirstResult($critere->getOffset())->setMaxResults($this::MAX_RESULT); 
+        }
+        if(!is_null($critere->getPlusAncien())){
+            $qb->orderBy('a.id','ASC'); 
+        }
+        if(!is_null($critere->getPlusNouveau())){
+            $qb->orderBy('a.id','DESC'); 
+        }
+        if(!is_null($critere->getPrixCroisant())){
+            $qb->add('orderBy','a.monnaie ASC ,a.prix ASC');
+//            $qb->orderBy('a.prix','ASC');
+//            $qb->orderBy('a.monnaie','ASC');
+        }
+        if(!is_null($critere->getPrixDecroissant())){
+            $qb->add('orderBy','a.monnaie ASC,a.prix DESC ');           
+        }
+        if(is_null($critere->getPrixDecroissant()) && is_null($critere->getPlusNouveau()) && is_null($critere->getPrixCroisant()) && is_null($critere->getPrixDecroissant())){
+             $qb->orderBy('a.prix','DESC'); 
         }
         return $qb;
     }
