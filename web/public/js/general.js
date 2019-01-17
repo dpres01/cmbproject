@@ -134,27 +134,34 @@ function filterAdd(cat, val)
 	var vars = getter.split("&");
 	var query_string = {};
 	var url = "";
+       console.log(cat,vars );
+       //die;
 	for (var i = 0; i < vars.length; i++) 
 	{
             var pair = vars[i].split("=");
             var key = decodeURIComponent(pair[0]);
             var value = decodeURIComponent(pair[1]);
-
+           
             if(key != cat && val && key)
             {
-                    if (i === 0) 
-                    {
-                            url += "?";
-                    } 
-                    else 
-                    {
-                            url += "&";
+                if (i === 0) 
+                {
+                    url += "?";
+                } 
+                else 
+                {
+                    if(url.indexOf('?') == -1 ){
+                        url += "?";
+                    }else{
+                       url += "&"; 
                     }
-                    url += key;
-                    url += '=';
-                    url += decodeURIComponent(value);
+                    
+                }
+                url += key;
+                url += '=';
+                url += decodeURIComponent(value);
             }
-
+            
             if (typeof query_string[key] === "undefined") // If first entry with this name
             {
                     query_string[key] = decodeURIComponent(value);
