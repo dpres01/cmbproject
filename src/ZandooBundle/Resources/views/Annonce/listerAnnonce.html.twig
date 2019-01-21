@@ -19,7 +19,7 @@
 					</div>
 					<div style="float:right;">
 						<div style="float:left;margin:0 25px 0 0;padding:3px 0 0 0;">
-							<input id="cfilter" type="checkbox" onClick="filterSel();">&nbsp;&nbsp;Filtre
+							<input id="cfilter" type="checkbox" onClick="#filterSel();">&nbsp;&nbsp;Filtre
 						</div>
 						<div style="float:left;margin:0 0px 0 0;">
 							<select name="tr" style="padding:5px;" onChange="triSel(this.value)">
@@ -101,7 +101,7 @@
 							</div>
 							<div class="bx-txt-nor">
 								<div class="bx-txt-nor-price-box">
-									<div class="bx-txt-nor-price">{{ val.prix }} {{ zandoo_service_commun.typeMonnaie(val.monnaie) }}</div>
+									<div class="bx-txt-nor-price">{{ zandoo_service_utils.formattePrixAnnonce(val.prix) }} {{ zandoo_service_commun.typeMonnaie(val.monnaie) }}</div>
 									<div style="margin-top:15px;">
 										<div class="bx-txt-nor-price-offer">
 										    <a href="{{ path('afficher_annonce', {'generateurId': val.generateurId}) }}" class="lk-b">{%if val.type%}Voir demande{%else%}Voir offre{%endif%}</a>
@@ -121,7 +121,7 @@
 							</div>
 							<div class="bx-txt-resp">
 								<div class="bx-price-offer">
-									<div class="bx-price">{{ val.prix }} {{ zandoo_service_commun.typeMonnaie(val.monnaie) }}</div>
+									<div class="bx-price">{{ zandoo_service_utils.formattePrixAnnonce(val.prix) }} {{ zandoo_service_commun.typeMonnaie(val.monnaie) }}</div>
 									<div style="float:left;">
 										<div class="bx-offer">
 											<a href="{{ path('afficher_annonce', {'generateurId': val.generateurId}) }}" class="lk-b">

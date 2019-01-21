@@ -61,11 +61,9 @@ class ZandooController extends Controller
         $critere->setType($this::TYPE_DEMANDE);
         $this->convertfiltreTocritere($tri,$critere);
         $annonces = $repoAnnoce->findAnnonceByCritere($critere);                                
-        $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL));
-        $nbAnnoByCat = $this->get('zandoo.utils')->countCategorieByFamille($cat);
-        $nbAnnoByVille = $this->get('zandoo.utils')->countAnnonceByVille();
+        $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL));      
         $retour = array('form'=>"",'colorBody'=>"F7F7F7",'headsearch'=>1,'annonces'=>$annonces,'search'=>'','cat'=>'','titres'=>'',
-                        'urgentes'=>'','numPage'=>$offset,'priceFrom'=>'','priceTo'=>'','total'=> $nbr,'nbAnnoCat'=>$nbAnnoByCat,'nbAnnoByVille'=>$nbAnnoByVille,'tri'=>$tri);
+                        'urgentes'=>'','numPage'=>$offset,'priceFrom'=>'','priceTo'=>'','total'=> $nbr,'tri'=>$tri);
         return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig', $retour);
     }	
     
@@ -88,14 +86,10 @@ class ZandooController extends Controller
         $critere->setType($this::TYPE_OFFRE);
          $this->convertfiltreTocritere($tri,$critere);
         $annonces = $repoAnnoce->findAnnonceByCritere($critere);   		
-        $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL));
-        
-        $nbAnnoByCat = $this->get('zandoo.utils')->countCategorieByFamille($cat);
-        $nbAnnoByVille = $this->get('zandoo.utils')->countAnnonceByVille();
+        $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL));        
                
         $retour = array('form'=>'','colorBody'=> 'F7F7F7','headsearch' =>1,'annonces'=>$annonces,'search'=>'','cat' =>'',
-                        'titres'=> '','urgentes'=>'','numPage'=> $offset,'priceFrom'=>'','priceTo'=>'','total'=>$nbr,
-                        'nbAnnoCat'=>$nbAnnoByCat,'nbAnnoByVille'=>$nbAnnoByVille,'tri'=>$tri);
+                        'titres'=> '','urgentes'=>'','numPage'=> $offset,'priceFrom'=>'','priceTo'=>'','total'=>$nbr,'tri'=>$tri);
         return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',$retour);
     }	
     
@@ -126,20 +120,16 @@ class ZandooController extends Controller
         $critere->setVille($ville == 0 ? null:$ville );
         $critere->setTitre(trim($search));
         $critere->setUrgent($urgentes);
-        $critere->setTitreUniquement($titre);
-       // dump($critere);die;
+        $critere->setTitreUniquement($titre);       
         $annonces = $repoAnnoce->findAnnonceByCritere($critere);
         
         //if(empty($session->get('nbr'))){
         $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL));
        // $session->set('nbr',$nbr);
-       //}
-        $nbAnnoByCat = $this->get('zandoo.utils')->countCategorieByFamille($cat);
-        $nbAnnoByVille = $this->get('zandoo.utils')->countAnnonceByVille();
+       //}   
         $retour = array('form'=>'','colorBody'=>'F7F7F7','headsearch'=>1,'annonces'=>$annonces,'search'=>$search,'cat'=>$cat,'titres'=>$titre,
                         'urgentes'=>$urgentes,'numPage'=>$offset,'priceFrom'=>$priceFrom,'priceTo'=>$priceTo,
-						'total'=>$nbr,'nbAnnoCat'=>$nbAnnoByCat,'nbAnnoByVille'=>$nbAnnoByVille,
-						'tri'=>$tri);
+						'total'=>$nbr,'tri'=>$tri);
         return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',$retour );
     }    
 
@@ -280,8 +270,7 @@ class ZandooController extends Controller
         }         
         if($annonce){
             $this->creerCompteurVisiteAnnonce($annonce,$em);              
-            $nbImg = count($annonce->getImages());
-            $this->get('zandoo.utils')->formattePrixAnnonce($annonce);
+            $nbImg = count($annonce->getImages());           
             $retour = array('annonce'=>$annonce,'formContact'=>$formContact->createView(),'form'=>$form->createView(),'colorBody'=>"F7F7F7"
                 ,'nbImg'=>$nbImg,'url_upload'=>$this->getParameter('url_upload'),'annonSimilaires' => $annoncesSimilaires);
             return $this->render('@Zandoo/Annonce/annonce.html.twig',$retour);			

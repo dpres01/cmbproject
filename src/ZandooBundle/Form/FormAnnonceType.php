@@ -101,6 +101,7 @@ class FormAnnonceType extends AbstractType
                             $strArray[] = $value;                    
                             if($cpt%3 == 0 && $nbTour > 1){
                                 $strArray[] = '.'; 
+                                $nbTour--;
                             }                               
                             $cpt++;
                         }

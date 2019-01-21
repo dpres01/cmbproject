@@ -22,21 +22,25 @@
         <div class="ann-img-all" style="margin-top:15px;">
             <div class="ann-img-lf">
                 <div class="ann-img-mn">
-                    <img src="{{asset('public/uploads/documents/')}}{{ annonce.images[0].id}}.{{annonce.images[0].url}}" class="mmax zoomer">
+                    {% set link0 =  'public/uploads/documents/' ~ annonce.images[0].id ~'.' ~annonce.images[0].url %}
+                    <img src="{{asset(link0)}}" class="mmax zoomer">
                 </div>
             </div>
             <div class="ann-img-rt">
                 {%if annonce.images[1] is defined%}
                 <div class="ann-img-ot" style="margin-top:0;">
-                    <img src="{{asset('public/uploads/documents/')}}{{ annonce.images[1].id}}.{{annonce.images[1].url}}" class="mmax zoomer">
+                    {% set link1 =  'public/uploads/documents/' ~ annonce.images[1].id ~'.' ~annonce.images[1].url %}
+                    <img src="{{asset(link1)}}" class="mmax zoomer">
                 </div>
                 {%if annonce.images[2] is defined%}
                 <div class="ann-img-ot">
-                    <img src="{{asset('public/uploads/documents/')}}{{ annonce.images[2].id}}.{{annonce.images[2].url}}" class="mmax zoomer">
+                    {% set link2 =  'public/uploads/documents/' ~ annonce.images[2].id ~'.' ~annonce.images[2].url %}
+                    <img src="{{asset(link2)}}" class="mmax zoomer">
                 </div>
                 {%if annonce.images[3] is defined%}
                 <div class="ann-img-ot ann-img-ot-lst" style="">
-                    <img src="{{asset('public/uploads/documents/')}}{{ annonce.images[3].id}}.{{annonce.images[3].url}}" class="mmax zoomer">
+                    {% set link3 =  'public/uploads/documents/' ~ annonce.images[3].id ~'.' ~annonce.images[3].url %}
+                    <img src="{{asset(link3)}}" class="mmax zoomer">
                 </div>
                 {%endif%} {%endif%} {%endif%}
                 <div style="clear:both;"></div>
@@ -47,7 +51,8 @@
         <div class="ann-img-all" style="margin-top:15px;">
             <div class="ann-img-one">
                 <div class="ann-img-mn">
-                    <img src="{{asset('public/uploads/documents/')}}{{ annonce.images[0].id}}.{{annonce.images[0].url}}" class="mmax zoomer">
+                    {% set link0 =  'public/uploads/documents/' ~ annonce.images[0].id ~'.' ~annonce.images[0].url %}
+                    <img src="{{asset(link0)}}" class="mmax zoomer">
                 </div>
             </div>
         </div>
@@ -135,7 +140,7 @@
         </div>
         <div class="ann-price-bx">
             <div class="ann-price">
-                <h2 style="margin:0;padding:0;">{{ annonce.prix }} {{ zandoo_service_commun.typeMonnaie(annonce.monnaie) }}</h2></div>
+                <h2 style="margin:0;padding:0;">{{ zandoo_service_utils.formattePrixAnnonce(annonce.prix) }} {{ zandoo_service_commun.typeMonnaie(annonce.monnaie) }}</h2></div>
             <div class="ann-price-ques">
                 Cette annonce vous intéresse ?
                 <div style="margin:5px 0 10px 0px;">
@@ -210,7 +215,8 @@
                 <div style="padding:2%;">
                     <div class="ann-sim-img">
                         {%if zandoo_service_commun.testExistanceImg(anonSim.images) %}
-                        <img src="{{asset('public/uploads/documents/')}}{{ anonSim.images[0].id}}.{{anonSim.images[0].url}}">                  
+                        {% set linkanonSim =  'public/uploads/documents/' ~ anonSim.images[0].id ~'.' ~anonSim.images[0].url %}
+                        <img src="{{asset(linkanonSim)}}">                  
                         {%endif%}
                     </div>
                 </div>
@@ -219,7 +225,7 @@
                     <a href={{path( 'afficher_annonce',{'generateurId':anonSim.generateurId})}}>
                         <div class="ann-sim-txt">
                             {{anonSim.titre}}
-                            <div class="ann-sim-price"> {{anonSim.prix}} {{ zandoo_service_commun.typeMonnaie(annonce.monnaie) }}</div>
+                            <div class="ann-sim-price"> {{zandoo_service_utils.formattePrixAnnonce(anonSim.prix)}} {{ zandoo_service_commun.typeMonnaie(annonce.monnaie) }}</div>
                         </div>
                     </a>
                 </div>           

@@ -22,9 +22,8 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
                 ->leftJoin('a.utilisateur', 'user')
                 ->andWhere('a.actif = 1');
          !is_null($critere->getOffset()) ?  $critere->setOffset((intval($critere->getOffset()) - 1) * $this::MAX_RESULT) : null ;
-         $this->filtrerByCritere($critere, $qb);
-         //$qb->orderBy('a.id','DESC');
-         // dump($critere,$qb->getQuery()->getResult(),$qb->getQuery()->getSQL(),$qb->getQuery()->getParameters());die;
+         $this->filtrerByCritere($critere, $qb);      
+        //dump($critere,$qb->getQuery()->getResult(),$qb->getQuery()->getSQL(),$qb->getQuery()->getParameters());die;
         return  $qb->getQuery()->getResult();
     }
     // nb annonce dans la bdd 
@@ -83,6 +82,9 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
         if(!is_null($critere->getOffset())){
             $qb->setFirstResult($critere->getOffset())->setMaxResults($this::MAX_RESULT); 
         }
+        if(is_null($critere->getPrixDecroissant()) && is_null($critere->getPlusNouveau()) && is_null($critere->getPrixCroisant()) && is_null($critere->getPrixDecroissant())){
+            $qb->orderBy('a.id','DESC'); 
+        }
         if(!is_null($critere->getPlusAncien())){
             $qb->orderBy('a.id','ASC'); 
         }
@@ -91,14 +93,9 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
         }
         if(!is_null($critere->getPrixCroisant())){
             $qb->add('orderBy','a.monnaie ASC ,a.prix ASC');
-//            $qb->orderBy('a.prix','ASC');
-//            $qb->orderBy('a.monnaie','ASC');
         }
         if(!is_null($critere->getPrixDecroissant())){
             $qb->add('orderBy','a.monnaie ASC,a.prix DESC ');           
-        }
-        if(is_null($critere->getPrixDecroissant()) && is_null($critere->getPlusNouveau()) && is_null($critere->getPrixCroisant()) && is_null($critere->getPrixDecroissant())){
-             $qb->orderBy('a.prix','DESC'); 
         }
         return $qb;
     }

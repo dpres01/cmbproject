@@ -36,12 +36,14 @@ framework:
         save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
     fragments: ~
     http_method_override: true
-    assets: ~ 
+    assets: 
+        version: 1.0.2
+        version_format: '%%s?v=%%s'
     php_errors:
         log: true
     templating:
         engines: ['twig']
-
+       
 sensio_framework_extra:
     request:
         converters: true
@@ -54,6 +56,7 @@ twig:
     form_themes: ['bootstrap_3_layout.html.twig']
     globals:
         zandoo_service_commun: "@zandoo_service_commun"
+        zandoo_service_utils: "@zandoo.utils"
 
 # Doctrine Configuration
 doctrine:
