@@ -61,7 +61,7 @@ class ZandooController extends Controller
         $critere->setType($this::TYPE_DEMANDE);
         $this->convertfiltreTocritere($tri,$critere);
         $annonces = $repoAnnoce->findAnnonceByCritere($critere);                                
-        $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL));      
+        $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL));       
         $retour = array('form'=>"",'colorBody'=>"F7F7F7",'headsearch'=>1,'annonces'=>$annonces,'search'=>'','cat'=>'','titres'=>'',
                         'urgentes'=>'','numPage'=>$offset,'priceFrom'=>'','priceTo'=>'','total'=> $nbr,'tri'=>$tri);
         return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig', $retour);
@@ -87,7 +87,7 @@ class ZandooController extends Controller
          $this->convertfiltreTocritere($tri,$critere);
         $annonces = $repoAnnoce->findAnnonceByCritere($critere);   		
         $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL));        
-               
+             
         $retour = array('form'=>'','colorBody'=> 'F7F7F7','headsearch' =>1,'annonces'=>$annonces,'search'=>'','cat' =>'',
                         'titres'=> '','urgentes'=>'','numPage'=> $offset,'priceFrom'=>'','priceTo'=>'','total'=>$nbr,'tri'=>$tri);
         return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig',$retour);

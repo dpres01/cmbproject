@@ -74,6 +74,11 @@ class Utils
         }
         return $prixAsNumber;
     }
+    
+    public function traitementDescription($descr,$nb){ 
+        $subDesc = substr($descr,0,$nb);    
+        return strlen($subDesc) < strlen($descr)? $subDesc .= ' ...': $subDesc;    
+    }
 }
 
 
