@@ -96,7 +96,7 @@
 						<div class="bx-txt">
 							<div class="bx-title truncate">
 								<a href="{{ path('afficher_annonce', {'generateurId': val.generateurId}) }}" class="lk-b">
-									{{ zandoo_service_commun.titreFormatAnnonce(val.titre) }}
+									{{zandoo_service_utils.traitementDescription(zandoo_service_commun.titreFormatAnnonce(val.titre),50) }}
 								</a>
 							</div>
 							<div class="bx-txt-nor">
@@ -132,7 +132,7 @@
 									<div style="clear:both;"></div>
 								</div>
 								<div class="tabgrd" style="">
-									{{ val.description }}
+									{{ zandoo_service_utils.traitementDescription(val.description,126) }}
 								</div>
 								<div class="bx-date" style="">
 									{{ zandoo_service_commun.dateConvertText(val.dateCreation) }}

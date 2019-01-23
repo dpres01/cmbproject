@@ -91,7 +91,7 @@ class FormAnnonceType extends AbstractType
          $builder->get('prix')
             ->addModelTransformer(new CallbackTransformer(
                 function ($prixAsNumber) {
-                    $prixAsNumber = (string)$prixAsNumber;
+                    $prixAsNumber = (string)trim($prixAsNumber);
                     $strArray = array();
                     if( strlen($split = $prixAsNumber ) > 3){ 
                         $tab = array_reverse(str_split($split));

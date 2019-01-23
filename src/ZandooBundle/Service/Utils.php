@@ -56,7 +56,7 @@ class Utils
     }
     
     public function formattePrixAnnonce($prixAsNumber){
-        $prixAsNumber = (string)$prixAsNumber;
+        $prixAsNumber = (string)trim($prixAsNumber);
         if( strlen($split = $prixAsNumber ) > 3){ 
             $tab = array_reverse(str_split($split));
             $nbTour = count($tab)/3;
