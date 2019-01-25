@@ -19,10 +19,16 @@
 					</div>
 					<div style="float:right;">
 						<div style="float:left;margin:0 25px 0 0;padding:3px 0 0 0;">
-							<input id="cfilter" type="checkbox" onClick="#filterSel();">&nbsp;&nbsp;Filtre
+							<div style="float:left;padding:0px 0 0 0;">
+								<input id="cfilter" type="checkbox" onClick="filterSel();" {{filter}}>&nbsp;
+							</div>
+							<div style="float:left;">
+								<a href="" onclick="checker();return false;" style="color:#333;">Filtre</a>
+							</div>
+							<div style="clear:both;"></div>	
 						</div>
 						<div style="float:left;margin:0 0px 0 0;">
-							<select name="tr" style="padding:5px;" onChange="triSel(this.value)">
+							<select id="seltrier" name="tr" style="padding:5px;" onChange="filterTri()">
 								<option value="0" {%if tri == 0 %}selected{% endif %}>Tri : Plus r&eacute;centes</option>
 								<option value="1" {%if tri == 1 %}selected{% endif %}>Tri : Plus anciennes</option>
 								<option value="2" {%if tri == 2 %}selected{% endif %}>Tri : Prix croissants</option>
@@ -32,25 +38,25 @@
 						<div style="clear:both;"></div>						
 					</div>
 					<div style="clear:both;"></div>
-					<div id="filtreform" style="margin:5px 0px 0 0;display:none;border:1px solid #ccc;background:#fff;padding:10px;">
+					<div id="filtreform" style="margin:5px 0px 0 0;{%if filter%}display:block;{%else%}display:none;{%endif%}border:1px solid #ccc;background:#fff;padding:10px;">
 						<div id="filtreform-1" style="float:left;display:block;">
 							<div style="float:left;padding-top:4px;">
 								Prix: &nbsp;&nbsp;
 							</div>
 							<div style="float:left;">
-								<input type="text" value="{{priceFrom}}" id="pr1" class="filter-prix-inp">
+								<input type="text" value="{{priceFrom}}" id="pr1" class="filter-prix-inp formdatao">
 							</div>
 							<div style="float:left;padding-top:3px;">&nbsp;-&nbsp;</div>
 							<div style="float:left;">
-								<input type="text" value="{{priceTo}}" id="pr2" class="filter-prix-inp">
+								<input type="text" value="{{priceTo}}" id="pr2" class="filter-prix-inp formdatao">
 							</div>						
 							<div style="clear:both;"></div>
 						</div>
-						<div style="float:right;margin:0px 0 0 6px;color:#337ab7;cursor:pointer;" onclick="filterGo();">						
-							<a href="" class="myButton" style="color:#fff;" onclick="return false;">Filtrer</a>
+						<div style="float:right;margin:0px 0 0 6px;color:#337ab7;cursor:pointer;" onclick="filterTri();">						
+							<a href="" class="myButton" style="color:#fff;cursor:pointer;" onclick="return false;">Filtrer</a>
 						</div>
 						<div style="clear:both;"></div>
-						<div id="filtreform-2" style="float:left;margin-top:10px;padding-top:10px;border-top:1px solid #f2f2f2;display:block;">
+						<div id="filtreform-2" style="float:left;margin-top:10px;padding-top:10px;border-top:1px solid #f2f2f2;display:none;">
 							<div style="float:left;padding-top:4px;">
 								Villes: &nbsp;&nbsp;
 							</div>
@@ -61,7 +67,7 @@
 							</div>					
 							<div style="clear:both;"></div>
 						</div>
-						<div id="filtreform-2" style="float:left;margin:10px 0 0 25px;padding-top:10px;border-top:1px solid #f2f2f2;display:block;">
+						<div id="filtreform-3" style="float:left;margin:10px 0 0 25px;padding-top:10px;border-top:1px solid #f2f2f2;display:none;">
 							<div style="float:left;padding-top:4px;">
 								Categories: &nbsp;&nbsp;
 							</div>
