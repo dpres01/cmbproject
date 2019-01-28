@@ -431,7 +431,7 @@ class ZandooController extends Controller
     }
     // creer une nouvelle ligne dans nbre de visite par annonce
     private function creerCompteurVisiteAnnonce($annonce,$em){
-        //$now = new \DateTime();
+        $now = new \DateTime();
         $tabId = array();
         $found = false;
         $visite = $em->getRepository(Visite::class)->findBy(array('ip'=>$_SERVER['REMOTE_ADDR']));
