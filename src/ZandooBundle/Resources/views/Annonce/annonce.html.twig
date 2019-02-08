@@ -154,8 +154,8 @@
             </div>
         </div>
         <div class="ann-poster-bx">
-            <div class="ann-poster">{{annonce.utilisateur.username}}</div>
-            <div style="float:right;"><span class="label label-primary">junior</span></div>
+            <div class="ann-poster">{{annonce.utilisateur.username}}</div>          
+            <div style="float:right;"><span class="label label-primary">{%if proprietaireAnnonce %} <a style="color:white;text-decoration:none;" href="{{path('enregistrer_annonce',{'generateurId':annonce.generateurId})}}">Modifier cet annonce</a> {%endif%}</span></div>
             <div style="clear:both;"></div>
             <div id="mreusr" class="ann-poster-info">
                 Connectez-vous ou inscrivez-vous pour voir les détails de cette annonce, y compris:
@@ -204,9 +204,9 @@
         <h3 style="padding:0;margin:0;">Offres similaires</h3>
     </div>
     <div style="margin-top:10px;">
-        {% for anonSim in annonSimilaires %}
-			{% set firstBlock = 0 %}
-            {% if anonSim.id != annonce.id %}
+        {% for anonSim in annonSimilaires %}            
+	    {% set firstBlock = 0 %}
+            {% if anonSim.id != annonce.id %}              
                 {% if firstBlock == 0 %}
                 <div class="ann-sim-bx" style="margin-left:0px;">
                 {% else %}
@@ -231,7 +231,7 @@
                 </div>           
                 </div>
                 {% set firstBlock = 1 %}
-            {%endif%}
+            {%endif%}      
 		{%endfor%}
 		<div style="clear:both;"></div>
     </div>

@@ -331,7 +331,8 @@ class ZandooController extends Controller
             $this->creerCompteurVisiteAnnonce($annonce,$em);
             $nbImg = count($annonce->getImages());
             $retour = array('annonce'=>$annonce,'formContact'=>$formContact->createView(),'form'=>$form->createView(),'colorBody'=>"F7F7F7"
-                ,'nbImg'=>$nbImg,'url_upload'=>$this->getParameter('url_upload'),'annonSimilaires' => $annoncesSimilaires);
+                ,'nbImg'=>$nbImg,'url_upload'=>$this->getParameter('url_upload'),'annonSimilaires' => $annoncesSimilaires 
+                ,'proprietaireAnnonce'=> $this->estPropritaireAnnonce($annonce->getUtilisateur(),$this->getUser()));
             return $this->render('@Zandoo/Annonce/annonce.html.twig',$retour);
         }else{
             throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException( 'Cette page n\'existe pas!');
@@ -427,7 +428,7 @@ class ZandooController extends Controller
 
     private function estPropritaireAnnonce ($utilisateAnnonce,$utilusateuConnecte){
          if($utilisateAnnonce == null){return true;}
-         if($utilusateuConnecte != null && $utilisateAnnonce!= null){return $utilusateuConnecte->getId() == $utilisateAnnonce->getId();}
+         if($utilusateuConnecte != null && $utilisateAnnonce != null){return $utilusateuConnecte->getId() == $utilisateAnnonce->getId();}
     }
     // creer une nouvelle ligne dans nbre de visite par annonce
     private function creerCompteurVisiteAnnonce($annonce,$em){
