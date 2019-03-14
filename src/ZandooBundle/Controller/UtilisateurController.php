@@ -19,21 +19,34 @@ class UtilisateurController extends Controller
      * @Route("/inscription",name="enregistrer_utilisateur")
      */
     public function inscriptionAction(Request $request){
+        // Si le visiteur est déjà identifié, on le redirige vers l'accueil
+        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {          
+          return $this->redirectToRoute('annonces');
+        }
+        
         $em = $this->getDoctrine()->getManager();
         $utilisateur = new Utilisateur(); 
         $form = $this->createForm(FormUtilisateurType::class, $utilisateur, $options = array());
         $form->handleRequest($request);
         if($form->isValid() && $form->isSubmitted()){          
-                //Enregistrment de l'annonce et de l'utilisateur         
-                $pwdEncoded = $this->get('security.password_encoder')->encodePassword($utilisateur, $utilisateur->getPassword());
-                $passWord = $utilisateur->getPassword();
-                $utilisateur->setDateCreation(new \DateTime());
-                $utilisateur->setPassword($pwdEncoded);
-                $em->persist($utilisateur);              
-                $em->flush();
-                $msg = $this->get('zandoo.mail')->sendInitAccountEmail($utilisateur,$passWord);
-                $msg ? $this->addFlash('createUser', 'Votre compte a été créé avec succès, un mail vous est envoyé veuillez verifie vos spam') : $this->addFlash('createUserFailed', 'Erreur lors de la création de l\'utilisateur');           
-                return $this->redirectToRoute('login'); 
+            //Enregistrment de l'utilisateur  
+            $pwdEncoded = $this->get('security.password_encoder')->encodePassword($utilisateur, $utilisateur->getPassword());
+            $passWord = $utilisateur->getPassword();
+            $utilisateur->setDateCreation(new \DateTime());
+            $utilisateur->setPassword($pwdEncoded);
+            $em->persist($utilisateur);              
+            $em->flush();
+            $msg = $this->get('zandoo.mail')->sendInitAccountEmail($utilisateur,$passWord);
+            //Authentification user
+            $userProvider = $this->get('zandoo.provider_utilisateur');
+            $token = $this->get("zandoo.authentificator_utilisateur")->createToken($request, $utilisateur->getUsername(),$passWord, 'main');                
+            $token = $this->get("zandoo.authentificator_utilisateur")->authenticateToken($token, $userProvider, 'main');
+
+            $this->get('security.token_storage')->setToken($token);
+            $this->get('session')->set('_security_main', serialize($token));
+
+            //$msg ? $this->addFlash('createUser', 'Votre compte a été créé avec succès, un mail vous est envoyé veuillez verifie vos spam') : $this->addFlash('createUserFailed', 'Erreur lors de la création de l\'utilisateur');           
+            return $this->redirectToRoute('annonces'); 
         }
         return $this->render('@Zandoo/Utilisateur/inscription.html.twig',array('form'=>$form->createView()));
     }
@@ -43,8 +56,8 @@ class UtilisateurController extends Controller
     public function loginAction(Request $request)
     {          
         // Si le visiteur est déjà identifié, on le redirige vers l'accueil
-        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-          return $this->redirectToRoute('enregistrer_annonce');
+        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {          
+          return $this->redirectToRoute('annonces');
         }
 
         // Le service authentication_utils permet de récupérer le nom d'utilisateur

@@ -84,19 +84,19 @@ class ZandooController extends Controller
         $price     = $request->query->get('pr');
         $filter    = $request->query->get('ft');
 
-		if($filter)
-		{
-			$filter = " checked";
-		}
-		
-		$priceFrom = "";
-		$priceTo   = "";
-		if($price)
-		{
-			$tab	   = explode("_", $price);
-			$priceFrom = $tab[0];
-			$priceTo   = $tab[1];
-		}
+        if($filter)
+        {
+                $filter = " checked";
+        }
+
+        $priceFrom = "";
+        $priceTo   = "";
+        if($price)
+        {
+                $tab	   = explode("_", $price);
+                $priceFrom = $tab[0];
+                $priceTo   = $tab[1];
+        }
 
         $critere->setOffset($offset);
         $critere->setCategorie($cat);

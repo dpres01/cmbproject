@@ -34,7 +34,7 @@ final class UtilisateurProvider implements UserProviderInterface
 //        if (is_null($utilisateur)) {
 //            throw new AccessDeniedHttpException(sprintf('cet utilisateur " %s " n\'existe pas.', $username));
 //        }
-        //dump($utilisateur);die;
+//dump($utilisateur);die;
         return $utilisateur;
     }
 }

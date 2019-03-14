@@ -27,11 +27,9 @@ class UserAuthentification implements SimpleFormAuthenticatorInterface
         } catch (UsernameNotFoundException $exception) {
             // CAUTION: this message will be returned to the client
             // (so don't put any un-trusted messages / error strings here)
-            
             throw new CustomUserMessageAuthenticationException('pseudo ou mot de passe invalide');
         }
-        $isPasswordValid = $this->encoder->isPasswordValid($user, $token->getCredentials());
-       
+        $isPasswordValid = $this->encoder->isPasswordValid($user, $token->getCredentials());        
         if ($isPasswordValid) {             
             ($user->getIsAdmin()) ? $user->setRoles("ROLE_ADMIN") : $user->setRoles("ROLE_USER");            
             return new UsernamePasswordToken(

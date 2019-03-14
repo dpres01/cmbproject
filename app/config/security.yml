@@ -3,7 +3,7 @@
 security:
     providers:
         token:
-            id:   zandoo.provider_utilisateur
+            id:   zandoo.provider_utilisateur    
     #plaintext        
     encoders:
         Symfony\Component\Security\Core\User\User: sha512 
@@ -48,6 +48,7 @@ security:
         main:
             pattern: ^/
             provider: token
+            context: main
             anonymous: true
             simple_form:
                 authenticator: zandoo.authentificator_utilisateur
@@ -58,4 +59,4 @@ security:
             logout:
                 path: /logout
                 target: login           
-              
+                     
