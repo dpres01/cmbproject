@@ -131,7 +131,6 @@ class ZandooController extends Controller
     public function rechercheAnnonce(Request $request){
         $critere = new Critere();
         $session = new Session();
-
         $em 		= $this->getDoctrine();
         $repoAnnoce =  $em->getRepository(Annonce::class);
 
@@ -168,7 +167,7 @@ class ZandooController extends Controller
         $critere->setUrgent($urgentes);
         $critere->setTitreUniquement($titre);
         $annonces = $repoAnnoce->findAnnonceByCritere($critere);
-
+        
         //if(empty($session->get('nbr'))){
         $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL));
        // $session->set('nbr',$nbr);
