@@ -56,14 +56,45 @@ class ZandooController extends Controller
         $offset  = empty($request->query->get('p')) ? 1 : $request->query->get('p') ;
         $cat 	 = $request->query->get('cat');
         $tri     = $request->query->get('tr');
+        $price     = $request->query->get('pr');
+        $filter    = $request->query->get('ft');
 
+        if($filter)
+        {
+                $filter = " checked";
+        }
+
+        $priceFrom = "";
+        $priceTo   = "";
+        if($price)
+        {
+                $tab	   = explode("_", $price);
+                $priceFrom = $tab[0];
+                $priceTo   = $tab[1];
+        }
+
+        $critere->setCategorie($cat);
         $critere->setOffset($offset);
         $critere->setType($this::TYPE_DEMANDE);
         $this->convertfiltreTocritere($tri,$critere);
         $annonces = $repoAnnoce->findAnnonceByCritere($critere);
         $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL));
-        $retour = array('form'=>"",'colorBody'=>"F7F7F7",'headsearch'=>1,'annonces'=>$annonces,'search'=>'','cat'=>'','titres'=>'',
-                        'urgentes'=>'','numPage'=>$offset,'priceFrom'=>'','priceTo'=>'','total'=> $nbr,'tri'=>$tri);
+        $retour = array(
+            'form'=>"",
+            'colorBody'=>"F7F7F7",
+            'headsearch'=>1,
+            'annonces'=>$annonces,
+            'search'=>'',
+            'cat'=>'',
+            'titres'=>'',
+            'urgentes'=>'',
+            'numPage'=>$offset,
+            'priceFrom'=>'',
+            'priceTo'=>'',
+            'total'=> $nbr,
+            'tri'=>$tri,
+            'filter'=>$filter
+        );
         return $this->render('@Zandoo/Annonce/listerAnnonce.html.twig', $retour);
     }
 
@@ -112,7 +143,7 @@ class ZandooController extends Controller
 			'annonces'	 =>$annonces,
 			'search'	 =>'',
 			'cat' 		 =>'',
-            'titres'	 => '',
+                        'titres'	 => '',
 			'urgentes'	 =>'',
 			'numPage'	 => $offset,
 			'priceFrom'	 =>$priceFrom,
@@ -180,7 +211,7 @@ class ZandooController extends Controller
 			'search'		=>$search,
 			'cat'			=>$cat,
 			'titres'		=>$titre,
-            'urgentes'		=>$urgentes,
+                        'urgentes'		=>$urgentes,
 			'numPage'		=>$offset,
 			'priceFrom'		=>$priceFrom,
 			'priceTo'		=>$priceTo,
@@ -329,9 +360,15 @@ class ZandooController extends Controller
         if($annonce){
             $this->creerCompteurVisiteAnnonce($annonce,$em);
             $nbImg = count($annonce->getImages());
-            $retour = array('annonce'=>$annonce,'formContact'=>$formContact->createView(),'form'=>$form->createView(),'colorBody'=>"F7F7F7"
-                ,'nbImg'=>$nbImg,'url_upload'=>$this->getParameter('url_upload'),'annonSimilaires' => $annoncesSimilaires 
-                ,'proprietaireAnnonce'=> $this->estPropritaireAnnonce($annonce->getUtilisateur(),$this->getUser()));
+            $retour = array(
+                'annonce'=>$annonce,
+                'formContact'=>$formContact->createView(),
+                'form'=>$form->createView(),
+                'colorBody'=>"F7F7F7",
+                'nbImg'=>$nbImg,
+                'url_upload'=>$this->getParameter('url_upload'),'annonSimilaires' => $annoncesSimilaires,
+                'proprietaireAnnonce'=> $this->estPropritaireAnnonce($annonce->getUtilisateur(),
+                $this->getUser()));
             return $this->render('@Zandoo/Annonce/annonce.html.twig',$retour);
         }else{
             throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException( 'Cette page n\'existe pas!');
