@@ -400,6 +400,7 @@ class ZandooController extends Controller
      */
     public function annonceByUtilisateurAction(Request $request,$utilisateur){
         $em = $this->getDoctrine()->getManager();
+        $offset   = empty($request->query->get('p')) ? 1 : $request->query->get('p') ;
         $repoAnnoce = $em->getRepository(Annonce::class);
         $encoder = $this->get('security.password_encoder');
         $critere = new Critere();
@@ -407,6 +408,7 @@ class ZandooController extends Controller
         $utilisateurModif = $convert->convert($utilisateur);
         $form = $this->createForm(FormUtilisateurModificationType::class,$utilisateurModif,array('em'=>$em,'user'=>$utilisateur));
         $critere->setIdUtilisateur($utilisateur->getId());
+        $critere->setOffset($offset);
 	$annonces = $repoAnnoce->findAnnonceByCritere($critere);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid() && $convert->convert($utilisateurModif,$utilisateur)){
@@ -424,8 +426,16 @@ class ZandooController extends Controller
             $this->get('zandoo.mail')->sendMail($utilisateur,$newPass);
             $this->addFlash('succesModif', "Votre mot de passe est modifié avec succès. un mail vient de vous être envoyé ,"
                             . "votre nouveau mot de passe vous sera demandé lors de la prochaine connexion");
-        }
-        $retour = array('annonces'=>$annonces,'utilisateur'=>$utilisateur,'form'=>$form->createView(),'formPassword'=>$formPassword->createView());
+        }       
+        $nbr = intval(ceil($repoAnnoce->countAllAnnonce($critere)/$this::NB_LIGNE_TOTAL));
+        $retour = array('annonces'    =>$annonces,
+                        'utilisateur' =>$utilisateur,
+                        'form'        =>$form->createView(),
+                        'numPage'     =>$offset,
+                        'total'       =>$nbr,
+                        'isClicPage' => !empty($request->query->get('p')),
+                        'formPassword'=>$formPassword->createView()
+        );
         return $this->render('@Zandoo/Annonce/utilisateurAnnonce.html.twig',$retour);
     }
 

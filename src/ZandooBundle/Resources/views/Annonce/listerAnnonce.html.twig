@@ -147,7 +147,10 @@
 						</div>
 						<div style="clear:both;"></div>
 					</div>
-				{% endfor %}			
+				{% endfor %}
+                                {%if annonces is empty %}
+                                     <h2 style="color:#e20c08;margin-left:60px"> Aucune annonce trouvée. </h2>
+                                {%endif%}
                              {% include 'ZandooBundle:Commun:pagination.html.twig'%}                                 
 			</div>
 			<div style="clear:both;"></div>

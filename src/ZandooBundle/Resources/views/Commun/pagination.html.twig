@@ -20,7 +20,7 @@
             <nav aria-label="Page navigation example" style="margin:0;padding:0;">
                 <ul class="pagination justify-content-end" style="margin:0;padding:0;">        
                     <li {% if numPage > 1 %} class="page-item" {%else%}class="page-item disabled" {%endif%}>
-                      <a class="page-link" {% if numPage > 1 %} href="{{ zandoo_service_commun.generateUrl("p", numPage-1) }}" {%endif%}>Précedent</a>
+                      <a class="page-link link-clic" {% if numPage > 1 %} href="{{ zandoo_service_commun.generateUrl("p", numPage-1) }}" {%endif%}>Précedent</a>
                     </li> 
                     {%if debut > 1 and total > 4 %} 
                        <li class="page-item disabled" >
@@ -29,7 +29,7 @@
                    {%endif%}
                      {%for t in range(debut,fin)|sort%}				
                        <li class="page-item {% if t == numPage %} active{%endif%}" >
-                           <a href="{{ zandoo_service_commun.generateUrl("p", t) }}">{{t}}</a>
+                           <a class='link-clic' href="{{ zandoo_service_commun.generateUrl("p", t) }}">{{t}}</a>
                        </li>										
                      {%endfor%}
                     {%if fin < total %} 
@@ -41,11 +41,11 @@
                         </li>
                     {%endif%}
                     <li {% if total == 1 or numPage >= total%} class="page-item disabled" {%else%}class="page-item" {%endif%} >
-                      <a id="id-suivant" class="page-link" {% if total > 1 and numPage < total%} href="{{ zandoo_service_commun.generateUrl("p", numPage+1) }}" {%endif%}>Suivant</a>
+                      <a id="id-suivant" class="page-link link-clic" {% if total > 1 and numPage < total%} href="{{ zandoo_service_commun.generateUrl("p", numPage+1) }}" {%endif%}>Suivant</a>
                     </li>
                  </ul>
             </nav>                                                      
         </tr>
     </table>
 </div>
-{%endif%}                    
+{%endif%}    

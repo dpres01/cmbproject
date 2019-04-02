@@ -96,7 +96,17 @@ $(document).ready(function()
 
     //fly menu
     //$(window).scroll(function(){ positionMenu(); });
-    //positionMenu();
+    //positionMenu();   
+// si  on click sur la page dans Mes annonces/comptes utilisateur 
+if( $('#page-clic').val() == true){ 
+    console.log('ici');
+    $('#home').removeClass('active');
+    $('#list-1').removeClass('active');
+    $('#profile').addClass('active');
+    $('#list-2').addClass('active');
+    $('#profile').tab('show'); 
+    $('#page-clic').val(false);
+ }
 });
 
 var fix = 0;

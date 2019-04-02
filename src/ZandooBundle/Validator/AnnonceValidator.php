@@ -18,7 +18,7 @@ class AnnonceValidator extends ConstraintValidator
         $this->token = $token;
     }
     public function validate($annonce,Constraint $constraint ){
-        $typeImage = array('image/jpeg','image/jpg', 'image/gif', 'image/png','image/bmp','image/tiff','image/psd','image/jfif');
+        $typeImage = array('image/jpeg','image/jpg', 'image/gif', 'image/png');
         $formatnonreconnu = false;
         //controle utilisateur connecté ou non
         if($annonce){
@@ -35,7 +35,7 @@ class AnnonceValidator extends ConstraintValidator
                foreach($annonce->getImages() as $image){
                   if($image->getFile()!= NULL && !in_array($image->getFile()->getMimeType(),$typeImage)) $formatnonreconnu = true;
                }
-              if($formatnonreconnu)$this->context->addViolation('format des images acceptés : jpeg,jpg,gif,png,bmp,tiff,psd'); 
+              if($formatnonreconnu)$this->context->addViolation('format des images acceptés : jpeg,jpg,gif,png'); 
            }
            if($annonce->getPrix() > 1999999999){
                 $this->context->addViolation('champs prix valeur non supportée');

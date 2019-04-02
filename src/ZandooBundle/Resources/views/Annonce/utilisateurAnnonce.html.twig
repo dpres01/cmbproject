@@ -10,8 +10,8 @@
 	<div>
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" role="tablist">
-			<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Mon compte</a></li>
-			<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Mes annonces</a></li>
+			<li id="list-1"role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Mon compte</a></li>
+			<li id="list-2" role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Mes annonces</a></li>
 		</ul>
 		<!-- Tab panes -->
 		<div class="tab-content">
@@ -127,7 +127,7 @@
 							<div class="caption">
 								<div class="cont-txt">
 									<div class="cont-txt-ellip">
-										{{annonce.titre}} dsfgd fgdfg e fze sqdsdqsd
+										{{annonce.titre}} 
 									</div>
 								</div>
 								<p>
@@ -148,9 +148,11 @@
 						</div>
 					</div>
 					{%endfor%}
-				</div>			
+				</div>
+                                {% include 'ZandooBundle:Commun:pagination.html.twig'%} 
+                                <input type='hidden' id ='page-clic' value={{isClicPage}}>
 			</div>
 		</div>
-	</div>
+	</div>                             
 {% endblock %}
 
