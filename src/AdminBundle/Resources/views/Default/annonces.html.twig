@@ -1,0 +1,46 @@
+{% extends 'base-admin.html.twig' %}
+{% block body %}
+    <table id="table-annonces" class="table table-striped table-bordered" style="width:100%"> 
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Categorie</th>
+                <th>Prix/Monnaie</th>
+                <th>Date de création</th>
+                <th>Type</th>
+            </tr>
+        </thead> 
+        <tboby>
+        {% for annonce in annonces %}
+            <tr>
+                <td>{{zandoo_service_utils.traitementDescription(zandoo_service_commun.titreFormatAnnonce(annonce.titre),50)}} </td>
+                <td>{{zandoo_service_utils.traitementDescription(zandoo_service_commun.titreFormatAnnonce(annonce.description),50)}} </td>
+                <td>{{annonce.categorie.libelle}} </td>
+                <td>{{annonce.prix}} {%if annonce.monnaie%} $ {%else%} Fc {%endif%} </td>
+                <td>{{annonce.dateCreation|date('d/m/Y')}} </td>
+                <td>{% if annonce.type %} Demnade {%else%} Annonce {% endif%} </td>
+            </tr>
+        {%endfor%}
+         </tboby> 
+    </table>
+        <script type='text/javascript'>
+          $(document).ready(function() {
+                $('#table-annonces').DataTable({
+                    "language": {
+                        "lengthMenu": " Afficher _MENU_ par page",
+                        "zeroRecords": "Aucun element trouvé ",
+                        "info": " Affichage _START_ à _END_ sur _TOTAL_ elements",
+                        "infoEmpty": "Aucun element disponible",
+                        "infoFiltered": "(filtered from _MAX_ total records)",
+                        "search": "Recherche:",
+                        "paginate": {
+                            "next":       "Suivant",
+                            "previous":   "Précédent"
+                        },
+                    }
+                });
+          } );
+        </script>    
+{% endblock  %}
+  

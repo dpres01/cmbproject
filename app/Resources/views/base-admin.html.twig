@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Zandoo{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.png') }}" />	
+        <link rel="stylesheet" type="text/css" href="{{ asset('public/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('public/css/bootstrap.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('public/css/jquery-ui.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('public/css/commun.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('public/css/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+         <link rel="stylesheet" type="text/css" href="{{ asset('public/css/head.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('public/css/head.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('public/css/foot.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('public/js/datatables/datatables.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('public/js/datatables/datatables.css') }}">
+        <script src="{{ asset('public/js/jquery-3.1.1.min.js')}}"></script>
+		<script src="{{ asset('public/js/jquery-ui.js')}}"></script>
+		<script src="{{ asset('public/js/bootstrap.js') }}"></script>
+		<script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
+		<script src="{{ asset('public/js/admin.js') }}"></script>
+                <script src="{{ asset('public/js/datatables/datatables.min.js') }}"></script>
+                <script src="{{ asset('public/js/datatables/datatables.js') }}"></script>
+    </head>
+    <body>
+	{#% include 'header-admin.html.twig' %#}
+        <div class="body-main">
+	<div style="background:#{% if colorBody is defined %}{{ colorBody }}{% else %}{{ 'ffffff' }}{% endif %};">		
+		{% block body %} {% endblock %}		
+	</div>    	
+	{#% include 'footer.html.twig' %#}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

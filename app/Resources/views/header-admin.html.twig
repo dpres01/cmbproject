@@ -1,0 +1,65 @@
+<div style="background:#003580;">
+        <div class="hd-top" style="">			
+                <div style="float:left;padding-top:8px;">
+                        <a href="{{path('home')}}" style="text-decoration:none;color:#fff;">
+                                <h3 style="margin:0;padding:0;">Zp</h3>
+                        </a>
+                </div>
+                <div class="hd-top-menu" style="">                         
+                        <div class="hd-top-menu-elm">
+                                <a class="lk-w" href="{{path('enregistrer_annonce')}}">Tableau de bord</a>
+                        </div>
+                        <div class="hd-top-menu-elm">
+                                <a class="lk-w" href="{{path('offres')}}">Annonces</a>
+                        </div>
+                        <div class="hd-top-menu-elm">
+                                <a class="lk-w" href="{{path('demandes')}}">Utilisateur</a>
+                        </div>
+
+                        <div class="hd-top-menu-elm">Messages</div>                              
+                        <div style="clear:both;"></div>
+                </div>
+                <div class="hd-top-menu-right" style="">
+
+                {%if app.user %}                              
+
+                        <div class="hd-top-right-user" style="">
+                                <a class="lk-w" href="{{path('logout')}}">
+                                        <i class="fa fa-sign-out"></i>
+                                </a>
+                        </div>                             
+                {%endif%} 
+                <div style="clear:both;"></div>
+                </div>
+                <div class="hd-top-menu-resp" style="padding-bottom:12px;">
+                        <div id="respuser" class="hd-top-right-user" style="cursor:pointer;">
+                                <i id="respusericnop" class="fa fa-user-o"></i>
+                                <i id="respusericncl" class="fa fa-times" style="display:none;"></i>
+                        </div>
+                        <div id="respmn" class="hd-top-right-menu" style="">
+                                <i id="respmnicnop" class="fa fa-bars"></i>
+                                <i id="respmnicncl" class="fa fa-times" style="display:none;"></i>
+                        </div>
+                        <div style="clear:both;"></div>
+                </div>
+                <div style="clear:both;"></div>
+        </div>
+        <div id="resp-menu" class="hd-resp-menu" style="">
+                <div class="hd-resp-menu-elm">
+                        <a class="lk-w" href="{{path('enregistrer_annonce')}}">Tableau de bord</a>
+                </div>
+                <div class="hd-resp-menu-elm">
+                        <a class="lk-w" href="{{path('offres')}}">Annonces</a>
+                </div>
+                <div class="hd-resp-menu-elm">
+                        <a class="lk-w" href="{{path('demandes')}}">Utilisateur</a>
+                </div>                 
+                <div class="hd-resp-menu-elm">Messages</div>                                                                  
+        </div>
+
+        <div id="resp-user" class="hd-resp-user" {%if  app.user is empty %}style="height:82px;"{%endif%}>
+            <div class="hd-resp-menu-elm">
+                <a class="lk-w" href="{{path('logout')}}">Se déconnecter</a>
+            </div>           
+        </div>
+</div>

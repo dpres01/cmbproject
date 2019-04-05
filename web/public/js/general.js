@@ -107,6 +107,22 @@ if( $('#page-clic').val() == true){
     $('#profile').tab('show'); 
     $('#page-clic').val(false);
  }
+ 
+$('#table-annonces').DataTable({
+    "language": {
+        "lengthMenu": " Afficher _MENU_ par page",
+        "zeroRecords": "Aucun element trouvé ",
+        "info": " Affichage _START_ à _END_ sur _TOTAL_ elements",
+        "infoEmpty": "Aucun element disponible",
+        "infoFiltered": "(filtered from _MAX_ total records)",
+        "search": "Recherche:",
+        "paginate": {
+            "next":       "Suivant",
+            "previous":   "Précédent"
+        },
+    }
+});
+                
 });
 
 var fix = 0;
@@ -255,8 +271,6 @@ function filterAdd(_url, cat, val)
 		{
 			url += "?"+cat+"="+val;
 		}
-		//console.log(url);
-		//console.log(query_string);
 	}
 	return url;
 }
@@ -282,13 +296,13 @@ function filterGo(_url)
 }
 function filterTri()
 {
-	var url = "";
-	url = filterAdd(url, "tr", $("#seltrier").val());
-	url = filterGo(url);
-	if(url)
-	{
-		window.location = url;
-	}
+    var url = "";
+    url = filterAdd(url, "tr", $("#seltrier").val());
+    url = filterGo(url);
+    if(url)
+    {
+            window.location = url;
+    }
 }
 function checker()
 {	

@@ -94,6 +94,7 @@ class ComposerStaticInit19ab2b9d116a4eea24cc57531a5ff76c
         'A' => 
         array (
             'AppBundle\\' => 10,
+            'AdminBundle\\' => 12,
         ),
     );
 
@@ -261,6 +262,10 @@ class ComposerStaticInit19ab2b9d116a4eea24cc57531a5ff76c
         'AppBundle\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/AppBundle',
+        ),
+        'AdminBundle\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/AdminBundle',
         ),
     );
 
