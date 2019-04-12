@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityManagerInterface;
 use ZandooBundle\Entity\Annonce;
 use ZandooBundle\Entity\Utilisateur;
+use ZandooBundle\Entity\Critere;
+use ZandooBundle\Entity\Signalement;
 
 
 class DefaultController extends Controller
@@ -23,16 +25,58 @@ class DefaultController extends Controller
      * @Route("/admin",name="tableauBord")
      */
     public function tableauBordAction(){
-        $annonces = $this->em->getRepository(Annonce::class)->findAll();     
-        return $this->render('AdminBundle:Default:index.html.twig',['annonces'=>$annonces]);
+        $annonces = $this->em->getRepository(Annonce::class)->findAll(); 
+        $cptAnnoNonActif = 0;  
+        foreach($annonces as $annonce){
+            if(!$annonce->getActif())$cptAnnoNonActif++;
+        }
+        $totalAnno  = count($annonces);
+        $nbAnnoActif = (100*($totalAnno - $cptAnnoNonActif))/$totalAnno;
+        $nbAnnoNonActif = (100 * $cptAnnoNonActif)/$totalAnno;
+       
+        $users = $this->em->getRepository(Utilisateur::class)->findAll();
+        $totalUser = count($users);            
+        $cptUser= 0; 
+        foreach($users as $user){
+            if(!$user->getActif())$cptUser++;
+        }
+        $nbUserActif = (100*($totalUser-$cptUser))/$totalUser;
+        $nbUserNonActif = (100*$cptUser)/$totalUser;
+        
+        $signalement = $this->em->getRepository(Signalement::class)->findAll();
+        $array = [];
+        foreach($signalement as $signal){
+              $array[] =  $signal->getAnnonce()->getId();      
+        }
+        $nbSignaler = count(array_unique($array));
+        $purcentSignal = (100*$nbSignaler)/$totalUser;
+        $retour = [
+            'totalAnno'=>$totalAnno,
+            'totalUser'=>$totalUser,
+            'nbAnnoActif'=>$nbAnnoActif,
+            'cptAnnoNonActif'=>$cptAnnoNonActif,
+            'nbAnnoNonActif'=>$nbAnnoNonActif,
+            'nbUserNonActif'=>$nbUserNonActif,
+            'nbUserActif'=>$nbUserActif,
+            'cptUser'=>$cptUser,
+            'nbSignaler'=>count(array_unique($array)),
+            'purcentSignal'=>$purcentSignal
+            ];
+        return $this->render('AdminBundle:Default:index.html.twig',$retour);
     }
     
      /**
      * @Route("/admin/annonces",name="annocesAdmin")
      */
-    public function listaAnnoncesAction(){
-        $annonces = $this->em->getRepository(Annonce::class)->findAll();     
-        return $this->render('AdminBundle:Default:index.html.twig',['annonces'=>$annonces]);
+    public function listeAnnoncesAction(){
+        $annonces = $this->em->getRepository(Annonce::class)->findAll();    
+        $signalement = $this->em->getRepository(Signalement::class)->findAll();  
+       // dump($signalement);die;
+        $retour = [
+                    'annonces'=>$annonces,
+                    'signaler'=>$signalement
+                ];
+        return $this->render('AdminBundle:Default:annonces.html.twig',$retour);
     }
     
     /**
@@ -40,8 +84,8 @@ class DefaultController extends Controller
      *  @ParamConverter("utilisateur", class="ZandooBundle:Utilisateur", isOptional=true)
      * 
      */
-    public function listeUtilisateurAction(Request $request,$utilisateur){
-        $users = $this->em->getRepository(Utilisateur::class)->findAll(); 
+    public function listeUtilisateurAction(Request $request, $utilisateur){
+        $users = $this->em->getRepository(Utilisateur::class)->findAll();
         $isAdmin = $request->request->get('admin') !== null; 
         $isProfessionnel = $request->request->get('professionnel')!== null ;
         $isActif = $request->request->get('actif')!== null;

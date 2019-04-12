@@ -1,28 +1,60 @@
 {% extends 'base-admin.html.twig' %}
 {% block body %}
-    <table id="table-annonces" class="table table-striped table-bordered" style="width:100%"> 
-        <thead>
-            <tr>
-                <th>Titre</th>
-                <th>Description</th>
-                <th>Categorie</th>
-                <th>Prix/Monnaie</th>
-                <th>Date de création</th>
-                <th>Type</th>
-            </tr>
-        </thead> 
-        <tboby>
-        {% for annonce in annonces %}
-            <tr>
-                <td>{{zandoo_service_utils.traitementDescription(zandoo_service_commun.titreFormatAnnonce(annonce.titre),50)}} </td>
-                <td>{{zandoo_service_utils.traitementDescription(zandoo_service_commun.titreFormatAnnonce(annonce.description),50)}} </td>
-                <td>{{annonce.categorie.libelle}} </td>
-                <td>{{annonce.prix}} {%if annonce.monnaie%} $ {%else%} Fc {%endif%} </td>
-                <td>{{annonce.dateCreation|date('d/m/Y')}} </td>
-                <td>{% if annonce.type %} Demnade {%else%} Annonce {% endif%} </td>
-            </tr>
-        {%endfor%}
-         </tboby> 
-    </table> 
+ <div class="row">
+    <div class="col-sm-6 mb-3 mb-md-0">
+        <div class="panel panel-default">
+            <div class="panel-heading"> 
+                <h5> UTILISATEURS </h5>
+            </div>
+            <div class="panel-body">
+                <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>   
+                <p>
+                    <button type="button" class="btn btn-primary"> Total <span class="badge badge-pill  badge-dark"> {{totalUser}} </span></button>
+                    | <button type="button" class="btn btn-primary">Actif <span class="badge badge-pill  badge-dark"> {{totalUser - cptUser }} </span> </button> 
+                    | <button type="button" class="btn btn-primary"> Non Actif <span class="badge badge-pill  badge-dark"> {{cptUser}} </span></button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading"> 
+                <h5>ANNONCES   </h5>
+            </div>
+            <div class="panel-body">
+                 <div id="container-annonces" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div> 
+                <p>
+                    <button type="button" class="btn btn-primary"> Total <span class="badge badge-pill  badge-dark"> {{totalAnno}} </span></button>
+                    | <button type="button" class="btn btn-primary">Actif <span class="badge badge-pill  badge-dark"> {{totalAnno - cptAnnoNonActif }} </span> </button> 
+                    | <button type="button" class="btn btn-primary"> Non Actif <span class="badge badge-pill  badge-dark"> {{cptAnnoNonActif}} </span></button>
+                    | <button type="button" class="btn btn-primary"> Signaler <span class="badge badge-pill  badge-dark"> {{nbSignaler}} </span></button>
+                    
+                </p>         
+            </div>
+        </div>
+    </div>
+</div>
+        
+<script src="{{ asset('public/js/chart/highcharts.js') }}"></script> 
+<!--script src="{#{ asset('public/js/chart/exporting.js') }}"></script>  
+<script src="{{ asset('public/js/chart/export-data.js') }#}"></script-->  
+
+<script type="text/javascript">
+    var dataAnno = [
+         { name: "Actif", y: {{nbAnnoActif}}},
+         { name: "Non Actif", y: {{nbAnnoNonActif}}},
+         { name: "Signaler", y: {{purcentSignal}}}
+        ]
+     var dataUser = [
+         { name: "Actif", y: {{nbUserActif}}},
+         { name: "Non Actif", y: {{nbUserNonActif}}}
+        ]    
+
+chartUpdate('container',dataUser,'Representation des utilisateurs pour ','utilisateurs');
+chartUpdate('container-annonces',dataAnno,'Representation des annonces pour ','annonces');
+        
+</script>    
+     
 {% endblock  %}
   
