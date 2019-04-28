@@ -66,15 +66,28 @@ class DefaultController extends Controller
     }
     
      /**
-     * @Route("/admin/annonces",name="annocesAdmin")
+     * @Route("/admin/annonces/{id}",defaults={"id": null},name="annocesAdmin")
+     * @ParamConverter("annonce", class="ZandooBundle:Annonce", isOptional=true)
+     * 
      */
-    public function listeAnnoncesAction(){
+    public function listeAnnoncesAction(Request $request, $annonce){
         $annonces = $this->em->getRepository(Annonce::class)->findAll();    
-        $signalement = $this->em->getRepository(Signalement::class)->findAll();  
-       // dump($signalement);die;
+        $signalement = $this->em->getRepository(Signalement::class)->findAll();
+        $isActif = $request->request->get('actif')!== null;
+        $isVendu = $request->request->get('vendu')!== null;
+        //dump($annonce,$isActif,$isVendu);die;
+        if($annonce){     
+            //!$isVendu ? $annonce->setVendu(false) : $annonce->setVendu(true);
+            !$isActif ? $annonce->setActif(false) : $annonce->setActif(true);
+            //dump($annonce);
+            $this->em->flush();
+            //dump($annonce,$isActif,$isVendu);die;
+        }
+       
         $retour = [
                     'annonces'=>$annonces,
-                    'signaler'=>$signalement
+                    'signaler'=>$signalement,
+                    'url' => $this->generateUrl('annocesAdmin')
                 ];
         return $this->render('AdminBundle:Default:annonces.html.twig',$retour);
     }

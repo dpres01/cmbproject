@@ -146,6 +146,11 @@ class Annonce
      * 
      */
     private $visite;
+    /**
+     *
+     * @ORM\Column(name="vendu", type="boolean",nullable=true)
+     */
+    private $vendu = false;
     
     public function __construct(){
         $this->images = new ArrayCollection();
@@ -429,10 +434,10 @@ class Annonce
     function getDateModification() {
         return $this->dateModification;
     }
-  /**
-   * 
-   * @param type $dateModification
-   */
+   /**
+    * 
+    * @param type $dateModification
+    */
     function setDateModification($dateModification) {
         $this->dateModification = $dateModification;
     }
@@ -464,12 +469,14 @@ class Annonce
      public function setGenerateurId($generateurId) {
         $this->generateurId = $generateurId;
     }
-    
+    /**
+     * 
+     * @param type $gen
+     * @return type
+     */
     public function getOldGenenerateurId($gen){
         return $this->generateurId = $gen ;
-    }
-   
-   
+    }  
     /**
      * 
      * @return viste
@@ -485,5 +492,24 @@ class Annonce
         $this->visite[] = $visite;
         return $this;
     }
+    /**
+     * 
+     * @return boolean
+     */
+    function getVendu() {
+        return $this->vendu;
+    }
+    /**
+     * 
+     * @param type $vendu
+     * @return $this
+     */
+    function setVendu($vendu) {
+        $this->vendu = $vendu;
+        return $this;
+    }
+
+
+
 
 }
